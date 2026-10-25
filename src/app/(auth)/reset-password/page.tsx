@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { PasswordInput } from "@/components/auth/password-input"
 import { PasswordStrength } from "@/components/auth/password-strength"
+import { useResetPasswordMutation } from "@/redux/fetchers/auth/authApi"
 
 type PageState = "idle" | "loading" | "success" | "invalid-token" | "expired-token"
 
@@ -38,6 +39,7 @@ function ResetPasswordForm() {
   const [pageState, setPageState] = useState<PageState>("idle")
   const [errors, setErrors] = useState<FormErrors>({})
   const [password, setPassword] = useState("")
+  const [resetPassword] = useResetPasswordMutation()
 
   useEffect(() => {
     if (!token) {
@@ -65,10 +67,20 @@ function ResetPasswordForm() {
     setErrors({})
     setPageState("loading")
 
-    // TODO: wire up when POST /api/auth/reset-password is implemented on the backend.
-    // Expected payload: { token, password }
-    await new Promise((r) => setTimeout(r, 1200))
-    setPageState("success")
+    try {
+      await resetPassword({ token: token!, password: pw }).unwrap()
+      setPageState("success")
+    } catch (err: any) {
+      const message = err?.data?.message || "Reset failed. Try requesting a new link."
+      if (message.toLowerCase().includes("expired")) {
+        setPageState("expired-token")
+      } else if (message.toLowerCase().includes("invalid")) {
+        setPageState("invalid-token")
+      } else {
+        setErrors({ server: message })
+        setPageState("idle")
+      }
+    }
   }
 
   // Invalid or missing token

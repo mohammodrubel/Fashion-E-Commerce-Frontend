@@ -3,11 +3,15 @@
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { useDispatch } from "react-redux"
+import { useRouter } from "next/navigation"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { FormInput } from "@/components/auth/form-input"
 import { PasswordInput } from "@/components/auth/password-input"
 import { PasswordStrength } from "@/components/auth/password-strength"
-import { registerUser, AuthApiError } from "@/lib/auth-api"
+import { useRegisterMutation } from "@/redux/fetchers/auth/authApi"
+import { setUser } from "@/redux/fetchers/auth/authSlice"
+import { JwtDecode } from "@/lib/jwtDecoder"
 
 interface FormErrors {
   name?: string
@@ -56,6 +60,9 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
   const [password, setPassword] = useState("")
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const [register] = useRegisterMutation()
 
   function clearFieldError(field: keyof FormErrors) {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }))
@@ -81,17 +88,15 @@ export default function RegisterPage() {
     setIsLoading(true)
 
     try {
-      const res = await registerUser({ name, email, password: pw })
-      if (typeof window !== "undefined") {
-        localStorage.setItem("access_token", res.data.access_token)
-      }
-      window.location.href = "/"
-    } catch (err) {
-      if (err instanceof AuthApiError && err.status === 409) {
-        setErrors({ email: "An account with this email already exists." })
-      } else {
-        setErrors({ server: "Something went wrong. Please try again." })
-      }
+      const result = await register({ name, email, password: pw, role: "USER" }).unwrap()
+      const token = result.data.access_token
+      const user = JwtDecode(token)
+      dispatch(setUser({ user, token }))
+      router.push("/")
+    } catch (err: any) {
+      const message =
+        err?.data?.message || "Registration failed. Please try again."
+      setErrors({ server: message })
     } finally {
       setIsLoading(false)
     }

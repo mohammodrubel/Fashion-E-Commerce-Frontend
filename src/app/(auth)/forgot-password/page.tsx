@@ -5,12 +5,14 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { FormInput } from "@/components/auth/form-input"
+import { useForgotPasswordMutation } from "@/redux/fetchers/auth/authApi"
 
 type PageState = "idle" | "loading" | "success"
 
 export default function ForgotPasswordPage() {
   const [pageState, setPageState] = useState<PageState>("idle")
   const [emailError, setEmailError] = useState<string>()
+  const [forgotPassword] = useForgotPasswordMutation()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -30,10 +32,13 @@ export default function ForgotPasswordPage() {
     setEmailError(undefined)
     setPageState("loading")
 
-    // TODO: wire up when POST /api/auth/forgot-password is implemented on the backend.
-    // For now, simulate the request so the UI flow is testable end-to-end.
-    await new Promise((r) => setTimeout(r, 1200))
-    setPageState("success")
+    try {
+      await forgotPassword({ email }).unwrap()
+    } catch {
+      // Silent — always show success to avoid email enumeration
+    } finally {
+      setPageState("success")
+    }
   }
 
   if (pageState === "success") {
