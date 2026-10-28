@@ -1,9 +1,15 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
+import { useRef, useState } from "react"
+import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
-import { Plus, Pencil, Trash2, FolderOpen, Upload, ChevronRight } from "lucide-react"
+import { Plus, Pencil, Trash2, FolderOpen, Upload, X, Loader2 } from "lucide-react"
+import {
+  useGetAllCategoriesQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+} from "@/redux/fetchers/category/categoryApi"
 
 const INPUT_CLASS =
   "w-full px-3 py-2.5 rounded-lg border border-border/60 bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
@@ -14,18 +20,11 @@ interface Category {
   id: string
   name: string
   slug: string
-  products: number
+  description: string | null
+  image: string | null
   isActive: boolean
+  products: number
 }
-
-const initialCategories: Category[] = [
-  { id: "C01", name: "Women's Clothing", slug: "womens-clothing", products: 45, isActive: true },
-  { id: "C02", name: "Men's Clothing", slug: "mens-clothing", products: 38, isActive: true },
-  { id: "C03", name: "Kids", slug: "kids", products: 12, isActive: true },
-  { id: "C04", name: "Accessories", slug: "accessories", products: 28, isActive: true },
-  { id: "C05", name: "Footwear", slug: "footwear", products: 22, isActive: true },
-  { id: "C06", name: "Sale", slug: "sale", products: 0, isActive: false },
-]
 
 function slugify(text: string) {
   return text
@@ -37,13 +36,33 @@ function slugify(text: string) {
 }
 
 export default function CategoriesPage() {
-  const [categories] = useState<Category[]>(initialCategories)
+  const { data, isLoading, isFetching } = useGetAllCategoriesQuery(undefined)
+  const [createCategory, { isLoading: isCreating }] = useCreateCategoryMutation()
+  const [updateCategory, { isLoading: isUpdating }] = useUpdateCategoryMutation()
+  const [deleteCategory, { isLoading: isDeleting }] = useDeleteCategoryMutation()
+
+  const categories: Category[] = (data?.data ?? []).map((c: any) => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+    description: c.description,
+    image: c.image,
+    isActive: c.isActive,
+    products: c._count?.products ?? 0,
+  }))
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   const [formName, setFormName] = useState("")
   const [formSlug, setFormSlug] = useState("")
   const [formSlugEdited, setFormSlugEdited] = useState(false)
   const [formDescription, setFormDescription] = useState("")
-  const [formImageUrl, setFormImageUrl] = useState("")
   const [formIsActive, setFormIsActive] = useState(true)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
+
+  const isSaving = isCreating || isUpdating
 
   function handleFormName(val: string) {
     setFormName(val)
@@ -53,6 +72,76 @@ export default function CategoriesPage() {
   function handleFormSlug(val: string) {
     setFormSlugEdited(true)
     setFormSlug(val)
+  }
+
+  function handleImagePick(file: File | null) {
+    setImageFile(file)
+    if (file) {
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }
+
+  function startEdit(cat: Category) {
+    setEditingId(cat.id)
+    setFormName(cat.name)
+    setFormSlug(cat.slug)
+    setFormSlugEdited(true)
+    setFormDescription(cat.description || "")
+    setFormIsActive(cat.isActive)
+    setImageFile(null)
+    setImagePreview(cat.image || null)
+  }
+
+  function resetForm() {
+    setEditingId(null)
+    setFormName("")
+    setFormSlug("")
+    setFormSlugEdited(false)
+    setFormDescription("")
+    setFormIsActive(true)
+    setImageFile(null)
+    setImagePreview(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
+
+  async function handleSubmit() {
+    const name = formName.trim()
+    if (!name) {
+      toast.error("Category name is required")
+      return
+    }
+
+    const formData = new FormData()
+    formData.append("name", name)
+    if (formSlug.trim()) formData.append("slug", formSlug.trim())
+    if (formDescription.trim()) formData.append("description", formDescription.trim())
+    formData.append("isActive", String(formIsActive))
+    if (imageFile) formData.append("image", imageFile)
+
+    try {
+      if (editingId) {
+        await updateCategory({ id: editingId, data: formData }).unwrap()
+        toast.success("Category updated successfully")
+      } else {
+        await createCategory(formData).unwrap()
+        toast.success("Category created successfully")
+      }
+      resetForm()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong. Please try again.")
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this category? This cannot be undone.")) return
+
+    try {
+      await deleteCategory(id).unwrap()
+      toast.success("Category deleted successfully")
+      if (editingId === id) resetForm()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete category.")
+    }
   }
 
   return (
@@ -65,15 +154,6 @@ export default function CategoriesPage() {
           { label: "Products", href: "/admin/products" },
           { label: "Categories" },
         ]}
-        actions={
-          <button
-            className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A" }}
-          >
-            <Plus className="w-4 h-4" strokeWidth={1.5} />
-            Add Category
-          </button>
-        }
       />
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -88,9 +168,12 @@ export default function CategoriesPage() {
                 All Categories
               </h2>
               <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                {categories.length} categories total
+                {isLoading ? "Loading…" : `${categories.length} categories total`}
               </p>
             </div>
+            {isFetching && !isLoading && (
+              <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" strokeWidth={1.5} />
+            )}
           </div>
 
           <div className="overflow-x-auto">
@@ -109,6 +192,17 @@ export default function CategoriesPage() {
                 </tr>
               </thead>
               <tbody>
+                {!isLoading && categories.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-5 py-8 text-center text-muted-foreground"
+                      style={{ fontSize: "13px" }}
+                    >
+                      No categories yet. Add one from the form.
+                    </td>
+                  </tr>
+                )}
                 {categories.map((cat, i) => (
                   <tr
                     key={cat.id}
@@ -121,14 +215,19 @@ export default function CategoriesPage() {
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
                         <div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden"
                           style={{ backgroundColor: "#F0EDEF" }}
                         >
-                          <FolderOpen
-                            className="w-4 h-4"
-                            style={{ color: "#501D2A" }}
-                            strokeWidth={1.5}
-                          />
+                          {cat.image ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <FolderOpen
+                              className="w-4 h-4"
+                              style={{ color: "#501D2A" }}
+                              strokeWidth={1.5}
+                            />
+                          )}
                         </div>
                         <div>
                           <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>
@@ -172,14 +271,18 @@ export default function CategoriesPage() {
                     {/* Actions */}
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button
+                          onClick={() => startEdit(cat)}
+                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                        >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
+                        <button
+                          onClick={() => handleDelete(cat.id)}
+                          disabled={isDeleting}
+                          className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600 disabled:opacity-50"
+                        >
                           <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                        </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                          <ChevronRight className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>
                     </td>
@@ -193,9 +296,19 @@ export default function CategoriesPage() {
         {/* ── Right panel: Form (1/3) ──────────────────────────── */}
         <div className="xl:col-span-1">
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
-              Add New Category
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
+                {editingId ? "Edit Category" : "Add New Category"}
+              </h2>
+              {editingId && (
+                <button
+                  onClick={resetForm}
+                  className="p-1 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-3.5 h-3.5" strokeWidth={1.5} />
+                </button>
+              )}
+            </div>
 
             <div className="space-y-4">
               {/* Name */}
@@ -246,41 +359,40 @@ export default function CategoriesPage() {
                 />
               </div>
 
-              {/* Image URL */}
+              {/* Image upload */}
               <div>
                 <label className={LABEL_CLASS} style={{ fontSize: "12px" }}>
-                  Image URL{" "}
-                  <span className="text-muted-foreground font-normal">(optional)</span>
+                  Image <span className="text-muted-foreground font-normal">(optional)</span>
                 </label>
                 <input
-                  type="text"
-                  value={formImageUrl}
-                  onChange={(e) => setFormImageUrl(e.target.value)}
-                  placeholder="https://..."
-                  className={INPUT_CLASS}
-                  style={{ fontSize: "13px" }}
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleImagePick(e.target.files?.[0] || null)}
                 />
-                <p className="text-muted-foreground mt-1" style={{ fontSize: "11px" }}>
-                  or upload a file below
-                </p>
-
-                {/* Upload area */}
                 <div
-                  className="mt-2 flex items-center gap-3 p-3 rounded-lg border border-dashed border-border/60 cursor-pointer hover:border-primary/40 transition-colors"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex items-center gap-3 p-3 rounded-lg border border-dashed border-border/60 cursor-pointer hover:border-primary/40 transition-colors"
                   style={{ backgroundColor: "#F8F7F5" }}
                 >
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 overflow-hidden"
                     style={{ backgroundColor: "#F0EDEF" }}
                   >
-                    <Upload className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                    {imagePreview ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <Upload className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                    )}
                   </div>
-                  <div>
-                    <p className="font-medium text-foreground" style={{ fontSize: "12px" }}>
-                      Upload image
+                  <div className="min-w-0">
+                    <p className="font-medium text-foreground truncate" style={{ fontSize: "12px" }}>
+                      {imageFile ? imageFile.name : imagePreview ? "Current image · click to change" : "Upload image"}
                     </p>
                     <p className="text-muted-foreground" style={{ fontSize: "11px" }}>
-                      PNG, JPG · Max 2 MB
+                      PNG, JPG · Max 5 MB
                     </p>
                   </div>
                 </div>
@@ -318,11 +430,17 @@ export default function CategoriesPage() {
 
               {/* Submit */}
               <button
-                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium mt-2"
+                onClick={handleSubmit}
+                disabled={isSaving}
+                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium mt-2 disabled:opacity-60"
                 style={{ backgroundColor: "#501D2A" }}
               >
-                <Plus className="w-4 h-4" strokeWidth={1.5} />
-                Save Category
+                {isSaving ? (
+                  <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+                ) : (
+                  <Plus className="w-4 h-4" strokeWidth={1.5} />
+                )}
+                {editingId ? "Update Category" : "Save Category"}
               </button>
             </div>
           </div>
