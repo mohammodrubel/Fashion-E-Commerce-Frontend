@@ -1,8 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
-import { Plus, Pencil, Trash2, Palette, Info } from "lucide-react"
+import { Plus, Pencil, Trash2, Palette, Info, X, Loader2 } from "lucide-react"
+import {
+  useGetAllColorsQuery,
+  useCreateColorMutation,
+  useUpdateColorMutation,
+  useDeleteColorMutation,
+} from "@/redux/fetchers/color/colorApi"
 
 const INPUT_CLASS =
   "w-full px-3 py-2.5 rounded-lg border border-border/60 bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
@@ -16,23 +23,76 @@ interface Color {
   usedIn: number
 }
 
-const initialColors: Color[] = [
-  { id: "COL01", name: "Black", hexCode: "#000000", usedIn: 89 },
-  { id: "COL02", name: "White", hexCode: "#FFFFFF", usedIn: 76 },
-  { id: "COL03", name: "Red", hexCode: "#DC2626", usedIn: 34 },
-  { id: "COL04", name: "Navy", hexCode: "#1e3a5f", usedIn: 28 },
-  { id: "COL05", name: "Beige", hexCode: "#F5F0EB", usedIn: 45 },
-  { id: "COL06", name: "Olive", hexCode: "#6B7A2A", usedIn: 22 },
-  { id: "COL07", name: "Pink", hexCode: "#F472B6", usedIn: 31 },
-  { id: "COL08", name: "Grey", hexCode: "#9CA3AF", usedIn: 55 },
-  { id: "COL09", name: "Brown", hexCode: "#92400E", usedIn: 18 },
-  { id: "COL10", name: "Cream", hexCode: "#FFFDD0", usedIn: 42 },
-]
+const DEFAULT_HEX = "#501D2A"
+
+function isLightHex(hex: string) {
+  const v = hex.toUpperCase()
+  return v === "#FFFFFF" || v === "#FFFDD0" || v === "#F5F0EB"
+}
 
 export default function ColorsPage() {
-  const [colors] = useState<Color[]>(initialColors)
+  const { data, isLoading, isFetching } = useGetAllColorsQuery(undefined)
+  const [createColor, { isLoading: isCreating }] = useCreateColorMutation()
+  const [updateColor, { isLoading: isUpdating }] = useUpdateColorMutation()
+  const [deleteColor, { isLoading: isDeleting }] = useDeleteColorMutation()
+
+  const colors: Color[] = (data?.data ?? []).map((c: any) => ({
+    id: c.id,
+    name: c.name,
+    hexCode: c.hexCode || DEFAULT_HEX,
+    usedIn: c._count?.variants ?? 0,
+  }))
+
   const [formName, setFormName] = useState("")
-  const [formHex, setFormHex] = useState("#501D2A")
+  const [formHex, setFormHex] = useState(DEFAULT_HEX)
+  const [editingId, setEditingId] = useState<string | null>(null)
+
+  const isSaving = isCreating || isUpdating
+
+  function startEdit(color: Color) {
+    setEditingId(color.id)
+    setFormName(color.name)
+    setFormHex(color.hexCode)
+  }
+
+  function cancelEdit() {
+    setEditingId(null)
+    setFormName("")
+    setFormHex(DEFAULT_HEX)
+  }
+
+  async function handleSubmit() {
+    const name = formName.trim()
+    if (!name) {
+      toast.error("Color name is required")
+      return
+    }
+
+    try {
+      if (editingId) {
+        await updateColor({ id: editingId, data: { name, hexCode: formHex } }).unwrap()
+        toast.success("Color updated successfully")
+      } else {
+        await createColor({ name, hexCode: formHex }).unwrap()
+        toast.success("Color created successfully")
+      }
+      cancelEdit()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong. Please try again.")
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this color? This cannot be undone.")) return
+
+    try {
+      await deleteColor(id).unwrap()
+      toast.success("Color deleted successfully")
+      if (editingId === id) cancelEdit()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete color.")
+    }
+  }
 
   return (
     <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
@@ -44,15 +104,6 @@ export default function ColorsPage() {
           { label: "Products", href: "/admin/products" },
           { label: "Colors" },
         ]}
-        actions={
-          <button
-            className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A" }}
-          >
-            <Plus className="w-4 h-4" strokeWidth={1.5} />
-            Add Color
-          </button>
-        }
       />
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -74,10 +125,13 @@ export default function ColorsPage() {
                   All Colors
                 </h2>
                 <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                  {colors.length} color options
+                  {isLoading ? "Loading…" : `${colors.length} color options`}
                 </p>
               </div>
             </div>
+            {isFetching && !isLoading && (
+              <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" strokeWidth={1.5} />
+            )}
           </div>
 
           <div className="overflow-x-auto">
@@ -100,6 +154,17 @@ export default function ColorsPage() {
                 </tr>
               </thead>
               <tbody>
+                {!isLoading && colors.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-5 py-8 text-center text-muted-foreground"
+                      style={{ fontSize: "13px" }}
+                    >
+                      No colors yet. Add one from the form.
+                    </td>
+                  </tr>
+                )}
                 {colors.map((color, i) => (
                   <tr
                     key={color.id}
@@ -114,12 +179,7 @@ export default function ColorsPage() {
                         className="w-8 h-8 rounded-full border-2 shadow-sm shrink-0"
                         style={{
                           backgroundColor: color.hexCode,
-                          borderColor:
-                            color.hexCode.toUpperCase() === "#FFFFFF" ||
-                            color.hexCode.toUpperCase() === "#FFFDD0" ||
-                            color.hexCode.toUpperCase() === "#F5F0EB"
-                              ? "#E5E0DC"
-                              : "transparent",
+                          borderColor: isLightHex(color.hexCode) ? "#E5E0DC" : "transparent",
                         }}
                       />
                     </td>
@@ -156,10 +216,17 @@ export default function ColorsPage() {
                     {/* Actions */}
                     <td className="px-3 pr-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button
+                          onClick={() => startEdit(color)}
+                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                        >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
+                        <button
+                          onClick={() => handleDelete(color.id)}
+                          disabled={isDeleting}
+                          className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600 disabled:opacity-50"
+                        >
                           <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>
@@ -171,12 +238,22 @@ export default function ColorsPage() {
           </div>
         </div>
 
-        {/* ── Right: Add form (1/3) ────────────────────────────── */}
+        {/* ── Right: Add/Edit form (1/3) ───────────────────────── */}
         <div className="xl:col-span-1 space-y-4">
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
-              Add Color
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
+                {editingId ? "Edit Color" : "Add Color"}
+              </h2>
+              {editingId && (
+                <button
+                  onClick={cancelEdit}
+                  className="p-1 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-3.5 h-3.5" strokeWidth={1.5} />
+                </button>
+              )}
+            </div>
 
             <div className="space-y-4">
               {/* Name */}
@@ -248,11 +325,17 @@ export default function ColorsPage() {
 
               {/* Submit */}
               <button
-                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium"
+                onClick={handleSubmit}
+                disabled={isSaving}
+                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium disabled:opacity-60"
                 style={{ backgroundColor: "#501D2A" }}
               >
-                <Plus className="w-4 h-4" strokeWidth={1.5} />
-                Save Color
+                {isSaving ? (
+                  <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+                ) : (
+                  <Plus className="w-4 h-4" strokeWidth={1.5} />
+                )}
+                {editingId ? "Update Color" : "Save Color"}
               </button>
             </div>
           </div>
@@ -269,12 +352,7 @@ export default function ColorsPage() {
                     className="w-9 h-9 rounded-full border shadow-sm group-hover:scale-110 transition-transform cursor-default"
                     style={{
                       backgroundColor: color.hexCode,
-                      borderColor:
-                        color.hexCode.toUpperCase() === "#FFFFFF" ||
-                        color.hexCode.toUpperCase() === "#FFFDD0" ||
-                        color.hexCode.toUpperCase() === "#F5F0EB"
-                          ? "#E5E0DC"
-                          : "transparent",
+                      borderColor: isLightHex(color.hexCode) ? "#E5E0DC" : "transparent",
                     }}
                     title={`${color.name} · ${color.hexCode.toUpperCase()}`}
                   />

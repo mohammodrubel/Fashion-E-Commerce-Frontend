@@ -1,8 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
-import { Plus, Pencil, Trash2, Ruler, Info } from "lucide-react"
+import { Plus, Pencil, Trash2, Ruler, Info, X, Loader2 } from "lucide-react"
+import {
+  useGetAllSizesQuery,
+  useCreateSizeMutation,
+  useUpdateSizeMutation,
+  useDeleteSizeMutation,
+} from "@/redux/fetchers/size/sizeApi"
 
 const INPUT_CLASS =
   "w-full px-3 py-2.5 rounded-lg border border-border/60 bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
@@ -15,20 +22,65 @@ interface Size {
   usedIn: number
 }
 
-const initialSizes: Size[] = [
-  { id: "SZ01", name: "XS", usedIn: 12 },
-  { id: "SZ02", name: "S", usedIn: 45 },
-  { id: "SZ03", name: "M", usedIn: 67 },
-  { id: "SZ04", name: "L", usedIn: 58 },
-  { id: "SZ05", name: "XL", usedIn: 34 },
-  { id: "SZ06", name: "XXL", usedIn: 18 },
-  { id: "SZ07", name: "XXXL", usedIn: 5 },
-  { id: "SZ08", name: "Free Size", usedIn: 8 },
-]
-
 export default function SizesPage() {
-  const [sizes] = useState<Size[]>(initialSizes)
+  const { data, isLoading, isFetching } = useGetAllSizesQuery(undefined)
+  const [createSize, { isLoading: isCreating }] = useCreateSizeMutation()
+  const [updateSize, { isLoading: isUpdating }] = useUpdateSizeMutation()
+  const [deleteSize, { isLoading: isDeleting }] = useDeleteSizeMutation()
+
+  const sizes: Size[] = (data?.data ?? []).map((s: any) => ({
+    id: s.id,
+    name: s.name,
+    usedIn: s._count?.variants ?? 0,
+  }))
+
   const [formName, setFormName] = useState("")
+  const [editingId, setEditingId] = useState<string | null>(null)
+
+  const isSaving = isCreating || isUpdating
+
+  function startEdit(size: Size) {
+    setEditingId(size.id)
+    setFormName(size.name)
+  }
+
+  function cancelEdit() {
+    setEditingId(null)
+    setFormName("")
+  }
+
+  async function handleSubmit() {
+    const name = formName.trim()
+    if (!name) {
+      toast.error("Size name is required")
+      return
+    }
+
+    try {
+      if (editingId) {
+        await updateSize({ id: editingId, data: { name } }).unwrap()
+        toast.success("Size updated successfully")
+      } else {
+        await createSize({ name }).unwrap()
+        toast.success("Size created successfully")
+      }
+      cancelEdit()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong. Please try again.")
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this size? This cannot be undone.")) return
+
+    try {
+      await deleteSize(id).unwrap()
+      toast.success("Size deleted successfully")
+      if (editingId === id) cancelEdit()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete size.")
+    }
+  }
 
   return (
     <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
@@ -40,15 +92,6 @@ export default function SizesPage() {
           { label: "Products", href: "/admin/products" },
           { label: "Sizes" },
         ]}
-        actions={
-          <button
-            className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A" }}
-          >
-            <Plus className="w-4 h-4" strokeWidth={1.5} />
-            Add Size
-          </button>
-        }
       />
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
@@ -70,10 +113,13 @@ export default function SizesPage() {
                   All Sizes
                 </h2>
                 <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                  {sizes.length} size options
+                  {isLoading ? "Loading…" : `${sizes.length} size options`}
                 </p>
               </div>
             </div>
+            {isFetching && !isLoading && (
+              <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" strokeWidth={1.5} />
+            )}
           </div>
 
           <div className="overflow-x-auto">
@@ -96,6 +142,17 @@ export default function SizesPage() {
                 </tr>
               </thead>
               <tbody>
+                {!isLoading && sizes.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan={3}
+                      className="px-5 py-8 text-center text-muted-foreground"
+                      style={{ fontSize: "13px" }}
+                    >
+                      No sizes yet. Add one from the form.
+                    </td>
+                  </tr>
+                )}
                 {sizes.map((size, i) => (
                   <tr
                     key={size.id}
@@ -137,10 +194,17 @@ export default function SizesPage() {
                     {/* Actions */}
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button
+                          onClick={() => startEdit(size)}
+                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                        >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
+                        <button
+                          onClick={() => handleDelete(size.id)}
+                          disabled={isDeleting}
+                          className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600 disabled:opacity-50"
+                        >
                           <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>
@@ -152,12 +216,22 @@ export default function SizesPage() {
           </div>
         </div>
 
-        {/* ── Right: Add form (1/3) ────────────────────────────── */}
+        {/* ── Right: Add/Edit form (1/3) ───────────────────────── */}
         <div className="xl:col-span-1 space-y-4">
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
-              Add Size
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
+                {editingId ? "Edit Size" : "Add Size"}
+              </h2>
+              {editingId && (
+                <button
+                  onClick={cancelEdit}
+                  className="p-1 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                >
+                  <X className="w-3.5 h-3.5" strokeWidth={1.5} />
+                </button>
+              )}
+            </div>
 
             <div className="space-y-4">
               {/* Name */}
@@ -188,11 +262,17 @@ export default function SizesPage() {
 
               {/* Submit */}
               <button
-                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium"
+                onClick={handleSubmit}
+                disabled={isSaving}
+                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium disabled:opacity-60"
                 style={{ backgroundColor: "#501D2A" }}
               >
-                <Plus className="w-4 h-4" strokeWidth={1.5} />
-                Save Size
+                {isSaving ? (
+                  <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+                ) : (
+                  <Plus className="w-4 h-4" strokeWidth={1.5} />
+                )}
+                {editingId ? "Update Size" : "Save Size"}
               </button>
             </div>
           </div>
