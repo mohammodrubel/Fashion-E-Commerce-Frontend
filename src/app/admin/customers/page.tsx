@@ -1,48 +1,79 @@
+"use client"
+
+import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
+import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
 import {
-  Plus, Search, SlidersHorizontal, MoreHorizontal, Eye, Pencil, Trash2,
-  Users, UserCheck, UserPlus, Crown, ChevronDown,
+  Plus, Search, Pencil, Trash2, Users, UserCheck, ShieldOff, ShieldCheck,
+  ChevronDown, ChevronLeft, ChevronRight, Loader2,
 } from "lucide-react"
-
-interface Customer {
-  id: string
-  name: string
-  initials: string
-  email: string
-  phone: string
-  orders: number
-  spent: string
-  joined: string
-  status: "Active" | "Inactive" | "Blocked"
-  group: "Regular" | "Silver" | "Gold" | "Platinum" | "VIP"
-}
-
-const customers: Customer[] = [
-  { id: "C001", name: "Sarah Johnson", initials: "SJ", email: "sarah.johnson@email.com", phone: "+1 (555) 234-5678", orders: 14, spent: "$1,842.00", joined: "Mar 12, 2024", status: "Active", group: "Gold" },
-  { id: "C002", name: "Michael Chen", initials: "MC", email: "m.chen@email.com", phone: "+1 (555) 876-5432", orders: 8, spent: "$964.50", joined: "Jun 3, 2024", status: "Active", group: "Silver" },
-  { id: "C003", name: "Emma Wilson", initials: "EW", email: "emma.w@email.com", phone: "+1 (555) 321-9876", orders: 31, spent: "$5,320.00", joined: "Jan 8, 2023", status: "Active", group: "VIP" },
-  { id: "C004", name: "James Brown", initials: "JB", email: "jbrown@email.com", phone: "+1 (555) 654-3210", orders: 3, spent: "$187.00", joined: "Sep 19, 2024", status: "Active", group: "Regular" },
-  { id: "C005", name: "Olivia Davis", initials: "OD", email: "olivia.d@email.com", phone: "+1 (555) 112-4567", orders: 22, spent: "$3,108.00", joined: "Apr 4, 2023", status: "Active", group: "Platinum" },
-  { id: "C006", name: "Liam Martinez", initials: "LM", email: "liam.m@email.com", phone: "+1 (555) 789-0123", orders: 5, spent: "$412.00", joined: "Nov 27, 2024", status: "Inactive", group: "Regular" },
-  { id: "C007", name: "Sophia Anderson", initials: "SA", email: "sophia.a@email.com", phone: "+1 (555) 456-7890", orders: 18, spent: "$2,265.00", joined: "Feb 14, 2024", status: "Active", group: "Gold" },
-  { id: "C008", name: "Noah Taylor", initials: "NT", email: "noah.t@email.com", phone: "+1 (555) 234-0987", orders: 1, spent: "$89.00", joined: "Oct 5, 2025", status: "Active", group: "Regular" },
-]
-
-const statusConfig = {
-  Active: "bg-emerald-50 text-emerald-700",
-  Inactive: "bg-gray-100 text-gray-500",
-  Blocked: "bg-red-50 text-red-600",
-}
-
-const groupConfig = {
-  Regular: "bg-gray-100 text-gray-600",
-  Silver: "bg-slate-100 text-slate-600",
-  Gold: "bg-amber-50 text-amber-700",
-  Platinum: "bg-blue-50 text-blue-700",
-  VIP: "bg-purple-50 text-purple-700",
-}
+import { Skeleton } from "@/components/ui/skeleton"
+import { TableSkeletonRows } from "@/components/admin/table-skeleton-rows"
+import {
+  useGetAllUsersQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} from "@/redux/fetchers/user/userApi"
 
 export default function AllCustomersPage() {
+  const [searchInput, setSearchInput] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isActive, setIsActive] = useState<string>("")
+  const [page, setPage] = useState(1)
+  const limit = 10
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSearchTerm(searchInput.trim())
+      setPage(1)
+    }, 400)
+    return () => clearTimeout(t)
+  }, [searchInput])
+
+  const queryParams = useMemo(
+    () => ({
+      page,
+      limit,
+      role: "USER",
+      sort: "createdAt",
+      order: "desc",
+      ...(searchTerm ? { searchTerm } : {}),
+      ...(isActive ? { isActive } : {}),
+    }),
+    [page, searchTerm, isActive],
+  )
+
+  const { data, isLoading, isFetching } = useGetAllUsersQuery(queryParams)
+  const { data: activeCountData } = useGetAllUsersQuery({ role: "USER", isActive: "true", page: 1, limit: 1 })
+  const { data: blockedCountData } = useGetAllUsersQuery({ role: "USER", isActive: "false", page: 1, limit: 1 })
+
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation()
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation()
+
+  const customers = data?.data ?? []
+  const meta = data?.meta ?? { page: 1, limit, total: 0, totalPage: 1 }
+
+  async function handleToggleBlock(id: string, nextActive: boolean) {
+    if (!confirm(nextActive ? "Unblock this customer?" : "Block this customer? They will not be able to log in.")) return
+    try {
+      await updateUser({ id, data: { isActive: nextActive } }).unwrap()
+      toast.success(nextActive ? "Customer unblocked" : "Customer blocked")
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update customer.")
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this customer? This cannot be undone.")) return
+    try {
+      await deleteUser(id).unwrap()
+      toast.success("Customer deleted successfully")
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete customer.")
+    }
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -50,23 +81,22 @@ export default function AllCustomersPage() {
         description="Manage your customer base and relationships"
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Customers" }]}
         actions={
-          <a
+          <Link
             href="/admin/customers/new"
             className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
             style={{ fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} /> Add Customer
-          </a>
+          </Link>
         }
       />
 
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {[
-          { label: "Total Customers", value: "1,243", sub: "all time", icon: Users, color: "#501D2A" },
-          { label: "Active", value: "1,098", sub: "last 90 days", icon: UserCheck, color: "#2D6B4F" },
-          { label: "New This Month", value: "47", sub: "October 2026", icon: UserPlus, color: "#2D5A8E" },
-          { label: "VIP", value: "89", sub: "top tier", icon: Crown, color: "#7C3AED" },
+          { label: "Total Customers", value: String(meta.total ?? 0), sub: "matching current filters", icon: Users, color: "#501D2A" },
+          { label: "Active", value: String(activeCountData?.meta?.total ?? 0), sub: "can log in", icon: UserCheck, color: "#2D6B4F" },
+          { label: "Blocked", value: String(blockedCountData?.meta?.total ?? 0), sub: "cannot log in", icon: ShieldOff, color: "#DC2626" },
         ].map((s) => {
           const Icon = s.icon
           return (
@@ -91,90 +121,129 @@ export default function AllCustomersPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
-              placeholder="Search customers..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search by name, email, phone..."
               className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
-              <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Filter
-            </button>
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
-              Group
-              <ChevronDown className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </button>
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
-              Status
-              <ChevronDown className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </button>
+          <div className="relative">
+            <select
+              value={isActive}
+              onChange={(e) => { setIsActive(e.target.value); setPage(1) }}
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-foreground"
+              style={{ fontSize: "13px" }}
+            >
+              <option value="">All status</option>
+              <option value="true">Active</option>
+              <option value="false">Blocked</option>
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" strokeWidth={1.5} />
           </div>
+          {isFetching && !isLoading && (
+            <Loader2 className="w-4 h-4 animate-spin text-muted-foreground ml-auto" strokeWidth={1.5} />
+          )}
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
-                {["Customer", "Email", "Phone", "Orders", "Total Spent", "Joined", "Status", "Actions"].map((h) => (
+                {["Customer", "Email", "Phone", "Orders", "Addresses", "Joined", "Status", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {customers.map((c, i) => (
-                <tr
-                  key={c.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < customers.length - 1 ? "1px solid #F0EDEF" : "none" }}
-                >
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
-                        {c.initials}
-                      </div>
-                      <div>
-                        <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{c.name}</p>
-                        <span className={`inline-flex items-center rounded-full px-2 py-0 font-medium ${groupConfig[c.group]}`} style={{ fontSize: "10px" }}>{c.group}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.email}</td>
-                  <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.phone}</td>
-                  <td className="px-5 py-3 text-foreground font-medium" style={{ fontSize: "13px" }}>{c.orders}</td>
-                  <td className="px-5 py-3 font-medium text-foreground" style={{ fontSize: "13px" }}>{c.spent}</td>
-                  <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.joined}</td>
-                  <td className="px-5 py-3">
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium ${statusConfig[c.status]}`} style={{ fontSize: "11px" }}>{c.status}</span>
-                  </td>
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                        <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
-                      </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                        <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
-                      </button>
-                      <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
-                        <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                      </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                        <MoreHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
-                      </button>
-                    </div>
+              {isLoading && <TableSkeletonRows columns={8} />}
+              {!isLoading && customers.length === 0 && (
+                <tr>
+                  <td colSpan={8} className="px-5 py-8 text-center text-muted-foreground" style={{ fontSize: "13px" }}>
+                    No customers found.
                   </td>
                 </tr>
-              ))}
+              )}
+              {customers.map((c: any, i: number) => {
+                const initials = (c.name || "?").split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()
+                return (
+                  <tr
+                    key={c.id}
+                    className="hover:bg-[#F8F7F5] transition-colors"
+                    style={{ borderBottom: i < customers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  >
+                    <td className="px-5 py-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                          {initials}
+                        </div>
+                        <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{c.name}</p>
+                      </div>
+                    </td>
+                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.email}</td>
+                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.phone || "—"}</td>
+                    <td className="px-5 py-3 text-foreground font-medium" style={{ fontSize: "13px" }}>{c._count?.orders ?? 0}</td>
+                    <td className="px-5 py-3 text-foreground" style={{ fontSize: "13px" }}>{c._count?.addresses ?? 0}</td>
+                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{new Date(c.createdAt).toLocaleDateString()}</td>
+                    <td className="px-5 py-3">
+                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium ${c.isActive ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`} style={{ fontSize: "11px" }}>
+                        {c.isActive ? "Active" : "Blocked"}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3">
+                      <div className="flex items-center gap-1">
+                        <Link
+                          href={`/admin/customers/${c.id}/edit`}
+                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground inline-flex"
+                        >
+                          <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
+                        </Link>
+                        <button
+                          onClick={() => handleToggleBlock(c.id, !c.isActive)}
+                          disabled={isUpdating}
+                          className="p-1.5 rounded-lg hover:bg-amber-50 transition-colors text-muted-foreground hover:text-amber-700 disabled:opacity-50"
+                          title={c.isActive ? "Block" : "Unblock"}
+                        >
+                          {c.isActive ? <ShieldOff className="w-3.5 h-3.5" strokeWidth={1.5} /> : <ShieldCheck className="w-3.5 h-3.5" strokeWidth={1.5} />}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(c.id)}
+                          disabled={isDeleting}
+                          className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600 disabled:opacity-50"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
 
         <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing 8 of 1,243 customers</p>
+          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
+            {isLoading ? <Skeleton className="h-3 w-40" /> : `Showing ${customers.length} of ${meta.total ?? 0} customers`}
+          </p>
           <div className="flex items-center gap-1">
-            {["1", "2", "3", "...", "156"].map((p) => (
-              <button key={p} className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${p === "1" ? "bg-primary text-primary-foreground" : "hover:bg-[#F0EDEF] text-muted-foreground"}`} style={{ fontSize: "13px" }}>{p}</button>
-            ))}
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={(meta.page ?? 1) <= 1}
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
+            </button>
+            <span className="px-3 text-foreground" style={{ fontSize: "13px" }}>
+              Page {meta.page ?? 1} of {meta.totalPage ?? 1}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))}
+              disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)}
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+            </button>
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
 import { Plus, Pencil, Trash2, Palette, Info, X, Loader2 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { TableSkeletonRows } from "@/components/admin/table-skeleton-rows"
 import {
   useGetAllColorsQuery,
   useCreateColorMutation,
@@ -125,7 +127,7 @@ export default function ColorsPage() {
                   All Colors
                 </h2>
                 <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                  {isLoading ? "Loading…" : `${colors.length} color options`}
+                  {isLoading ? <Skeleton className="h-3 w-24" /> : `${colors.length} color options`}
                 </p>
               </div>
             </div>
@@ -154,6 +156,7 @@ export default function ColorsPage() {
                 </tr>
               </thead>
               <tbody>
+                {isLoading && <TableSkeletonRows columns={5} />}
                 {!isLoading && colors.length === 0 && (
                   <tr>
                     <td

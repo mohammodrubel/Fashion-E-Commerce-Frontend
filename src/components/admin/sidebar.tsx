@@ -5,9 +5,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, Package, ShoppingCart, Users, Warehouse,
-  BarChart3, Settings, ChevronDown, Plus, List, Tag, Image,
-  Archive, Eye, Clock, CheckCircle, XCircle, RotateCcw,
-  RefreshCcw, Truck, FileEdit, UserPlus, UserX, MapPin,
+  BarChart3, Settings, ChevronDown, Plus, List, Tag,
+  Eye, Clock, CheckCircle, XCircle, RotateCcw,
+  RefreshCcw, Truck, UserPlus, UserX, MapPin,
   History, TrendingDown, AlertTriangle, BarChart2, Boxes,
   DollarSign, CreditCard, Download, Store, User, Activity,
   LogOut, X, Sparkles, Palette, Ruler, Grid3x3
@@ -41,10 +41,7 @@ const navSections: NavSection[] = [
       { label: "Sizes", href: "/admin/products/sizes", icon: Ruler },
       { label: "Colors", href: "/admin/products/colors", icon: Palette },
       { label: "Product Variants", href: "/admin/products/variants", icon: Grid3x3 },
-      { label: "Images & Gallery", href: "/admin/products/images", icon: Image },
-      { label: "Draft Products", href: "/admin/products/drafts", icon: FileEdit },
       { label: "Active Products", href: "/admin/products/published", icon: Eye },
-      { label: "Archived Products", href: "/admin/products/archived", icon: Archive },
     ],
   },
   {
@@ -114,11 +111,9 @@ const navSections: NavSection[] = [
     label: "Settings",
     href: "/admin/settings",
     children: [
-      { label: "General Settings", href: "/admin/settings", icon: Settings },
       { label: "Store Information", href: "/admin/settings/store-info", icon: Store },
       { label: "Admin Profile", href: "/admin/settings/profile", icon: User },
       { label: "User Management", href: "/admin/settings/users", icon: Users },
-      { label: "Payment Methods", href: "/admin/settings/payment-methods", icon: CreditCard },
       { label: "Shipping Methods", href: "/admin/settings/shipping", icon: Truck },
       { label: "Activity Logs", href: "/admin/settings/activity-logs", icon: Activity },
     ],

@@ -4,6 +4,8 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
 import { Plus, Pencil, Trash2, Ruler, Info, X, Loader2 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { TableSkeletonRows } from "@/components/admin/table-skeleton-rows"
 import {
   useGetAllSizesQuery,
   useCreateSizeMutation,
@@ -113,7 +115,7 @@ export default function SizesPage() {
                   All Sizes
                 </h2>
                 <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                  {isLoading ? "Loading…" : `${sizes.length} size options`}
+                  {isLoading ? <Skeleton className="h-3 w-24" /> : `${sizes.length} size options`}
                 </p>
               </div>
             </div>
@@ -142,6 +144,7 @@ export default function SizesPage() {
                 </tr>
               </thead>
               <tbody>
+                {isLoading && <TableSkeletonRows columns={3} />}
                 {!isLoading && sizes.length === 0 && (
                   <tr>
                     <td

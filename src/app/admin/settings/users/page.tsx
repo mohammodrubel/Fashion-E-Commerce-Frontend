@@ -1,181 +1,258 @@
 "use client"
 
-import { useState } from "react"
-import { PageHeader } from "@/components/admin/page-header"
-import { UserPlus, Users } from "lucide-react"
+import { useEffect, useMemo, useState } from "react"
+import Link from "next/link"
+import { toast } from "sonner"
+import {
+  UserPlus, Users, Search, Pencil, Trash2, ChevronLeft, ChevronRight, Loader2,
+} from "lucide-react"
+import {
+  useGetAllUsersQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} from "@/redux/fetchers/user/userApi"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { Switch } from "@/components/ui/switch"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/components/ui/select"
+import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+} from "@/components/ui/table"
+import { Skeleton } from "@/components/ui/skeleton"
 
-// Matches User model exactly
-type Role = "ADMIN" | "USER"
+export default function UserManagementPage() {
+  const [searchInput, setSearchInput] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [role, setRole] = useState<string>("")
+  const [isActive, setIsActive] = useState<string>("")
+  const [page, setPage] = useState(1)
+  const limit = 10
 
-interface User {
-  id: string
-  name: string
-  email: string
-  role: Role
-  isActive: boolean          // Boolean @default(true)
-  // Extra display fields not in Prisma but realistic
-  phone?: string
-  joinedAt: string
-  initials: string
-}
+  useEffect(() => {
+    const t = setTimeout(() => { setSearchTerm(searchInput.trim()); setPage(1) }, 400)
+    return () => clearTimeout(t)
+  }, [searchInput])
 
-const users: User[] = [
-  { id: "u-001", name: "Rafiq Hossain",   email: "rafiq@lumastyle.com",   role: "ADMIN", isActive: true,  phone: "+880 1711-000001", joinedAt: "Jan 2024", initials: "RH" },
-  { id: "u-002", name: "Nadia Islam",     email: "nadia@lumastyle.com",   role: "ADMIN", isActive: true,  phone: "+880 1812-000002", joinedAt: "Mar 2024", initials: "NI" },
-  { id: "u-003", name: "Farhan Ahmed",    email: "farhan@gmail.com",      role: "USER",  isActive: true,  phone: "+880 1923-000003", joinedAt: "Jun 2024", initials: "FA" },
-  { id: "u-004", name: "Sumaiya Khanam",  email: "sumaiya@yahoo.com",     role: "USER",  isActive: false, phone: "+880 1700-000004", joinedAt: "Aug 2024", initials: "SK" },
-  { id: "u-005", name: "Tanvir Chowdhury",email: "tanvir@hotmail.com",    role: "USER",  isActive: true,  phone: undefined,          joinedAt: "Sep 2024", initials: "TC" },
-  { id: "u-006", name: "Priya Roy",       email: "priya.roy@gmail.com",   role: "USER",  isActive: true,  phone: "+880 1601-000006", joinedAt: "Oct 2024", initials: "PR" },
-]
-
-const adminCount    = users.filter((u) => u.role === "ADMIN").length
-const customerCount = 1240
-
-export default function UsersPage() {
-  const [activeMap, setActiveMap] = useState<Record<string, boolean>>(
-    Object.fromEntries(users.map((u) => [u.id, u.isActive]))
+  const queryParams = useMemo(
+    () => ({
+      page,
+      limit,
+      sort: "createdAt",
+      order: "desc",
+      ...(searchTerm ? { searchTerm } : {}),
+      ...(role ? { role } : {}),
+      ...(isActive ? { isActive } : {}),
+    }),
+    [page, searchTerm, role, isActive],
   )
 
-  function toggleActive(id: string) {
-    setActiveMap((prev) => ({ ...prev, [id]: !prev[id] }))
+  const { data, isLoading, isFetching } = useGetAllUsersQuery(queryParams)
+  const { data: adminCountData } = useGetAllUsersQuery({ role: "ADMIN", page: 1, limit: 1 })
+  const { data: userCountData } = useGetAllUsersQuery({ role: "USER", page: 1, limit: 1 })
+  const { data: activeCountData } = useGetAllUsersQuery({ isActive: "true", page: 1, limit: 1 })
+  const { data: blockedCountData } = useGetAllUsersQuery({ isActive: "false", page: 1, limit: 1 })
+
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation()
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation()
+
+  const users = data?.data ?? []
+  const meta = data?.meta ?? { page: 1, limit, total: 0, totalPage: 1 }
+
+  async function handleToggleActive(id: string, nextActive: boolean) {
+    if (!confirm(nextActive ? "Activate this account?" : "Deactivate this account? It will not be able to log in.")) return
+    try {
+      await updateUser({ id, data: { isActive: nextActive } }).unwrap()
+      toast.success(nextActive ? "Account activated" : "Account deactivated")
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update account.")
+    }
   }
 
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this account? This cannot be undone.")) return
+    try {
+      await deleteUser(id).unwrap()
+      toast.success("Account deleted successfully")
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete account.")
+    }
+  }
+
+  const stats = [
+    { label: "Admin Users", value: adminCountData?.meta?.total ?? 0 },
+    { label: "Customer Accounts", value: userCountData?.meta?.total ?? 0 },
+    { label: "Active", value: activeCountData?.meta?.total ?? 0 },
+    { label: "Deactivated", value: blockedCountData?.meta?.total ?? 0 },
+  ]
+
   return (
-    <div style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
-      <PageHeader
-        title="User Management"
-        description="Manage admin and customer accounts — User model"
-        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Settings", href: "/admin/settings" }, { label: "Users" }]}
-        actions={
-          <button
-            className="flex items-center gap-2 rounded-lg px-3 py-2 text-white transition-colors"
-            style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
-          >
-            <UserPlus className="w-4 h-4" strokeWidth={1.5} />
-            Invite User
-          </button>
-        }
-      />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h2 className="text-base font-semibold text-foreground">User Management</h2>
+          <p className="text-sm text-muted-foreground">Admin and customer accounts on the User model.</p>
+        </div>
+        <Button render={<Link href="/admin/settings/users/new" />}>
+          <UserPlus data-icon="inline-start" />
+          Add User
+        </Button>
+      </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        {[
-          { label: "Admin Users",      value: String(adminCount),                   icon: Users, color: "#501D2A" },
-          { label: "Customer Accounts",value: customerCount.toLocaleString("en-BD"),icon: Users, color: "#2563EB" },
-          { label: "Active",           value: String(users.filter(u => u.isActive).length),    icon: Users, color: "#059669" },
-          { label: "Deactivated",      value: String(users.filter(u => !u.isActive).length),   icon: Users, color: "#9CA3AF" },
-        ].map((s) => {
-          const Icon = s.icon
-          return (
-            <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</span>
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: s.color + "15" }}>
-                  <Icon className="w-3.5 h-3.5" style={{ color: s.color }} strokeWidth={1.5} />
-                </div>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {stats.map((s) => (
+          <Card key={s.label}>
+            <CardContent className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-muted-foreground">{s.label}</p>
+                <p className="mt-1 text-xl font-semibold text-foreground">{s.value}</p>
               </div>
-              <p className="font-semibold text-foreground" style={{ fontSize: "20px" }}>{s.value}</p>
-            </div>
-          )
-        })}
+              <Users className="size-4 text-muted-foreground" strokeWidth={1.5} />
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      {/* Users Table */}
-      <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
-          <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Admin Team</h2>
-          <p className="text-muted-foreground mt-0.5" style={{ fontSize: "12px" }}>role = ADMIN | USER — isActive toggle updates User.isActive</p>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
-                {["User", "Email", "Phone", "Role", "Active", "Joined", "Actions"].map((h) => (
-                  <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
+      <Card>
+        <CardHeader>
+          <CardTitle>All Users</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1 sm:max-w-xs">
+              <Search className="absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
+              <Input
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Search by name, email, phone..."
+                className="pl-8"
+              />
+            </div>
+            <Select value={role || "all"} onValueChange={(v) => { setRole(!v || v === "all" ? "" : v); setPage(1) }}>
+              <SelectTrigger className="w-full sm:w-36"><SelectValue placeholder="All roles" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All roles</SelectItem>
+                <SelectItem value="ADMIN">Admin</SelectItem>
+                <SelectItem value="USER">Customer</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={isActive || "all"} onValueChange={(v) => { setIsActive(!v || v === "all" ? "" : v); setPage(1) }}>
+              <SelectTrigger className="w-full sm:w-36"><SelectValue placeholder="All status" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All status</SelectItem>
+                <SelectItem value="true">Active</SelectItem>
+                <SelectItem value="false">Deactivated</SelectItem>
+              </SelectContent>
+            </Select>
+            {isFetching && !isLoading && <Loader2 className="size-4 animate-spin text-muted-foreground sm:ml-auto" strokeWidth={1.5} />}
+          </div>
+
+          <div className="rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>User</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Phone</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Active</TableHead>
+                  <TableHead>Joined</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {isLoading && Array.from({ length: 5 }).map((_, i) => (
+                  <TableRow key={i}>
+                    {Array.from({ length: 7 }).map((_, c) => (
+                      <TableCell key={c}><Skeleton className="h-4 w-full max-w-28" /></TableCell>
+                    ))}
+                  </TableRow>
                 ))}
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, i) => {
-                const isActive = activeMap[user.id]
-                return (
-                  <tr
-                    key={user.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < users.length - 1 ? "1px solid #F0EDEF" : "none" }}
-                  >
-                    {/* Avatar + Name */}
-                    <td className="px-5 py-3">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0"
-                          style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
-                        >
-                          {user.initials}
+                {!isLoading && users.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                      No users found.
+                    </TableCell>
+                  </TableRow>
+                )}
+                {users.map((user: any) => {
+                  const initials = (user.name || "?").split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()
+                  return (
+                    <TableRow key={user.id}>
+                      <TableCell>
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+                            {initials}
+                          </div>
+                          <span className="font-medium text-foreground">{user.name}</span>
                         </div>
-                        <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{user.name}</span>
-                      </div>
-                    </td>
-                    {/* Email */}
-                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{user.email}</td>
-                    {/* Phone */}
-                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{user.phone ?? "—"}</td>
-                    {/* Role badge — ADMIN=#501D2A, USER=gray */}
-                    <td className="px-5 py-3">
-                      {user.role === "ADMIN" ? (
-                        <span
-                          className="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium"
-                          style={{ fontSize: "11px", backgroundColor: "#501D2A1A", color: "#501D2A" }}
-                        >
-                          ADMIN
-                        </span>
-                      ) : (
-                        <span
-                          className="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium bg-gray-100 text-gray-600"
-                          style={{ fontSize: "11px" }}
-                        >
-                          USER
-                        </span>
-                      )}
-                    </td>
-                    {/* isActive toggle */}
-                    <td className="px-5 py-3">
-                      <button
-                        onClick={() => toggleActive(user.id)}
-                        className="relative inline-flex w-10 h-5 rounded-full transition-colors focus:outline-none"
-                        style={{ backgroundColor: isActive ? "#501D2A" : "#E5E7EB" }}
-                        title={isActive ? "Deactivate" : "Activate"}
-                        aria-label={`Toggle isActive for ${user.name}`}
-                      >
-                        <span
-                          className="absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform"
-                          style={{ left: isActive ? "calc(100% - 18px)" : "2px" }}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">{user.email}</TableCell>
+                      <TableCell className="text-muted-foreground">{user.phone ?? "—"}</TableCell>
+                      <TableCell>
+                        <Badge variant={user.role === "ADMIN" ? "default" : "secondary"}>{user.role}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={user.isActive}
+                          disabled={isUpdating}
+                          onCheckedChange={() => handleToggleActive(user.id, !user.isActive)}
+                          aria-label={`Toggle active status for ${user.name}`}
                         />
-                      </button>
-                    </td>
-                    {/* Joined */}
-                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{user.joinedAt}</td>
-                    {/* Actions */}
-                    <td className="px-5 py-3">
-                      <div className="flex items-center gap-3">
-                        <button className="text-muted-foreground hover:text-foreground transition-colors" style={{ fontSize: "12px" }}>Edit</button>
-                        <span className="text-border/60" style={{ fontSize: "12px" }}>|</span>
-                        <button
-                          onClick={() => toggleActive(user.id)}
-                          className="transition-colors"
-                          style={{ fontSize: "12px", color: isActive ? "#DC2626" : "#059669" }}
-                        >
-                          {isActive ? "Deactivate" : "Activate"}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">{new Date(user.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            render={<Link href={`/admin/settings/users/${user.id}/edit`} />}
+                          >
+                            <Pencil />
+                          </Button>
+                          <Button variant="ghost" size="icon-sm" disabled={isDeleting} onClick={() => handleDelete(user.id)}>
+                            <Trash2 className="text-destructive" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {isLoading ? <Skeleton className="h-3 w-32" /> : `Showing ${users.length} of ${meta.total ?? 0} users`}
+            </p>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="icon-sm"
+                disabled={(meta.page ?? 1) <= 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+              >
+                <ChevronLeft />
+              </Button>
+              <span className="px-2 text-sm text-foreground">
+                Page {meta.page ?? 1} of {meta.totalPage ?? 1}
+              </span>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)}
+                onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))}
+              >
+                <ChevronRight />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

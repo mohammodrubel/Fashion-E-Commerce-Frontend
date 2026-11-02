@@ -1,139 +1,169 @@
-import { PageHeader } from "@/components/admin/page-header"
+"use client"
+
+import { useState } from "react"
+import { toast } from "sonner"
 import { Clock, Download, Filter, User, Package, ShoppingCart, Settings, Shield, Tag } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 const logs = [
-  { time: "Oct 24, 2024 9:42 AM", user: "Alexandra Dupont", avatar: "A", action: "Product Updated", details: "Updated pricing on 'Silk Wrap Dress' — $72 → $77", ip: "74.125.46.22", type: "product" },
-  { time: "Oct 24, 2024 9:18 AM", user: "Marcus Webb", avatar: "M", action: "Order Status Changed", details: "Order #4521 marked as Shipped", ip: "96.120.11.8", type: "order" },
-  { time: "Oct 24, 2024 8:55 AM", user: "Isabelle Morel", avatar: "I", action: "Coupon Created", details: "Created coupon FLASH50 — $50 off, 100 uses", ip: "74.125.46.55", type: "discount" },
-  { time: "Oct 23, 2024 4:32 PM", user: "Alexandra Dupont", avatar: "A", action: "Settings Updated", details: "Changed timezone to America/New_York", ip: "74.125.46.22", type: "settings" },
-  { time: "Oct 23, 2024 2:14 PM", user: "Theo Nakamura", avatar: "T", action: "Customer Refunded", details: "Issued $89.00 refund on Order #4490 for Isabella T.", ip: "24.50.31.109", type: "order" },
-  { time: "Oct 23, 2024 11:20 AM", user: "Marcus Webb", avatar: "M", action: "Product Added", details: "New product 'Autumn Velvet Blazer' published", ip: "96.120.11.8", type: "product" },
-  { time: "Oct 22, 2024 5:08 PM", user: "Alexandra Dupont", avatar: "A", action: "User Invited", details: "Sent invite to camille@maisonelite.com (Viewer role)", ip: "74.125.46.22", type: "user" },
-  { time: "Oct 22, 2024 3:45 PM", user: "Isabelle Morel", avatar: "I", action: "Inventory Updated", details: "Restocked 'Ribbed Tank Top' — 50 units added", ip: "74.125.46.55", type: "product" },
-  { time: "Oct 21, 2024 1:22 PM", user: "Alexandra Dupont", avatar: "A", action: "Role Modified", details: "Updated 'Manager' role permissions — removed billing access", ip: "74.125.46.22", type: "security" },
-  { time: "Oct 21, 2024 10:00 AM", user: "System", avatar: "S", action: "Backup Completed", details: "Automatic daily backup — 24.8 MB", ip: "Internal", type: "system" },
+  { time: "Oct 24, 2026 9:42 AM", user: "Alexandra Dupont", avatar: "A", action: "Product Updated", details: "Updated pricing on 'Silk Wrap Dress' — ৳720 → ৳770", ip: "74.125.46.22", type: "product" },
+  { time: "Oct 24, 2026 9:18 AM", user: "Marcus Webb", avatar: "M", action: "Order Status Changed", details: "Order #4521 marked as Shipped", ip: "96.120.11.8", type: "order" },
+  { time: "Oct 24, 2026 8:55 AM", user: "Isabelle Morel", avatar: "I", action: "Coupon Created", details: "Created coupon FLASH50 — ৳50 off, 100 uses", ip: "74.125.46.55", type: "discount" },
+  { time: "Oct 23, 2026 4:32 PM", user: "Alexandra Dupont", avatar: "A", action: "Settings Updated", details: "Changed timezone to Asia/Dhaka", ip: "74.125.46.22", type: "settings" },
+  { time: "Oct 23, 2026 2:14 PM", user: "Theo Nakamura", avatar: "T", action: "Customer Refunded", details: "Issued ৳890 refund on Order #4490", ip: "24.50.31.109", type: "order" },
+  { time: "Oct 23, 2026 11:20 AM", user: "Marcus Webb", avatar: "M", action: "Product Added", details: "New product 'Autumn Velvet Blazer' published", ip: "96.120.11.8", type: "product" },
+  { time: "Oct 22, 2026 5:08 PM", user: "Alexandra Dupont", avatar: "A", action: "User Invited", details: "Sent invite to camille@lumastyle.com", ip: "74.125.46.22", type: "user" },
+  { time: "Oct 22, 2026 3:45 PM", user: "Isabelle Morel", avatar: "I", action: "Inventory Updated", details: "Restocked 'Ribbed Tank Top' — 50 units added", ip: "74.125.46.55", type: "product" },
+  { time: "Oct 21, 2026 1:22 PM", user: "Alexandra Dupont", avatar: "A", action: "Role Modified", details: "Updated 'Manager' role permissions", ip: "74.125.46.22", type: "security" },
+  { time: "Oct 21, 2026 10:00 AM", user: "System", avatar: "S", action: "Backup Completed", details: "Automatic daily backup — 24.8 MB", ip: "Internal", type: "system" },
 ]
 
-const typeConfig: Record<string, { icon: typeof Package; color: string; bg: string }> = {
-  product: { icon: Package, color: "#501D2A", bg: "#501D2A15" },
-  order: { icon: ShoppingCart, color: "#059669", bg: "#f0fdf4" },
-  discount: { icon: Tag, color: "#d97706", bg: "#fffbeb" },
-  settings: { icon: Settings, color: "#6b7280", bg: "#f9fafb" },
-  user: { icon: User, color: "#7c3aed", bg: "#f5f3ff" },
-  security: { icon: Shield, color: "#dc2626", bg: "#fef2f2" },
-  system: { icon: Clock, color: "#0ea5e9", bg: "#f0f9ff" },
+const typeConfig: Record<string, { icon: typeof Package; className: string }> = {
+  product: { icon: Package, className: "bg-primary/10 text-primary" },
+  order: { icon: ShoppingCart, className: "bg-emerald-50 text-emerald-600" },
+  discount: { icon: Tag, className: "bg-amber-50 text-amber-600" },
+  settings: { icon: Settings, className: "bg-muted text-muted-foreground" },
+  user: { icon: User, className: "bg-violet-50 text-violet-600" },
+  security: { icon: Shield, className: "bg-red-50 text-red-600" },
+  system: { icon: Clock, className: "bg-sky-50 text-sky-600" },
 }
 
 export default function ActivityLogsPage() {
+  const [userFilter, setUserFilter] = useState("all")
+  const [actionFilter, setActionFilter] = useState("all")
+  const [rangeFilter, setRangeFilter] = useState("7d")
+
+  function handleApplyFilters() {
+    toast.success("Filters applied")
+  }
+
+  function handleExport() {
+    toast.success("Exporting activity logs…")
+  }
+
   return (
-    <div>
-      <PageHeader
-        title="Activity Logs"
-        description="Complete audit trail of all admin actions"
-        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Settings", href: "/admin/settings" }, { label: "Activity Logs" }]}
-        actions={
-          <button
-            className="flex items-center gap-2 rounded-lg border border-border/50 bg-white px-3 py-2 text-foreground hover:bg-muted/30 transition-colors"
-            style={{ fontSize: "13px" }}
-          >
-            <Download className="w-4 h-4" />
-            Export Logs
-          </button>
-        }
-      />
-
-      {/* Filters */}
-      <div className="bg-white rounded-xl border border-border/50 p-4 mb-6 flex items-center gap-3 flex-wrap">
-        <Filter className="w-4 h-4 text-muted-foreground shrink-0" />
-        <select className="border border-border/50 rounded-lg px-3 py-1.5 text-foreground bg-white" style={{ fontSize: "13px" }}>
-          <option>All Users</option>
-          <option>Alexandra Dupont</option>
-          <option>Marcus Webb</option>
-          <option>Isabelle Morel</option>
-        </select>
-        <select className="border border-border/50 rounded-lg px-3 py-1.5 text-foreground bg-white" style={{ fontSize: "13px" }}>
-          <option>All Actions</option>
-          <option>Product Changes</option>
-          <option>Order Changes</option>
-          <option>Settings Changes</option>
-          <option>Security Events</option>
-        </select>
-        <select className="border border-border/50 rounded-lg px-3 py-1.5 text-foreground bg-white" style={{ fontSize: "13px" }}>
-          <option>Last 7 days</option>
-          <option>Last 30 days</option>
-          <option>Last 90 days</option>
-          <option>Custom range</option>
-        </select>
-        <button className="px-3 py-1.5 rounded-lg text-white ml-auto" style={{ fontSize: "13px", backgroundColor: "#501D2A" }}>
-          Apply Filters
-        </button>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h2 className="text-base font-semibold text-foreground">Activity Logs</h2>
+          <p className="text-sm text-muted-foreground">Complete audit trail of all admin actions.</p>
+        </div>
+        <Button variant="outline" onClick={handleExport}>
+          <Download data-icon="inline-start" />
+          Export Logs
+        </Button>
       </div>
 
-      {/* Logs Table */}
-      <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-6 py-4 border-b border-border/50">
-          <h2 className="font-semibold text-foreground" style={{ fontSize: "15px" }}>
-            Recent Activity
-            <span className="ml-2 px-2 py-0.5 rounded-full bg-muted/40 text-muted-foreground font-normal" style={{ fontSize: "12px" }}>
-              {logs.length} entries
-            </span>
-          </h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-border/50">
-                {["Timestamp", "User", "Action", "Details", "IP Address"].map(h => (
-                  <th key={h} className="text-left px-6 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {logs.map((log, i) => {
-                const type = typeConfig[log.type] || typeConfig.system
-                const Icon = type.icon
-                return (
-                  <tr key={i} className={`border-b border-border/30 hover:bg-muted/20 transition-colors ${i === logs.length - 1 ? "border-b-0" : ""}`}>
-                    <td className="px-6 py-3.5" style={{ fontSize: "12px" }}>
-                      <div className="flex items-center gap-1.5 text-muted-foreground whitespace-nowrap">
-                        <Clock className="w-3 h-3" />
-                        {log.time}
-                      </div>
-                    </td>
-                    <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full flex items-center justify-center text-white font-medium shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "10px" }}>
-                          {log.avatar}
-                        </div>
-                        <span className="text-foreground font-medium">{log.user}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 rounded flex items-center justify-center shrink-0" style={{ backgroundColor: type.bg }}>
-                          <Icon className="w-3 h-3" style={{ color: type.color }} />
-                        </div>
-                        <span className="font-medium text-foreground whitespace-nowrap">{log.action}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-3.5 text-muted-foreground max-w-xs" style={{ fontSize: "12px" }}>{log.details}</td>
-                    <td className="px-6 py-3.5" style={{ fontSize: "12px" }}>
-                      <code className="text-muted-foreground font-mono">{log.ip}</code>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div className="px-6 py-3 border-t border-border/30 flex items-center justify-between">
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing 10 of 1,247 entries</p>
-          <div className="flex items-center gap-1">
-            <button className="px-3 py-1 rounded-lg border border-border/50 text-muted-foreground hover:bg-muted/30" style={{ fontSize: "12px" }}>Previous</button>
-            <button className="px-3 py-1 rounded-lg border border-border/50 text-muted-foreground hover:bg-muted/30" style={{ fontSize: "12px" }}>Next</button>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Filter className="size-4" strokeWidth={1.5} /> Filters</CardTitle>
+          <CardDescription>Narrow down the audit trail</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap items-center gap-3">
+            <Select value={userFilter} onValueChange={(v) => setUserFilter(v ?? "all")}>
+              <SelectTrigger className="w-44"><SelectValue placeholder="All users" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Users</SelectItem>
+                <SelectItem value="alexandra">Alexandra Dupont</SelectItem>
+                <SelectItem value="marcus">Marcus Webb</SelectItem>
+                <SelectItem value="isabelle">Isabelle Morel</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={actionFilter} onValueChange={(v) => setActionFilter(v ?? "all")}>
+              <SelectTrigger className="w-48"><SelectValue placeholder="All actions" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Actions</SelectItem>
+                <SelectItem value="product">Product Changes</SelectItem>
+                <SelectItem value="order">Order Changes</SelectItem>
+                <SelectItem value="settings">Settings Changes</SelectItem>
+                <SelectItem value="security">Security Events</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={rangeFilter} onValueChange={(v) => setRangeFilter(v ?? "7d")}>
+              <SelectTrigger className="w-40"><SelectValue placeholder="Last 7 days" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="7d">Last 7 days</SelectItem>
+                <SelectItem value="30d">Last 30 days</SelectItem>
+                <SelectItem value="90d">Last 90 days</SelectItem>
+                <SelectItem value="custom">Custom range</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button className="sm:ml-auto" onClick={handleApplyFilters}>Apply Filters</Button>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            Recent Activity
+            <Badge variant="secondary">{logs.length} entries</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Timestamp</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead>Action</TableHead>
+                  <TableHead>Details</TableHead>
+                  <TableHead>IP Address</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {logs.map((log, i) => {
+                  const type = typeConfig[log.type] ?? typeConfig.system
+                  const Icon = type.icon
+                  return (
+                    <TableRow key={i}>
+                      <TableCell className="text-muted-foreground">
+                        <div className="flex items-center gap-1.5 whitespace-nowrap">
+                          <Clock className="size-3" strokeWidth={1.5} />
+                          {log.time}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-primary-foreground">
+                            {log.avatar}
+                          </div>
+                          <span className="font-medium text-foreground">{log.user}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2 whitespace-nowrap">
+                          <div className={`flex size-5 shrink-0 items-center justify-center rounded ${type.className}`}>
+                            <Icon className="size-3" strokeWidth={1.5} />
+                          </div>
+                          <span className="font-medium text-foreground">{log.action}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="max-w-xs truncate text-muted-foreground">{log.details}</TableCell>
+                      <TableCell>
+                        <code className="font-mono text-xs text-muted-foreground">{log.ip}</code>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">Showing {logs.length} of 1,247 entries</p>
+            <div className="flex items-center gap-1">
+              <Button variant="outline" size="sm">Previous</Button>
+              <Button variant="outline" size="sm">Next</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

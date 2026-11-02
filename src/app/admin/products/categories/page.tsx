@@ -4,6 +4,8 @@ import { useRef, useState } from "react"
 import { toast } from "sonner"
 import { PageHeader } from "@/components/admin/page-header"
 import { Plus, Pencil, Trash2, FolderOpen, Upload, X, Loader2 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { TableSkeletonRows } from "@/components/admin/table-skeleton-rows"
 import {
   useGetAllCategoriesQuery,
   useCreateCategoryMutation,
@@ -168,7 +170,7 @@ export default function CategoriesPage() {
                 All Categories
               </h2>
               <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-                {isLoading ? "Loading…" : `${categories.length} categories total`}
+                {isLoading ? <Skeleton className="h-3 w-28" /> : `${categories.length} categories total`}
               </p>
             </div>
             {isFetching && !isLoading && (
@@ -192,6 +194,7 @@ export default function CategoriesPage() {
                 </tr>
               </thead>
               <tbody>
+                {isLoading && <TableSkeletonRows columns={5} />}
                 {!isLoading && categories.length === 0 && (
                   <tr>
                     <td

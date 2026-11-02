@@ -1,14 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { PageHeader } from "@/components/admin/page-header"
-import { Camera, Save, Lock, Eye, EyeOff } from "lucide-react"
+import { toast } from "sonner"
+import { Camera, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 
-// Reflects User model fields
 type Role = "ADMIN" | "USER"
 
 interface UserProfile {
-  id: string
   name: string
   email: string
   phone?: string
@@ -17,236 +21,182 @@ interface UserProfile {
 }
 
 const profile: UserProfile = {
-  id: "u-001",
   name: "Admin User",
-  email: "admin@lumaStyle.com",
+  email: "admin@lumastyle.com",
   phone: "",
   role: "ADMIN",
   isActive: true,
 }
 
 export default function AdminProfilePage() {
-  const [name,  setName]  = useState(profile.name)
+  const [name, setName] = useState(profile.name)
   const [email, setEmail] = useState(profile.email)
   const [phone, setPhone] = useState(profile.phone ?? "")
+  const [isSaving, setIsSaving] = useState(false)
 
-  const [currentPw,  setCurrentPw]  = useState("")
-  const [newPw,      setNewPw]      = useState("")
-  const [confirmPw,  setConfirmPw]  = useState("")
-  const [showCur,    setShowCur]    = useState(false)
-  const [showNew,    setShowNew]    = useState(false)
-  const [showConf,   setShowConf]   = useState(false)
+  const [currentPw, setCurrentPw] = useState("")
+  const [newPw, setNewPw] = useState("")
+  const [confirmPw, setConfirmPw] = useState("")
+  const [showCur, setShowCur] = useState(false)
+  const [showNew, setShowNew] = useState(false)
+  const [showConf, setShowConf] = useState(false)
+  const [isUpdatingPw, setIsUpdatingPw] = useState(false)
 
   function handleSave() {
-    alert(`Profile saved: ${name} / ${email}`)
+    setIsSaving(true)
+    setTimeout(() => {
+      setIsSaving(false)
+      toast.success(`Profile saved: ${name}`)
+    }, 500)
   }
 
   function handleUpdatePassword() {
-    if (!currentPw || !newPw || !confirmPw) return
-    if (newPw !== confirmPw) { alert("Passwords do not match."); return }
-    alert("Password updated successfully.")
-    setCurrentPw(""); setNewPw(""); setConfirmPw("")
+    if (!currentPw || !newPw || !confirmPw) return toast.error("Fill in all password fields")
+    if (newPw !== confirmPw) return toast.error("Passwords do not match")
+    setIsUpdatingPw(true)
+    setTimeout(() => {
+      setIsUpdatingPw(false)
+      toast.success("Password updated successfully")
+      setCurrentPw(""); setNewPw(""); setConfirmPw("")
+    }, 500)
   }
 
-  const inputClass = "w-full px-3 py-2.5 rounded-lg border border-border/60 bg-white text-foreground focus:outline-none focus:border-primary/50"
-
   return (
-    <div style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
-      <PageHeader
-        title="Admin Profile"
-        description="Manage your account details — User model"
-        breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Settings", href: "/admin/settings" }, { label: "Profile" }]}
-      />
-
-      <div className="max-w-2xl space-y-6">
-        {/* Card: Profile Information */}
-        <div className="bg-white rounded-xl border border-border/50 p-6">
-          <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>Profile Information</h2>
-
-          {/* Avatar */}
-          <div className="flex items-center gap-5 mb-6">
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Profile Information</CardTitle>
+          <CardDescription>Your name and photo as shown across the dashboard</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <div className="flex items-center gap-4">
             <div className="relative shrink-0">
-              <div
-                className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold"
-                style={{ backgroundColor: "#501D2A", fontSize: "22px" }}
-              >
-                A
-              </div>
+              <Avatar size="lg" className="size-16">
+                <AvatarFallback className="text-lg font-semibold">{name.charAt(0).toUpperCase() || "A"}</AvatarFallback>
+              </Avatar>
               <button
-                className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border border-border flex items-center justify-center shadow-sm hover:bg-[#F8F7F5] transition-colors"
+                type="button"
+                className="absolute -right-1 -bottom-1 flex size-6 items-center justify-center rounded-full border bg-background shadow-sm transition-colors hover:bg-muted"
                 title="Change Photo"
               >
-                <Camera className="w-3 h-3 text-muted-foreground" strokeWidth={1.5} />
+                <Camera className="size-3 text-muted-foreground" strokeWidth={1.5} />
               </button>
             </div>
             <div>
-              <p className="font-semibold text-foreground" style={{ fontSize: "15px" }}>{name}</p>
-              <button className="text-muted-foreground hover:text-foreground transition-colors mt-0.5" style={{ fontSize: "12px" }}>
+              <p className="text-sm font-semibold text-foreground">{name}</p>
+              <button type="button" className="mt-0.5 text-xs text-muted-foreground transition-colors hover:text-foreground">
                 Change Photo
               </button>
             </div>
           </div>
 
-          <div className="space-y-4">
-            {/* name */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className={inputClass}
-                style={{ fontSize: "13px" }}
-              />
-            </div>
-            {/* email */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={inputClass}
-                style={{ fontSize: "13px" }}
-              />
-            </div>
-            {/* phone — optional, not in Prisma User but realistic */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Phone <span className="text-muted-foreground font-normal">(optional)</span></label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+880 1700-000000"
-                className={inputClass}
-                style={{ fontSize: "13px" }}
-              />
-            </div>
-            {/* role — read-only */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Role</label>
-              <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5]" style={{ fontSize: "13px" }}>
-                <span
-                  className="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium"
-                  style={{ fontSize: "11px", backgroundColor: "#501D2A1A", color: "#501D2A" }}
-                >
-                  ADMIN
-                </span>
-                <span className="text-muted-foreground" style={{ fontSize: "12px" }}>Read-only — change via User Management</span>
-              </div>
-            </div>
-            {/* isActive — read-only */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Account Status</label>
-              <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5]" style={{ fontSize: "13px" }}>
-                <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-medium bg-emerald-50 text-emerald-700" style={{ fontSize: "11px" }}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Active
-                </span>
-                <span className="text-muted-foreground" style={{ fontSize: "12px" }}>isActive = true</span>
-              </div>
-            </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="profile-name">Name</Label>
+            <Input id="profile-name" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
-        </div>
 
-        {/* Card: Change Password */}
-        <div className="bg-white rounded-xl border border-border/50 p-6">
-          <div className="flex items-center gap-2 mb-5">
-            <Lock className="w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
-            <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Change Password</h2>
+          <div className="space-y-1.5">
+            <Label htmlFor="profile-email">Email</Label>
+            <Input id="profile-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
-          <div className="space-y-4">
-            {/* Current Password */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Current Password</label>
-              <div className="relative">
-                <input
-                  type={showCur ? "text" : "password"}
-                  value={currentPw}
-                  onChange={(e) => setCurrentPw(e.target.value)}
-                  placeholder="••••••••"
-                  className={inputClass + " pr-10"}
-                  style={{ fontSize: "13px" }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowCur((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {showCur ? <EyeOff className="w-4 h-4" strokeWidth={1.5} /> : <Eye className="w-4 h-4" strokeWidth={1.5} />}
-                </button>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="profile-phone">Phone</Label>
+            <Input id="profile-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+880 1700-000000" />
+            <p className="text-xs text-muted-foreground">Optional</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>Role</Label>
+              <div><Badge>{profile.role}</Badge></div>
+              <p className="text-xs text-muted-foreground">Change via User Management</p>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Account Status</Label>
+              <div>
+                <Badge variant="outline" className="gap-1.5 border-emerald-200 text-emerald-700">
+                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  Active
+                </Badge>
               </div>
             </div>
-            {/* New Password */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>New Password</label>
-              <div className="relative">
-                <input
-                  type={showNew ? "text" : "password"}
-                  value={newPw}
-                  onChange={(e) => setNewPw(e.target.value)}
-                  placeholder="Min. 8 characters"
-                  className={inputClass + " pr-10"}
-                  style={{ fontSize: "13px" }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowNew((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {showNew ? <EyeOff className="w-4 h-4" strokeWidth={1.5} /> : <Eye className="w-4 h-4" strokeWidth={1.5} />}
-                </button>
-              </div>
+          </div>
+        </CardContent>
+        <CardFooter className="justify-end border-t bg-transparent">
+          <Button onClick={handleSave} disabled={isSaving}>
+            {isSaving ? "Saving…" : "Save Changes"}
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Lock className="size-4" strokeWidth={1.5} /> Change Password</CardTitle>
+          <CardDescription>Use a strong, unique password to keep your account secure</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="current-pw">Current Password</Label>
+            <div className="relative">
+              <Input
+                id="current-pw"
+                type={showCur ? "text" : "password"}
+                value={currentPw}
+                onChange={(e) => setCurrentPw(e.target.value)}
+                placeholder="••••••••"
+                className="pr-9"
+              />
+              <button type="button" onClick={() => setShowCur((v) => !v)} className="absolute top-1/2 right-2.5 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                {showCur ? <EyeOff className="size-4" strokeWidth={1.5} /> : <Eye className="size-4" strokeWidth={1.5} />}
+              </button>
             </div>
-            {/* Confirm New Password */}
-            <div>
-              <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "12px" }}>Confirm New Password</label>
-              <div className="relative">
-                <input
-                  type={showConf ? "text" : "password"}
-                  value={confirmPw}
-                  onChange={(e) => setConfirmPw(e.target.value)}
-                  placeholder="Repeat new password"
-                  className={inputClass + " pr-10"}
-                  style={{ fontSize: "13px" }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConf((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {showConf ? <EyeOff className="w-4 h-4" strokeWidth={1.5} /> : <Eye className="w-4 h-4" strokeWidth={1.5} />}
-                </button>
-              </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="new-pw">New Password</Label>
+            <div className="relative">
+              <Input
+                id="new-pw"
+                type={showNew ? "text" : "password"}
+                value={newPw}
+                onChange={(e) => setNewPw(e.target.value)}
+                placeholder="Min. 8 characters"
+                className="pr-9"
+              />
+              <button type="button" onClick={() => setShowNew((v) => !v)} className="absolute top-1/2 right-2.5 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                {showNew ? <EyeOff className="size-4" strokeWidth={1.5} /> : <Eye className="size-4" strokeWidth={1.5} />}
+              </button>
             </div>
-            {/* Password rules note */}
-            <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
-              Password must be at least 8 characters, include an uppercase letter, a number, and a special character.
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="confirm-pw">Confirm New Password</Label>
+            <div className="relative">
+              <Input
+                id="confirm-pw"
+                type={showConf ? "text" : "password"}
+                value={confirmPw}
+                onChange={(e) => setConfirmPw(e.target.value)}
+                placeholder="Repeat new password"
+                className="pr-9"
+              />
+              <button type="button" onClick={() => setShowConf((v) => !v)} className="absolute top-1/2 right-2.5 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                {showConf ? <EyeOff className="size-4" strokeWidth={1.5} /> : <Eye className="size-4" strokeWidth={1.5} />}
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Must be at least 8 characters, include an uppercase letter, a number, and a special character.
             </p>
           </div>
-          <div className="flex justify-end mt-4 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
-            <button
-              onClick={handleUpdatePassword}
-              className="px-4 py-2 rounded-lg border border-border/60 text-foreground hover:bg-[#F8F7F5] transition-colors"
-              style={{ fontSize: "13px" }}
-            >
-              Update Password
-            </button>
-          </div>
-        </div>
-
-        {/* Save Changes */}
-        <div className="flex justify-end pb-6">
-          <button
-            onClick={handleSave}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white transition-colors"
-            style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
-          >
-            <Save className="w-4 h-4" strokeWidth={1.5} />
-            Save Changes
-          </button>
-        </div>
-      </div>
+        </CardContent>
+        <CardFooter className="justify-end border-t bg-transparent">
+          <Button variant="outline" onClick={handleUpdatePassword} disabled={isUpdatingPw}>
+            <ShieldCheck data-icon="inline-start" />
+            {isUpdatingPw ? "Updating…" : "Update Password"}
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   )
 }
