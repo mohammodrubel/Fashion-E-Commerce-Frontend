@@ -14,7 +14,7 @@ interface Testimonial {
 }
 
 const testimonials: Testimonial[] = [
-  { customer: "Olivia H.", rating: 5, quote: "Absolutely love my Floral Wrap Dress — the quality is exceptional and the colour is even better in person. Received so many compliments!", product: "Floral Wrap Midi Dress", date: "Oct 18, 2024", status: "Published", avatarColor: "#501D2A" },
+  { customer: "Olivia H.", rating: 5, quote: "Absolutely love my Floral Wrap Dress — the quality is exceptional and the colour is even better in person. Received so many compliments!", product: "Floral Wrap Midi Dress", date: "Oct 18, 2024", status: "Published", avatarColor: "var(--primary)" },
   { customer: "Priya N.", rating: 5, quote: "Fast shipping, beautiful packaging, and the silk blouse is stunning. Will definitely be back for more.", product: "Silk Cami Blouse", date: "Oct 15, 2024", status: "Published", avatarColor: "#7C3D52" },
   { customer: "Sophie L.", rating: 4, quote: "Great quality knitwear. Fits true to size and super soft. Only giving 4 stars because the sleeve was slightly longer than expected.", product: "Ribbed Knit Sweater", date: "Oct 12, 2024", status: "Published", avatarColor: "#1D4ED8" },
   { customer: "Aisha K.", rating: 5, quote: "The trench coat is worth every penny. Looks incredibly chic, great cut, and the lining feels luxurious. Love it.", product: "Classic Trench Coat", date: "Oct 10, 2024", status: "Published", avatarColor: "#166534" },
@@ -38,7 +38,7 @@ export default function TestimonialsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Testimonial
@@ -106,21 +106,21 @@ export default function TestimonialsPage() {
               </blockquote>
 
               {/* Product + Date */}
-              <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid #F0EDEF" }}>
+              <div className="mt-3 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--accent)" }}>
                 <div>
                   <span
                     className="inline-flex items-center rounded-full px-2 py-0.5 font-medium"
-                    style={{ fontSize: "10px", backgroundColor: "#FAF0F2", color: "#501D2A" }}
+                    style={{ fontSize: "10px", backgroundColor: "#FAF0F2", color: "var(--primary)" }}
                   >
                     {t.product}
                   </span>
                   <p className="text-muted-foreground mt-1" style={{ fontSize: "10px" }}>{t.date}</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                     <Eye className="w-3 h-3" strokeWidth={1.5} />
                   </button>
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                     <Pencil className="w-3 h-3" strokeWidth={1.5} />
                   </button>
                   <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

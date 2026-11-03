@@ -40,7 +40,7 @@ export default function InvoicesPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Invoice #", "Order #", "Customer", "Date", "Amount", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -56,8 +56,8 @@ export default function InvoicesPage() {
               {invoices.map((inv, i) => (
                 <tr
                   key={inv.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < invoices.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < invoices.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2">
@@ -72,7 +72,7 @@ export default function InvoicesPage() {
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                        style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                       >
                         {inv.avatar}
                       </div>
@@ -95,7 +95,7 @@ export default function InvoicesPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <button
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors font-medium whitespace-nowrap"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors font-medium whitespace-nowrap"
                       style={{ fontSize: "12px" }}
                     >
                       <Download className="w-3.5 h-3.5" strokeWidth={1.5} />

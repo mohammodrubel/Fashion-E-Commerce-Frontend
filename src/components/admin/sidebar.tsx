@@ -10,9 +10,10 @@ import {
   RefreshCcw, Truck, UserPlus, UserX, MapPin,
   History, TrendingDown, AlertTriangle, BarChart2, Boxes,
   DollarSign, CreditCard, Download, Store, User, Activity,
-  LogOut, X, Sparkles, Palette, Ruler, Grid3x3
+  LogOut, X, Palette, Ruler, Grid3x3, GalleryHorizontal
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Logo } from "@/components/shared/logo"
 
 interface SubItem {
   label: string
@@ -157,33 +158,16 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       )}
       <aside
         className={cn(
-          "fixed top-0 left-0 z-50 h-screen w-60 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto",
+          "fixed top-0 left-0 z-50 h-screen w-60 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto bg-sidebar border-r border-sidebar-border",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
-        style={{ backgroundColor: "#13100F" }}
       >
         {/* Logo */}
-        <div
-          className="flex items-center justify-between h-16 px-4 shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          <Link href="/admin" className="flex items-center gap-2.5">
-            <div
-              className="w-7 h-7 flex items-center justify-center rounded"
-              style={{ backgroundColor: "#501D2A" }}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
-            </div>
-            <span
-              className="text-white font-semibold"
-              style={{ fontSize: "14px", letterSpacing: "0.05em" }}
-            >
-              LumaStyle
-            </span>
-          </Link>
+        <div className="flex items-center justify-between h-16 px-4 shrink-0 border-b border-sidebar-border">
+          <Logo href="/admin" showTagline={false} />
           <button
             onClick={onClose}
-            className="lg:hidden text-white/40 hover:text-white/70 transition-colors"
+            className="lg:hidden text-muted-foreground hover:text-sidebar-foreground transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -198,14 +182,30 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <Link
             href="/admin"
             className={cn(
-              "flex items-center gap-2.5 px-3 py-2 rounded-lg mb-1 transition-all duration-150",
+              "font-body flex items-center gap-2.5 px-3 py-2 rounded-lg mb-1 transition-all duration-150",
               pathname === "/admin"
-                ? "text-white bg-[#501D2A]/50"
-                : "text-white/50 hover:text-white/80 hover:bg-white/5"
+                ? "text-primary-foreground bg-primary"
+                : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent"
             )}
+            style={{ fontSize: "13px", fontWeight: 500 }}
           >
             <LayoutDashboard className="w-4 h-4 shrink-0" strokeWidth={1.5} />
-            <span style={{ fontSize: "13px" }}>Dashboard</span>
+            <span>Dashboard</span>
+          </Link>
+
+          {/* Homepage Banner */}
+          <Link
+            href="/admin/content/hero-banners"
+            className={cn(
+              "font-body flex items-center gap-2.5 px-3 py-2 rounded-lg mb-1 transition-all duration-150",
+              pathname === "/admin/content/hero-banners"
+                ? "text-primary-foreground bg-primary"
+                : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent"
+            )}
+            style={{ fontSize: "13px", fontWeight: 500 }}
+          >
+            <GalleryHorizontal className="w-4 h-4 shrink-0" strokeWidth={1.5} />
+            <span>Homepage Banner</span>
           </Link>
 
           {/* Sections */}
@@ -218,16 +218,18 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               return (
                 <div key={section.id}>
                   <button
+                    type="button"
                     onClick={() => toggleSection(section.id)}
                     className={cn(
-                      "w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all duration-150 text-left",
+                      "font-body w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all duration-150 text-left cursor-pointer",
                       hasActiveChild || isExpanded
-                        ? "text-white/90 bg-white/[0.04]"
-                        : "text-white/50 hover:text-white/75"
+                        ? "text-sidebar-foreground bg-sidebar-accent"
+                        : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/60"
                     )}
+                    style={{ fontSize: "13px", fontWeight: 500 }}
                   >
                     <Icon className="w-4 h-4 shrink-0" strokeWidth={1.5} />
-                    <span style={{ fontSize: "13px" }}>{section.label}</span>
+                    <span>{section.label}</span>
                     <ChevronDown
                       className={cn(
                         "ml-auto w-3.5 h-3.5 shrink-0 transition-transform duration-200",
@@ -238,10 +240,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   </button>
 
                   {isExpanded && section.children && (
-                    <div
-                      className="mt-0.5 ml-3 pl-3 space-y-0.5"
-                      style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
-                    >
+                    <div className="mt-0.5 ml-3 pl-3 space-y-0.5 border-l border-sidebar-border">
                       {section.children.map((child) => {
                         const active = isActive(child.href)
                         const ChildIcon = child.icon
@@ -250,16 +249,17 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                             key={child.href}
                             href={child.href}
                             className={cn(
-                              "flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-all duration-150",
+                              "font-body flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-all duration-150",
                               active
-                                ? "text-white bg-[#501D2A]/50"
-                                : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                                ? "text-primary-foreground bg-primary"
+                                : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/60"
                             )}
+                            style={{ fontSize: "12px" }}
                           >
                             {ChildIcon && (
                               <ChildIcon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
                             )}
-                            <span style={{ fontSize: "12px" }}>{child.label}</span>
+                            <span>{child.label}</span>
                           </Link>
                         )
                       })}
@@ -272,26 +272,23 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* User */}
-        <div
-          className="shrink-0 px-3 py-4"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-        >
+        <div className="shrink-0 px-3 py-4 border-t border-sidebar-border">
           <div className="flex items-center gap-2.5 px-2">
             <div
-              className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-              style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+              className="w-7 h-7 rounded-full flex items-center justify-center bg-primary text-primary-foreground shrink-0"
+              style={{ fontSize: "11px", fontWeight: 600 }}
             >
               A
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-white font-medium truncate" style={{ fontSize: "12px" }}>
+              <p className="font-body text-sidebar-foreground font-medium truncate" style={{ fontSize: "12px" }}>
                 Admin User
               </p>
-              <p className="text-white/40 truncate" style={{ fontSize: "10px" }}>
+              <p className="font-ui text-muted-foreground truncate" style={{ fontSize: "10px", letterSpacing: "0.05em" }}>
                 ADMIN
               </p>
             </div>
-            <button className="text-white/30 hover:text-white/60 transition-colors shrink-0">
+            <button className="text-muted-foreground hover:text-sidebar-foreground transition-colors shrink-0">
               <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
           </div>

@@ -14,7 +14,7 @@ interface PromoBanner {
 }
 
 const banners: PromoBanner[] = [
-  { id: 1, title: "Free Shipping", subtitle: "On all orders over $50 — no code needed", ctaText: "Shop Now", placement: "Homepage Strip", status: "Active", bg: "#501D2A", textColor: "#FAF0F2", accentColor: "#C4849A" },
+  { id: 1, title: "Free Shipping", subtitle: "On all orders over $50 — no code needed", ctaText: "Shop Now", placement: "Homepage Strip", status: "Active", bg: "var(--primary)", textColor: "#FAF0F2", accentColor: "#C4849A" },
   { id: 2, title: "New Season Dresses", subtitle: "Spring into summer style", ctaText: "Explore", placement: "Category Page", status: "Active", bg: "#7C3D52", textColor: "#FAF0F2", accentColor: "#F9A8C9" },
   { id: 3, title: "Members Get 15% Off", subtitle: "Sign up and save on your first order", ctaText: "Join Free", placement: "Sidebar", status: "Active", bg: "#1F2937", textColor: "#F9FAFB", accentColor: "#9CA3AF" },
   { id: 4, title: "Refer & Earn $20", subtitle: "Share your unique link and both earn a reward", ctaText: "Refer a Friend", placement: "Product Page", status: "Active", bg: "#166534", textColor: "#F0FDF4", accentColor: "#86EFAC" },
@@ -32,7 +32,7 @@ export default function PromoBannersPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Banner
@@ -95,7 +95,7 @@ export default function PromoBannersPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                     <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </button>
                   <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -103,7 +103,7 @@ export default function PromoBannersPage() {
                   </button>
                   <button
                     className="relative inline-flex items-center rounded-full ml-1"
-                    style={{ width: "32px", height: "18px", backgroundColor: banner.status === "Active" ? "#501D2A" : "#D1D5DB" }}
+                    style={{ width: "32px", height: "18px", backgroundColor: banner.status === "Active" ? "var(--primary)" : "#D1D5DB" }}
                   >
                     <span
                       className="inline-block w-3.5 h-3.5 rounded-full bg-white shadow-sm"
@@ -119,7 +119,7 @@ export default function PromoBannersPage() {
         {/* Add new */}
         <button className="rounded-xl border border-dashed border-border hover:border-primary/40 hover:bg-[#FAF0F2] transition-colors flex flex-col items-center justify-center gap-3 min-h-[180px] group">
           <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: "#FAF0F2" }}>
-            <Plus className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <Plus className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <p className="text-muted-foreground group-hover:text-foreground transition-colors font-medium" style={{ fontSize: "12px" }}>Add Banner</p>
         </button>

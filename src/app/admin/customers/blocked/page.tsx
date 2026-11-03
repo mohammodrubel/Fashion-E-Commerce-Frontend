@@ -66,7 +66,7 @@ export default function BlockedCustomersPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <ShieldOff className="w-4 h-4" style={{ color: "#DC2626" }} strokeWidth={1.5} />
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
             Blocked Accounts {isLoading ? "" : `(${meta.total ?? 0})`}
@@ -78,7 +78,7 @@ export default function BlockedCustomersPage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search blocked customers..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -94,7 +94,7 @@ export default function BlockedCustomersPage() {
         )}
 
         {isLoading && (
-          <div className="divide-y" style={{ borderColor: "#F0EDEF" }}>
+          <div className="divide-y" style={{ borderColor: "var(--accent)" }}>
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="flex items-center gap-4 px-5 py-5">
                 <Skeleton className="size-10 shrink-0 rounded-full" />
@@ -108,11 +108,11 @@ export default function BlockedCustomersPage() {
           </div>
         )}
 
-        <div className="divide-y" style={{ borderColor: "#F0EDEF" }}>
+        <div className="divide-y" style={{ borderColor: "var(--accent)" }}>
           {blocked.map((c: any) => {
             const initials = (c.name || "?").split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()
             return (
-              <div key={c.id} className="px-5 py-5 hover:bg-[#F8F7F5] transition-colors">
+              <div key={c.id} className="px-5 py-5 hover:bg-[var(--muted)] transition-colors">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <div className="flex items-center gap-3 flex-1">
                     <div className="relative shrink-0">
@@ -155,13 +155,13 @@ export default function BlockedCustomersPage() {
         </div>
 
         {meta.totalPage > 1 && (
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
             <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Page {meta.page} of {meta.totalPage}</p>
             <div className="flex items-center gap-1">
-              <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={(meta.page ?? 1) <= 1} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors">
+              <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={(meta.page ?? 1) <= 1} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors">
                 <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
               </button>
-              <button onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))} disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors">
+              <button onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))} disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)} className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors">
                 <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>

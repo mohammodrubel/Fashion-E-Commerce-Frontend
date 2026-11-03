@@ -62,7 +62,7 @@ export default function FAQPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Question
@@ -76,13 +76,13 @@ export default function FAQPage() {
           return (
             <div key={category} className="bg-white rounded-xl border border-border/50 overflow-hidden">
               {/* Category header */}
-              <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF", backgroundColor: "#FDFCFB" }}>
+              <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)", backgroundColor: "#FDFCFB" }}>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-5 rounded-full" style={{ backgroundColor: "#501D2A" }} />
+                  <div className="w-2 h-5 rounded-full" style={{ backgroundColor: "var(--primary)" }} />
                   <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{category}</p>
                   <span
                     className="rounded-full px-2 py-0.5 font-medium"
-                    style={{ fontSize: "11px", backgroundColor: "#FAF0F2", color: "#501D2A" }}
+                    style={{ fontSize: "11px", backgroundColor: "#FAF0F2", color: "var(--primary)" }}
                   >
                     {categoryFaqs.length} questions
                   </span>
@@ -97,16 +97,16 @@ export default function FAQPage() {
               </div>
 
               {/* FAQ Items */}
-              <div className="divide-y divide-[#F0EDEF]">
+              <div className="divide-y divide-[var(--accent)]">
                 {categoryFaqs.map((faq, idx) => (
                   <div key={idx} className="group">
                     {/* Question header */}
-                    <div className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#F8F7F5] transition-colors">
+                    <div className="flex items-center gap-3 px-5 py-3.5 hover:bg-[var(--muted)] transition-colors">
                       <GripVertical className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground cursor-grab shrink-0" strokeWidth={1.5} />
                       <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" strokeWidth={1.5} />
                       <p className="flex-1 font-medium text-foreground" style={{ fontSize: "13px" }}>{faq.question}</p>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                         <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

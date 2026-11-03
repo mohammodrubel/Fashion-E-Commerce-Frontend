@@ -59,14 +59,14 @@ const statusStyles: Record<string, string> = {
 }
 
 const quickActions = [
-  { label: "Add New Product", icon: Plus, href: "/admin/products/new", color: "#501D2A" },
+  { label: "Add New Product", icon: Plus, href: "/admin/products/new", color: "#202127" },
   { label: "Create Order", icon: ShoppingCart, href: "/admin/orders/new", color: "#2D5A8E" },
   { label: "Add Customer", icon: UserPlus, href: "/admin/customers/new", color: "#2D6B4F" },
   { label: "View Reports", icon: BarChart3, href: "/admin/reports", color: "#6B4F2D" },
 ]
 
 const recentActivity = [
-  { text: "New order #4521 placed", sub: "Sarah Johnson · $124.00", time: "2 min ago", icon: ShoppingCart, color: "#501D2A" },
+  { text: "New order #4521 placed", sub: "Sarah Johnson · $124.00", time: "2 min ago", icon: ShoppingCart, color: "#202127" },
   { text: "Product restocked", sub: "Classic White Tee · 50 units", time: "18 min ago", icon: Package, color: "#2D5A8E" },
   { text: "New customer registered", sub: "emma.w@email.com", time: "1 hr ago", icon: Users, color: "#2D6B4F" },
   { text: "Order #4515 delivered", sub: "James Brown · $67.50", time: "3 hr ago", icon: CheckCircle, color: "#6B4F2D" },
@@ -74,9 +74,9 @@ const recentActivity = [
 ]
 
 const categories = [
-  { name: "Women's Clothing", pct: 42, color: "#501D2A" },
-  { name: "Men's Clothing", pct: 28, color: "#794554" },
-  { name: "Accessories", pct: 18, color: "#9C7A83" },
+  { name: "Women's Clothing", pct: 42, color: "var(--primary)" },
+  { name: "Men's Clothing", pct: 28, color: "#A5ABC0" },
+  { name: "Accessories", pct: 18, color: "#C2C7D7" },
   { name: "Footwear", pct: 12, color: "#B8A4AA" },
 ]
 
@@ -110,7 +110,7 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-semibold text-foreground" style={{ fontSize: "22px" }}>
+          <h1 className="text-admin-page-heading text-foreground">
             Dashboard
           </h1>
           <p className="text-muted-foreground mt-0.5" style={{ fontSize: "13px" }}>
@@ -142,9 +142,9 @@ export default function AdminDashboard() {
                     </span>
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: "#F0EDEF" }}
+                      style={{ backgroundColor: "var(--accent)" }}
                     >
-                      <Icon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                      <Icon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                     </div>
                   </div>
                   <div className="text-foreground font-semibold" style={{ fontSize: "22px" }}>
@@ -197,12 +197,12 @@ export default function AdminDashboard() {
                 >
                   <defs>
                     <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#501D2A" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#501D2A" stopOpacity="0" />
+                      <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   <path d={area} fill="url(#areaGrad)" />
-                  <path d={line} fill="none" stroke="#501D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d={line} fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   {/* Month labels */}
                   {months.map((m, i) => (
                     <text
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
                       y={H + 16}
                       textAnchor="middle"
                       fontSize="9"
-                      fill="#9C7A83"
+                      fill="#C2C7D7"
                     >
                       {m}
                     </text>
@@ -273,7 +273,7 @@ export default function AdminDashboard() {
 
           {/* Recent Orders */}
           <div className="bg-white rounded-xl border border-border/50">
-            <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+            <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
               <h3 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Recent Orders</h3>
               <Link
                 href="/admin/orders"
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+                  <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                     {["Order", "Customer", "Items", "Total", "Status"].map((h) => (
                       <th
                         key={h}
@@ -302,8 +302,8 @@ export default function AdminDashboard() {
                   {recentOrders.map((order, i) => (
                     <tr
                       key={order.id}
-                      className="hover:bg-[#F8F7F5] transition-colors"
-                      style={{ borderBottom: i < recentOrders.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                      className="hover:bg-[var(--muted)] transition-colors"
+                      style={{ borderBottom: i < recentOrders.length - 1 ? "1px solid var(--accent)" : "none" }}
                     >
                       <td className="px-5 py-3">
                         <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.id}</span>
@@ -312,7 +312,7 @@ export default function AdminDashboard() {
                         <div className="flex items-center gap-2.5">
                           <div
                             className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-                            style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                            style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                           >
                             {order.avatar}
                           </div>
@@ -387,7 +387,7 @@ export default function AdminDashboard() {
                   <Link
                     key={action.label}
                     href={action.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F8F7F5] transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-[var(--muted)] transition-colors group"
                   >
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"

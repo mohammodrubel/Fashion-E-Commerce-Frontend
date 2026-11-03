@@ -38,9 +38,9 @@ export default function GoodsReceivingPage() {
 
       {/* Receiving Form */}
       <div className="bg-white rounded-xl border border-border/50 p-5">
-        <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "14px" }}>
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-            <PackageCheck className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+        <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "14px" }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+            <PackageCheck className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Receive Goods</h2>
         </div>
@@ -49,7 +49,7 @@ export default function GoodsReceivingPage() {
           <div>
             <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "13px" }}>Purchase Order <span className="text-red-500">*</span></label>
             <div className="relative">
-              <select className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 appearance-none" style={{ fontSize: "13px" }}>
+              <select className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 appearance-none" style={{ fontSize: "13px" }}>
                 <option>Select PO...</option>
                 <option>PO-2042 — FabricHouse EU ($6,250)</option>
                 <option>PO-2043 — Nordic Knits Ltd. ($2,100)</option>
@@ -61,17 +61,17 @@ export default function GoodsReceivingPage() {
           </div>
           <div>
             <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "13px" }}>Received Date <span className="text-red-500">*</span></label>
-            <input type="date" className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} defaultValue="2026-10-24" />
+            <input type="date" className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} defaultValue="2026-10-24" />
           </div>
           <div>
             <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "13px" }}>Received By</label>
-            <input type="text" placeholder="Staff name..." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
+            <input type="text" placeholder="Staff name..." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
           </div>
         </div>
 
         {/* Line Items */}
         <div className="rounded-lg border border-border/60 overflow-hidden mb-4">
-          <div className="grid grid-cols-4 gap-0 px-4 py-2.5 font-medium text-muted-foreground" style={{ backgroundColor: "#F8F7F5", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
+          <div className="grid grid-cols-4 gap-0 px-4 py-2.5 font-medium text-muted-foreground" style={{ backgroundColor: "var(--muted)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
             <span>Product / SKU</span>
             <span>Ordered</span>
             <span>Received Qty</span>
@@ -85,7 +85,7 @@ export default function GoodsReceivingPage() {
             <div
               key={item.sku}
               className="grid grid-cols-4 gap-0 px-4 py-3 items-center"
-              style={{ borderTop: i > 0 ? "1px solid #F0EDEF" : "none" }}
+              style={{ borderTop: i > 0 ? "1px solid var(--accent)" : "none" }}
             >
               <div>
                 <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{item.product}</p>
@@ -108,7 +108,7 @@ export default function GoodsReceivingPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block font-medium text-foreground mb-1.5" style={{ fontSize: "13px" }}>Notes / Discrepancy Details</label>
-            <textarea rows={2} placeholder="Note any missing items, damage, or extras..." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 resize-none" style={{ fontSize: "13px" }} />
+            <textarea rows={2} placeholder="Note any missing items, damage, or extras..." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 resize-none" style={{ fontSize: "13px" }} />
           </div>
         </div>
 
@@ -121,13 +121,13 @@ export default function GoodsReceivingPage() {
 
       {/* Recent Receipts Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Recent Goods Receipts</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Date", "PO #", "Supplier", "Received", "Ordered", "Discrepancy", "Notes", "By"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -138,7 +138,7 @@ export default function GoodsReceivingPage() {
                 const cfg = discrepancyConfig[r.discrepancy]
                 const DiscIcon = cfg.icon
                 return (
-                  <tr key={i} className="hover:bg-[#F8F7F5] transition-colors" style={{ borderBottom: i < receipts.length - 1 ? "1px solid #F0EDEF" : "none" }}>
+                  <tr key={i} className="hover:bg-[var(--muted)] transition-colors" style={{ borderBottom: i < receipts.length - 1 ? "1px solid var(--accent)" : "none" }}>
                     <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{r.date}</td>
                     <td className="px-5 py-3 font-mono font-medium text-foreground" style={{ fontSize: "13px" }}>{r.po}</td>
                     <td className="px-5 py-3 text-foreground" style={{ fontSize: "13px" }}>{r.supplier}</td>

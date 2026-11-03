@@ -1,162 +1,355 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { PageHeader } from "@/components/admin/page-header"
-import { Plus, Pencil, Trash2, Eye, ExternalLink } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { Plus, Pencil, Trash2, Upload, ImageIcon, Loader2 } from "lucide-react"
+import { toast } from "sonner"
+import {
+  useGetAllBannersQuery,
+  useCreateBannerMutation,
+  useUpdateBannerMutation,
+  useDeleteBannerMutation,
+} from "@/redux/fetchers/banner/bannerApi"
 
 interface HeroBanner {
-  id: number
-  title: string
-  subtitle: string
-  ctaText: string
-  link: string
-  status: "Active" | "Inactive"
-  colorBg: string
-  colorText: string
-  priority: number
+  id: string
+  desktopImage: string
+  mobileImage?: string | null
+  collectionLabel?: string | null
+  heading: string
+  seasonYear?: string | null
+  discoverText?: string | null
+  backgroundColor?: string | null
+  isActive: boolean
 }
 
-const banners: HeroBanner[] = [
-  { id: 1, title: "Autumn Collection 2024", subtitle: "New arrivals — effortlessly styled for the season", ctaText: "Shop Now", link: "/collections/autumn-2024", status: "Active", colorBg: "#501D2A", colorText: "#FAF0F2", priority: 1 },
-  { id: 2, title: "Up to 30% Off Knitwear", subtitle: "Cosy layers at unbeatable prices, this weekend only", ctaText: "Shop the Sale", link: "/sale/knitwear", status: "Active", colorBg: "#1F2937", colorText: "#F9FAFB", priority: 2 },
-  { id: 3, title: "New: The Velvet Edit", subtitle: "Luxurious velvet pieces for your winter wardrobe", ctaText: "Explore", link: "/collections/velvet", status: "Inactive", colorBg: "#3B1F5E", colorText: "#FAF0F2", priority: 3 },
-  { id: 4, title: "Free Shipping over $50", subtitle: "On all orders — no code needed", ctaText: "Start Shopping", link: "/", status: "Inactive", colorBg: "#166534", colorText: "#F0FDF4", priority: 4 },
-]
+const emptyForm = {
+  collectionLabel: "",
+  heading: "",
+  seasonYear: "",
+  discoverText: "",
+  backgroundColor: "#F2F0F2",
+  isActive: false,
+}
 
 export default function HeroBannersPage() {
+  const { data, isLoading } = useGetAllBannersQuery(undefined)
+  const [createBanner, { isLoading: creating }] = useCreateBannerMutation()
+  const [updateBanner, { isLoading: updating }] = useUpdateBannerMutation()
+  const [deleteBanner] = useDeleteBannerMutation()
+
+  const banners: HeroBanner[] = data?.data ?? []
+
+  const [open, setOpen] = useState(false)
+  const [editing, setEditing] = useState<HeroBanner | null>(null)
+  const [form, setForm] = useState(emptyForm)
+  const [desktopFile, setDesktopFile] = useState<File | null>(null)
+  const [mobileFile, setMobileFile] = useState<File | null>(null)
+  const [desktopPreview, setDesktopPreview] = useState<string>("")
+  const [mobilePreview, setMobilePreview] = useState<string>("")
+  const desktopInputRef = useRef<HTMLInputElement>(null)
+  const mobileInputRef = useRef<HTMLInputElement>(null)
+
+  const saving = creating || updating
+
+  function openCreate() {
+    setEditing(null)
+    setForm(emptyForm)
+    setDesktopFile(null)
+    setMobileFile(null)
+    setDesktopPreview("")
+    setMobilePreview("")
+    setOpen(true)
+  }
+
+  function openEdit(banner: HeroBanner) {
+    setEditing(banner)
+    setForm({
+      collectionLabel: banner.collectionLabel ?? "",
+      heading: banner.heading,
+      seasonYear: banner.seasonYear ?? "",
+      discoverText: banner.discoverText ?? "",
+      backgroundColor: banner.backgroundColor ?? "#F2F0F2",
+      isActive: banner.isActive,
+    })
+    setDesktopFile(null)
+    setMobileFile(null)
+    setDesktopPreview(banner.desktopImage)
+    setMobilePreview(banner.mobileImage ?? "")
+    setOpen(true)
+  }
+
+  useEffect(() => {
+    if (!desktopFile) return
+    const url = URL.createObjectURL(desktopFile)
+    setDesktopPreview(url)
+    return () => URL.revokeObjectURL(url)
+  }, [desktopFile])
+
+  useEffect(() => {
+    if (!mobileFile) return
+    const url = URL.createObjectURL(mobileFile)
+    setMobilePreview(url)
+    return () => URL.revokeObjectURL(url)
+  }, [mobileFile])
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+
+    if (!editing && !desktopFile) {
+      toast.error("Desktop banner image is required.")
+      return
+    }
+    if (!form.heading.trim()) {
+      toast.error("Main heading is required.")
+      return
+    }
+
+    const fd = new FormData()
+    fd.append("heading", form.heading)
+    if (form.collectionLabel) fd.append("collectionLabel", form.collectionLabel)
+    if (form.seasonYear) fd.append("seasonYear", form.seasonYear)
+    if (form.discoverText) fd.append("discoverText", form.discoverText)
+    if (form.backgroundColor) fd.append("backgroundColor", form.backgroundColor)
+    fd.append("isActive", String(form.isActive))
+    if (desktopFile) fd.append("desktopImage", desktopFile)
+    if (mobileFile) fd.append("mobileImage", mobileFile)
+
+    try {
+      if (editing) {
+        await updateBanner({ id: editing.id, data: fd }).unwrap()
+        toast.success("Banner updated.")
+      } else {
+        await createBanner(fd).unwrap()
+        toast.success("Banner created.")
+      }
+      setOpen(false)
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to save banner.")
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this banner? This cannot be undone.")) return
+    try {
+      await deleteBanner(id).unwrap()
+      toast.success("Banner deleted.")
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to delete banner.")
+    }
+  }
+
+  async function handleToggleActive(banner: HeroBanner) {
+    const fd = new FormData()
+    fd.append("isActive", String(!banner.isActive))
+    try {
+      await updateBanner({ id: banner.id, data: fd }).unwrap()
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update banner.")
+    }
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader
         title="Hero Banners"
-        description="Manage homepage hero banner slides"
+        description="Manage the homepage hero banner"
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Content" }, { label: "Hero Banners" }]}
         actions={
-          <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
-          >
+          <Button onClick={openCreate} className="btn-label">
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Banner
-          </button>
+          </Button>
         }
       />
 
-      {/* Banner Preview Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {banners.map((banner) => (
-          <div
-            key={banner.id}
-            className="rounded-xl overflow-hidden border border-border/50"
-            style={{ opacity: banner.status === "Inactive" ? 0.6 : 1 }}
-          >
-            {/* Banner visual */}
-            <div className="relative h-28 flex flex-col justify-center px-6" style={{ backgroundColor: banner.colorBg }}>
-              <div
-                className="absolute top-2 right-2 rounded-full px-2 py-0.5 font-medium"
-                style={{
-                  fontSize: "10px",
-                  backgroundColor: banner.status === "Active" ? "rgba(34,197,94,0.2)" : "rgba(255,255,255,0.15)",
-                  color: banner.status === "Active" ? "#86EFAC" : "rgba(255,255,255,0.6)"
-                }}
-              >
-                {banner.status}
-              </div>
-              <div className="absolute top-2 left-2 rounded-full w-6 h-6 flex items-center justify-center text-white font-bold" style={{ backgroundColor: "rgba(255,255,255,0.2)", fontSize: "11px" }}>
-                {banner.priority}
-              </div>
-              <p className="font-bold" style={{ color: banner.colorText, fontSize: "15px" }}>{banner.title}</p>
-              <p style={{ color: banner.colorText, fontSize: "11px", opacity: 0.8 }}>{banner.subtitle}</p>
-              <div className="mt-2 inline-flex">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: "rgba(255,255,255,0.2)", color: banner.colorText }}>
-                  {banner.ctaText} →
+      {isLoading ? (
+        <div className="text-muted-foreground text-sm">Loading banners…</div>
+      ) : banners.length === 0 ? (
+        <div className="bg-card rounded-xl border border-border p-12 flex flex-col items-center justify-center text-center">
+          <ImageIcon className="w-8 h-8 text-muted-foreground mb-3" strokeWidth={1.5} />
+          <p className="font-body font-medium text-foreground" style={{ fontSize: "14px" }}>No banners yet</p>
+          <p className="text-muted-foreground mt-1" style={{ fontSize: "12px" }}>Create your first hero banner for the homepage.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {banners.map((banner) => (
+            <div
+              key={banner.id}
+              className="rounded-xl overflow-hidden border border-border bg-card"
+              style={{ opacity: banner.isActive ? 1 : 0.65 }}
+            >
+              <div className="relative h-36 flex" style={{ backgroundColor: banner.backgroundColor || "#F2F0F2" }}>
+                <div className="relative w-1/2 h-full shrink-0">
+                  <Image src={banner.desktopImage} alt={banner.heading} fill className="object-cover" />
+                </div>
+                <div className="flex-1 flex flex-col justify-center px-4 min-w-0">
+                  {banner.collectionLabel && (
+                    <span className="text-hero-collection-label truncate" style={{ fontSize: "8px", letterSpacing: "0.3em" }}>
+                      {banner.collectionLabel}
+                    </span>
+                  )}
+                  <p className="font-editorial font-semibold truncate" style={{ fontSize: "20px" }}>{banner.heading}</p>
+                  {banner.discoverText && (
+                    <span className="font-editorial font-semibold mt-1 inline-block w-fit border-b border-foreground/50" style={{ fontSize: "11px" }}>
+                      {banner.discoverText}
+                    </span>
+                  )}
+                </div>
+                <span
+                  className="absolute top-2 right-2 rounded-full px-2 py-0.5 font-ui font-medium"
+                  style={{
+                    fontSize: "9px",
+                    backgroundColor: banner.isActive ? "rgba(34,197,94,0.15)" : "rgba(0,0,0,0.08)",
+                    color: banner.isActive ? "#166534" : "#6B7280",
+                  }}
+                >
+                  {banner.isActive ? "Active" : "Inactive"}
                 </span>
               </div>
+
+              <div className="p-3 flex items-center justify-between">
+                <span className="font-ui text-muted-foreground" style={{ fontSize: "11px" }}>
+                  {banner.seasonYear || "—"}
+                </span>
+                <div className="flex items-center gap-1">
+                  <Switch checked={banner.isActive} onCheckedChange={() => handleToggleActive(banner)} />
+                  <button onClick={() => openEdit(banner)} className="p-1.5 rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground">
+                    <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  </button>
+                  <button onClick={() => handleDelete(banner.id)} className="p-1.5 rounded-lg hover:bg-destructive/10 transition-colors text-muted-foreground hover:text-destructive">
+                    <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editing ? "Edit Banner" : "Add Banner"}</DialogTitle>
+            <DialogDescription>Only the fields below are shown on the homepage hero.</DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Live preview */}
+            <div className="rounded-lg overflow-hidden border border-border flex h-28">
+              <div className="relative w-1/2 h-full bg-muted shrink-0">
+                {desktopPreview ? (
+                  <Image src={desktopPreview} alt="Desktop preview" fill className="object-cover" unoptimized />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <ImageIcon className="w-5 h-5" strokeWidth={1.5} />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 flex flex-col justify-center px-4 min-w-0" style={{ backgroundColor: form.backgroundColor || "#F2F0F2" }}>
+                {form.collectionLabel && (
+                  <span className="text-hero-collection-label truncate" style={{ fontSize: "8px", letterSpacing: "0.3em" }}>{form.collectionLabel}</span>
+                )}
+                <p className="font-editorial font-semibold truncate" style={{ fontSize: "20px" }}>{form.heading || "Heading"}</p>
+                {form.discoverText && (
+                  <span className="font-editorial font-semibold mt-1 inline-block w-fit border-b border-foreground/50" style={{ fontSize: "11px" }}>{form.discoverText}</span>
+                )}
+              </div>
             </div>
 
-            {/* Banner meta */}
-            <div className="bg-white p-3 flex items-center justify-between">
-              <div className="flex items-center gap-2 min-w-0 flex-1">
-                <ExternalLink className="w-3.5 h-3.5 text-muted-foreground shrink-0" strokeWidth={1.5} />
-                <span className="text-muted-foreground truncate" style={{ fontSize: "11px" }}>{banner.link}</span>
-              </div>
-              <div className="flex items-center gap-1 ml-2 shrink-0">
-                <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                  <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
-                </button>
-                <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
-                  <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
-                </button>
-                <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
-                  <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
-                </button>
-                {/* Toggle */}
+            {/* Images */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="form-label-text">
+                  Desktop Image {!editing && "*"}
+                  <span className="text-muted-foreground/70 normal-case font-normal" style={{ fontSize: "10px" }}>(1200 × 1100px)</span>
+                </Label>
+                <input ref={desktopInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => setDesktopFile(e.target.files?.[0] ?? null)} />
                 <button
-                  className="relative inline-flex items-center rounded-full ml-1"
-                  style={{ width: "32px", height: "18px", backgroundColor: banner.status === "Active" ? "#501D2A" : "#D1D5DB" }}
+                  type="button"
+                  onClick={() => desktopInputRef.current?.click()}
+                  className="w-full h-20 rounded-lg border border-dashed border-border flex flex-col items-center justify-center gap-1 text-muted-foreground hover:border-ring transition-colors"
                 >
-                  <span
-                    className="inline-block w-3.5 h-3.5 rounded-full bg-white shadow-sm transform"
-                    style={{ transform: banner.status === "Active" ? "translateX(16px)" : "translateX(1px)" }}
-                  />
+                  <Upload className="w-4 h-4" strokeWidth={1.5} />
+                  <span style={{ fontSize: "11px" }}>{desktopFile ? desktopFile.name : "Upload image"}</span>
+                </button>
+              </div>
+              <div className="space-y-1.5">
+                <Label className="form-label-text">
+                  Mobile Image
+                  <span className="text-muted-foreground/70 normal-case font-normal" style={{ fontSize: "10px" }}>(1000 × 1500px)</span>
+                </Label>
+                <input ref={mobileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => setMobileFile(e.target.files?.[0] ?? null)} />
+                <button
+                  type="button"
+                  onClick={() => mobileInputRef.current?.click()}
+                  className="w-full h-20 rounded-lg border border-dashed border-border flex flex-col items-center justify-center gap-1 text-muted-foreground hover:border-ring transition-colors"
+                >
+                  <Upload className="w-4 h-4" strokeWidth={1.5} />
+                  <span style={{ fontSize: "11px" }}>{mobileFile ? mobileFile.name : "Upload image"}</span>
                 </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Table view */}
-      <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
-          <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>All Banners</p>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
-                {["#", "Title", "Subtitle", "CTA Text", "Link", "Status", "Actions"].map((h) => (
-                  <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {banners.map((banner, i) => (
-                <tr
-                  key={banner.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < banners.length - 1 ? "1px solid #F0EDEF" : "none" }}
-                >
-                  <td className="px-5 py-3.5">
-                    <div className="w-6 h-6 rounded flex items-center justify-center text-white font-bold" style={{ backgroundColor: banner.colorBg, fontSize: "11px" }}>
-                      {banner.priority}
-                    </div>
-                  </td>
-                  <td className="px-5 py-3.5"><p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{banner.title}</p></td>
-                  <td className="px-5 py-3.5 max-w-xs"><p className="text-muted-foreground truncate" style={{ fontSize: "12px" }}>{banner.subtitle}</p></td>
-                  <td className="px-5 py-3.5"><span className="text-foreground" style={{ fontSize: "13px" }}>{banner.ctaText}</span></td>
-                  <td className="px-5 py-3.5"><span className="text-muted-foreground font-mono" style={{ fontSize: "12px" }}>{banner.link}</span></td>
-                  <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-2">
-                      <button
-                        className="relative inline-flex items-center rounded-full"
-                        style={{ width: "32px", height: "18px", backgroundColor: banner.status === "Active" ? "#501D2A" : "#D1D5DB" }}
-                      >
-                        <span className="inline-block w-3.5 h-3.5 rounded-full bg-white shadow-sm" style={{ transform: banner.status === "Active" ? "translateX(16px)" : "translateX(1px)" }} />
-                      </button>
-                      <span style={{ fontSize: "12px", color: banner.status === "Active" ? "#166534" : "#6B7280" }}>{banner.status}</span>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"><Pencil className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
-                      <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600"><Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            {/* Text fields */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="form-label-text">Collection Label</Label>
+                <Input className="text-field-value" placeholder="COLLECTION" value={form.collectionLabel} onChange={(e) => setForm({ ...form, collectionLabel: e.target.value })} />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="form-label-text">Season / Year</Label>
+                <Input className="text-field-value" placeholder="16-17" value={form.seasonYear} onChange={(e) => setForm({ ...form, seasonYear: e.target.value })} />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="form-label-text">Main Heading *</Label>
+                <Input className="text-field-value" placeholder="Fall Winter" value={form.heading} onChange={(e) => setForm({ ...form, heading: e.target.value })} required />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="form-label-text">Discover Text</Label>
+                <Input className="text-field-value" placeholder="Discover" value={form.discoverText} onChange={(e) => setForm({ ...form, discoverText: e.target.value })} />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="form-label-text">Right Side Background Color</Label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    value={form.backgroundColor}
+                    onChange={(e) => setForm({ ...form, backgroundColor: e.target.value })}
+                    className="w-8 h-8 rounded border border-border cursor-pointer"
+                  />
+                  <Input className="text-field-value" value={form.backgroundColor} onChange={(e) => setForm({ ...form, backgroundColor: e.target.value })} />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 pt-6">
+                <Switch checked={form.isActive} onCheckedChange={(checked) => setForm({ ...form, isActive: checked })} />
+                <Label className="form-label-text">Set as active banner</Label>
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" className="btn-label" onClick={() => setOpen(false)}>Cancel</Button>
+              <Button type="submit" disabled={saving} className="btn-label">
+                {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                {editing ? "Save Changes" : "Create Banner"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

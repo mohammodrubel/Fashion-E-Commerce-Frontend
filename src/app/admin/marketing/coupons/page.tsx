@@ -41,7 +41,7 @@ export default function CouponsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Create Coupon
@@ -67,13 +67,13 @@ export default function CouponsPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
               placeholder="Search coupons..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -88,7 +88,7 @@ export default function CouponsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Code", "Type", "Discount", "Min Order", "Usage / Limit", "Expiry", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -107,18 +107,18 @@ export default function CouponsPage() {
                 return (
                   <tr
                     key={c.code}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < coupons.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < coupons.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2">
                         <code
                           className="font-mono font-semibold tracking-wider px-2 py-0.5 rounded"
-                          style={{ fontSize: "12px", backgroundColor: "#F8F7F5", color: "#501D2A", border: "1px dashed #C4849A" }}
+                          style={{ fontSize: "12px", backgroundColor: "var(--muted)", color: "var(--primary)", border: "1px dashed #C4849A" }}
                         >
                           {c.code}
                         </code>
-                        <button className="p-1 rounded hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1 rounded hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Copy className="w-3 h-3" strokeWidth={1.5} />
                         </button>
                       </div>
@@ -146,10 +146,10 @@ export default function CouponsPage() {
                         <div className="flex items-center gap-2">
                           <span className="text-foreground" style={{ fontSize: "13px" }}>{c.used} / {c.limit}</span>
                         </div>
-                        <div className="h-1.5 rounded-full w-24 overflow-hidden" style={{ backgroundColor: "#F0EDEF" }}>
+                        <div className="h-1.5 rounded-full w-24 overflow-hidden" style={{ backgroundColor: "var(--accent)" }}>
                           <div
                             className="h-full rounded-full"
-                            style={{ width: `${usagePct}%`, backgroundColor: usagePct >= 90 ? "#EF4444" : "#501D2A" }}
+                            style={{ width: `${usagePct}%`, backgroundColor: usagePct >= 90 ? "#EF4444" : "var(--primary)" }}
                           />
                         </div>
                       </div>
@@ -164,7 +164,7 @@ export default function CouponsPage() {
                           className="relative inline-flex items-center rounded-full transition-colors shrink-0"
                           style={{
                             width: "36px", height: "20px",
-                            backgroundColor: c.status === "Active" ? "#501D2A" : "#D1D5DB"
+                            backgroundColor: c.status === "Active" ? "var(--primary)" : "#D1D5DB"
                           }}
                         >
                           <span
@@ -182,7 +182,7 @@ export default function CouponsPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                         <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -197,7 +197,7 @@ export default function CouponsPage() {
           </table>
         </div>
 
-        <div className="px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing 8 coupons</p>
         </div>
       </div>

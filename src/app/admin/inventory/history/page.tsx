@@ -60,13 +60,13 @@ export default function StockHistoryPage() {
   })
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Stock History"
         description="Complete audit log of all StockMovement records"
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Inventory", href: "/admin/inventory" }, { label: "History" }]}
         actions={
-          <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
+          <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
             <Download className="w-3.5 h-3.5" strokeWidth={1.5} /> Export CSV
           </button>
         }
@@ -116,7 +116,7 @@ export default function StockHistoryPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Date & Time", "Product Name", "SKU", "Type", "Quantity", "Stock Before → After", "Note", "Recorded By"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium whitespace-nowrap" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -129,8 +129,8 @@ export default function StockHistoryPage() {
                 return (
                   <tr
                     key={m.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < filtered.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < filtered.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3 text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{m.createdAt}</td>
                     <td className="px-5 py-3 font-medium text-foreground" style={{ fontSize: "13px" }}>{m.productName}</td>
@@ -179,7 +179,7 @@ export default function StockHistoryPage() {
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-between px-5 py-3" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-3" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             Showing {filtered.length} of {movements.length} entries
           </p>

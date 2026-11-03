@@ -77,7 +77,7 @@ export default function UpsellPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Rule
@@ -110,7 +110,7 @@ export default function UpsellPage() {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                    <TrendingUp className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                    <TrendingUp className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -135,10 +135,10 @@ export default function UpsellPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                     <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </button>
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                     <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </button>
                   <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -148,7 +148,7 @@ export default function UpsellPage() {
               </div>
 
               {/* Trigger → Suggestion flow */}
-              <div className="flex items-center gap-2 p-3 rounded-lg mb-3" style={{ backgroundColor: "#F8F7F5" }}>
+              <div className="flex items-center gap-2 p-3 rounded-lg mb-3" style={{ backgroundColor: "var(--muted)" }}>
                 <div className="flex-1 min-w-0">
                   <p className="text-muted-foreground" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.07em" }}>Trigger</p>
                   <p className="font-medium text-foreground truncate" style={{ fontSize: "12px" }}>{rule.triggerProduct}</p>
@@ -169,16 +169,16 @@ export default function UpsellPage() {
 
               {/* Metrics */}
               <div className="grid grid-cols-3 gap-3">
-                <div className="text-center p-2 rounded-lg" style={{ backgroundColor: "#F8F7F5" }}>
+                <div className="text-center p-2 rounded-lg" style={{ backgroundColor: "var(--muted)" }}>
                   <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{rule.impressions.toLocaleString()}</p>
                   <p className="text-muted-foreground" style={{ fontSize: "10px" }}>Impressions</p>
                 </div>
-                <div className="text-center p-2 rounded-lg" style={{ backgroundColor: "#F8F7F5" }}>
+                <div className="text-center p-2 rounded-lg" style={{ backgroundColor: "var(--muted)" }}>
                   <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{rule.conversions}</p>
                   <p className="text-muted-foreground" style={{ fontSize: "10px" }}>Conversions</p>
                 </div>
                 <div className="text-center p-2 rounded-lg" style={{ backgroundColor: "#FAF0F2" }}>
-                  <p className="font-semibold" style={{ fontSize: "14px", color: "#501D2A" }}>{rule.conversionRate}</p>
+                  <p className="font-semibold" style={{ fontSize: "14px", color: "var(--primary)" }}>{rule.conversionRate}</p>
                   <p className="text-muted-foreground" style={{ fontSize: "10px" }}>Conv. Rate</p>
                 </div>
               </div>

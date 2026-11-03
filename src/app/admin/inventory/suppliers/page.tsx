@@ -29,7 +29,7 @@ const statusConfig = {
   "On Hold": "bg-amber-50 text-amber-700",
 }
 
-const colorMap = ["#501D2A", "#2D5A8E", "#2D6B4F", "#6B4F2D", "#7C3AED", "#D97706"]
+const colorMap = ["var(--primary)", "#2D5A8E", "#2D6B4F", "#6B4F2D", "#7C3AED", "#D97706"]
 
 export default function SuppliersPage() {
   return (
@@ -62,13 +62,13 @@ export default function SuppliersPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 w-full sm:max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
               placeholder="Search suppliers..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -76,7 +76,7 @@ export default function SuppliersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Supplier", "Contact", "Category", "Products", "Lead Time", "Status", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -86,8 +86,8 @@ export default function SuppliersPage() {
               {suppliers.map((s, i) => (
                 <tr
                   key={s.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < suppliers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < suppliers.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
@@ -120,8 +120,8 @@ export default function SuppliersPage() {
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"><Eye className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"><Pencil className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground"><Eye className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground"><Pencil className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600"><Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button>
                     </div>
                   </td>

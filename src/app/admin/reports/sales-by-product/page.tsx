@@ -73,7 +73,7 @@ export default function SalesByProductPage() {
                 <tr key={p.rank} className={`border-b border-border/30 hover:bg-muted/20 transition-colors ${i === products.length - 1 ? "border-b-0" : ""}`}>
                   <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
                     <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-semibold inline-flex`}
-                      style={{ fontSize: "11px", backgroundColor: p.rank <= 3 ? "#501D2A" : "#9ca3af" }}>
+                      style={{ fontSize: "11px", backgroundColor: p.rank <= 3 ? "var(--primary)" : "#9ca3af" }}>
                       {p.rank}
                     </span>
                   </td>
@@ -93,7 +93,7 @@ export default function SalesByProductPage() {
                   <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
                     <div className="flex items-center gap-2">
                       <div className="w-20 h-1.5 rounded-full bg-muted/40 overflow-hidden">
-                        <div className="h-full rounded-full" style={{ width: p.pct, backgroundColor: "#501D2A" }} />
+                        <div className="h-full rounded-full" style={{ width: p.pct, backgroundColor: "var(--primary)" }} />
                       </div>
                       <span className="text-muted-foreground">{p.pct}</span>
                     </div>

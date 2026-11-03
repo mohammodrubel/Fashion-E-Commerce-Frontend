@@ -93,7 +93,7 @@ export default function MarketingReportPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Total Ad Spend", value: "$4,580", sub: "5 campaigns", color: "#501D2A" },
+          { label: "Total Ad Spend", value: "$4,580", sub: "5 campaigns", color: "var(--primary)" },
           { label: "Total Revenue", value: "$42,380", sub: "From campaigns", color: "#059669" },
           { label: "Avg ROAS", value: "9.3x", sub: "Blended", color: "#d97706" },
           { label: "Total Conversions", value: "459", sub: "Across all channels", color: "#7c3aed" },

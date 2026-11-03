@@ -39,7 +39,7 @@ export default function NewsletterPage() {
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Marketing", href: "/admin/marketing" }, { label: "Newsletter" }]}
         actions={
           <button
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border/60 bg-white text-foreground hover:bg-[#F8F7F5] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border/60 bg-white text-foreground hover:bg-[var(--muted)] transition-colors"
             style={{ fontSize: "13px" }}
           >
             <Download className="w-4 h-4" strokeWidth={1.5} />
@@ -51,7 +51,7 @@ export default function NewsletterPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Subscribers", value: "8,432", sub: "all time", icon: Users, color: "#501D2A", bg: "#FAF0F2" },
+          { label: "Total Subscribers", value: "8,432", sub: "all time", icon: Users, color: "var(--primary)", bg: "#FAF0F2" },
           { label: "Active", value: "7,891", sub: "receiving emails", icon: UserCheck, color: "#166534", bg: "#F0FDF4" },
           { label: "Unsubscribed", value: "541", sub: "6.4% unsubscribe rate", icon: UserMinus, color: "#991B1B", bg: "#FEF2F2" },
           { label: "Growth This Month", value: "+124", sub: "new subscribers", icon: Users, color: "#1D4ED8", bg: "#EFF6FF" },
@@ -85,11 +85,11 @@ export default function NewsletterPage() {
             <div key={s.source} className="text-center">
               <div
                 className="h-20 rounded-lg flex items-end justify-center pb-2 mb-2"
-                style={{ backgroundColor: "#F8F7F5" }}
+                style={{ backgroundColor: "var(--muted)" }}
               >
                 <div
                   className="w-8 rounded-t-md"
-                  style={{ height: `${s.pct * 2}px`, backgroundColor: "#501D2A", opacity: 0.5 + s.pct / 100 }}
+                  style={{ height: `${s.pct * 2}px`, backgroundColor: "var(--primary)", opacity: 0.5 + s.pct / 100 }}
                 />
               </div>
               <p className="text-foreground font-semibold" style={{ fontSize: "13px" }}>{s.count.toLocaleString()}</p>
@@ -101,13 +101,13 @@ export default function NewsletterPage() {
 
       {/* Subscribers Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
               placeholder="Search subscribers..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -121,7 +121,7 @@ export default function NewsletterPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Email", "Name", "Source", "Subscribed Date", "Status"].map((h) => (
                   <th
                     key={h}
@@ -139,8 +139,8 @@ export default function NewsletterPage() {
                 return (
                   <tr
                     key={s.email}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < subscribers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < subscribers.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <span className="text-foreground" style={{ fontSize: "13px" }}>{s.email}</span>
@@ -179,14 +179,14 @@ export default function NewsletterPage() {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing 8 of 8,432 subscribers</p>
           <div className="flex items-center gap-1">
             {["1", "2", "3", "...", "1054"].map((p) => (
               <button
                 key={p}
-                className={`px-2.5 h-8 rounded-lg flex items-center justify-center transition-colors ${p === "1" ? "text-white" : "hover:bg-[#F0EDEF] text-muted-foreground"}`}
-                style={{ fontSize: "13px", backgroundColor: p === "1" ? "#501D2A" : undefined }}
+                className={`px-2.5 h-8 rounded-lg flex items-center justify-center transition-colors ${p === "1" ? "text-white" : "hover:bg-[var(--accent)] text-muted-foreground"}`}
+                style={{ fontSize: "13px", backgroundColor: p === "1" ? "var(--primary)" : undefined }}
               >
                 {p}
               </button>

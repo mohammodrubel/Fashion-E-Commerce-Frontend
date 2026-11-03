@@ -31,7 +31,7 @@ export default function VIPCustomersPage() {
         description="Your most loyal and high-value customers"
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Customers", href: "/admin/customers" }, { label: "VIP" }]}
         actions={
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
+          <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
             <Gift className="w-4 h-4" strokeWidth={1.5} /> Send VIP Reward
           </button>
         }
@@ -41,7 +41,7 @@ export default function VIPCustomersPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: "VIP Members", value: "89", sub: "Total", icon: Crown, color: "#7C3AED" },
-          { label: "Avg Lifetime Value", value: "$3,752", sub: "Per VIP", icon: DollarSign, color: "#501D2A" },
+          { label: "Avg Lifetime Value", value: "$3,752", sub: "Per VIP", icon: DollarSign, color: "#202127" },
           { label: "Total Points Issued", value: "892K", sub: "This year", icon: Star, color: "#D97706" },
           { label: "VIP Revenue Share", value: "38%", sub: "of total revenue", icon: TrendingUp, color: "#2D6B4F" },
         ].map((s) => {
@@ -63,7 +63,7 @@ export default function VIPCustomersPage() {
 
       {/* VIP Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>VIP Members</h2>
           <div className="flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-50 text-purple-700" style={{ fontSize: "11px" }}>
@@ -74,7 +74,7 @@ export default function VIPCustomersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Customer", "Tier", "Points Balance", "Lifetime Value", "Orders", "Last Order", "Joined VIP", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -84,13 +84,13 @@ export default function VIPCustomersPage() {
               {vipCustomers.map((c, i) => (
                 <tr
                   key={c.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < vipCustomers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < vipCustomers.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                        <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold" style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}>
                           {c.initials}
                         </div>
                         <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-purple-600 flex items-center justify-center">
@@ -126,13 +126,13 @@ export default function VIPCustomersPage() {
                   <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{c.joinedVip}</td>
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <MoreHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                     </div>

@@ -11,7 +11,7 @@ interface BlogCategory {
 }
 
 const categories: BlogCategory[] = [
-  { name: "Style Tips", slug: "style-tips", description: "Outfit ideas, styling advice, and everyday fashion guidance", postsCount: 18, status: "Active", color: "#501D2A" },
+  { name: "Style Tips", slug: "style-tips", description: "Outfit ideas, styling advice, and everyday fashion guidance", postsCount: 18, status: "Active", color: "var(--primary)" },
   { name: "Trends", slug: "trends", description: "What's hot right now — seasonal and runway-inspired looks", postsCount: 14, status: "Active", color: "#7C3D52" },
   { name: "Behind The Brand", slug: "behind-the-brand", description: "Our story, team highlights, and brand values", postsCount: 6, status: "Active", color: "#166534" },
   { name: "Sustainability", slug: "sustainability", description: "Our commitment to ethical fashion and the environment", postsCount: 8, status: "Active", color: "#065F46" },
@@ -28,7 +28,7 @@ export default function BlogCategoriesPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Category
@@ -52,14 +52,14 @@ export default function BlogCategoriesPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Categories</p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Name", "Slug", "Description", "Posts", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -75,8 +75,8 @@ export default function BlogCategoriesPage() {
               {categories.map((cat, i) => (
                 <tr
                   key={cat.slug}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < categories.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < categories.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2.5">
@@ -98,7 +98,7 @@ export default function BlogCategoriesPage() {
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-foreground" style={{ fontSize: "15px" }}>{cat.postsCount}</span>
-                      <div className="h-2 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "#F0EDEF" }}>
+                      <div className="h-2 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "var(--accent)" }}>
                         <div
                           className="h-full rounded-full"
                           style={{ width: `${(cat.postsCount / 20) * 100}%`, backgroundColor: cat.color }}
@@ -121,7 +121,7 @@ export default function BlogCategoriesPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

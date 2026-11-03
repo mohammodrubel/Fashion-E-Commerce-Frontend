@@ -5,14 +5,14 @@ import {
 } from "lucide-react"
 
 const stats = [
-  { label: "Active Campaigns", value: "3", sub: "2 ending this week", icon: Megaphone, color: "#501D2A", bg: "#FAF0F2" },
+  { label: "Active Campaigns", value: "3", sub: "2 ending this week", icon: Megaphone, color: "var(--primary)", bg: "#FAF0F2" },
   { label: "Coupons Used", value: "124", sub: "this month", icon: Tag, color: "#7C3D52", bg: "#FAF0F2" },
   { label: "Revenue from Promotions", value: "$3,240", sub: "+18.4% vs last month", icon: DollarSign, color: "#166534", bg: "#F0FDF4" },
   { label: "Email Subscribers", value: "8,432", sub: "+124 this week", icon: Mail, color: "#1D4ED8", bg: "#EFF6FF" },
 ]
 
 const campaigns = [
-  { name: "Summer Sale 2024", type: "Seasonal", status: "Active", revenue: "$1,840", conversions: 234, color: "#501D2A" },
+  { name: "Summer Sale 2024", type: "Seasonal", status: "Active", revenue: "$1,840", conversions: 234, color: "var(--primary)" },
   { name: "Welcome 15% Off", type: "Onboarding", status: "Active", revenue: "$920", conversions: 112, color: "#7C3D52" },
   { name: "VIP Early Access", type: "Loyalty", status: "Active", revenue: "$480", conversions: 56, color: "#9D5B6B" },
   { name: "Refer a Friend", type: "Referral", status: "Scheduled", revenue: "—", conversions: 0, color: "#C4849A" },
@@ -47,7 +47,7 @@ export default function MarketingOverviewPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Megaphone className="w-4 h-4" strokeWidth={1.5} />
             New Campaign
@@ -92,7 +92,7 @@ export default function MarketingOverviewPage() {
                 <span className="text-muted-foreground" style={{ fontSize: "11px" }}>{d.value}%</span>
                 <div
                   className="w-full rounded-t-md transition-all"
-                  style={{ height: `${(d.value / maxBar) * 100}%`, backgroundColor: "#501D2A", opacity: d.month === "Nov" ? 1 : 0.55 }}
+                  style={{ height: `${(d.value / maxBar) * 100}%`, backgroundColor: "var(--primary)", opacity: d.month === "Nov" ? 1 : 0.55 }}
                 />
                 <span className="text-muted-foreground" style={{ fontSize: "11px" }}>{d.month}</span>
               </div>
@@ -113,7 +113,7 @@ export default function MarketingOverviewPage() {
                   <span className="text-foreground" style={{ fontSize: "12px" }}>{f.label}</span>
                   <span className="text-muted-foreground font-mono" style={{ fontSize: "11px" }}>{f.value.toLocaleString()}</span>
                 </div>
-                <div className="h-6 rounded-md overflow-hidden" style={{ backgroundColor: "#F8F7F5" }}>
+                <div className="h-6 rounded-md overflow-hidden" style={{ backgroundColor: "var(--muted)" }}>
                   <div
                     className="h-full rounded-md flex items-center px-2"
                     style={{ width: `${f.pct === 100 ? 100 : Math.max(f.pct * 8, 12)}%`, backgroundColor: `rgba(80,29,42,${1 - i * 0.15})` }}
@@ -137,7 +137,7 @@ export default function MarketingOverviewPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {campaigns.map((c) => (
-            <div key={c.name} className="rounded-xl border border-border/50 p-4" style={{ backgroundColor: "#F8F7F5" }}>
+            <div key={c.name} className="rounded-xl border border-border/50 p-4" style={{ backgroundColor: "var(--muted)" }}>
               <div className="flex items-start justify-between mb-3">
                 <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: c.color }}>
                   <Zap className="w-4 h-4 text-white" strokeWidth={1.5} />
@@ -186,7 +186,7 @@ export default function MarketingOverviewPage() {
             className="bg-white rounded-xl border border-border/50 p-4 flex flex-col items-center gap-2 hover:border-primary/30 hover:shadow-sm transition-all group"
           >
             <div className="w-9 h-9 rounded-lg flex items-center justify-center group-hover:opacity-90" style={{ backgroundColor: "#FAF0F2" }}>
-              <link.icon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+              <link.icon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
             </div>
             <span className="text-foreground font-medium text-center" style={{ fontSize: "12px" }}>{link.label}</span>
             <ArrowUpRight className="w-3 h-3 text-muted-foreground group-hover:text-foreground transition-colors" strokeWidth={1.5} />

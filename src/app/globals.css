@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -5,95 +6,106 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #F8F7F5;
-  --foreground: #191719;
+  /* Main */
+  --background: #F5F6FA;
+  --foreground: #17171C;
 
+  /* Cards */
   --card: #FFFFFF;
-  --card-foreground: #191719;
+  --card-foreground: #17171C;
 
+  /* Popover */
   --popover: #FFFFFF;
-  --popover-foreground: #191719;
+  --popover-foreground: #17171C;
 
-  --primary: #501D2A;
+  /* Primary - Luxury Charcoal */
+  --primary: #202127;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #EAE5E5;
-  --secondary-foreground: #30252A;
+  /* Secondary */
+  --secondary: #E9EBF3;
+  --secondary-foreground: #292B35;
 
-  --muted: #F0EDEF;
-  --muted-foreground: #71686C;
+  /* Muted */
+  --muted: #F0F1F6;
+  --muted-foreground: #777C8C;
 
-  --accent: #E8DDE0;
-  --accent-foreground: #501D2A;
+  /* Accent */
+  --accent: #E2E5EF;
+  --accent-foreground: #252731;
 
-  --destructive: #B42332;
+  /* Destructive */
+  --destructive: #C83F4D;
   --destructive-foreground: #FFFFFF;
 
-  --border: #DCD5D8;
-  --input: #DCD5D8;
-  --ring: #794554;
+  /* Borders */
+  --border: #DFE1E9;
+  --input: #DFE1E9;
+  --ring: #858A9A;
 
-  --chart-1: #501D2A;
-  --chart-2: #794554;
-  --chart-3: #9C7A83;
-  --chart-4: #B8A4AA;
-  --chart-5: #30252A;
+  /* Charts */
+  --chart-1: #292B35;
+  --chart-2: #777F96;
+  --chart-3: #A5ABC0;
+  --chart-4: #C2C7D7;
+  --chart-5: #52596D;
 
   --radius: 0.5rem;
 
-  --sidebar: #F3F0EF;
-  --sidebar-foreground: #191719;
-  --sidebar-primary: #501D2A;
+  /* Sidebar */
+  --sidebar: #ECEEF6;
+  --sidebar-foreground: #202127;
+  --sidebar-primary: #202127;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E8DDE0;
-  --sidebar-accent-foreground: #501D2A;
-  --sidebar-border: #DCD5D8;
-  --sidebar-ring: #794554;
+  --sidebar-accent: #E2E5EF;
+  --sidebar-accent-foreground: #252731;
+  --sidebar-border: #DFE1E9;
+  --sidebar-ring: #858A9A;
 }
 
 .dark {
-  --background: #171416;
-  --foreground: #F8F5F5;
+  --background: #17181E;
+  --foreground: #F5F5F8;
 
-  --card: #211B1E;
-  --card-foreground: #F8F5F5;
+  --card: #202127;
+  --card-foreground: #F5F5F8;
 
-  --popover: #211B1E;
-  --popover-foreground: #F8F5F5;
+  --popover: #202127;
+  --popover-foreground: #F5F5F8;
 
-  --primary: #C18A9A;
-  --primary-foreground: #24171C;
+  --primary: #E1E4EF;
+  --primary-foreground: #202127;
 
-  --secondary: #30272B;
-  --secondary-foreground: #F3E9EC;
+  --secondary: #30323D;
+  --secondary-foreground: #F0F1F6;
 
-  --muted: #292226;
-  --muted-foreground: #B7A9AE;
+  --muted: #272933;
+  --muted-foreground: #A6AABB;
 
-  --accent: #3B2930;
-  --accent-foreground: #F3E9EC;
+  --accent: #343744;
+  --accent-foreground: #F0F1F6;
 
   --destructive: #F87171;
   --destructive-foreground: #240A0A;
 
-  --border: #40343A;
-  --input: #40343A;
-  --ring: #C18A9A;
+  --border: #383B48;
+  --input: #383B48;
+  --ring: #A5ABC0;
 
-  --chart-1: #C18A9A;
-  --chart-2: #A46A7B;
-  --chart-3: #8A5263;
-  --chart-4: #D5B1BC;
-  --chart-5: #E7D6DB;
+  --chart-1: #D9DDEC;
+  --chart-2: #A5ABC0;
+  --chart-3: #858DA5;
+  --chart-4: #626A82;
+  --chart-5: #C2C7D7;
 
-  --sidebar: #1D171A;
-  --sidebar-foreground: #F8F5F5;
-  --sidebar-primary: #C18A9A;
-  --sidebar-primary-foreground: #24171C;
-  --sidebar-accent: #3B2930;
-  --sidebar-accent-foreground: #F3E9EC;
-  --sidebar-border: #40343A;
-  --sidebar-ring: #C18A9A;
+  --sidebar: #1C1D24;
+  --sidebar-foreground: #F5F5F8;
+  --sidebar-primary: #E1E4EF;
+  --sidebar-primary-foreground: #202127;
+  --sidebar-accent: #343744;
+  --sidebar-accent-foreground: #F0F1F6;
+  --sidebar-border: #383B48;
+  --sidebar-ring: #A5ABC0;
 }
 
 @theme inline {
@@ -145,18 +157,399 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-sans: var(--font-geist-sans);
+  /* Typography system — Cormorant Garamond (editorial), Montserrat (ui/nav/labels), Inter (body/default) */
+  --font-sans: var(--font-body);
+  --font-editorial: var(--font-editorial);
+  --font-ui: var(--font-ui);
+  --font-body: var(--font-body);
   --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Global product-grid breakpoints (ProductGrid component).
+ * 320–445px: 1 col · 446–768px: 2 · 769–1199px: 3 · 1200px+: 4.
+ * None of these match Tailwind's default sm/md/lg/xl, so they're named
+ * custom breakpoints: use as grid-2:/grid-3:/grid-4: variants.
+ * Must live in a plain (non-"inline") @theme block — breakpoints declared
+ * inside @theme inline are not picked up for media-query generation.
+ */
+@theme {
+  --breakpoint-grid-2: 446px;
+  --breakpoint-grid-3: 769px;
+  --breakpoint-grid-4: 1200px;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
+  }
+}
+
+/*
+ * Typography utility classes — luxury European fashion editorial system.
+ * Three families only: font-editorial (Cormorant Garamond), font-ui (Montserrat), font-body (Inter, default).
+ * Fluid sizes use clamp() so desktop/tablet/mobile scale continuously from one declaration.
+ */
+@layer utilities {
+  .font-editorial {
+    font-family: var(--font-editorial), serif;
+  }
+  .font-ui {
+    font-family: var(--font-ui), sans-serif;
+  }
+  .font-body {
+    font-family: var(--font-body), sans-serif;
+  }
+
+  /* ── Navigation / labels (Montserrat) ── */
+  .text-nav-link {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(11px, 0.9vw, 12px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .text-label-caps {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(10px, 0.85vw, 12px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .btn-label {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: clamp(11px, 0.9vw, 12px);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Hero banner ── */
+  .text-hero-collection-label {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(10px, 0.9vw, 12px);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+  .text-hero-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(44px, 7vw, 92px);
+    line-height: 1.02;
+  }
+  .text-hero-season {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 400;
+    font-size: clamp(12px, 1vw, 14px);
+    letter-spacing: 0.4em;
+  }
+  .text-hero-discover {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  /* ── Homepage sections ── */
+  .text-section-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.1;
+  }
+  .subtitle-text {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1vw, 16px);
+  }
+  .text-category-title {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(26px, 2.5vw, 32px);
+  }
+  .text-category-label {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(10px, 0.85vw, 12px);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Product cards / listings ── */
+  .text-product-name {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(13px, 1vw, 14px);
+  }
+  .text-price {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .text-price-original {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    text-decoration: line-through;
+  }
+  .text-discount-label {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+  }
+  .text-badge {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(9px, 0.8vw, 10px);
+  }
+
+  /* ── Promotional sections ── */
+  .text-promo-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(38px, 5.5vw, 64px);
+  }
+  .text-promo-description {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+  }
+  .text-promo-cta {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: clamp(11px, 0.9vw, 12px);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Page titles (shop / collection / cart / account / about / contact) ── */
+  .text-page-title {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(34px, 4.5vw, 48px);
+  }
+  .text-page-title-lg {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(36px, 6vw, 64px);
+  }
+  .text-breadcrumb {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .text-filter-heading {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .text-filter-option {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .pagination-text {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  /* ── Product details page ── */
+  .text-pdp-name {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(32px, 3.5vw, 48px);
+  }
+  .text-pdp-price {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 1.6vw, 24px);
+  }
+  .text-pdp-price-original {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: line-through;
+  }
+  .text-pdp-description {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1vw, 15px);
+  }
+  .text-pdp-subheading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: 28px;
+  }
+  .text-related-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(32px, 3.2vw, 42px);
+  }
+
+  /* ── Cart / checkout / order summary ── */
+  .text-order-summary-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: 26px;
+  }
+  .text-total-price {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  /* ── Forms (auth, checkout, contact) ── */
+  .form-label-text {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 500;
+    font-size: clamp(11px, 0.9vw, 12px);
+  }
+  .text-field-value {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--foreground);
+  }
+  .link-text {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+  }
+
+  /* ── Journal / blog ── */
+  .text-article-title {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: clamp(32px, 4vw, 52px);
+  }
+  .text-article-category {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .text-article-body {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .text-article-meta {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  /* ── Footer ── */
+  .text-footer-heading {
+    font-family: var(--font-ui), sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .text-footer-link {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .text-newsletter-heading {
+    font-family: var(--font-editorial), serif;
+    font-weight: 600;
+    font-size: 30px;
+  }
+  .text-footer-copyright {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+  /* ── Admin dashboard (Inter only — editorial font stays out) ── */
+  .text-admin-page-heading {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 2vw, 28px);
+  }
+  .text-admin-section-heading {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 1.3vw, 18px);
+  }
+  .text-admin-stat {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 2.2vw, 32px);
+  }
+}
+
+/*
+ * Vertical rotating tagline under the homepage logo.
+ * Pure CSS: a column of 5 items (4 taglines + a trailing duplicate of the
+ * first) scrolls up one item at a time inside a fixed-height, overflow
+ * hidden viewport. The duplicate makes the 100% -> 0% loop restart land on
+ * two visually identical frames, so it reads as seamless.
+ */
+.tagline-viewport {
+  position: relative;
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.tagline-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: tagline-cycle 14.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagline-track {
+    animation: none;
+  }
+}
+
+.tagline-item {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui), sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  letter-spacing: 0.22em;
+  font-size: clamp(8px, 2.2vw, 10px);
+  white-space: nowrap;
+}
+
+@keyframes tagline-cycle {
+  0%,
+  20.8333% {
+    transform: translateY(0);
+  }
+  25%,
+  45.8333% {
+    transform: translateY(-16px);
+  }
+  50%,
+  70.8333% {
+    transform: translateY(-32px);
+  }
+  75%,
+  95.8333% {
+    transform: translateY(-48px);
+  }
+  100% {
+    transform: translateY(-64px);
   }
 }

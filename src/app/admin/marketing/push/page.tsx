@@ -35,7 +35,7 @@ export default function PushNotificationsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Send New
@@ -59,7 +59,7 @@ export default function PushNotificationsPage() {
                 <p className="text-muted-foreground" style={{ fontSize: "11px" }}>{c.sub}</p>
               </div>
               <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                <c.icon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                <c.icon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function PushNotificationsPage() {
             <div className="p-3" style={{ backgroundColor: "#F3F4F6" }}>
               <div className="bg-white rounded-xl p-3 shadow-sm">
                 <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#501D2A" }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--primary)" }}>
                     <Bell className="w-3.5 h-3.5 text-white" strokeWidth={1.5} />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -99,18 +99,18 @@ export default function PushNotificationsPage() {
 
         {/* Notifications table */}
         <div className="lg:col-span-3 bg-white rounded-xl border border-border/50">
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
             <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Notification History</p>
           </div>
-          <div className="divide-y divide-[#F0EDEF]">
+          <div className="divide-y divide-[var(--accent)]">
             {notifications.map((n, i) => {
               const cfg = statusConfig[n.status]
               return (
-                <div key={i} className="px-5 py-4 hover:bg-[#F8F7F5] transition-colors">
+                <div key={i} className="px-5 py-4 hover:bg-[var(--muted)] transition-colors">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3 flex-1 min-w-0">
                       <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "#FAF0F2" }}>
-                        <Bell className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                        <Bell className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -142,10 +142,10 @@ export default function PushNotificationsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-1 shrink-0">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

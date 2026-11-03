@@ -115,7 +115,7 @@ export default function AllProductsPage() {
       {/* Table Card */}
       <div className="bg-white rounded-xl border border-border/50">
         {/* Toolbar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4 flex-wrap" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4 flex-wrap" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 w-full sm:max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
@@ -123,7 +123,7 @@ export default function AllProductsPage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search by name, SKU, slug..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -132,7 +132,7 @@ export default function AllProductsPage() {
             <select
               value={status}
               onChange={(e) => { setStatus(e.target.value); setPage(1) }}
-              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-foreground"
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-foreground"
               style={{ fontSize: "13px" }}
             >
               <option value="">All status</option>
@@ -147,7 +147,7 @@ export default function AllProductsPage() {
             <select
               value={categoryId}
               onChange={(e) => { setCategoryId(e.target.value); setPage(1) }}
-              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-foreground"
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-foreground"
               style={{ fontSize: "13px" }}
             >
               <option value="">All categories</option>
@@ -162,7 +162,7 @@ export default function AllProductsPage() {
             <select
               value={stockStatus}
               onChange={(e) => { setStockStatus(e.target.value); setPage(1) }}
-              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-foreground"
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-foreground"
               style={{ fontSize: "13px" }}
             >
               <option value="">All stock</option>
@@ -178,8 +178,8 @@ export default function AllProductsPage() {
             className="flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors"
             style={{
               fontSize: "13px",
-              borderColor: featured === "true" ? "#501D2A" : undefined,
-              color: featured === "true" ? "#501D2A" : undefined,
+              borderColor: featured === "true" ? "var(--primary)" : undefined,
+              color: featured === "true" ? "var(--primary)" : undefined,
               backgroundColor: featured === "true" ? "#F8F0F2" : "white",
             }}
           >
@@ -189,7 +189,7 @@ export default function AllProductsPage() {
           {(status || categoryId || stockStatus || featured || searchTerm) && (
             <button
               onClick={() => { setStatus(""); setCategoryId(""); setStockStatus(""); setFeatured(""); setSearchInput(""); setSearchTerm(""); setPage(1) }}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-muted-foreground"
               style={{ fontSize: "13px" }}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} /> Clear
@@ -205,7 +205,7 @@ export default function AllProductsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {[
                   { label: "", sortKey: undefined },
                   { label: "Product", sortKey: "name" as const },
@@ -247,11 +247,11 @@ export default function AllProductsPage() {
                 return (
                   <tr
                     key={product.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < products.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < products.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3">
-                      <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center font-semibold text-white shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                      <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center font-semibold text-white shrink-0" style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}>
                         {thumb ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={thumb} alt={product.name} className="w-full h-full object-cover" />
@@ -305,7 +305,7 @@ export default function AllProductsPage() {
                       <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/products/${product.id}/edit`}
-                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground inline-flex"
+                          className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground inline-flex"
                         >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </Link>
@@ -326,7 +326,7 @@ export default function AllProductsPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             {isLoading ? <Skeleton className="h-3 w-40" /> : `Showing ${products.length} of ${meta.total ?? 0} products`}
           </p>
@@ -334,7 +334,7 @@ export default function AllProductsPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={(meta.page ?? 1) <= 1}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
@@ -344,7 +344,7 @@ export default function AllProductsPage() {
             <button
               onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))}
               disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
             </button>

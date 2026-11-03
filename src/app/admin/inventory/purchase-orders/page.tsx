@@ -44,7 +44,7 @@ export default function PurchaseOrdersPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total POs", value: "5", sub: "this month", color: "#501D2A" },
+          { label: "Total POs", value: "5", sub: "this month", color: "var(--primary)" },
           { label: "Pending Value", value: "$14,700", sub: "outstanding", color: "#D97706" },
           { label: "Confirmed", value: "2", sub: "awaiting delivery", color: "#2563EB" },
           { label: "Received", value: "1", sub: "this month", color: "#10B981" },
@@ -59,13 +59,13 @@ export default function PurchaseOrdersPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Purchase Orders</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["PO Number", "Supplier", "Items", "Total", "Status", "Order Date", "Expected", "Notes", ""].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -78,8 +78,8 @@ export default function PurchaseOrdersPage() {
                 return (
                   <tr
                     key={po.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < purchaseOrders.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < purchaseOrders.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3">
                       <span className="font-mono font-semibold text-foreground" style={{ fontSize: "13px" }}>{po.id}</span>
@@ -104,7 +104,7 @@ export default function PurchaseOrdersPage() {
                       <p className="text-muted-foreground truncate" style={{ fontSize: "12px" }}>{po.notes}</p>
                     </td>
                     <td className="px-5 py-3">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                     </td>

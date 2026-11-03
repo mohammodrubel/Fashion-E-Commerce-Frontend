@@ -22,7 +22,7 @@ function ActiveToggle({ active, onChange, disabled }: { active: boolean; onChang
       disabled={disabled}
       onClick={() => onChange(!active)}
       className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors shrink-0 disabled:opacity-50"
-      style={{ backgroundColor: active ? "#501D2A" : "#D1D5DB" }}
+      style={{ backgroundColor: active ? "var(--primary)" : "#D1D5DB" }}
     >
       <span
         className="inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform"
@@ -147,7 +147,7 @@ export default function VariantsPage() {
   }
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Product Variants"
         description="Manage SKUs, pricing, and stock per size and color"
@@ -160,7 +160,7 @@ export default function VariantsPage() {
           <button
             onClick={() => setShowForm((v) => !v)}
             className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A" }}
+            style={{ backgroundColor: "var(--primary)" }}
           >
             {showForm ? <X className="w-4 h-4" strokeWidth={1.5} /> : <Plus className="w-4 h-4" strokeWidth={1.5} />}
             {showForm ? "Close Form" : "Add New Variant"}
@@ -170,7 +170,7 @@ export default function VariantsPage() {
 
       {/* ── Variants Table ─────────────────────────────────────────── */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div>
             <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>All Variants</h2>
             <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
@@ -182,7 +182,7 @@ export default function VariantsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Product", "Size", "Color", "SKU", "Price", "Stock", "Status", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium whitespace-nowrap" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                     {h}
@@ -202,14 +202,14 @@ export default function VariantsPage() {
               {rows.map((v: any, i: number) => (
                 <tr
                   key={v.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < rows.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < rows.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{v.productName}</span>
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg font-bold text-white shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg font-bold text-white shrink-0" style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}>
                       {v.size?.name}
                     </span>
                   </td>
@@ -254,8 +254,8 @@ export default function VariantsPage() {
       {/* ── Add Variant Form ──────────────────────────────────────── */}
       {showForm && (
         <div className="bg-white rounded-xl border border-border/50 p-5">
-          <div className="flex items-center gap-2 mb-5" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "12px" }}>
-            <Plus className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+          <div className="flex items-center gap-2 mb-5" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "12px" }}>
+            <Plus className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
             <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Add New Variant</h2>
           </div>
 
@@ -345,7 +345,7 @@ export default function VariantsPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between mt-5 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between mt-5 pt-4" style={{ borderTop: "1px solid var(--accent)" }}>
             <label className="flex items-center gap-2.5 cursor-pointer">
               <ActiveToggle active={fIsActive} onChange={setFIsActive} />
               <span className="text-foreground" style={{ fontSize: "13px" }}>Active on creation</span>
@@ -355,7 +355,7 @@ export default function VariantsPage() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="px-4 py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:bg-[#F8F7F5] transition-colors text-sm"
+                className="px-4 py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:bg-[var(--muted)] transition-colors text-sm"
               >
                 Reset
               </button>
@@ -364,7 +364,7 @@ export default function VariantsPage() {
                 onClick={handleAddVariant}
                 disabled={isSaving}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium disabled:opacity-60"
-                style={{ backgroundColor: "#501D2A" }}
+                style={{ backgroundColor: "var(--primary)" }}
               >
                 {isSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Plus className="w-4 h-4" strokeWidth={1.5} />}
                 Add Variant

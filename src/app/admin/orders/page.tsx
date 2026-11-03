@@ -60,7 +60,7 @@ export default function AllOrdersPage() {
           <Link
             href="/admin/orders/new"
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={2} />
             Create Order
@@ -95,7 +95,7 @@ export default function AllOrdersPage() {
             <input
               type="text"
               placeholder="Search by order ID, customer…"
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -104,14 +104,14 @@ export default function AllOrdersPage() {
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="date"
-              className="pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
+              className="pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
               style={{ fontSize: "13px" }}
             />
           </div>
           {/* Status filter */}
           <div className="relative">
             <select
-              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
               style={{ fontSize: "13px" }}
             >
               <option value="">All Statuses</option>
@@ -136,7 +136,7 @@ export default function AllOrdersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -152,8 +152,8 @@ export default function AllOrdersPage() {
               {orders.map((order, i) => (
                 <tr
                   key={order.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < orders.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < orders.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <span className="font-semibold text-foreground" style={{ fontSize: "13px" }}>{order.id}</span>
@@ -162,7 +162,7 @@ export default function AllOrdersPage() {
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                        style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                       >
                         {order.avatar}
                       </div>
@@ -193,14 +193,14 @@ export default function AllOrdersPage() {
                     <div className="flex items-center gap-2">
                       <Link
                         href={`/admin/orders/${order.id.replace("#", "")}`}
-                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors"
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors"
                         style={{ fontSize: "11px" }}
                       >
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                         View
                       </Link>
                       <button
-                        className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors"
+                        className="p-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors"
                       >
                         <MoreHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
@@ -213,7 +213,7 @@ export default function AllOrdersPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between px-5 py-3.5" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-3.5" style={{ borderTop: "1px solid var(--accent)" }}>
           <span className="text-muted-foreground" style={{ fontSize: "12px" }}>
             Showing 1–10 of 186 orders
           </span>
@@ -224,11 +224,11 @@ export default function AllOrdersPage() {
                 className={`px-3 py-1.5 rounded-lg border transition-colors ${
                   p === "1"
                     ? "border-transparent text-white"
-                    : "border-border/60 text-muted-foreground hover:bg-[#F8F7F5]"
+                    : "border-border/60 text-muted-foreground hover:bg-[var(--muted)]"
                 }`}
                 style={{
                   fontSize: "12px",
-                  backgroundColor: p === "1" ? "#501D2A" : undefined,
+                  backgroundColor: p === "1" ? "var(--primary)" : undefined,
                 }}
               >
                 {p}

@@ -38,7 +38,7 @@ export default function InventoryReportPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Total SKUs", value: totalSkus.toLocaleString(), sub: "Active products", icon: Package, color: "#501D2A" },
+          { label: "Total SKUs", value: totalSkus.toLocaleString(), sub: "Active products", icon: Package, color: "var(--primary)" },
           { label: "Total Stock Value", value: totalStockValue, sub: "At retail price", icon: Package, color: "#059669" },
           { label: "Avg Days In Stock", value: `${avgDaysInStock}d`, sub: "Before first sale", icon: TrendingUp, color: "#d97706" },
           { label: "Inventory Turnover", value: turnoverRate, sub: "Annual rate", icon: TrendingUp, color: "#7c3aed" },
@@ -74,7 +74,7 @@ export default function InventoryReportPage() {
             <div key={c.cat} className="flex items-center gap-4">
               <span className="w-24 shrink-0 text-foreground" style={{ fontSize: "13px" }}>{c.cat}</span>
               <div className="flex-1 h-2 bg-muted/30 rounded-full overflow-hidden">
-                <div className="h-full rounded-full" style={{ width: `${c.pct}%`, backgroundColor: "#501D2A" }} />
+                <div className="h-full rounded-full" style={{ width: `${c.pct}%`, backgroundColor: "var(--primary)" }} />
               </div>
               <span className="w-20 text-right text-muted-foreground" style={{ fontSize: "12px" }}>{c.value} ({c.pct}%)</span>
             </div>
@@ -107,7 +107,7 @@ export default function InventoryReportPage() {
                   <td className="px-6 py-3.5 text-foreground" style={{ fontSize: "13px" }}>{p.stockValue}</td>
                   <td className="px-6 py-3.5 text-muted-foreground" style={{ fontSize: "13px" }}>{p.daysInStock} days</td>
                   <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
-                    <span className="font-semibold" style={{ color: "#501D2A" }}>{p.turnover}</span>
+                    <span className="font-semibold" style={{ color: "var(--primary)" }}>{p.turnover}</span>
                   </td>
                 </tr>
               ))}

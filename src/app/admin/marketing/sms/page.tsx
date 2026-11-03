@@ -37,7 +37,7 @@ export default function SMSMarketingPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             New SMS Campaign
@@ -47,9 +47,9 @@ export default function SMSMarketingPage() {
 
       {/* Credits & Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-border/50 p-4 flex items-center gap-3" style={{ borderLeft: "4px solid #501D2A" }}>
+        <div className="bg-white rounded-xl border border-border/50 p-4 flex items-center gap-3" style={{ borderLeft: "4px solid var(--primary)" }}>
           <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-            <Zap className="w-4.5 h-4.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <Zap className="w-4.5 h-4.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <div>
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>Credits Remaining</p>
@@ -70,7 +70,7 @@ export default function SMSMarketingPage() {
                 <p className="text-muted-foreground" style={{ fontSize: "11px" }}>{c.sub}</p>
               </div>
               <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                <c.icon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                <c.icon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               </div>
             </div>
           </div>
@@ -79,13 +79,13 @@ export default function SMSMarketingPage() {
 
       {/* Campaigns Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>SMS Campaigns</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Message Preview", "Recipients", "Delivery Rate", "Date", "Cost", "Status"].map((h) => (
                   <th
                     key={h}
@@ -103,13 +103,13 @@ export default function SMSMarketingPage() {
                 return (
                   <tr
                     key={i}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < campaigns.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < campaigns.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5 max-w-xs">
                       <div className="flex items-start gap-2">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "#FAF0F2" }}>
-                          <MessageSquare className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                          <MessageSquare className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                         </div>
                         <p className="text-foreground line-clamp-2" style={{ fontSize: "12px" }}>{c.message}</p>
                       </div>
@@ -121,7 +121,7 @@ export default function SMSMarketingPage() {
                       {c.deliveryRate !== "—" ? (
                         <div className="space-y-1">
                           <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{c.deliveryRate}</span>
-                          <div className="h-1 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "#F0EDEF" }}>
+                          <div className="h-1 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "var(--accent)" }}>
                             <div className="h-full rounded-full" style={{ width: c.deliveryRate, backgroundColor: "#22C55E" }} />
                           </div>
                         </div>
@@ -149,7 +149,7 @@ export default function SMSMarketingPage() {
             </tbody>
           </table>
         </div>
-        <div className="px-5 py-3 rounded-b-xl" style={{ borderTop: "1px solid #F0EDEF", backgroundColor: "#F8F7F5" }}>
+        <div className="px-5 py-3 rounded-b-xl" style={{ borderTop: "1px solid var(--accent)", backgroundColor: "var(--muted)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             SMS pricing: $0.005 per message. Credits purchased at $10 = 2,000 credits.
           </p>

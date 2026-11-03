@@ -94,7 +94,7 @@ export default function AllCustomersPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {[
-          { label: "Total Customers", value: String(meta.total ?? 0), sub: "matching current filters", icon: Users, color: "#501D2A" },
+          { label: "Total Customers", value: String(meta.total ?? 0), sub: "matching current filters", icon: Users, color: "#202127" },
           { label: "Active", value: String(activeCountData?.meta?.total ?? 0), sub: "can log in", icon: UserCheck, color: "#2D6B4F" },
           { label: "Blocked", value: String(blockedCountData?.meta?.total ?? 0), sub: "cannot log in", icon: ShieldOff, color: "#DC2626" },
         ].map((s) => {
@@ -116,7 +116,7 @@ export default function AllCustomersPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 w-full sm:max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
@@ -124,7 +124,7 @@ export default function AllCustomersPage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search by name, email, phone..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -132,7 +132,7 @@ export default function AllCustomersPage() {
             <select
               value={isActive}
               onChange={(e) => { setIsActive(e.target.value); setPage(1) }}
-              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-foreground"
+              className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-foreground"
               style={{ fontSize: "13px" }}
             >
               <option value="">All status</option>
@@ -149,7 +149,7 @@ export default function AllCustomersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Customer", "Email", "Phone", "Orders", "Addresses", "Joined", "Status", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -169,12 +169,12 @@ export default function AllCustomersPage() {
                 return (
                   <tr
                     key={c.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < customers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < customers.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}>
                           {initials}
                         </div>
                         <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{c.name}</p>
@@ -194,7 +194,7 @@ export default function AllCustomersPage() {
                       <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/customers/${c.id}/edit`}
-                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground inline-flex"
+                          className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground inline-flex"
                         >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </Link>
@@ -222,7 +222,7 @@ export default function AllCustomersPage() {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             {isLoading ? <Skeleton className="h-3 w-40" /> : `Showing ${customers.length} of ${meta.total ?? 0} customers`}
           </p>
@@ -230,7 +230,7 @@ export default function AllCustomersPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={(meta.page ?? 1) <= 1}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
@@ -240,7 +240,7 @@ export default function AllCustomersPage() {
             <button
               onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))}
               disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
             </button>

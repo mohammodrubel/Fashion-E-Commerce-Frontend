@@ -74,7 +74,7 @@ export default function StockLevelsPage() {
   })
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Stock Levels"
         description="Current stock for all active ProductVariant records"
@@ -85,7 +85,7 @@ export default function StockLevelsPage() {
       <div className="bg-white rounded-xl border border-border/50 p-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           {/* Filter bar */}
-          <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: "#F8F7F5" }}>
+          <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: "var(--muted)" }}>
             {filterTabs.map((tab) => (
               <button
                 key={tab.key}
@@ -93,7 +93,7 @@ export default function StockLevelsPage() {
                 className="px-3 py-1.5 rounded-md transition-colors font-medium"
                 style={{
                   fontSize: "13px",
-                  backgroundColor: activeFilter === tab.key ? "#501D2A" : "transparent",
+                  backgroundColor: activeFilter === tab.key ? "var(--primary)" : "transparent",
                   color: activeFilter === tab.key ? "#fff" : "#6B7280",
                 }}
               >
@@ -124,7 +124,7 @@ export default function StockLevelsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {[
                   { label: "Product Name" },
                   { label: "SKU" },
@@ -159,8 +159,8 @@ export default function StockLevelsPage() {
                 return (
                   <tr
                     key={variant.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < sorted.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < sorted.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3 font-medium text-foreground" style={{ fontSize: "13px" }}>{variant.productName}</td>
                     <td className="px-5 py-3 font-mono text-muted-foreground" style={{ fontSize: "12px" }}>{variant.sku}</td>
@@ -204,7 +204,7 @@ export default function StockLevelsPage() {
             </tbody>
           </table>
         </div>
-        <div className="px-5 py-3" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-3" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing {sorted.length} of {variants.length} variants</p>
         </div>
       </div>

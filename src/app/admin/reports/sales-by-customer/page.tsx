@@ -74,7 +74,7 @@ export default function SalesByCustomerPage() {
                   <tr key={c.email} className={`border-b border-border/30 hover:bg-muted/20 transition-colors ${i === customers.length - 1 ? "border-b-0" : ""}`}>
                     <td className="px-6 py-4" style={{ fontSize: "13px" }}>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold" style={{ backgroundColor: "#501D2A", fontSize: "12px" }}>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold" style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}>
                           {c.avatar}
                         </div>
                         <div>

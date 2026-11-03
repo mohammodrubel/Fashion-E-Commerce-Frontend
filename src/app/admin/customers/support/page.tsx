@@ -50,7 +50,7 @@ export default function CustomerSupportPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Tickets", value: "142", sub: "all time", color: "#501D2A" },
+          { label: "Total Tickets", value: "142", sub: "all time", color: "var(--primary)" },
           { label: "Open", value: "18", sub: "needs attention", color: "#2563EB" },
           { label: "In Progress", value: "24", sub: "being handled", color: "#D97706" },
           { label: "Resolved", value: "100", sub: "closed tickets", color: "#2D6B4F" },
@@ -68,19 +68,19 @@ export default function CustomerSupportPage() {
 
       {/* Tickets Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 w-full sm:max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
               placeholder="Search tickets..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
           <div className="flex items-center gap-2">
             {["All", "Open", "In Progress", "Resolved"].map((f) => (
-              <button key={f} className={`px-3 py-1.5 rounded-lg transition-colors ${f === "All" ? "bg-primary text-primary-foreground" : "border border-border/60 text-muted-foreground hover:bg-[#F8F7F5]"}`} style={{ fontSize: "12px" }}>
+              <button key={f} className={`px-3 py-1.5 rounded-lg transition-colors ${f === "All" ? "bg-primary text-primary-foreground" : "border border-border/60 text-muted-foreground hover:bg-[var(--muted)]"}`} style={{ fontSize: "12px" }}>
                 {f}
               </button>
             ))}
@@ -90,7 +90,7 @@ export default function CustomerSupportPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Ticket ID", "Customer", "Subject", "Priority", "Status", "Created", "Last Reply", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -103,15 +103,15 @@ export default function CustomerSupportPage() {
                 return (
                   <tr
                     key={t.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < tickets.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < tickets.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3">
                       <span className="font-mono font-medium text-foreground" style={{ fontSize: "13px" }}>{t.id}</span>
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "10px" }}>
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "var(--primary)", fontSize: "10px" }}>
                           {t.initials}
                         </div>
                         <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{t.customer}</span>
@@ -140,13 +140,13 @@ export default function CustomerSupportPage() {
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <MessageSquare className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <MoreHorizontal className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>

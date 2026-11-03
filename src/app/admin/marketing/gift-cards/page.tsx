@@ -39,7 +39,7 @@ export default function GiftCardsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Issue Gift Card
@@ -50,7 +50,7 @@ export default function GiftCardsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Issued", value: "234", sub: "all time", color: "#501D2A" },
+          { label: "Total Issued", value: "234", sub: "all time", color: "var(--primary)" },
           { label: "Active Cards", value: "189", sub: "with balance remaining", color: "#166534" },
           { label: "Redeemed", value: "45", sub: "fully used", color: "#6B7280" },
           { label: "Outstanding Value", value: "$8,240", sub: "unredeemed balance", color: "#1D4ED8" },
@@ -65,14 +65,14 @@ export default function GiftCardsPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Gift Card Registry</p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Code", "Value", "Balance", "Customer", "Issued Date", "Expiry", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -93,13 +93,13 @@ export default function GiftCardsPage() {
                 return (
                   <tr
                     key={card.code}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < giftCards.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < giftCards.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                          <Gift className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                          <Gift className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                         </div>
                         <div>
                           <code className="font-mono text-foreground" style={{ fontSize: "12px" }}>{card.code}</code>
@@ -115,8 +115,8 @@ export default function GiftCardsPage() {
                     <td className="px-5 py-3.5">
                       <div className="space-y-1">
                         <span className="font-medium" style={{ fontSize: "13px", color: balanceNum === 0 ? "#9CA3AF" : "#166534" }}>{card.balance}</span>
-                        <div className="h-1 rounded-full w-20 overflow-hidden" style={{ backgroundColor: "#F0EDEF" }}>
-                          <div className="h-full rounded-full" style={{ width: `${usedPct}%`, backgroundColor: "#501D2A" }} />
+                        <div className="h-1 rounded-full w-20 overflow-hidden" style={{ backgroundColor: "var(--accent)" }}>
+                          <div className="h-full rounded-full" style={{ width: `${usedPct}%`, backgroundColor: "var(--primary)" }} />
                         </div>
                       </div>
                     </td>
@@ -139,10 +139,10 @@ export default function GiftCardsPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>
@@ -154,7 +154,7 @@ export default function GiftCardsPage() {
           </table>
         </div>
 
-        <div className="px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Showing 6 of 234 gift cards</p>
         </div>
       </div>

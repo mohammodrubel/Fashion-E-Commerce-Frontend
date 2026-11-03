@@ -65,7 +65,7 @@ const typeConfig: Record<StockMovementType, { label: string; className: string }
 
 export default function InventoryOverviewPage() {
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Inventory"
         description="Monitor stock levels and movements across all product variants"
@@ -75,7 +75,7 @@ export default function InventoryOverviewPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total SKUs",         value: "42",       sub: "active variants",   icon: Package,       color: "#501D2A" },
+          { label: "Total SKUs",         value: "42",       sub: "active variants",   icon: Package,       color: "#202127" },
           { label: "Total Stock Units",  value: "1,847",    sub: "units on hand",     icon: TrendingUp,    color: "#2D6B4F" },
           { label: "Total Stock Value",  value: "BDT 3,24,800", sub: "at current price", icon: TrendingUp, color: "#2563EB" },
           { label: "Out of Stock",       value: "4",        sub: "variants need restock", icon: XCircle,   color: "#DC2626" },
@@ -109,18 +109,18 @@ export default function InventoryOverviewPage() {
             <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" width="100%" height="100%">
               <defs>
                 <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#501D2A" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#501D2A" stopOpacity="0" />
+                  <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <path d={area} fill="url(#sparkGrad)" />
-              <path d={line} fill="none" stroke="#501D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={line} fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               {pts.map((pt, i) => (
-                <circle key={i} cx={pt[0]} cy={pt[1]} r="3" fill="#501D2A" />
+                <circle key={i} cx={pt[0]} cy={pt[1]} r="3" fill="var(--primary)" />
               ))}
             </svg>
           </div>
-          <div className="flex items-end justify-between mt-3 pt-3" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="flex items-end justify-between mt-3 pt-3" style={{ borderTop: "1px solid var(--accent)" }}>
             {sparkLabels.map((lbl, i) => (
               <div key={lbl} className="text-center">
                 <p className="text-muted-foreground" style={{ fontSize: "10px" }}>{lbl}</p>
@@ -160,7 +160,7 @@ export default function InventoryOverviewPage() {
                   <span className="text-foreground font-medium" style={{ fontSize: "13px" }}>{item.label}</span>
                   <span className="font-semibold" style={{ fontSize: "13px", color: item.color }}>{item.value}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "#F0EDEF" }}>
+                <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }}>
                   <div className="h-1.5 rounded-full" style={{ width: `${(item.value / item.total) * 100}%`, backgroundColor: item.color }} />
                 </div>
               </div>
@@ -171,14 +171,14 @@ export default function InventoryOverviewPage() {
 
       {/* Recent Stock Movements */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Recent Stock Movements</h2>
           <p className="text-muted-foreground mt-0.5" style={{ fontSize: "12px" }}>Latest entries from StockMovement log</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Date", "Product (SKU)", "Type", "Qty Change", "Note"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -191,8 +191,8 @@ export default function InventoryOverviewPage() {
                 return (
                   <tr
                     key={m.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < recentMovements.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < recentMovements.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3 text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{m.createdAt}</td>
                     <td className="px-5 py-3">

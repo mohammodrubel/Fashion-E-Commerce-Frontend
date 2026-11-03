@@ -43,7 +43,7 @@ export default function EmailMarketingPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             New Campaign
@@ -67,7 +67,7 @@ export default function EmailMarketingPage() {
                 <p className="text-muted-foreground" style={{ fontSize: "11px" }}>{c.sub}</p>
               </div>
               <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                <c.icon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                <c.icon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function EmailMarketingPage() {
                 className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors text-left"
                 style={{
                   backgroundColor: item.active ? "#FAF0F2" : "transparent",
-                  color: item.active ? "#501D2A" : "#6B7280",
+                  color: item.active ? "var(--primary)" : "#6B7280",
                   fontSize: "13px",
                   fontWeight: item.active ? 600 : 400,
                 }}
@@ -94,7 +94,7 @@ export default function EmailMarketingPage() {
                   className="rounded-full px-1.5 py-0.5"
                   style={{
                     fontSize: "10px",
-                    backgroundColor: item.active ? "#501D2A" : "#F0EDEF",
+                    backgroundColor: item.active ? "var(--primary)" : "var(--accent)",
                     color: item.active ? "white" : "#6B7280"
                   }}
                 >
@@ -107,14 +107,14 @@ export default function EmailMarketingPage() {
 
         {/* Campaign list */}
         <div className="flex-1 bg-white rounded-xl border border-border/50">
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
             <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Email Campaigns</p>
             <span className="text-muted-foreground" style={{ fontSize: "12px" }}>5 campaigns</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+                <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                   {["Subject", "Recipients", "Sent Date", "Open Rate", "Click Rate", "Status", "Actions"].map((h) => (
                     <th
                       key={h}
@@ -133,13 +133,13 @@ export default function EmailMarketingPage() {
                   return (
                     <tr
                       key={i}
-                      className="hover:bg-[#F8F7F5] transition-colors"
-                      style={{ borderBottom: i < campaigns.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                      className="hover:bg-[var(--muted)] transition-colors"
+                      style={{ borderBottom: i < campaigns.length - 1 ? "1px solid var(--accent)" : "none" }}
                     >
                       <td className="px-5 py-3.5 max-w-xs">
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                            <Mail className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                            <Mail className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                           </div>
                           <p className="text-foreground truncate" style={{ fontSize: "13px" }}>{camp.subject}</p>
                         </div>
@@ -154,8 +154,8 @@ export default function EmailMarketingPage() {
                         {camp.openRate !== "—" ? (
                           <div className="space-y-1">
                             <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{camp.openRate}</span>
-                            <div className="h-1 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "#F0EDEF" }}>
-                              <div className="h-full rounded-full" style={{ width: `${openNum * 1.5}%`, backgroundColor: "#501D2A" }} />
+                            <div className="h-1 rounded-full w-16 overflow-hidden" style={{ backgroundColor: "var(--accent)" }}>
+                              <div className="h-full rounded-full" style={{ width: `${openNum * 1.5}%`, backgroundColor: "var(--primary)" }} />
                             </div>
                           </div>
                         ) : (
@@ -175,10 +175,10 @@ export default function EmailMarketingPage() {
                       </td>
                       <td className="px-5 py-3.5">
                         <div className="flex items-center gap-1">
-                          <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                          <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                             <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                           </button>
-                          <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                          <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                             <Copy className="w-3.5 h-3.5" strokeWidth={1.5} />
                           </button>
                         </div>

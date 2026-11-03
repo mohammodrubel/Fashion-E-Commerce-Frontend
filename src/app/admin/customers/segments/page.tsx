@@ -23,7 +23,7 @@ const segments: Segment[] = [
     count: 142,
     lastUpdated: "2 hours ago",
     icon: TrendingUp,
-    color: "#501D2A",
+    color: "#202127",
     trend: "+8 this week",
     trendDir: "up",
   },
@@ -86,7 +86,7 @@ export default function CustomerSegmentsPage() {
         breadcrumbs={[{ label: "Admin", href: "/admin" }, { label: "Customers", href: "/admin/customers" }, { label: "Segments" }]}
         actions={
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
+            <button className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-muted-foreground" style={{ fontSize: "13px" }}>
               <RefreshCw className="w-3.5 h-3.5" strokeWidth={1.5} /> Refresh All
             </button>
             <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors" style={{ fontSize: "13px" }}>
@@ -131,7 +131,7 @@ export default function CustomerSegmentsPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground">
+                  <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground">
                     <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                   </button>
                   <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -142,7 +142,7 @@ export default function CustomerSegmentsPage() {
 
               <p className="text-muted-foreground" style={{ fontSize: "13px" }}>{seg.description}</p>
 
-              <div className="rounded-lg px-3 py-2" style={{ backgroundColor: "#F8F7F5" }}>
+              <div className="rounded-lg px-3 py-2" style={{ backgroundColor: "var(--muted)" }}>
                 <div className="flex items-center gap-1.5 mb-1">
                   <Zap className="w-3 h-3 text-muted-foreground" strokeWidth={1.5} />
                   <span className="text-muted-foreground font-medium" style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Rule</span>
@@ -150,7 +150,7 @@ export default function CustomerSegmentsPage() {
                 <code className="text-foreground" style={{ fontSize: "11px", fontFamily: "monospace" }}>{seg.rule}</code>
               </div>
 
-              <div className="flex items-center justify-between pt-1" style={{ borderTop: "1px solid #F0EDEF" }}>
+              <div className="flex items-center justify-between pt-1" style={{ borderTop: "1px solid var(--accent)" }}>
                 <div className="flex items-center gap-2">
                   <Users className="w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
                   <span className="font-semibold text-foreground" style={{ fontSize: "15px" }}>{seg.count.toLocaleString()}</span>
@@ -169,7 +169,7 @@ export default function CustomerSegmentsPage() {
 
         {/* Add new segment card */}
         <button className="bg-white rounded-xl border border-dashed border-border hover:border-primary/40 transition-colors p-5 flex flex-col items-center justify-center gap-3 text-center group" style={{ minHeight: "200px" }}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#F8F7F5] group-hover:bg-primary/10 transition-colors">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[var(--muted)] group-hover:bg-primary/10 transition-colors">
             <Plus className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" strokeWidth={1.5} />
           </div>
           <div>

@@ -65,7 +65,7 @@ export default function OutOfStockPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               {/* Product */}
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: "#F8F7F5", border: "1px solid #F0EDEF" }}>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--muted)", border: "1px solid var(--accent)" }}>
                   <Package className="w-5 h-5 text-muted-foreground" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -104,7 +104,7 @@ export default function OutOfStockPage() {
                 <input
                   type="number"
                   defaultValue={50}
-                  className="w-20 px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 text-center"
+                  className="w-20 px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 text-center"
                   style={{ fontSize: "13px" }}
                 />
                 <button className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors" style={{ fontSize: "13px" }}>

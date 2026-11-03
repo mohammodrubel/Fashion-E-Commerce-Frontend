@@ -41,9 +41,9 @@ export default function StockAlertsPage() {
 
       {/* Alert Settings */}
       <div className="bg-white rounded-xl border border-border/50 p-5">
-        <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "14px" }}>
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-            <Settings className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+        <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "14px" }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+            <Settings className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Alert Settings</h2>
         </div>
@@ -82,7 +82,7 @@ export default function StockAlertsPage() {
                     <input
                       type="number"
                       defaultValue={cat === "Dresses" ? 8 : cat === "Tops" ? 10 : cat === "Knitwear" ? 10 : cat === "Skirts" ? 5 : 8}
-                      className="w-16 px-2 py-1.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground text-center focus:outline-none focus:border-primary/40"
+                      className="w-16 px-2 py-1.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground text-center focus:outline-none focus:border-primary/40"
                       style={{ fontSize: "13px" }}
                     />
                     <span className="text-muted-foreground" style={{ fontSize: "12px" }}>units</span>
@@ -96,7 +96,7 @@ export default function StockAlertsPage() {
           </div>
         </div>
 
-        <div className="flex justify-end mt-4 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex justify-end mt-4 pt-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors" style={{ fontSize: "13px" }}>
             Save Settings
           </button>
@@ -107,7 +107,7 @@ export default function StockAlertsPage() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Bell className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <Bell className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
             <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Active Alerts</h2>
             <span className="inline-flex items-center rounded-full px-2 py-0.5 bg-red-100 text-red-700 font-medium" style={{ fontSize: "11px" }}>{activeAlerts.length}</span>
           </div>

@@ -6,7 +6,7 @@ export default function AnnouncementBarPage() {
     text: "Free shipping on all orders over $50 — Shop the Autumn Collection now",
     link: "/collections/autumn-2024",
     linkText: "Shop Now",
-    bgColor: "#501D2A",
+    bgColor: "var(--primary)",
     textColor: "#FAF0F2",
     isEnabled: true,
     showCloseButton: true,
@@ -21,7 +21,7 @@ export default function AnnouncementBarPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Save className="w-4 h-4" strokeWidth={1.5} />
             Save Changes
@@ -63,7 +63,7 @@ export default function AnnouncementBarPage() {
               <textarea
                 defaultValue={currentAnnouncement.text}
                 rows={2}
-                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 resize-none"
                 style={{ fontSize: "13px" }}
               />
               <p className="text-muted-foreground mt-1" style={{ fontSize: "11px" }}>Keep it concise — best at under 80 characters</p>
@@ -76,10 +76,10 @@ export default function AnnouncementBarPage() {
                   <input
                     type="text"
                     defaultValue={currentAnnouncement.link}
-                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                     style={{ fontSize: "13px" }}
                   />
-                  <button className="p-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-muted-foreground">
+                  <button className="p-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-muted-foreground">
                     <ExternalLink className="w-4 h-4" strokeWidth={1.5} />
                   </button>
                 </div>
@@ -89,7 +89,7 @@ export default function AnnouncementBarPage() {
                 <input
                   type="text"
                   defaultValue={currentAnnouncement.linkText}
-                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -103,7 +103,7 @@ export default function AnnouncementBarPage() {
                   <input
                     type="text"
                     defaultValue={currentAnnouncement.bgColor}
-                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 font-mono"
+                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 font-mono"
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -115,7 +115,7 @@ export default function AnnouncementBarPage() {
                   <input
                     type="text"
                     defaultValue={currentAnnouncement.textColor}
-                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 font-mono"
+                    className="flex-1 px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 font-mono"
                     style={{ fontSize: "13px" }}
                   />
                 </div>
@@ -134,14 +134,14 @@ export default function AnnouncementBarPage() {
               { label: "Show on Mobile", desc: "Visible on small screens", value: true },
               { label: "Show on All Pages", desc: "Or homepage only", value: true },
             ].map((opt) => (
-              <div key={opt.label} className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-[#F8F7F5] transition-colors">
+              <div key={opt.label} className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-[var(--muted)] transition-colors">
                 <div>
                   <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{opt.label}</p>
                   <p className="text-muted-foreground" style={{ fontSize: "11px" }}>{opt.desc}</p>
                 </div>
                 <button
                   className="relative inline-flex items-center rounded-full shrink-0 ml-3"
-                  style={{ width: "40px", height: "22px", backgroundColor: opt.value ? "#501D2A" : "#D1D5DB" }}
+                  style={{ width: "40px", height: "22px", backgroundColor: opt.value ? "var(--primary)" : "#D1D5DB" }}
                 >
                   <span
                     className="inline-block w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform"
@@ -153,11 +153,11 @@ export default function AnnouncementBarPage() {
           </div>
 
           {/* Preset themes */}
-          <div className="mt-5 pt-5" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="mt-5 pt-5" style={{ borderTop: "1px solid var(--accent)" }}>
             <p className="font-medium text-foreground mb-3" style={{ fontSize: "12px" }}>Quick Themes</p>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { bg: "#501D2A", text: "#FAF0F2", label: "Brand" },
+                { bg: "var(--primary)", text: "#FAF0F2", label: "Brand" },
                 { bg: "#1F2937", text: "#F9FAFB", label: "Dark" },
                 { bg: "#166534", text: "#F0FDF4", label: "Sale" },
                 { bg: "#92400E", text: "#FFF7ED", label: "Warm" },

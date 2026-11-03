@@ -95,14 +95,14 @@ export default function BestSellersPage() {
 
       {/* Full Ranked Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center gap-2 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
-          <BarChart3 className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+        <div className="flex items-center gap-2 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
+          <BarChart3 className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Full Rankings</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Rank", "Product", "Category", "Price", "Units Sold", "Revenue", "Trend", "Stock"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                     {h}
@@ -114,15 +114,15 @@ export default function BestSellersPage() {
               {bestSellers.map((product, i) => (
                 <tr
                   key={product.rank}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < bestSellers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < bestSellers.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <div
                       className="w-7 h-7 rounded-lg flex items-center justify-center font-bold shrink-0"
                       style={{
-                        backgroundColor: product.rank <= 3 ? rankColors[product.rank - 1] + "20" : "#F0EDEF",
-                        color: product.rank <= 3 ? rankColors[product.rank - 1] : "#9C7A83",
+                        backgroundColor: product.rank <= 3 ? rankColors[product.rank - 1] + "20" : "var(--accent)",
+                        color: product.rank <= 3 ? rankColors[product.rank - 1] : "#C2C7D7",
                         fontSize: "12px",
                       }}
                     >
@@ -140,7 +140,7 @@ export default function BestSellersPage() {
                       <div>
                         <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{product.name}</p>
                         {/* Mini bar */}
-                        <div className="mt-1 rounded-full h-1" style={{ backgroundColor: "#F0EDEF", width: "100px" }}>
+                        <div className="mt-1 rounded-full h-1" style={{ backgroundColor: "var(--accent)", width: "100px" }}>
                           <div
                             className="h-1 rounded-full"
                             style={{ width: `${(product.unitsSold / maxUnits) * 100}%`, backgroundColor: product.color }}

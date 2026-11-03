@@ -88,13 +88,13 @@ export default function CustomerGroupsPage() {
 
       {/* Groups Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>All Groups</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Group Name", "Description", "Customers", "Discount", "Perks", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -104,8 +104,8 @@ export default function CustomerGroupsPage() {
               {groups.map((g, i) => (
                 <tr
                   key={g.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < groups.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < groups.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-2.5">
@@ -136,16 +136,16 @@ export default function CustomerGroupsPage() {
                   <td className="px-5 py-4">
                     <div className="flex flex-wrap gap-1">
                       {g.perks.slice(0, 2).map((p) => (
-                        <span key={p} className="inline-flex items-center rounded px-1.5 py-0.5 bg-[#F8F7F5] text-muted-foreground" style={{ fontSize: "10px" }}>{p}</span>
+                        <span key={p} className="inline-flex items-center rounded px-1.5 py-0.5 bg-[var(--muted)] text-muted-foreground" style={{ fontSize: "10px" }}>{p}</span>
                       ))}
                       {g.perks.length > 2 && (
-                        <span className="inline-flex items-center rounded px-1.5 py-0.5 bg-[#F8F7F5] text-muted-foreground" style={{ fontSize: "10px" }}>+{g.perks.length - 2} more</span>
+                        <span className="inline-flex items-center rounded px-1.5 py-0.5 bg-[var(--muted)] text-muted-foreground" style={{ fontSize: "10px" }}>+{g.perks.length - 2} more</span>
                       )}
                     </div>
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600" disabled={g.id === "G001"}>

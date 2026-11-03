@@ -147,7 +147,7 @@ export default function CategoriesPage() {
   }
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Product Categories"
         description="Organise your products into categories"
@@ -163,7 +163,7 @@ export default function CategoriesPage() {
         <div className="xl:col-span-2 bg-white rounded-xl border border-border/50">
           <div
             className="flex items-center justify-between px-5 py-4"
-            style={{ borderBottom: "1px solid #F0EDEF" }}
+            style={{ borderBottom: "1px solid var(--accent)" }}
           >
             <div>
               <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
@@ -181,7 +181,7 @@ export default function CategoriesPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+                <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                   {["Name", "Slug", "Products", "Status", "Actions"].map((h) => (
                     <th
                       key={h}
@@ -209,9 +209,9 @@ export default function CategoriesPage() {
                 {categories.map((cat, i) => (
                   <tr
                     key={cat.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
+                    className="hover:bg-[var(--muted)] transition-colors"
                     style={{
-                      borderBottom: i < categories.length - 1 ? "1px solid #F0EDEF" : "none",
+                      borderBottom: i < categories.length - 1 ? "1px solid var(--accent)" : "none",
                     }}
                   >
                     {/* Name */}
@@ -219,7 +219,7 @@ export default function CategoriesPage() {
                       <div className="flex items-center gap-3">
                         <div
                           className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden"
-                          style={{ backgroundColor: "#F0EDEF" }}
+                          style={{ backgroundColor: "var(--accent)" }}
                         >
                           {cat.image ? (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -227,7 +227,7 @@ export default function CategoriesPage() {
                           ) : (
                             <FolderOpen
                               className="w-4 h-4"
-                              style={{ color: "#501D2A" }}
+                              style={{ color: "var(--primary)" }}
                               strokeWidth={1.5}
                             />
                           )}
@@ -276,7 +276,7 @@ export default function CategoriesPage() {
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => startEdit(cat)}
-                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                          className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground"
                         >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
@@ -306,7 +306,7 @@ export default function CategoriesPage() {
               {editingId && (
                 <button
                   onClick={resetForm}
-                  className="p-1 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground"
+                  className="p-1 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground"
                 >
                   <X className="w-3.5 h-3.5" strokeWidth={1.5} />
                 </button>
@@ -377,17 +377,17 @@ export default function CategoriesPage() {
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   className="flex items-center gap-3 p-3 rounded-lg border border-dashed border-border/60 cursor-pointer hover:border-primary/40 transition-colors"
-                  style={{ backgroundColor: "#F8F7F5" }}
+                  style={{ backgroundColor: "var(--muted)" }}
                 >
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 overflow-hidden"
-                    style={{ backgroundColor: "#F0EDEF" }}
+                    style={{ backgroundColor: "var(--accent)" }}
                   >
                     {imagePreview ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                     ) : (
-                      <Upload className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                      <Upload className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                     )}
                   </div>
                   <div className="min-w-0">
@@ -415,12 +415,12 @@ export default function CategoriesPage() {
                       <div
                         className="w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors"
                         style={{
-                          borderColor: formIsActive === opt.value ? "#501D2A" : "#D1D5DB",
+                          borderColor: formIsActive === opt.value ? "var(--primary)" : "#D1D5DB",
                         }}
                         onClick={() => setFormIsActive(opt.value)}
                       >
                         {formIsActive === opt.value && (
-                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#501D2A" }} />
+                          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--primary)" }} />
                         )}
                       </div>
                       <span className="text-foreground" style={{ fontSize: "13px" }}>
@@ -436,7 +436,7 @@ export default function CategoriesPage() {
                 onClick={handleSubmit}
                 disabled={isSaving}
                 className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg text-white text-sm hover:opacity-90 transition-opacity font-medium mt-2 disabled:opacity-60"
-                style={{ backgroundColor: "#501D2A" }}
+                style={{ backgroundColor: "var(--primary)" }}
               >
                 {isSaving ? (
                   <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />

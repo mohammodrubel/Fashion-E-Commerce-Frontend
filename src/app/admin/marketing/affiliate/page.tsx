@@ -39,7 +39,7 @@ export default function AffiliatePage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Affiliate
@@ -50,7 +50,7 @@ export default function AffiliatePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Active Affiliates", value: "4", sub: "of 5 total", icon: Link, bg: "#FAF0F2", color: "#501D2A" },
+          { label: "Active Affiliates", value: "4", sub: "of 5 total", icon: Link, bg: "#FAF0F2", color: "var(--primary)" },
           { label: "Total Clicks", value: "12,390", sub: "all affiliates", icon: MousePointer, bg: "#EFF6FF", color: "#1D4ED8" },
           { label: "Total Orders", value: "352", sub: "referred orders", icon: ShoppingBag, bg: "#F0FDF4", color: "#166534" },
           { label: "Commission Owed", value: "$2,417", sub: "unpaid balance", icon: DollarSign, bg: "#FFF7ED", color: "#9A3412" },
@@ -72,10 +72,10 @@ export default function AffiliatePage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Affiliates</p>
           <button
-            className="px-3 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors"
+            className="px-3 py-1.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors"
             style={{ fontSize: "12px" }}
           >
             Pay All Balances
@@ -84,7 +84,7 @@ export default function AffiliatePage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Affiliate", "Commission Rate", "Clicks", "Orders", "Revenue", "Unpaid Balance", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -103,15 +103,15 @@ export default function AffiliatePage() {
                 return (
                   <tr
                     key={a.email}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < affiliates.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < affiliates.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{a.name}</p>
                       <p className="text-muted-foreground" style={{ fontSize: "11px" }}>{a.email}</p>
                     </td>
                     <td className="px-5 py-3.5">
-                      <span className="font-semibold" style={{ fontSize: "14px", color: "#501D2A" }}>{a.commissionRate}</span>
+                      <span className="font-semibold" style={{ fontSize: "14px", color: "var(--primary)" }}>{a.commissionRate}</span>
                     </td>
                     <td className="px-5 py-3.5">
                       <span className="text-foreground" style={{ fontSize: "13px" }}>{a.clicks.toLocaleString()}</span>
@@ -143,10 +143,10 @@ export default function AffiliatePage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                       </div>

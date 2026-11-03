@@ -42,7 +42,7 @@ export function PageHeader({ title, description, breadcrumbs, actions }: PageHea
             ))}
           </div>
         )}
-        <h1 className="text-foreground font-semibold" style={{ fontSize: "22px" }}>
+        <h1 className="text-admin-page-heading text-foreground">
           {title}
         </h1>
         {description && (

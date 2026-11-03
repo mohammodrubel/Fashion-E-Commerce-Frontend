@@ -11,7 +11,7 @@ const paymentRows = [
 ]
 
 const methodBreakdown = [
-  { method: "Credit/Debit Card", pct: 68, revenue: "$96,954", color: "#501D2A" },
+  { method: "Credit/Debit Card", pct: 68, revenue: "$96,954", color: "var(--primary)" },
   { method: "PayPal", pct: 22, revenue: "$31,368", color: "#7a3042" },
   { method: "Bank Transfer", pct: 6, revenue: "$8,555", color: "#c05070" },
   { method: "Cash on Delivery", pct: 4, revenue: "$5,703", color: "#d97706" },
@@ -40,8 +40,8 @@ export default function PaymentsReportPage() {
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-muted-foreground" style={{ fontSize: "13px" }}>Total Transactions</span>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#501D2A15" }}>
-              <CreditCard className="w-4 h-4" style={{ color: "#501D2A" }} />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>
+              <CreditCard className="w-4 h-4" style={{ color: "var(--primary)" }} />
             </div>
           </div>
           <p className="text-2xl font-semibold text-foreground">1,847</p>
@@ -77,7 +77,7 @@ export default function PaymentsReportPage() {
           <div className="shrink-0">
             <svg width="160" height="160" viewBox="0 0 160 160">
               <circle cx="80" cy="80" r="60" fill="none" stroke="#f3f4f6" strokeWidth="24" />
-              <circle cx="80" cy="80" r="60" fill="none" stroke="#501D2A" strokeWidth="24"
+              <circle cx="80" cy="80" r="60" fill="none" stroke="var(--primary)" strokeWidth="24"
                 strokeDasharray={`${68 * 3.77} ${100 * 3.77}`} strokeDashoffset={`${25 * 3.77}`} />
               <circle cx="80" cy="80" r="60" fill="none" stroke="#7a3042" strokeWidth="24"
                 strokeDasharray={`${22 * 3.77} ${100 * 3.77}`} strokeDashoffset={`${(25 - 68) * 3.77}`} />

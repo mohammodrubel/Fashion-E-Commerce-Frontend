@@ -34,7 +34,7 @@ export default function TaxReportPage() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <div className="flex items-center gap-2 mb-3">
-            <Receipt className="w-4 h-4" style={{ color: "#501D2A" }} />
+            <Receipt className="w-4 h-4" style={{ color: "var(--primary)" }} />
             <span className="text-muted-foreground" style={{ fontSize: "13px" }}>Total Taxable Sales</span>
           </div>
           <p className="text-2xl font-semibold text-foreground">$87,420</p>

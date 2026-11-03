@@ -107,8 +107,8 @@ function ResetPasswordForm() {
 
         <div className="space-y-2">
           <h1
-            className="font-light tracking-tight text-foreground"
-            style={{ fontSize: "28px" }}
+            className="font-editorial font-semibold tracking-tight text-foreground"
+            style={{ fontSize: "42px" }}
           >
             {isExpired ? "Link Expired" : "Invalid Link"}
           </h1>
@@ -121,7 +121,7 @@ function ResetPasswordForm() {
 
         <Link
           href="/forgot-password"
-          className="inline-flex items-center gap-2 text-foreground underline underline-offset-4 hover:text-primary transition-colors"
+          className="font-body font-medium inline-flex items-center gap-2 text-foreground underline underline-offset-4 hover:text-primary transition-colors"
           style={{ fontSize: "13px" }}
         >
           Request a new link
@@ -154,8 +154,8 @@ function ResetPasswordForm() {
 
         <div className="space-y-2">
           <h1
-            className="font-light tracking-tight text-foreground"
-            style={{ fontSize: "28px" }}
+            className="font-editorial font-semibold tracking-tight text-foreground"
+            style={{ fontSize: "42px" }}
           >
             Password Updated
           </h1>
@@ -167,7 +167,7 @@ function ResetPasswordForm() {
 
         <Link
           href="/login"
-          className="inline-flex w-full h-12 bg-primary text-primary-foreground items-center justify-center gap-2.5 uppercase font-medium transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="font-ui inline-flex w-full h-12 bg-primary text-primary-foreground items-center justify-center gap-2.5 uppercase font-semibold transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
         >
           Continue to Sign In
@@ -182,8 +182,8 @@ function ResetPasswordForm() {
       {/* Heading */}
       <div className="space-y-2">
         <h1
-          className="font-light tracking-tight text-foreground"
-          style={{ fontSize: "28px" }}
+          className="font-editorial font-semibold tracking-tight text-foreground"
+          style={{ fontSize: "42px" }}
         >
           Create a New Password
         </h1>
@@ -238,7 +238,7 @@ function ResetPasswordForm() {
           <button
             type="submit"
             disabled={pageState === "loading"}
-            className="w-full h-12 bg-primary text-primary-foreground uppercase font-medium transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
+            className="font-ui w-full h-12 bg-primary text-primary-foreground uppercase font-semibold transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
             style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
           >
             {pageState === "loading" ? (
@@ -276,8 +276,8 @@ function ResetPasswordForm() {
       </form>
 
       <p
-        className="text-muted-foreground"
-        style={{ fontSize: "12px", letterSpacing: "0.02em" }}
+        className="font-body font-medium text-muted-foreground"
+        style={{ fontSize: "13px", letterSpacing: "0.02em" }}
       >
         Remembered your password?{" "}
         <Link

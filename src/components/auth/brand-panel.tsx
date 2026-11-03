@@ -18,7 +18,7 @@ export function BrandPanel() {
           PARALLEL
         </span>
         <span
-          className="text-white/25 uppercase"
+          className="font-ui text-white/25 uppercase"
           style={{ fontSize: "10px", letterSpacing: "0.2em" }}
         >
           FW 25
@@ -29,7 +29,7 @@ export function BrandPanel() {
       <div className="space-y-8">
         <div>
           <p
-            className="text-white font-extralight leading-[1.05] tracking-tight"
+            className="font-editorial text-white font-normal leading-[1.05] tracking-tight"
             style={{ fontSize: "clamp(42px, 4.5vw, 58px)" }}
           >
             IN PRECISION
@@ -43,7 +43,7 @@ export function BrandPanel() {
         <div className="space-y-4">
           <div className="w-10 h-px bg-white/25" />
           <p
-            className="text-white/35 uppercase"
+            className="font-ui text-white/35 uppercase"
             style={{ fontSize: "10px", letterSpacing: "0.25em" }}
           >
             Autumn / Winter Collection&nbsp;&nbsp;2025

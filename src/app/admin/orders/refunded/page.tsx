@@ -63,7 +63,7 @@ export default function RefundedOrdersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Order ID", "Customer", "Order Date", "Items", "Order Total", "Refund Amount", "Refund Date", "Method"].map((h) => (
                   <th
                     key={h}
@@ -79,8 +79,8 @@ export default function RefundedOrdersPage() {
               {orders.map((order, i) => (
                 <tr
                   key={order.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < orders.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < orders.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <span className="font-semibold text-foreground" style={{ fontSize: "13px" }}>{order.id}</span>
@@ -89,7 +89,7 @@ export default function RefundedOrdersPage() {
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                        style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                       >
                         {order.avatar}
                       </div>

@@ -62,7 +62,7 @@ export default function AutoDiscountsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Add Rule
@@ -88,7 +88,7 @@ export default function AutoDiscountsPage() {
 
       {/* Rules table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div>
             <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>Discount Rules</p>
             <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Drag to change priority order</p>
@@ -99,7 +99,7 @@ export default function AutoDiscountsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Priority", "Rule Name", "Type", "Conditions", "Discount", "Uses", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -115,12 +115,12 @@ export default function AutoDiscountsPage() {
               {rules.map((rule, i) => (
                 <tr
                   key={rule.name}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < rules.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < rules.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "#501D2A", fontSize: "11px" }}>
+                      <div className="w-6 h-6 rounded flex items-center justify-center text-white font-semibold shrink-0" style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}>
                         {rule.priority}
                       </div>
                     </div>
@@ -151,7 +151,7 @@ export default function AutoDiscountsPage() {
                         className="relative inline-flex items-center rounded-full shrink-0 transition-colors"
                         style={{
                           width: "36px", height: "20px",
-                          backgroundColor: rule.status === "Active" ? "#501D2A" : "#D1D5DB"
+                          backgroundColor: rule.status === "Active" ? "var(--primary)" : "#D1D5DB"
                         }}
                       >
                         <span
@@ -169,7 +169,7 @@ export default function AutoDiscountsPage() {
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-1">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -183,7 +183,7 @@ export default function AutoDiscountsPage() {
           </table>
         </div>
 
-        <div className="px-5 py-4 rounded-b-xl" style={{ borderTop: "1px solid #F0EDEF", backgroundColor: "#F8F7F5" }}>
+        <div className="px-5 py-4 rounded-b-xl" style={{ borderTop: "1px solid var(--accent)", backgroundColor: "var(--muted)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             Rules are evaluated in priority order. First matching rule wins.
           </p>

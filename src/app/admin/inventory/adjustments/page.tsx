@@ -71,7 +71,7 @@ export default function StockAdjustmentsPage() {
   const [note, setNote]         = useState("")
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100vh" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100vh" }}>
       <PageHeader
         title="Stock Adjustments"
         description="Record manual inventory changes and view full adjustment history"
@@ -86,13 +86,13 @@ export default function StockAdjustmentsPage() {
       <div className="bg-white rounded-xl border border-border/50 p-5">
         <div
           className="flex items-center gap-2.5 mb-5"
-          style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "14px" }}
+          style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "14px" }}
         >
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center"
-            style={{ backgroundColor: "#F0EDEF" }}
+            style={{ backgroundColor: "var(--accent)" }}
           >
-            <PackagePlus className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <PackagePlus className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
             Record Stock Adjustment
@@ -173,7 +173,7 @@ export default function StockAdjustmentsPage() {
           <div className="flex items-end">
             <button
               className="w-full py-2.5 rounded-lg text-white font-semibold transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+              style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
             >
               Save Adjustment
             </button>
@@ -183,7 +183,7 @@ export default function StockAdjustmentsPage() {
 
       {/* ── History table ── */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Adjustment History</h2>
           <p className="text-muted-foreground mt-0.5" style={{ fontSize: "12px" }}>All stock movements recorded in the system</p>
         </div>
@@ -191,7 +191,7 @@ export default function StockAdjustmentsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Date", "Product / SKU", "Type", "Quantity", "Note", "Recorded By"].map((h) => (
                   <th
                     key={h}
@@ -211,8 +211,8 @@ export default function StockAdjustmentsPage() {
                 return (
                   <tr
                     key={i}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < historyData.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < historyData.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     {/* Date */}
                     <td className="px-5 py-3.5 text-muted-foreground whitespace-nowrap" style={{ fontSize: "12px" }}>
@@ -271,7 +271,7 @@ export default function StockAdjustmentsPage() {
         {/* Pagination stub */}
         <div
           className="flex items-center justify-between px-5 py-3.5"
-          style={{ borderTop: "1px solid #F0EDEF" }}
+          style={{ borderTop: "1px solid var(--accent)" }}
         >
           <span className="text-muted-foreground" style={{ fontSize: "12px" }}>
             Showing 1–8 of 8 entries
@@ -283,11 +283,11 @@ export default function StockAdjustmentsPage() {
                 className={`px-3 py-1.5 rounded-lg border transition-colors ${
                   p === "1"
                     ? "border-transparent text-white"
-                    : "border-border/60 text-muted-foreground hover:bg-[#F8F7F5]"
+                    : "border-border/60 text-muted-foreground hover:bg-[var(--muted)]"
                 }`}
                 style={{
                   fontSize: "12px",
-                  backgroundColor: p === "1" ? "#501D2A" : undefined,
+                  backgroundColor: p === "1" ? "var(--primary)" : undefined,
                 }}
               >
                 {p}

@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/admin/page-header"
 import { ShoppingCart, CheckCircle, XCircle, RefreshCcw, Download } from "lucide-react"
 
 const stats = [
-  { label: "Total Orders", value: "1,847", icon: ShoppingCart, color: "#501D2A", bg: "#501D2A15" },
+  { label: "Total Orders", value: "1,847", icon: ShoppingCart, color: "var(--primary)", bg: "#20212715" },
   { label: "Completed", value: "1,654", icon: CheckCircle, color: "#059669", bg: "#05966915" },
   { label: "Cancelled", value: "89", icon: XCircle, color: "#dc2626", bg: "#dc262615" },
   { label: "Returned", value: "104", icon: RefreshCcw, color: "#d97706", bg: "#d9770615" },

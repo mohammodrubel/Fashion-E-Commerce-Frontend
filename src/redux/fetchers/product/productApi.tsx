@@ -4,15 +4,19 @@ import { tagTypes } from "@/redux/tagTypes";
 export interface ProductQueryParams {
   page?: number;
   limit?: number;
-  sort?: "name" | "price" | "createdAt" | "updatedAt";
+  sort?: "name" | "price" | "createdAt" | "updatedAt" | "featured";
   order?: "asc" | "desc";
   searchTerm?: string;
   category?: string;
+  categoryIds?: string;
   status?: "ACTIVE" | "INACTIVE" | "DRAFT";
   minPrice?: number | string;
   maxPrice?: number | string;
   stockStatus?: "IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK";
   featured?: boolean | string;
+  onSale?: boolean | string;
+  colorIds?: string;
+  sizeIds?: string;
   tags?: string;
   startDate?: string;
   endDate?: string;
@@ -25,6 +29,13 @@ export const productApi = baseApi.injectEndpoints({
         url: `/product`,
         method: "GET",
         params,
+      }),
+      providesTags: [tagTypes.product],
+    }),
+    getProductPriceRange: builder.query({
+      query: () => ({
+        url: `/product/price-range`,
+        method: "GET",
       }),
       providesTags: [tagTypes.product],
     }),
@@ -63,6 +74,7 @@ export const productApi = baseApi.injectEndpoints({
 
 export const {
   useGetAllProductsQuery,
+  useGetProductPriceRangeQuery,
   useGetSingleProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,

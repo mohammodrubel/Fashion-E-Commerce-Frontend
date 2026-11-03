@@ -95,7 +95,7 @@ export default function OrderNotesPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={2} />
             Add Note
@@ -109,11 +109,11 @@ export default function OrderNotesPage() {
             {/* Order header */}
             <div
               className="flex items-center gap-3 px-5 py-3.5"
-              style={{ borderBottom: "1px solid #F0EDEF", backgroundColor: "#F8F7F5" }}
+              style={{ borderBottom: "1px solid var(--accent)", backgroundColor: "var(--muted)" }}
             >
               <div
                 className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"
-                style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
               >
                 {order.avatar}
               </div>
@@ -139,11 +139,11 @@ export default function OrderNotesPage() {
                 <div
                   key={note.id}
                   className="flex gap-3"
-                  style={j < order.notes.length - 1 ? { paddingBottom: "1rem", borderBottom: "1px solid #F0EDEF" } : {}}
+                  style={j < order.notes.length - 1 ? { paddingBottom: "1rem", borderBottom: "1px solid var(--accent)" } : {}}
                 >
                   <div
                     className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0 mt-0.5"
-                    style={{ backgroundColor: "#794554", fontSize: "11px", fontWeight: 600 }}
+                    style={{ backgroundColor: "#A5ABC0", fontSize: "11px", fontWeight: 600 }}
                   >
                     {note.authorAvatar}
                   </div>
@@ -164,10 +164,10 @@ export default function OrderNotesPage() {
               ))}
 
               {/* Add note input */}
-              <div className="flex gap-3 pt-2" style={{ borderTop: "1px solid #F0EDEF" }}>
+              <div className="flex gap-3 pt-2" style={{ borderTop: "1px solid var(--accent)" }}>
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0 mt-0.5"
-                  style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                  style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                 >
                   A
                 </div>
@@ -175,12 +175,12 @@ export default function OrderNotesPage() {
                   <input
                     type="text"
                     placeholder="Add a note…"
-                    className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
+                    className="flex-1 min-w-0 px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
                     style={{ fontSize: "13px" }}
                   />
                   <button
                     className="px-3 py-2 rounded-lg text-white font-medium transition-opacity hover:opacity-90 whitespace-nowrap"
-                    style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
+                    style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}
                   >
                     Save
                   </button>

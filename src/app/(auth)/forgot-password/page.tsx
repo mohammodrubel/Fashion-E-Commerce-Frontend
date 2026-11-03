@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
           {/* Back link */}
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors uppercase"
+            className="font-ui inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors uppercase"
             style={{ fontSize: "10px", letterSpacing: "0.15em" }}
           >
             <ArrowLeft className="w-3 h-3" strokeWidth={1.5} />
@@ -75,8 +75,8 @@ export default function ForgotPasswordPage() {
             </div>
 
             <h1
-              className="font-light tracking-tight text-foreground"
-              style={{ fontSize: "28px" }}
+              className="font-editorial font-semibold tracking-tight text-foreground"
+              style={{ fontSize: "42px" }}
             >
               Check Your Email
             </h1>
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
 
           <div className="pt-2 border-t border-border/50">
             <p
-              className="text-muted-foreground"
+              className="font-body text-muted-foreground"
               style={{ fontSize: "11px", letterSpacing: "0.05em" }}
             >
               Didn&apos;t receive it?{" "}
@@ -113,7 +113,7 @@ export default function ForgotPasswordPage() {
         {/* Back link */}
         <Link
           href="/login"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors uppercase"
+          className="font-ui inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors uppercase"
           style={{ fontSize: "10px", letterSpacing: "0.15em" }}
         >
           <ArrowLeft className="w-3 h-3" strokeWidth={1.5} />
@@ -123,8 +123,8 @@ export default function ForgotPasswordPage() {
         {/* Heading */}
         <div className="space-y-2">
           <h1
-            className="font-light tracking-tight text-foreground"
-            style={{ fontSize: "28px" }}
+            className="font-editorial font-semibold tracking-tight text-foreground"
+            style={{ fontSize: "42px" }}
           >
             Forgot Your Password?
           </h1>
@@ -151,7 +151,7 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={pageState === "loading"}
-              className="w-full h-12 bg-primary text-primary-foreground uppercase font-medium transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
+              className="font-ui w-full h-12 bg-primary text-primary-foreground uppercase font-semibold transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
               style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
             >
               {pageState === "loading" ? (

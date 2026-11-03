@@ -33,8 +33,8 @@ export default function DiscountsReportPage() {
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-muted-foreground" style={{ fontSize: "13px" }}>Total Discounts Given</span>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#501D2A15" }}>
-              <TrendingDown className="w-4 h-4" style={{ color: "#501D2A" }} />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>
+              <TrendingDown className="w-4 h-4" style={{ color: "var(--primary)" }} />
             </div>
           </div>
           <p className="text-2xl font-semibold text-foreground">$12,840</p>
@@ -84,7 +84,7 @@ export default function DiscountsReportPage() {
                   </td>
                   <td className="px-6 py-3.5 text-muted-foreground" style={{ fontSize: "13px" }}>{c.type}</td>
                   <td className="px-6 py-3.5" style={{ fontSize: "13px" }}>
-                    <span className="font-semibold" style={{ color: "#501D2A" }}>{c.discount}</span>
+                    <span className="font-semibold" style={{ color: "var(--primary)" }}>{c.discount}</span>
                   </td>
                   <td className="px-6 py-3.5 text-foreground font-medium" style={{ fontSize: "13px" }}>{c.uses}</td>
                   <td className="px-6 py-3.5 text-rose-500 font-medium" style={{ fontSize: "13px" }}>−{c.totalDiscount}</td>

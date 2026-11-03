@@ -21,9 +21,9 @@ const labelCls = "block font-medium text-foreground mb-1.5"
 function SectionCard({ icon: Icon, title, children }: { icon: React.ElementType; title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white rounded-xl border border-border/50 p-5">
-      <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "14px" }}>
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-          <Icon className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+      <div className="flex items-center gap-2.5 mb-5" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "14px" }}>
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+          <Icon className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
         </div>
         <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{title}</h2>
       </div>
@@ -39,11 +39,11 @@ function Toggle({ value, onChange, labelOn = "Active", labelOff = "Inactive" }: 
         type="button"
         onClick={() => onChange(!value)}
         className="relative inline-flex w-10 h-6 rounded-full transition-colors shrink-0"
-        style={{ backgroundColor: value ? "#501D2A" : "#D1D5DB" }}
+        style={{ backgroundColor: value ? "var(--primary)" : "#D1D5DB" }}
       >
         <span className="absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200" style={{ left: value ? "calc(100% - 20px)" : "4px" }} />
       </button>
-      <span className="font-medium" style={{ fontSize: "13px", color: value ? "#501D2A" : "#6B7280" }}>
+      <span className="font-medium" style={{ fontSize: "13px", color: value ? "var(--primary)" : "#6B7280" }}>
         {value ? labelOn : labelOff}
       </span>
     </div>
@@ -172,7 +172,7 @@ export function CustomerForm({
 
   if (isEdit && isLoadingCustomer) {
     return (
-      <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100vh" }}>
+      <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100vh" }}>
         <div className="flex items-center justify-between">
           <Skeleton className="h-7 w-48" />
           <Skeleton className="h-9 w-28 rounded-lg" />
@@ -201,7 +201,7 @@ export function CustomerForm({
   }
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100vh" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100vh" }}>
       <PageHeader
         title={isEdit ? `Edit ${entityLabel}` : `Add New ${entityLabel}`}
         description={isEdit ? `Update ${entityLabel.toLowerCase()} account details` : `Create a new ${entityLabel.toLowerCase()} account manually`}
@@ -219,7 +219,7 @@ export function CustomerForm({
               onClick={handleSubmit}
               disabled={isSaving}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
-              style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+              style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Save className="w-4 h-4" strokeWidth={1.5} />}
               {isEdit ? "Save Changes" : `Create ${entityLabel}`}
@@ -310,7 +310,7 @@ export function CustomerForm({
                   {pwMatch && <p className="text-emerald-600 mt-1 flex items-center gap-1" style={{ fontSize: "11px" }}><CheckCircle2 className="w-3 h-3" strokeWidth={2} /> Passwords match</p>}
                 </div>
 
-                <div className="p-3 rounded-lg" style={{ backgroundColor: "#F8F7F5", border: "1px solid #F0EDEF" }}>
+                <div className="p-3 rounded-lg" style={{ backgroundColor: "var(--muted)", border: "1px solid var(--accent)" }}>
                   <p className="font-medium text-muted-foreground mb-2" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>Password Requirements</p>
                   <ul className="space-y-1">
                     {requirements.map((r) => (
@@ -357,7 +357,7 @@ export function CustomerForm({
                   <input type="text" value={addrPostal} onChange={(e) => setAddrPostal(e.target.value)} placeholder="1207" className={inputCls} style={{ fontSize: "13px" }} />
                 </div>
                 <label className="flex items-center gap-2.5 cursor-pointer">
-                  <input type="checkbox" checked={addrIsDefault} onChange={(e) => setAddrIsDefault(e.target.checked)} className="w-4 h-4 rounded border-border/60 accent-[#501D2A]" />
+                  <input type="checkbox" checked={addrIsDefault} onChange={(e) => setAddrIsDefault(e.target.checked)} className="w-4 h-4 rounded border-border/60 accent-[var(--primary)]" />
                   <span className="text-foreground" style={{ fontSize: "13px" }}>Set as default address</span>
                 </label>
               </div>
@@ -368,7 +368,7 @@ export function CustomerForm({
             <div className="bg-white rounded-xl border border-border/50 p-5">
               <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
                 Manage this customer&apos;s saved addresses from the{" "}
-                <a href="/admin/customers/addresses" className="underline hover:opacity-70" style={{ color: "#501D2A" }}>
+                <a href="/admin/customers/addresses" className="underline hover:opacity-70" style={{ color: "var(--primary)" }}>
                   Addresses
                 </a>{" "}
                 page.
@@ -379,14 +379,14 @@ export function CustomerForm({
       </div>
 
       <div className="flex items-center justify-end gap-3 bg-white rounded-xl border border-border/50 px-5 py-4">
-        <a href={basePath} className="px-5 py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors font-medium" style={{ fontSize: "13px" }}>
+        <a href={basePath} className="px-5 py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors font-medium" style={{ fontSize: "13px" }}>
           Cancel
         </a>
         <button
           onClick={handleSubmit}
           disabled={isSaving}
           className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-white font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
-          style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+          style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
         >
           {isSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Save className="w-4 h-4" strokeWidth={1.5} />}
           {isEdit ? "Save Changes" : `Create ${entityLabel}`}

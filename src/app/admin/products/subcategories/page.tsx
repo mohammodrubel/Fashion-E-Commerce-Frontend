@@ -12,9 +12,9 @@ interface Subcategory {
 }
 
 const subcategories: Subcategory[] = [
-  { id: "SC01", name: "Midi Dresses", slug: "midi-dresses", parent: "Women's Clothing", parentColor: "#501D2A", products: 32, status: "Active" },
-  { id: "SC02", name: "Maxi Dresses", slug: "maxi-dresses", parent: "Women's Clothing", parentColor: "#501D2A", products: 18, status: "Active" },
-  { id: "SC03", name: "Blouses & Tops", slug: "blouses-tops", parent: "Women's Clothing", parentColor: "#501D2A", products: 44, status: "Active" },
+  { id: "SC01", name: "Midi Dresses", slug: "midi-dresses", parent: "Women's Clothing", parentColor: "var(--primary)", products: 32, status: "Active" },
+  { id: "SC02", name: "Maxi Dresses", slug: "maxi-dresses", parent: "Women's Clothing", parentColor: "var(--primary)", products: 18, status: "Active" },
+  { id: "SC03", name: "Blouses & Tops", slug: "blouses-tops", parent: "Women's Clothing", parentColor: "var(--primary)", products: 44, status: "Active" },
   { id: "SC04", name: "Skinny Jeans", slug: "skinny-jeans", parent: "Men's Clothing", parentColor: "#2D5A8E", products: 21, status: "Active" },
   { id: "SC05", name: "Casual Shirts", slug: "casual-shirts", parent: "Men's Clothing", parentColor: "#2D5A8E", products: 27, status: "Active" },
   { id: "SC06", name: "Sneakers", slug: "sneakers", parent: "Footwear", parentColor: "#4F2D6B", products: 14, status: "Active" },
@@ -58,10 +58,10 @@ export default function SubcategoriesPage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Table */}
         <div className="xl:col-span-2 bg-white rounded-xl border border-border/50">
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
             <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>All Subcategories</h2>
             <div className="flex items-center gap-2">
-              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground" style={{ fontSize: "12px" }}>
+              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-muted-foreground" style={{ fontSize: "12px" }}>
                 Filter by parent
                 <ChevronDown className="w-3.5 h-3.5" strokeWidth={1.5} />
               </button>
@@ -70,7 +70,7 @@ export default function SubcategoriesPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+                <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                   {["Name", "Parent Category", "Products", "Status", "Actions"].map((h) => (
                     <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                       {h}
@@ -82,8 +82,8 @@ export default function SubcategoriesPage() {
                 {subcategories.map((sub, i) => (
                   <tr
                     key={sub.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < subcategories.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < subcategories.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{sub.name}</p>
@@ -111,7 +111,7 @@ export default function SubcategoriesPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                         <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -134,7 +134,7 @@ export default function SubcategoriesPage() {
               <div>
                 <label className="block text-foreground font-medium mb-1.5" style={{ fontSize: "13px" }}>Parent Category <span className="text-red-500">*</span></label>
                 <div className="relative">
-                  <select className="w-full appearance-none px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }}>
+                  <select className="w-full appearance-none px-3 py-2.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }}>
                     <option value="">Select parent...</option>
                     <option>Women's Clothing</option>
                     <option>Men's Clothing</option>
@@ -151,7 +151,7 @@ export default function SubcategoriesPage() {
                 <input
                   type="text"
                   placeholder="e.g. Midi Dresses"
-                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -160,7 +160,7 @@ export default function SubcategoriesPage() {
                 <input
                   type="text"
                   placeholder="midi-dresses"
-                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 font-mono"
+                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 font-mono"
                   style={{ fontSize: "13px" }}
                 />
               </div>
@@ -169,7 +169,7 @@ export default function SubcategoriesPage() {
                 <textarea
                   rows={3}
                   placeholder="Optional description..."
-                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 resize-none"
+                  className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 resize-none"
                   style={{ fontSize: "13px" }}
                 />
               </div>

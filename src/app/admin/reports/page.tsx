@@ -59,8 +59,8 @@ export default function SalesOverviewPage() {
             <div key={s.label} className="bg-white rounded-xl border border-border/50 p-5">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{s.label}</span>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#501D2A15" }}>
-                  <Icon className="w-4 h-4" style={{ color: "#501D2A" }} />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>
+                  <Icon className="w-4 h-4" style={{ color: "var(--primary)" }} />
                 </div>
               </div>
               <div className="text-2xl font-semibold text-foreground mb-1">{s.value}</div>
@@ -87,7 +87,7 @@ export default function SalesOverviewPage() {
                 className={`px-3 py-1 rounded-lg transition-colors ${range === "1Y" ? "text-white" : "text-muted-foreground hover:bg-muted/30 border border-border/50 bg-white"}`}
                 style={{
                   fontSize: "12px",
-                  backgroundColor: range === "1Y" ? "#501D2A" : undefined,
+                  backgroundColor: range === "1Y" ? "var(--primary)" : undefined,
                 }}
               >
                 {range}
@@ -107,8 +107,8 @@ export default function SalesOverviewPage() {
         <svg viewBox="0 0 600 120" className="w-full" style={{ height: "140px" }} preserveAspectRatio="none">
           <defs>
             <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#501D2A" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#501D2A" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.02" />
             </linearGradient>
           </defs>
           {/* Grid lines */}
@@ -121,20 +121,20 @@ export default function SalesOverviewPage() {
           <polyline
             points={polylinePoints}
             fill="none"
-            stroke="#501D2A"
+            stroke="var(--primary)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           {/* Data points */}
           {chartPoints.map((p, i) => (
-            <circle key={i} cx={p.x} cy={p.y} r="3" fill="#501D2A" />
+            <circle key={i} cx={p.x} cy={p.y} r="3" fill="var(--primary)" />
           ))}
         </svg>
 
         <div className="flex items-center gap-4 mt-3">
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded" style={{ backgroundColor: "#501D2A" }} />
+            <div className="w-3 h-0.5 rounded" style={{ backgroundColor: "var(--primary)" }} />
             <span className="text-muted-foreground" style={{ fontSize: "11px" }}>Revenue 2024</span>
           </div>
           <div className="flex items-center gap-1.5">

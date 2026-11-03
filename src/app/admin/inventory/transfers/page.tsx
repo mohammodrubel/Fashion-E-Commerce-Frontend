@@ -27,7 +27,7 @@ const statusConfig = {
 }
 
 const warehouseColor: Record<string, string> = {
-  "Main Warehouse": "#501D2A",
+  "Main Warehouse": "var(--primary)",
   "East Branch": "#2D5A8E",
   "West Branch": "#2D6B4F",
 }
@@ -62,13 +62,13 @@ export default function StockTransfersPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Transfer History</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Transfer ID", "From → To", "Products", "Items", "Status", "Date", "ETA", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -81,15 +81,15 @@ export default function StockTransfersPage() {
                 return (
                   <tr
                     key={t.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < transfers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < transfers.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3">
                       <span className="font-mono font-medium text-foreground" style={{ fontSize: "13px" }}>{t.id}</span>
                     </td>
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-medium" style={{ fontSize: "12px", color: warehouseColor[t.from] ?? "#501D2A" }}>{t.from}</span>
+                        <span className="font-medium" style={{ fontSize: "12px", color: warehouseColor[t.from] ?? "var(--primary)" }}>{t.from}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-muted-foreground" strokeWidth={1.5} />
                         <span className="font-medium" style={{ fontSize: "12px", color: warehouseColor[t.to] ?? "#2D5A8E" }}>{t.to}</span>
                       </div>
@@ -107,7 +107,7 @@ export default function StockTransfersPage() {
                     <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{t.date}</td>
                     <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{t.eta}</td>
                     <td className="px-5 py-3">
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                     </td>

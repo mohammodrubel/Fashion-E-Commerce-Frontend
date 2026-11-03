@@ -24,10 +24,7 @@ export function Topbar({ onMenuToggle, title, subtitle }: TopbarProps) {
   }, [])
 
   return (
-    <header
-      className="h-16 bg-white border-b border-border flex items-center gap-4 px-5 shrink-0"
-      style={{ borderColor: "#E8E2E5" }}
-    >
+    <header className="h-16 bg-card border-b border-border flex items-center gap-4 px-5 shrink-0">
       {/* Mobile menu toggle */}
       <button
         onClick={onMenuToggle}
@@ -46,8 +43,7 @@ export function Topbar({ onMenuToggle, title, subtitle }: TopbarProps) {
           <input
             type="text"
             placeholder="Search anything..."
-            className="w-full h-9 pl-9 pr-4 bg-[#F8F7F5] border border-border text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/40 transition-colors"
-            style={{ borderRadius: "6px", fontSize: "13px" }}
+            className="text-field-value font-body w-full h-9 pl-9 pr-4 bg-muted border border-border placeholder:text-muted-foreground/60 focus:outline-none focus:border-ring transition-colors rounded-md"
           />
         </div>
       </div>
@@ -55,32 +51,26 @@ export function Topbar({ onMenuToggle, title, subtitle }: TopbarProps) {
       <div className="flex-1" />
 
       {/* Date */}
-      <span className="hidden md:block text-muted-foreground" style={{ fontSize: "12px" }}>
+      <span className="font-body hidden md:block text-muted-foreground" style={{ fontSize: "12px" }}>
         {today}
       </span>
 
       {/* Notifications */}
       <button className="relative text-muted-foreground hover:text-foreground transition-colors">
         <Bell className="w-5 h-5" strokeWidth={1.5} />
-        <span
-          className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full"
-          style={{ backgroundColor: "#501D2A" }}
-        />
+        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-primary" />
       </button>
 
       {/* User */}
       <button className="flex items-center gap-2.5 group">
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-medium"
-          style={{ backgroundColor: "#501D2A" }}
-        >
+        <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-primary-foreground text-xs font-medium">
           A
         </div>
         <div className="hidden md:block text-left">
-          <p className="font-medium text-foreground" style={{ fontSize: "13px", lineHeight: "1.2" }}>
+          <p className="font-body font-medium text-foreground" style={{ fontSize: "13px", lineHeight: "1.2" }}>
             Admin
           </p>
-          <p className="text-muted-foreground" style={{ fontSize: "11px" }}>
+          <p className="font-body text-muted-foreground" style={{ fontSize: "11px" }}>
             Administrator
           </p>
         </div>

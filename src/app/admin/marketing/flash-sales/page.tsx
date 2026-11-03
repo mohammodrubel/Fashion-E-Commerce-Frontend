@@ -41,7 +41,7 @@ export default function FlashSalesPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Create Flash Sale
@@ -50,7 +50,7 @@ export default function FlashSalesPage() {
       />
 
       {/* Active Sale Countdown */}
-      <div className="rounded-xl border border-border/50 overflow-hidden" style={{ background: "linear-gradient(135deg, #501D2A 0%, #7C3D52 100%)" }}>
+      <div className="rounded-xl border border-border/50 overflow-hidden" style={{ background: "linear-gradient(135deg, var(--primary) 0%, #7C3D52 100%)" }}>
         <div className="px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
@@ -81,7 +81,7 @@ export default function FlashSalesPage() {
 
       {/* Tabs */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center gap-0 px-5 pt-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center gap-0 px-5 pt-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           {tabs.map((tab) => {
             const count = flashSales.filter((s) => s.status === tab).length
             return (
@@ -90,16 +90,16 @@ export default function FlashSalesPage() {
                 className="flex items-center gap-2 px-4 py-2 mr-1 rounded-t-lg font-medium transition-colors"
                 style={{
                   fontSize: "13px",
-                  backgroundColor: tab === "Active" ? "#F8F7F5" : "transparent",
-                  color: tab === "Active" ? "#501D2A" : "#6B7280",
-                  borderBottom: tab === "Active" ? "2px solid #501D2A" : "2px solid transparent",
+                  backgroundColor: tab === "Active" ? "var(--muted)" : "transparent",
+                  color: tab === "Active" ? "var(--primary)" : "#6B7280",
+                  borderBottom: tab === "Active" ? "2px solid var(--primary)" : "2px solid transparent",
                   marginBottom: "-1px"
                 }}
               >
                 {tab}
                 <span
                   className="rounded-full px-1.5 py-0.5"
-                  style={{ fontSize: "10px", backgroundColor: tab === "Active" ? "#501D2A" : "#F0EDEF", color: tab === "Active" ? "white" : "#6B7280" }}
+                  style={{ fontSize: "10px", backgroundColor: tab === "Active" ? "var(--primary)" : "var(--accent)", color: tab === "Active" ? "white" : "#6B7280" }}
                 >
                   {count}
                 </span>
@@ -111,7 +111,7 @@ export default function FlashSalesPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Name", "Products", "Discount", "Start", "End", "Revenue", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -129,13 +129,13 @@ export default function FlashSalesPage() {
                 return (
                   <tr
                     key={sale.name}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < flashSales.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < flashSales.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "#FAF0F2" }}>
-                          <Zap className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                          <Zap className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                         </div>
                         <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{sale.name}</p>
                       </div>
@@ -144,7 +144,7 @@ export default function FlashSalesPage() {
                       <span className="text-foreground" style={{ fontSize: "13px" }}>{sale.products} items</span>
                     </td>
                     <td className="px-5 py-3.5">
-                      <span className="font-semibold" style={{ fontSize: "14px", color: "#501D2A" }}>{sale.discount}</span>
+                      <span className="font-semibold" style={{ fontSize: "14px", color: "var(--primary)" }}>{sale.discount}</span>
                     </td>
                     <td className="px-5 py-3.5">
                       <span className="text-muted-foreground" style={{ fontSize: "12px" }}>{sale.start}</span>
@@ -166,10 +166,10 @@ export default function FlashSalesPage() {
                     </td>
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
-                        <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                        <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </button>
                         <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

@@ -17,7 +17,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       <div className="space-y-2.5">
         <label
           htmlFor={inputId}
-          className="block text-muted-foreground uppercase"
+          className="font-ui block text-muted-foreground uppercase"
           style={{ fontSize: "10px", letterSpacing: "0.15em" }}
         >
           {label}
@@ -27,7 +27,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           ref={ref}
           id={inputId}
           className={cn(
-            "w-full bg-transparent",
+            "font-body w-full bg-transparent",
             "h-11 py-0 px-0",
             "border-0 border-b border-border",
             "rounded-none",

@@ -165,7 +165,7 @@ export default function ExportReportsPage() {
           </div>
           <button
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-white"
-            style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
+            style={{ fontSize: "13px", backgroundColor: "var(--primary)" }}
           >
             + Schedule Export
           </button>
@@ -178,8 +178,8 @@ export default function ExportReportsPage() {
           ].map(s => (
             <div key={s.report} className="px-6 py-4 flex items-center justify-between hover:bg-muted/20 transition-colors">
               <div className="flex items-center gap-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#501D2A15" }}>
-                  <Calendar className="w-4 h-4" style={{ color: "#501D2A" }} />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>
+                  <Calendar className="w-4 h-4" style={{ color: "var(--primary)" }} />
                 </div>
                 <div>
                   <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{s.report} — {s.format}</p>

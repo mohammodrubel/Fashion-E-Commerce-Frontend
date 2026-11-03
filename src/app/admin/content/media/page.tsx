@@ -14,7 +14,7 @@ interface MediaItem {
 }
 
 const mediaItems: MediaItem[] = [
-  { id: 1, filename: "hero-autumn-2024.jpg", type: "image", size: "2.4 MB", dimensions: "2400×1200", uploadedAt: "Oct 22", colorBg: "#501D2A" },
+  { id: 1, filename: "hero-autumn-2024.jpg", type: "image", size: "2.4 MB", dimensions: "2400×1200", uploadedAt: "Oct 22", colorBg: "var(--primary)" },
   { id: 2, filename: "floral-dress-front.jpg", type: "image", size: "1.1 MB", dimensions: "1200×1600", uploadedAt: "Oct 21", colorBg: "#7C3D52" },
   { id: 3, filename: "blazer-lifestyle.jpg", type: "image", size: "1.8 MB", dimensions: "1600×1200", uploadedAt: "Oct 20", colorBg: "#9D5B6B" },
   { id: 4, filename: "autumn-lookbook.mp4", type: "video", size: "42 MB", uploadedAt: "Oct 19", colorBg: "#1F2937" },
@@ -46,7 +46,7 @@ export default function MediaLibraryPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Upload className="w-4 h-4" strokeWidth={1.5} />
             Upload Files
@@ -62,7 +62,7 @@ export default function MediaLibraryPage() {
             <input
               type="text"
               placeholder="Search media..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -73,9 +73,9 @@ export default function MediaLibraryPage() {
                 className="px-3 py-1.5 rounded-full border transition-colors"
                 style={{
                   fontSize: "12px",
-                  backgroundColor: tab === "All" ? "#501D2A" : "white",
+                  backgroundColor: tab === "All" ? "var(--primary)" : "white",
                   color: tab === "All" ? "white" : "#6B7280",
-                  borderColor: tab === "All" ? "#501D2A" : "#E5E7EB"
+                  borderColor: tab === "All" ? "var(--primary)" : "#E5E7EB"
                 }}
               >
                 {tab}
@@ -83,10 +83,10 @@ export default function MediaLibraryPage() {
             ))}
           </div>
           <div className="flex items-center gap-1 ml-auto">
-            <button className="p-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-foreground">
+            <button className="p-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-foreground">
               <Grid3X3 className="w-4 h-4" strokeWidth={1.5} />
             </button>
-            <button className="p-2 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors text-muted-foreground">
+            <button className="p-2 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors text-muted-foreground">
               <List className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
@@ -96,7 +96,7 @@ export default function MediaLibraryPage() {
       {/* Upload drop zone */}
       <div className="border-2 border-dashed border-border rounded-xl p-8 flex flex-col items-center gap-3 bg-white hover:border-primary/40 hover:bg-[#FAF0F2] transition-colors cursor-pointer">
         <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#FAF0F2" }}>
-          <Upload className="w-5 h-5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+          <Upload className="w-5 h-5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
         </div>
         <div className="text-center">
           <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>Drop files here or click to upload</p>

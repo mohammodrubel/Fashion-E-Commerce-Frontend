@@ -48,13 +48,13 @@ export default function LowStockPage() {
 
       {/* Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Low Stock Products</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Product", "SKU", "Category", "Current", "Minimum", "Stock Bar", "Last Restocked", "Action"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -67,8 +67,8 @@ export default function LowStockPage() {
                 return (
                   <tr
                     key={item.sku}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < lowStockItems.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < lowStockItems.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3 font-medium text-foreground" style={{ fontSize: "13px" }}>{item.product}</td>
                     <td className="px-5 py-3 font-mono text-muted-foreground" style={{ fontSize: "12px" }}>{item.sku}</td>
@@ -79,7 +79,7 @@ export default function LowStockPage() {
                     <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{item.minimum}</td>
                     <td className="px-5 py-3" style={{ minWidth: "120px" }}>
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 rounded-full h-2" style={{ backgroundColor: "#F0EDEF" }}>
+                        <div className="flex-1 rounded-full h-2" style={{ backgroundColor: "var(--accent)" }}>
                           <div
                             className="h-2 rounded-full transition-all"
                             style={{ width: `${pct}%`, backgroundColor: isCritical ? "#EF4444" : "#F59E0B" }}

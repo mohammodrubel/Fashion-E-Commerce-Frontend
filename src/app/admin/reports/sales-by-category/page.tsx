@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/admin/page-header"
 import { TrendingUp, TrendingDown, Download } from "lucide-react"
 
 const categories = [
-  { name: "Dresses", products: 42, units: 687, revenue: "$52,410", growth: "+18.2%", trend: "up", color: "#501D2A", barWidth: "100%" },
+  { name: "Dresses", products: 42, units: 687, revenue: "$52,410", growth: "+18.2%", trend: "up", color: "var(--primary)", barWidth: "100%" },
   { name: "Tops", products: 65, units: 598, revenue: "$38,870", growth: "+9.4%", trend: "up", color: "#7a3042", barWidth: "74%" },
   { name: "Bottoms", products: 38, units: 542, revenue: "$29,810", growth: "+5.1%", trend: "up", color: "#a34058", barWidth: "57%" },
   { name: "Accessories", products: 54, units: 421, revenue: "$23,460", growth: "-2.3%", trend: "down", color: "#c05070", barWidth: "45%" },

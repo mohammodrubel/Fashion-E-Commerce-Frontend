@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/admin/page-header"
 import { DollarSign, TrendingUp, Download } from "lucide-react"
 
 const stats = [
-  { label: "Gross Revenue", value: "$142,580", sub: "Total sales", color: "#501D2A" },
+  { label: "Gross Revenue", value: "$142,580", sub: "Total sales", color: "var(--primary)" },
   { label: "COGS", value: "$78,420", sub: "Cost of goods", color: "#6b7280" },
   { label: "Gross Profit", value: "$64,160", sub: "Revenue - COGS", color: "#059669" },
   { label: "Gross Margin", value: "45%", sub: "(Profit / Revenue)", color: "#d97706" },
@@ -85,8 +85,8 @@ export default function RevenuePage() {
         <svg viewBox="0 0 600 130" className="w-full" style={{ height: "150px" }} preserveAspectRatio="none">
           <defs>
             <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#501D2A" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#501D2A" stopOpacity="0.01" />
+              <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.01" />
             </linearGradient>
             <linearGradient id="profGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#059669" stopOpacity="0.2" />
@@ -98,14 +98,14 @@ export default function RevenuePage() {
           ))}
           <path d={toAreaPath(revenuePoints)} fill="url(#revGrad)" />
           <path d={toAreaPath(profitPoints)} fill="url(#profGrad)" />
-          <polyline points={toPolyline(revenuePoints)} fill="none" stroke="#501D2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <polyline points={toPolyline(revenuePoints)} fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           <polyline points={toPolyline(profitPoints)} fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          {revenuePoints.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill="#501D2A" />)}
+          {revenuePoints.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill="var(--primary)" />)}
           {profitPoints.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill="#059669" />)}
         </svg>
         <div className="flex items-center gap-4 mt-2">
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-0.5 rounded" style={{ backgroundColor: "#501D2A" }} />
+            <div className="w-3 h-0.5 rounded" style={{ backgroundColor: "var(--primary)" }} />
             <span className="text-muted-foreground" style={{ fontSize: "11px" }}>Revenue</span>
           </div>
           <div className="flex items-center gap-1.5">

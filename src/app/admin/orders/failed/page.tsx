@@ -52,7 +52,7 @@ export default function FailedOrdersPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Failure Reason", "Failed At", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -68,8 +68,8 @@ export default function FailedOrdersPage() {
               {orders.map((order, i) => (
                 <tr
                   key={order.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < orders.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < orders.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <span className="font-semibold text-foreground" style={{ fontSize: "13px" }}>{order.id}</span>
@@ -78,7 +78,7 @@ export default function FailedOrdersPage() {
                     <div className="flex items-center gap-2.5">
                       <div
                         className="w-7 h-7 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: "#501D2A", fontSize: "11px", fontWeight: 600 }}
+                        style={{ backgroundColor: "var(--primary)", fontSize: "11px", fontWeight: 600 }}
                       >
                         {order.avatar}
                       </div>
@@ -109,7 +109,7 @@ export default function FailedOrdersPage() {
                   <td className="px-5 py-3.5">
                     <button
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white font-medium transition-opacity hover:opacity-90 whitespace-nowrap"
-                      style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
+                      style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}
                     >
                       <RefreshCcw className="w-3.5 h-3.5" strokeWidth={2} />
                       Retry

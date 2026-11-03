@@ -60,10 +60,10 @@ const labelCls = "block font-medium text-foreground mb-1.5"
 function SectionCard({ icon: Icon, title, children }: { icon?: React.ElementType; title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white rounded-xl border border-border/50 p-5">
-      <div className="flex items-center gap-2 mb-4" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "12px" }}>
+      <div className="flex items-center gap-2 mb-4" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "12px" }}>
         {Icon && (
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-            <Icon className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+            <Icon className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
         )}
         <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{title}</h2>
@@ -113,7 +113,7 @@ export default function CreateOrderPage() {
   const formatBDT = (n: number) => `BDT ${n.toLocaleString("en-BD")}`
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100vh" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100vh" }}>
       <PageHeader
         title="Create New Order"
         description="Manually create an order on behalf of a customer"
@@ -152,12 +152,12 @@ export default function CreateOrderPage() {
                   <label
                     key={c.id}
                     className="flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors hover:border-primary/40"
-                    style={{ borderColor: "#F0EDEF" }}
+                    style={{ borderColor: "var(--accent)" }}
                   >
                     <input
                       type="radio"
                       name="customer"
-                      className="accent-[#501D2A] shrink-0"
+                      className="accent-[var(--primary)] shrink-0"
                       onChange={() => {
                         setSelectedCustomer(c)
                         setCustomerQuery(c.name)
@@ -167,7 +167,7 @@ export default function CreateOrderPage() {
                     />
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0 font-semibold"
-                      style={{ backgroundColor: "#501D2A", fontSize: "11px" }}
+                      style={{ backgroundColor: "var(--primary)", fontSize: "11px" }}
                     >
                       {c.initials}
                     </div>
@@ -184,11 +184,11 @@ export default function CreateOrderPage() {
             {selectedCustomer && (
               <div
                 className="flex items-center gap-3 p-3 rounded-lg"
-                style={{ backgroundColor: "#F8F7F5", border: "1px solid #F0EDEF" }}
+                style={{ backgroundColor: "var(--muted)", border: "1px solid var(--accent)" }}
               >
                 <div
                   className="w-9 h-9 rounded-full flex items-center justify-center text-white shrink-0 font-semibold"
-                  style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
+                  style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}
                 >
                   {selectedCustomer.initials}
                 </div>
@@ -292,7 +292,7 @@ export default function CreateOrderPage() {
             </div>
 
             {/* Add item row */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4 p-3 rounded-lg" style={{ backgroundColor: "#F8F7F5", border: "1px solid #F0EDEF" }}>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4 p-3 rounded-lg" style={{ backgroundColor: "var(--muted)", border: "1px solid var(--accent)" }}>
               <div>
                 <label className={labelCls} style={{ fontSize: "11px" }}>Product</label>
                 <select className="w-full px-2.5 py-2 rounded-lg border border-border/60 bg-white text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none" style={{ fontSize: "12px" }}>
@@ -336,7 +336,7 @@ export default function CreateOrderPage() {
               <div className="col-span-2 sm:col-span-5 flex justify-end">
                 <button
                   className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-white font-medium transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
+                  style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}
                 >
                   <Plus className="w-3.5 h-3.5" strokeWidth={2} />
                   Add Item
@@ -345,10 +345,10 @@ export default function CreateOrderPage() {
             </div>
 
             {/* Items table */}
-            <div className="rounded-lg overflow-hidden" style={{ border: "1px solid #F0EDEF" }}>
+            <div className="rounded-lg overflow-hidden" style={{ border: "1px solid var(--accent)" }}>
               <table className="w-full">
                 <thead>
-                  <tr style={{ backgroundColor: "#F8F7F5", borderBottom: "1px solid #F0EDEF" }}>
+                  <tr style={{ backgroundColor: "var(--muted)", borderBottom: "1px solid var(--accent)" }}>
                     {["Product", "Size / Color", "SKU", "Unit Price", "Qty", "Total", ""].map((h) => (
                       <th
                         key={h}
@@ -364,8 +364,8 @@ export default function CreateOrderPage() {
                   {items.map((item, i) => (
                     <tr
                       key={item.id}
-                      className="hover:bg-[#F8F7F5] transition-colors"
-                      style={{ borderBottom: i < items.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                      className="hover:bg-[var(--muted)] transition-colors"
+                      style={{ borderBottom: i < items.length - 1 ? "1px solid var(--accent)" : "none" }}
                     >
                       <td className="px-4 py-3">
                         <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{item.productName}</span>
@@ -460,7 +460,7 @@ export default function CreateOrderPage() {
               ))}
             </div>
 
-            <div className="space-y-3 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+            <div className="space-y-3 pt-4" style={{ borderTop: "1px solid var(--accent)" }}>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground" style={{ fontSize: "13px" }}>Subtotal</span>
                 <span className="text-foreground" style={{ fontSize: "13px" }}>{formatBDT(subtotal)}</span>
@@ -495,18 +495,18 @@ export default function CreateOrderPage() {
               {/* Total */}
               <div
                 className="flex items-center justify-between pt-3"
-                style={{ borderTop: "1px solid #F0EDEF" }}
+                style={{ borderTop: "1px solid var(--accent)" }}
               >
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-foreground" style={{ fontSize: "15px" }}>Total</span>
                   <span
                     className="px-1.5 py-0.5 rounded font-medium text-white"
-                    style={{ backgroundColor: "#501D2A", fontSize: "10px" }}
+                    style={{ backgroundColor: "var(--primary)", fontSize: "10px" }}
                   >
                     BDT
                   </span>
                 </div>
-                <span className="font-bold" style={{ fontSize: "20px", color: "#501D2A" }}>
+                <span className="font-bold" style={{ fontSize: "20px", color: "var(--primary)" }}>
                   {total.toLocaleString("en-BD")}
                 </span>
               </div>
@@ -516,12 +516,12 @@ export default function CreateOrderPage() {
             <div className="mt-5 space-y-2.5">
               <button
                 className="w-full py-2.5 rounded-lg text-white font-semibold transition-opacity hover:opacity-90"
-                style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+                style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
               >
                 Create Order
               </button>
               <button
-                className="w-full py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5] transition-colors font-medium"
+                className="w-full py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:text-foreground hover:bg-[var(--muted)] transition-colors font-medium"
                 style={{ fontSize: "13px" }}
               >
                 Save as Draft
@@ -531,9 +531,9 @@ export default function CreateOrderPage() {
 
           {/* Payment */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <div className="flex items-center gap-2 mb-4" style={{ borderBottom: "1px solid #F0EDEF", paddingBottom: "12px" }}>
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-                <CreditCard className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <div className="flex items-center gap-2 mb-4" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "12px" }}>
+              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+                <CreditCard className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               </div>
               <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Payment</h2>
             </div>
@@ -547,7 +547,7 @@ export default function CreateOrderPage() {
                     key={value}
                     className="flex items-center gap-3 p-2.5 rounded-lg border cursor-pointer transition-colors"
                     style={{
-                      borderColor: selected ? "#501D2A" : "#E5E3E0",
+                      borderColor: selected ? "var(--primary)" : "#E5E3E0",
                       backgroundColor: selected ? "#F9F5F6" : "transparent",
                     }}
                   >
@@ -557,15 +557,15 @@ export default function CreateOrderPage() {
                       value={value}
                       checked={selected}
                       onChange={() => setPaymentMethod(value)}
-                      className="accent-[#501D2A] shrink-0"
+                      className="accent-[var(--primary)] shrink-0"
                     />
                     <div
                       className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: selected ? "#501D2A" : "#F0EDEF" }}
+                      style={{ backgroundColor: selected ? "var(--primary)" : "var(--accent)" }}
                     >
                       <Icon
                         className="w-3.5 h-3.5"
-                        style={{ color: selected ? "#fff" : "#501D2A" }}
+                        style={{ color: selected ? "#fff" : "var(--primary)" }}
                         strokeWidth={1.5}
                       />
                     </div>

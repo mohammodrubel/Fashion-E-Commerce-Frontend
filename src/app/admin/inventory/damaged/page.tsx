@@ -84,7 +84,7 @@ export default function DamagedStockPage() {
   }
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: "#F8F7F5", minHeight: "100%" }}>
+    <div className="space-y-6" style={{ backgroundColor: "var(--muted)", minHeight: "100%" }}>
       <PageHeader
         title="Damaged Stock"
         description="StockMovement records where type = DAMAGE"
@@ -93,7 +93,7 @@ export default function DamagedStockPage() {
           <button
             onClick={() => setShowForm((v) => !v)}
             className="flex items-center gap-2 rounded-lg px-3 py-2 text-white transition-colors"
-            style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
+            style={{ fontSize: "13px", backgroundColor: "var(--primary)" }}
           >
             <Plus className="w-4 h-4" strokeWidth={2} />
             Record New Damage
@@ -166,10 +166,10 @@ export default function DamagedStockPage() {
               />
             </div>
           </div>
-          <div className="flex items-center justify-end gap-3 mt-4 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-end gap-3 mt-4 pt-4" style={{ borderTop: "1px solid var(--accent)" }}>
             <button
               onClick={() => setShowForm(false)}
-              className="px-4 py-2 rounded-lg border border-border/60 bg-white text-foreground hover:bg-[#F8F7F5] transition-colors"
+              className="px-4 py-2 rounded-lg border border-border/60 bg-white text-foreground hover:bg-[var(--muted)] transition-colors"
               style={{ fontSize: "13px" }}
             >
               Cancel
@@ -178,7 +178,7 @@ export default function DamagedStockPage() {
               onClick={handleSave}
               disabled={!formSku || !formQty || !formNote}
               className="px-4 py-2 rounded-lg text-white transition-colors disabled:opacity-40"
-              style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
+              style={{ fontSize: "13px", backgroundColor: "var(--primary)" }}
             >
               Save Damage Record
             </button>
@@ -188,13 +188,13 @@ export default function DamagedStockPage() {
 
       {/* Damage Records Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Damage Records</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Date", "Product / SKU", "Qty Damaged", "Note", "Recorded By", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
@@ -204,8 +204,8 @@ export default function DamagedStockPage() {
               {damageRecords.map((rec, i) => (
                 <tr
                   key={rec.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < damageRecords.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < damageRecords.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3 text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{rec.createdAt}</td>
                   <td className="px-5 py-3">

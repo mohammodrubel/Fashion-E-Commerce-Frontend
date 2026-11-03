@@ -44,7 +44,7 @@ export default function CustomerAnalyticsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "New Customers", value: "1,248", sub: "This year", icon: UserPlus, color: "#501D2A" },
+          { label: "New Customers", value: "1,248", sub: "This year", icon: UserPlus, color: "var(--primary)" },
           { label: "Returning Rate", value: "67%", sub: "Repeat buyers", icon: RefreshCcw, color: "#059669" },
           { label: "Avg CLV", value: "$284", sub: "12-month window", icon: TrendingUp, color: "#d97706" },
           { label: "Churn Rate", value: "8%", sub: "90-day window", icon: Users, color: "#dc2626" },
@@ -76,7 +76,7 @@ export default function CustomerAnalyticsPage() {
                 <span className="text-muted-foreground" style={{ fontSize: "12px" }}>{ch.customers} customers ({ch.pct}%)</span>
               </div>
               <div className="w-full h-2.5 bg-muted/30 rounded-full overflow-hidden">
-                <div className="h-full rounded-full" style={{ width: `${ch.pct}%`, backgroundColor: "#501D2A" }} />
+                <div className="h-full rounded-full" style={{ width: `${ch.pct}%`, backgroundColor: "var(--primary)" }} />
               </div>
             </div>
           ))}

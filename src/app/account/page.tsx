@@ -118,7 +118,7 @@ export default function AccountDashboard() {
             className="flex items-center justify-between px-5 py-4"
             style={{ borderBottom: "1px solid #F0EDEF" }}
           >
-            <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
+            <h2 className="font-ui font-semibold text-foreground" style={{ fontSize: "14px" }}>
               Recent Orders
             </h2>
             <Link
@@ -237,7 +237,7 @@ export default function AccountDashboard() {
 
           {/* ── Quick Links ── */}
           <div className="bg-white rounded-xl border border-border/50 p-4">
-            <h3 className="font-semibold text-foreground mb-3" style={{ fontSize: "13px" }}>Quick Links</h3>
+            <h3 className="font-ui font-semibold text-foreground mb-3" style={{ fontSize: "13px" }}>Quick Links</h3>
             <div className="space-y-1">
               {quickLinks.map((link) => {
                 const Icon = link.icon

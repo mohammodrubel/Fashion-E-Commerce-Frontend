@@ -36,8 +36,8 @@ export default function FeaturedProductsPage() {
       />
 
       {/* Info Banner */}
-      <div className="flex items-start gap-3 p-4 rounded-xl" style={{ backgroundColor: "#F0EDEF" }}>
-        <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+      <div className="flex items-start gap-3 p-4 rounded-xl" style={{ backgroundColor: "var(--accent)" }}>
+        <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
         <p className="text-foreground" style={{ fontSize: "13px" }}>
           Featured products appear in the &quot;Featured&quot; section on the homepage and category pages. Drag rows to reorder display priority.
         </p>
@@ -59,14 +59,14 @@ export default function FeaturedProductsPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Featured Status</h2>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>4 of 5 featured</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["", "#", "Product", "Category", "Price", "Stock", "Featured", "Since", "Actions"].map((h) => (
                   <th key={h} className="text-left px-4 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                     {h}
@@ -78,8 +78,8 @@ export default function FeaturedProductsPage() {
               {products.map((product, i) => (
                 <tr
                   key={product.id}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < products.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < products.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-4 py-3.5 w-8">
                     <button className="text-muted-foreground/40 hover:text-muted-foreground transition-colors cursor-grab">
@@ -89,7 +89,7 @@ export default function FeaturedProductsPage() {
                   <td className="px-4 py-3.5">
                     <div
                       className="w-6 h-6 rounded-full flex items-center justify-center text-white font-semibold"
-                      style={{ backgroundColor: product.featured ? "#501D2A" : "#D1D5DB", fontSize: "10px" }}
+                      style={{ backgroundColor: product.featured ? "var(--primary)" : "#D1D5DB", fontSize: "10px" }}
                     >
                       {product.position}
                     </div>
@@ -125,7 +125,7 @@ export default function FeaturedProductsPage() {
                       <div
                         className="relative w-10 h-5.5 rounded-full transition-colors cursor-pointer"
                         style={{
-                          backgroundColor: product.featured ? "#501D2A" : "#E5E7EB",
+                          backgroundColor: product.featured ? "var(--primary)" : "#E5E7EB",
                           width: "40px",
                           height: "22px",
                         }}
@@ -142,7 +142,7 @@ export default function FeaturedProductsPage() {
                         />
                       </div>
                       {product.featured && (
-                        <Star className="w-3.5 h-3.5" fill="#501D2A" style={{ color: "#501D2A" }} strokeWidth={0} />
+                        <Star className="w-3.5 h-3.5" fill="var(--primary)" style={{ color: "var(--primary)" }} strokeWidth={0} />
                       )}
                     </div>
                   </td>
@@ -150,7 +150,7 @@ export default function FeaturedProductsPage() {
                     <span className="text-muted-foreground" style={{ fontSize: "12px" }}>{product.featuredSince}</span>
                   </td>
                   <td className="px-4 py-3.5">
-                    <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                    <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                       <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
                   </td>

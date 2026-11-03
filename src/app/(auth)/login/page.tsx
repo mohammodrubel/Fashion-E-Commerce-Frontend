@@ -102,8 +102,8 @@ export default function LoginPage() {
       {/* Page heading */}
       <div className="space-y-2 mb-10">
         <h1
-          className="font-light tracking-tight text-foreground"
-          style={{ fontSize: "28px" }}
+          className="font-editorial font-semibold tracking-tight text-foreground"
+          style={{ fontSize: "42px" }}
         >
           Welcome Back
         </h1>
@@ -150,7 +150,7 @@ export default function LoginPage() {
           labelSuffix={
             <Link
               href="/forgot-password"
-              className="text-muted-foreground hover:text-foreground transition-colors uppercase"
+              className="font-ui text-muted-foreground hover:text-foreground transition-colors uppercase"
               style={{ fontSize: "10px", letterSpacing: "0.1em" }}
               tabIndex={0}
             >
@@ -169,7 +169,7 @@ export default function LoginPage() {
           />
           <label
             htmlFor="remember"
-            className="text-muted-foreground cursor-pointer select-none uppercase"
+            className="font-ui text-muted-foreground cursor-pointer select-none uppercase"
             style={{ fontSize: "10px", letterSpacing: "0.1em" }}
           >
             Remember me for 30 days
@@ -180,7 +180,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-12 bg-primary text-primary-foreground uppercase font-medium transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
+            className="font-ui w-full h-12 bg-primary text-primary-foreground uppercase font-semibold transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
             style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
           >
             {isLoading ? (
@@ -220,7 +220,7 @@ export default function LoginPage() {
       {/* Divider */}
       <div className="mt-8 flex items-center gap-4">
         <div className="flex-1 h-px bg-border" />
-        <span className="text-muted-foreground uppercase" style={{ fontSize: "10px", letterSpacing: "0.1em" }}>
+        <span className="font-ui text-muted-foreground uppercase" style={{ fontSize: "10px", letterSpacing: "0.1em" }}>
           or
         </span>
         <div className="flex-1 h-px bg-border" />
@@ -231,7 +231,7 @@ export default function LoginPage() {
         type="button"
         onClick={() => handleGoogleLogin()}
         disabled={isGoogleLoading || isLoading}
-        className="mt-4 w-full h-12 border border-border bg-background text-foreground uppercase font-medium transition-all duration-150 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+        className="font-ui mt-4 w-full h-12 border border-border bg-background text-foreground uppercase font-semibold transition-all duration-150 hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
         style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
       >
         {isGoogleLoading ? (
@@ -252,8 +252,8 @@ export default function LoginPage() {
 
       {/* Register link */}
       <p
-        className="mt-8 text-muted-foreground"
-        style={{ fontSize: "12px", letterSpacing: "0.02em" }}
+        className="font-body font-medium mt-8 text-muted-foreground"
+        style={{ fontSize: "13px", letterSpacing: "0.02em" }}
       >
         Don&apos;t have an account?{" "}
         <Link

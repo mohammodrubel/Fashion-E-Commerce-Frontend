@@ -4,10 +4,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, ShoppingBag, User, Heart, MapPin,
-  Lock, LogOut, Search, ShoppingCart, Sparkles, Menu, X, ChevronRight
+  Lock, LogOut, Search, ShoppingCart, Menu, X, ChevronRight
 } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { Logo } from "@/components/shared/logo"
 
 const navItems = [
   { label: "Dashboard",       href: "/account",           icon: LayoutDashboard },
@@ -39,20 +40,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
       {/* ── Top Navbar ── */}
       <header className="sticky top-0 z-40 bg-white border-b border-border/60 h-16 flex items-center px-6 gap-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div
-            className="w-7 h-7 flex items-center justify-center rounded"
-            style={{ backgroundColor: "#501D2A" }}
-          >
-            <Sparkles className="w-4 h-4 text-white" strokeWidth={1.5} />
-          </div>
-          <span
-            className="font-semibold tracking-wide text-foreground"
-            style={{ fontSize: "16px", letterSpacing: "0.06em" }}
-          >
-            LumaStyle
-          </span>
-        </Link>
+        <Logo href="/" showTagline={false} />
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6 ml-4">
@@ -60,8 +48,8 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
             <Link
               key={link.href}
               href={link.href}
-              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-              style={{ fontSize: "13px" }}
+              className="font-ui text-muted-foreground hover:text-foreground transition-colors font-medium"
+              style={{ fontSize: "12px", letterSpacing: "0.02em" }}
             >
               {link.label}
             </Link>
@@ -115,8 +103,8 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
             <Link
               key={link.href}
               href={link.href}
-              className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
-              style={{ fontSize: "13px" }}
+              className="font-ui block py-2 text-muted-foreground hover:text-foreground transition-colors"
+              style={{ fontSize: "12px" }}
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
@@ -172,7 +160,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                     strokeWidth={1.5}
                     style={{ color: active ? "white" : undefined }}
                   />
-                  <span style={{ fontSize: "13px", fontWeight: active ? 500 : 400 }}>
+                  <span className="font-ui" style={{ fontSize: "13px", fontWeight: active ? 500 : 400 }}>
                     {item.label}
                   </span>
                   {active && (
@@ -186,7 +174,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
               className="w-full flex items-center gap-3 px-4 py-3 border-t border-border/40 text-muted-foreground hover:text-red-600 hover:bg-red-50 transition-all duration-150"
             >
               <LogOut className="w-4 h-4 shrink-0" strokeWidth={1.5} />
-              <span style={{ fontSize: "13px" }}>Logout</span>
+              <span className="font-ui" style={{ fontSize: "13px" }}>Logout</span>
             </button>
           </div>
         </aside>
@@ -214,7 +202,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   }}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
-                  {item.label}
+                  <span className="font-ui">{item.label}</span>
                 </Link>
               )
             })}

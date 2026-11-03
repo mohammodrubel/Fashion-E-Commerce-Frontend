@@ -53,8 +53,8 @@ export default function RefundsReportPage() {
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-muted-foreground" style={{ fontSize: "13px" }}>Avg Refund Amount</span>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#501D2A15" }}>
-              <RefreshCcw className="w-4 h-4" style={{ color: "#501D2A" }} />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>
+              <RefreshCcw className="w-4 h-4" style={{ color: "var(--primary)" }} />
             </div>
           </div>
           <p className="text-2xl font-semibold text-foreground">$47.10</p>
@@ -78,7 +78,7 @@ export default function RefundsReportPage() {
                 <span style={{ fontSize: "12px" }} className="text-muted-foreground">{r.count} orders ({r.pct}%)</span>
               </div>
               <div className="w-full h-2 bg-muted/30 rounded-full overflow-hidden">
-                <div className="h-full rounded-full" style={{ width: `${r.pct}%`, backgroundColor: "#501D2A" }} />
+                <div className="h-full rounded-full" style={{ width: `${r.pct}%`, backgroundColor: "var(--primary)" }} />
               </div>
             </div>
           ))}

@@ -111,7 +111,7 @@ export default function PublishedProductsPage() {
       </div>
 
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div className="relative flex-1 w-full sm:max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
@@ -119,7 +119,7 @@ export default function PublishedProductsPage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search active products..."
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px" }}
             />
           </div>
@@ -130,7 +130,7 @@ export default function PublishedProductsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Product", "SKU", "Category", "Price", "Stock", "Published", "Actions"].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                     {h}
@@ -152,14 +152,14 @@ export default function PublishedProductsPage() {
                 return (
                   <tr
                     key={product.id}
-                    className="hover:bg-[#F8F7F5] transition-colors"
-                    style={{ borderBottom: i < products.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                    className="hover:bg-[var(--muted)] transition-colors"
+                    style={{ borderBottom: i < products.length - 1 ? "1px solid var(--accent)" : "none" }}
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
                         <div
                           className="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center text-white font-bold shrink-0"
-                          style={{ backgroundColor: "#501D2A", fontSize: "10px" }}
+                          style={{ backgroundColor: "var(--primary)", fontSize: "10px" }}
                         >
                           {thumb ? (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -210,7 +210,7 @@ export default function PublishedProductsPage() {
                       <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/products/${product.id}/edit`}
-                          className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground inline-flex"
+                          className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground inline-flex"
                         >
                           <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                         </Link>
@@ -238,7 +238,7 @@ export default function PublishedProductsPage() {
             </tbody>
           </table>
         </div>
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderTop: "1px solid var(--accent)" }}>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>
             {isLoading ? <Skeleton className="h-3 w-44" /> : `Showing ${products.length} of ${meta.total ?? 0} active products`}
           </p>
@@ -246,7 +246,7 @@ export default function PublishedProductsPage() {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={(meta.page ?? 1) <= 1}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
@@ -256,7 +256,7 @@ export default function PublishedProductsPage() {
             <button
               onClick={() => setPage((p) => Math.min(meta.totalPage ?? 1, p + 1))}
               disabled={(meta.page ?? 1) >= (meta.totalPage ?? 1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[#F0EDEF] text-muted-foreground disabled:opacity-40 transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-[var(--accent)] text-muted-foreground disabled:opacity-40 transition-colors"
             >
               <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
             </button>

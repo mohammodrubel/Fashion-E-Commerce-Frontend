@@ -146,10 +146,10 @@ export default function ReviewsPage() {
                 <div className="flex items-center gap-1 shrink-0 w-20">
                   <span className="text-muted-foreground" style={{ fontSize: "12px" }}>{d.stars} stars</span>
                 </div>
-                <div className="flex-1 rounded-full h-2.5" style={{ backgroundColor: "#F0EDEF" }}>
+                <div className="flex-1 rounded-full h-2.5" style={{ backgroundColor: "var(--accent)" }}>
                   <div
                     className="h-2.5 rounded-full transition-all"
-                    style={{ width: `${d.pct}%`, backgroundColor: d.stars >= 4 ? "#501D2A" : d.stars === 3 ? "#F59E0B" : "#EF4444" }}
+                    style={{ width: `${d.pct}%`, backgroundColor: d.stars >= 4 ? "var(--primary)" : d.stars === 3 ? "#F59E0B" : "#EF4444" }}
                   />
                 </div>
                 <div className="flex items-center gap-2 shrink-0 w-16 text-right">
@@ -160,7 +160,7 @@ export default function ReviewsPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-5 pt-4" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="grid grid-cols-3 gap-4 mt-5 pt-4" style={{ borderTop: "1px solid var(--accent)" }}>
             <div className="text-center">
               <p className="font-semibold text-foreground" style={{ fontSize: "20px" }}>170</p>
               <p className="text-muted-foreground" style={{ fontSize: "11px" }}>Published</p>
@@ -179,29 +179,29 @@ export default function ReviewsPage() {
 
       {/* Reviews Table */}
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Recent Reviews</h2>
           <div className="relative ml-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" strokeWidth={1.5} />
             <input
               type="text"
               placeholder="Search reviews..."
-              className="pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
+              className="pl-9 pr-4 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40"
               style={{ fontSize: "13px", width: "220px" }}
             />
           </div>
         </div>
 
-        <div className="divide-y" style={{ borderColor: "#F0EDEF" }}>
+        <div className="divide-y" style={{ borderColor: "var(--accent)" }}>
           {reviews.map((review) => {
             const statusCfg = statusConfig[review.status]
             return (
-              <div key={review.id} className="px-5 py-4 hover:bg-[#F8F7F5] transition-colors">
+              <div key={review.id} className="px-5 py-4 hover:bg-[var(--muted)] transition-colors">
                 <div className="flex items-start gap-4">
                   {/* Avatar */}
                   <div
                     className="w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold shrink-0"
-                    style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
+                    style={{ backgroundColor: "var(--primary)", fontSize: "12px" }}
                   >
                     {review.avatar}
                   </div>

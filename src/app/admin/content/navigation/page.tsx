@@ -64,7 +64,7 @@ function MenuItemRow({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
   return (
     <div>
       <div
-        className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[#F8F7F5] transition-colors group"
+        className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-[var(--muted)] transition-colors group"
         style={{ paddingLeft: `${12 + depth * 20}px` }}
       >
         {depth === 0 ? (
@@ -79,7 +79,7 @@ function MenuItemRow({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
         </div>
         <span className="text-muted-foreground font-mono truncate" style={{ fontSize: "11px" }}>{item.link}</span>
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity ml-1">
-          <button className="p-1 rounded hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+          <button className="p-1 rounded hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
             <Pencil className="w-3 h-3" strokeWidth={1.5} />
           </button>
           <button className="p-1 rounded hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -97,7 +97,7 @@ function MenuItemRow({ item, depth = 0 }: { item: MenuItem; depth?: number }) {
 function MenuCard({ title, items, description }: { title: string; items: MenuItem[]; description: string }) {
   return (
     <div className="bg-white rounded-xl border border-border/50">
-      <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+      <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
         <div>
           <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>{title}</p>
           <p className="text-muted-foreground" style={{ fontSize: "12px" }}>{description}</p>
@@ -141,7 +141,7 @@ export default function NavigationPage() {
             </a>
             <button
               className="px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+              style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
             >
               Save Changes
             </button>
@@ -172,7 +172,7 @@ export default function NavigationPage() {
             "Changes are saved automatically and published on 'Save Changes'",
           ].map((tip) => (
             <li key={tip} className="flex items-start gap-2">
-              <span style={{ color: "#501D2A", fontSize: "13px" }}>•</span>
+              <span style={{ color: "var(--primary)", fontSize: "13px" }}>•</span>
               <span className="text-muted-foreground" style={{ fontSize: "12px" }}>{tip}</span>
             </li>
           ))}

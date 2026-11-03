@@ -52,7 +52,7 @@ export default function FooterManagementPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Save className="w-4 h-4" strokeWidth={1.5} />
             Save Changes
@@ -102,20 +102,20 @@ export default function FooterManagementPage() {
           <div className="space-y-3">
             <div>
               <label className="block font-medium text-muted-foreground mb-1" style={{ fontSize: "11px" }}>Brand Name</label>
-              <input type="text" defaultValue="Velour" className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
+              <input type="text" defaultValue="Velour" className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
             </div>
             <div>
               <label className="block font-medium text-muted-foreground mb-1" style={{ fontSize: "11px" }}>Tagline</label>
-              <textarea defaultValue="Effortless fashion for the modern wardrobe. Sustainable. Considered. Beautiful." rows={3} className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40 resize-none" style={{ fontSize: "13px" }} />
+              <textarea defaultValue="Effortless fashion for the modern wardrobe. Sustainable. Considered. Beautiful." rows={3} className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 resize-none" style={{ fontSize: "13px" }} />
             </div>
             <div>
               <label className="block font-medium text-muted-foreground mb-1" style={{ fontSize: "11px" }}>Copyright Text</label>
-              <input type="text" defaultValue="© 2024 Velour. All rights reserved." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
+              <input type="text" defaultValue="© 2024 Velour. All rights reserved." className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40" style={{ fontSize: "13px" }} />
             </div>
           </div>
 
           {/* Social Links */}
-          <div className="mt-5 pt-5" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="mt-5 pt-5" style={{ borderTop: "1px solid var(--accent)" }}>
             <div className="flex items-center justify-between mb-3">
               <p className="font-semibold text-foreground" style={{ fontSize: "13px" }}>Follow Us</p>
               <button className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors" style={{ fontSize: "11px" }}>
@@ -124,7 +124,7 @@ export default function FooterManagementPage() {
             </div>
             <div className="space-y-2">
               {socialLinks.map((social) => (
-                <div key={social.platform} className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F8F7F5] transition-colors group">
+                <div key={social.platform} className="flex items-center gap-2 p-2 rounded-lg hover:bg-[var(--muted)] transition-colors group">
                   <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: social.color + "20" }}>
                     <social.icon className="w-3.5 h-3.5" style={{ color: social.color }} strokeWidth={1.5} />
                   </div>
@@ -133,7 +133,7 @@ export default function FooterManagementPage() {
                     <p className="text-muted-foreground truncate" style={{ fontSize: "11px" }}>{social.handle}</p>
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <a href={social.url} target="_blank" className="p-1 rounded hover:bg-[#F0EDEF] text-muted-foreground hover:text-foreground transition-colors">
+                    <a href={social.url} target="_blank" className="p-1 rounded hover:bg-[var(--accent)] text-muted-foreground hover:text-foreground transition-colors">
                       <ExternalLink className="w-3 h-3" strokeWidth={1.5} />
                     </a>
                     <button className="p-1 rounded hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors">
@@ -167,13 +167,13 @@ export default function FooterManagementPage() {
                     <input
                       type="text"
                       defaultValue={link.label}
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                      className="flex-1 px-3 py-1.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                       style={{ fontSize: "12px" }}
                     />
                     <input
                       type="text"
                       defaultValue={link.url}
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-muted-foreground font-mono focus:outline-none focus:border-primary/40"
+                      className="flex-1 px-3 py-1.5 rounded-lg border border-border/60 bg-[var(--muted)] text-muted-foreground font-mono focus:outline-none focus:border-primary/40"
                       style={{ fontSize: "11px" }}
                     />
                     <button className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 transition-all text-muted-foreground hover:text-red-600">

@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/admin/page-header"
 import { ArrowDown, TrendingUp, Download, Users, ShoppingCart, Eye, CreditCard } from "lucide-react"
 
 const funnelSteps = [
-  { label: "Visitors", value: 48240, icon: Users, color: "#501D2A", width: "100%" },
+  { label: "Visitors", value: 48240, icon: Users, color: "var(--primary)", width: "100%" },
   { label: "Product Views", value: 28944, icon: Eye, color: "#7a3042", width: "60%" },
   { label: "Add to Cart", value: 8831, icon: ShoppingCart, color: "#a34058", width: "18.3%" },
   { label: "Checkout Started", value: 4147, icon: CreditCard, color: "#c05070", width: "8.6%" },
@@ -112,7 +112,7 @@ export default function ConversionPage() {
                   <td className="px-6 py-4 text-muted-foreground" style={{ fontSize: "13px" }}>{d.sessions.toLocaleString()}</td>
                   <td className="px-6 py-4 text-foreground font-medium" style={{ fontSize: "13px" }}>{d.conversions.toLocaleString()}</td>
                   <td className="px-6 py-4" style={{ fontSize: "13px" }}>
-                    <span className="font-semibold" style={{ color: "#501D2A" }}>{d.rate}</span>
+                    <span className="font-semibold" style={{ color: "var(--primary)" }}>{d.rate}</span>
                   </td>
                 </tr>
               ))}

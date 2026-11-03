@@ -44,7 +44,7 @@ export default function LoyaltyPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Save className="w-4 h-4" strokeWidth={1.5} />
             Save Settings
@@ -55,7 +55,7 @@ export default function LoyaltyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Program Members", value: "1,842", sub: "enrolled customers", icon: Users, color: "#501D2A" },
+          { label: "Program Members", value: "1,842", sub: "enrolled customers", icon: Users, color: "var(--primary)" },
           { label: "Points Issued", value: "284,600", sub: "total all-time", icon: Star, color: "#F59E0B" },
           { label: "Points Redeemed", value: "142,300", sub: "50% redemption rate", icon: TrendingUp, color: "#166534" },
           { label: "Rewards Paid", value: "$1,423", sub: "in discounts given", icon: Award, color: "#7C3D52" },
@@ -86,7 +86,7 @@ export default function LoyaltyPage() {
                 <input
                   type="number"
                   defaultValue={4}
-                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                   style={{ fontSize: "13px" }}
                 />
                 <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "12px" }}>pts/$1</span>
@@ -98,7 +98,7 @@ export default function LoyaltyPage() {
                 <input
                   type="number"
                   defaultValue={100}
-                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                  className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                   style={{ fontSize: "13px" }}
                 />
                 <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "12px" }}>pts = $1</span>
@@ -109,7 +109,7 @@ export default function LoyaltyPage() {
               <input
                 type="number"
                 defaultValue={500}
-                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                 style={{ fontSize: "13px" }}
               />
             </div>
@@ -118,18 +118,18 @@ export default function LoyaltyPage() {
               <input
                 type="number"
                 defaultValue={24}
-                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground focus:outline-none focus:border-primary/40"
+                className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40"
                 style={{ fontSize: "13px" }}
               />
             </div>
-            <div className="flex items-center justify-between py-3 rounded-lg px-3" style={{ backgroundColor: "#F8F7F5" }}>
+            <div className="flex items-center justify-between py-3 rounded-lg px-3" style={{ backgroundColor: "var(--muted)" }}>
               <div>
                 <p className="text-foreground font-medium" style={{ fontSize: "13px" }}>Program Active</p>
                 <p className="text-muted-foreground" style={{ fontSize: "11px" }}>Customers can earn and redeem</p>
               </div>
               <button
                 className="relative inline-flex items-center rounded-full shrink-0"
-                style={{ width: "40px", height: "22px", backgroundColor: "#501D2A" }}
+                style={{ width: "40px", height: "22px", backgroundColor: "var(--primary)" }}
               >
                 <span className="inline-block w-4 h-4 rounded-full bg-white shadow-sm" style={{ transform: "translateX(20px)" }} />
               </button>
@@ -137,11 +137,11 @@ export default function LoyaltyPage() {
           </div>
 
           {/* Tier Thresholds */}
-          <div className="mt-6 pt-5" style={{ borderTop: "1px solid #F0EDEF" }}>
+          <div className="mt-6 pt-5" style={{ borderTop: "1px solid var(--accent)" }}>
             <p className="font-medium text-foreground mb-3" style={{ fontSize: "13px" }}>Tier Thresholds</p>
             <div className="space-y-2">
               {tierThresholds.map((t) => (
-                <div key={t.tier} className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: "#F8F7F5" }}>
+                <div key={t.tier} className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ backgroundColor: "var(--muted)" }}>
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: t.color }} />
                     <span className="font-medium text-foreground" style={{ fontSize: "12px" }}>{t.tier}</span>
@@ -157,7 +157,7 @@ export default function LoyaltyPage() {
 
         {/* Leaderboard */}
         <div className="lg:col-span-2 bg-white rounded-xl border border-border/50">
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
             <div>
               <h2 className="font-semibold text-foreground" style={{ fontSize: "15px" }}>Points Leaderboard</h2>
               <p className="text-muted-foreground" style={{ fontSize: "12px" }}>Top customers by total points</p>
@@ -167,7 +167,7 @@ export default function LoyaltyPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+                <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                   {["Rank", "Customer", "Points", "Tier", "Last Earned", "Total Spent"].map((h) => (
                     <th
                       key={h}
@@ -185,8 +185,8 @@ export default function LoyaltyPage() {
                   return (
                     <tr
                       key={c.email}
-                      className="hover:bg-[#F8F7F5] transition-colors"
-                      style={{ borderBottom: i < customers.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                      className="hover:bg-[var(--muted)] transition-colors"
+                      style={{ borderBottom: i < customers.length - 1 ? "1px solid var(--accent)" : "none" }}
                     >
                       <td className="px-5 py-3.5">
                         <div

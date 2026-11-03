@@ -8,7 +8,7 @@ export function TableSkeletonRows({ rows = 5, columns }: { rows?: number; column
   return (
     <>
       {Array.from({ length: rows }).map((_, r) => (
-        <tr key={r} style={{ borderBottom: r < rows - 1 ? "1px solid #F0EDEF" : "none" }}>
+        <tr key={r} style={{ borderBottom: r < rows - 1 ? "1px solid var(--accent)" : "none" }}>
           {Array.from({ length: columns }).map((_, c) => (
             <td key={c} className="px-5 py-3.5">
               <Skeleton className="h-4 w-full max-w-32" />

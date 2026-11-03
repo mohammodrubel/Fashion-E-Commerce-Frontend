@@ -107,8 +107,8 @@ export default function RegisterPage() {
       {/* Page heading */}
       <div className="space-y-2 mb-10">
         <h1
-          className="font-light tracking-tight text-foreground"
-          style={{ fontSize: "28px" }}
+          className="font-editorial font-semibold tracking-tight text-foreground"
+          style={{ fontSize: "42px" }}
         >
           Create Your Account
         </h1>
@@ -193,7 +193,7 @@ export default function RegisterPage() {
           />
           <label
             htmlFor="terms"
-            className="text-muted-foreground cursor-pointer select-none leading-snug"
+            className="font-body text-muted-foreground cursor-pointer select-none leading-snug"
             style={{ fontSize: "11px" }}
           >
             I agree to the{" "}
@@ -217,7 +217,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full h-12 bg-primary text-primary-foreground uppercase font-medium transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
+            className="font-ui w-full h-12 bg-primary text-primary-foreground uppercase font-semibold transition-all duration-150 hover:bg-primary/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
             style={{ fontSize: "11px", letterSpacing: "0.2em", borderRadius: 0 }}
           >
             {isLoading ? (
@@ -256,8 +256,8 @@ export default function RegisterPage() {
 
       {/* Login link */}
       <p
-        className="mt-10 text-muted-foreground"
-        style={{ fontSize: "12px", letterSpacing: "0.02em" }}
+        className="font-body font-medium mt-10 text-muted-foreground"
+        style={{ fontSize: "13px", letterSpacing: "0.02em" }}
       >
         Already have an account?{" "}
         <Link

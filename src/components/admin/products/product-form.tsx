@@ -291,7 +291,7 @@ export function ProductForm({ productId }: { productId?: string }) {
           <div className="flex items-center gap-2">
             <Link
               href="/admin/products"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border/60 bg-white hover:bg-[#F8F7F5] transition-colors text-muted-foreground"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border/60 bg-white hover:bg-[var(--muted)] transition-colors text-muted-foreground"
               style={{ fontSize: "13px" }}
             >
               <X className="w-4 h-4" strokeWidth={1.5} /> Discard
@@ -300,7 +300,7 @@ export function ProductForm({ productId }: { productId?: string }) {
               onClick={() => handleSubmit()}
               disabled={isSaving}
               className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-white hover:opacity-90 transition-opacity disabled:opacity-60"
-              style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+              style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Save className="w-4 h-4" strokeWidth={1.5} />}
               {isEdit ? "Save Changes" : "Create Product"}
@@ -315,7 +315,7 @@ export function ProductForm({ productId }: { productId?: string }) {
 
           {/* Basic Info */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid #F0EDEF" }}>
+            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid var(--accent)" }}>
               Basic Information
             </h2>
             <div className="space-y-4">
@@ -398,7 +398,7 @@ export function ProductForm({ productId }: { productId?: string }) {
 
           {/* Pricing & Stock */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid #F0EDEF" }}>
+            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid var(--accent)" }}>
               Pricing & Stock
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -453,14 +453,14 @@ export function ProductForm({ productId }: { productId?: string }) {
 
           {/* Variants */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <div className="flex items-center justify-between mb-4 pb-3" style={{ borderBottom: "1px solid #F0EDEF" }}>
+            <div className="flex items-center justify-between mb-4 pb-3" style={{ borderBottom: "1px solid var(--accent)" }}>
               <div className="flex items-center gap-2">
-                <Package className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                <Package className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                 <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Variants (optional)</h2>
               </div>
               <button
                 onClick={addVariant}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 hover:bg-[#F8F7F5] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/60 hover:bg-[var(--muted)] transition-colors"
                 style={{ fontSize: "12px" }}
               >
                 <Plus className="w-3.5 h-3.5" strokeWidth={2} /> Add Variant
@@ -469,9 +469,9 @@ export function ProductForm({ productId }: { productId?: string }) {
 
             <div
               className="mb-3 flex items-start gap-2 px-3 py-2.5 rounded-lg"
-              style={{ backgroundColor: "#F0EDEF", fontSize: "12px" }}
+              style={{ backgroundColor: "var(--accent)", fontSize: "12px" }}
             >
-              <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+              <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               <span className="text-foreground">
                 Leave empty for a simple product. A variant needs size, color, SKU and price to be saved.
               </span>
@@ -585,8 +585,8 @@ export function ProductForm({ productId }: { productId?: string }) {
 
           {/* Images */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <div className="flex items-center gap-2 mb-4 pb-3" style={{ borderBottom: "1px solid #F0EDEF" }}>
-              <ImageIcon className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <div className="flex items-center gap-2 mb-4 pb-3" style={{ borderBottom: "1px solid var(--accent)" }}>
+              <ImageIcon className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Product Images</h2>
             </div>
 
@@ -630,10 +630,10 @@ export function ProductForm({ productId }: { productId?: string }) {
             <div
               onClick={() => fileInputRef.current?.click()}
               className="border-2 border-dashed rounded-xl p-8 text-center cursor-pointer hover:border-primary/40 transition-colors"
-              style={{ borderColor: "#E5E0DC", backgroundColor: "#F8F7F5" }}
+              style={{ borderColor: "#E5E0DC", backgroundColor: "var(--muted)" }}
             >
-              <div className="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: "#F0EDEF" }}>
-                <Upload className="w-5 h-5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
+                <Upload className="w-5 h-5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               </div>
               <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>Drop images here or click to upload</p>
               <p className="text-muted-foreground mt-1" style={{ fontSize: "11px" }}>PNG, JPG, WebP · Up to 10 images</p>
@@ -642,7 +642,7 @@ export function ProductForm({ productId }: { productId?: string }) {
 
           {/* SEO */}
           <div className="bg-white rounded-xl border border-border/50 p-5">
-            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid #F0EDEF" }}>
+            <h2 className="font-semibold text-foreground mb-4 pb-3" style={{ fontSize: "14px", borderBottom: "1px solid var(--accent)" }}>
               SEO
             </h2>
             <div className="space-y-4">
@@ -685,17 +685,17 @@ export function ProductForm({ productId }: { productId?: string }) {
                 <label
                   key={opt.value}
                   onClick={() => setStatus(opt.value)}
-                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-[#F8F7F5]"
+                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-[var(--muted)]"
                   style={{
                     border: status === opt.value ? "1px solid #E5E0DC" : "1px solid transparent",
-                    backgroundColor: status === opt.value ? "#F8F7F5" : undefined,
+                    backgroundColor: status === opt.value ? "var(--muted)" : undefined,
                   }}
                 >
                   <div
                     className="mt-0.5 w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0"
-                    style={{ borderColor: status === opt.value ? "#501D2A" : "#D1D5DB" }}
+                    style={{ borderColor: status === opt.value ? "var(--primary)" : "#D1D5DB" }}
                   >
-                    {status === opt.value && <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#501D2A" }} />}
+                    {status === opt.value && <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--primary)" }} />}
                   </div>
                   <div>
                     <span className={`inline-flex rounded-full px-2 py-0.5 font-medium ${opt.color}`} style={{ fontSize: "11px" }}>
@@ -730,7 +730,7 @@ export function ProductForm({ productId }: { productId?: string }) {
             <Link
               href="/admin/products/categories"
               className="flex items-center gap-1 mt-2 hover:opacity-80 transition-opacity"
-              style={{ fontSize: "12px", color: "#501D2A" }}
+              style={{ fontSize: "12px", color: "var(--primary)" }}
             >
               <Plus className="w-3 h-3" strokeWidth={2} /> Add new category
             </Link>
@@ -740,7 +740,7 @@ export function ProductForm({ productId }: { productId?: string }) {
           <div className="bg-white rounded-xl border border-border/50 p-5">
             <label className="flex items-center justify-between cursor-pointer">
               <span className="flex items-center gap-2 font-semibold text-foreground" style={{ fontSize: "14px" }}>
-                <Star className="w-4 h-4" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                <Star className="w-4 h-4" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
                 Featured Product
               </span>
               <input
@@ -761,7 +761,7 @@ export function ProductForm({ productId }: { productId?: string }) {
               onClick={() => handleSubmit()}
               disabled={isSaving}
               className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-60"
-              style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+              style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
             >
               {isSaving ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} /> : <Save className="w-4 h-4" strokeWidth={1.5} />}
               {isEdit ? "Save Changes" : "Create Product"}
@@ -770,7 +770,7 @@ export function ProductForm({ productId }: { productId?: string }) {
               <button
                 onClick={() => handleSubmit("DRAFT")}
                 disabled={isSaving}
-                className="w-full py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:bg-[#F8F7F5] transition-colors disabled:opacity-60"
+                className="w-full py-2.5 rounded-lg border border-border/60 text-muted-foreground hover:bg-[var(--muted)] transition-colors disabled:opacity-60"
                 style={{ fontSize: "13px" }}
               >
                 Save as Draft

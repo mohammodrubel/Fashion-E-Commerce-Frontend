@@ -21,7 +21,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
         <div className="flex items-center justify-between">
           <label
             htmlFor={inputId}
-            className="block text-muted-foreground uppercase"
+            className="font-ui block text-muted-foreground uppercase"
             style={{ fontSize: "10px", letterSpacing: "0.15em" }}
           >
             {label}
@@ -35,7 +35,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
             id={inputId}
             type={visible ? "text" : "password"}
             className={cn(
-              "w-full bg-transparent",
+              "font-body w-full bg-transparent",
               "h-11 py-0 pl-0 pr-7",
               "border-0 border-b border-border",
               "rounded-none",

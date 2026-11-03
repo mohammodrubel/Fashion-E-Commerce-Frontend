@@ -33,7 +33,7 @@ export default function WebsitePagesPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             Create Page
@@ -42,7 +42,7 @@ export default function WebsitePagesPage() {
       />
 
       <div className="bg-white rounded-xl border border-border/50">
-        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div>
             <p className="font-medium text-foreground" style={{ fontSize: "14px" }}>All Pages</p>
             <p className="text-muted-foreground" style={{ fontSize: "12px" }}>{pages.length} pages total</p>
@@ -52,7 +52,7 @@ export default function WebsitePagesPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid #F0EDEF" }}>
+              <tr style={{ borderBottom: "1px solid var(--accent)" }}>
                 {["Page Title", "Slug", "Author", "Word Count", "Last Updated", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
@@ -68,8 +68,8 @@ export default function WebsitePagesPage() {
               {pages.map((page, i) => (
                 <tr
                   key={page.slug}
-                  className="hover:bg-[#F8F7F5] transition-colors"
-                  style={{ borderBottom: i < pages.length - 1 ? "1px solid #F0EDEF" : "none" }}
+                  className="hover:bg-[var(--muted)] transition-colors"
+                  style={{ borderBottom: i < pages.length - 1 ? "1px solid var(--accent)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
                     <p className="font-medium text-foreground" style={{ fontSize: "13px" }}>{page.title}</p>
@@ -101,13 +101,13 @@ export default function WebsitePagesPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-1">
-                      <a href={page.slug} target="_blank" className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <a href={page.slug} target="_blank" className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <ExternalLink className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </a>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
-                      <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                      <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                         <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                       </button>
                       <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">

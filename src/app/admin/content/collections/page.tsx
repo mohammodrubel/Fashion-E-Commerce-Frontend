@@ -13,7 +13,7 @@ interface Collection {
 }
 
 const collections: Collection[] = [
-  { name: "Autumn 2024", slug: "autumn-2024", description: "Warm tones and rich textures for the season ahead", productCount: 48, status: "Active", colorBg: "#501D2A", featured: true, lastUpdated: "Oct 15, 2024" },
+  { name: "Autumn 2024", slug: "autumn-2024", description: "Warm tones and rich textures for the season ahead", productCount: 48, status: "Active", colorBg: "var(--primary)", featured: true, lastUpdated: "Oct 15, 2024" },
   { name: "The Velvet Edit", slug: "velvet", description: "Sumptuous velvet pieces for elevated everyday dressing", productCount: 24, status: "Active", colorBg: "#4C1D95", featured: true, lastUpdated: "Oct 10, 2024" },
   { name: "New Arrivals", slug: "new-in", description: "Fresh stock added weekly — shop the latest first", productCount: 32, status: "Active", colorBg: "#7C3D52", featured: false, lastUpdated: "Oct 24, 2024" },
   { name: "Best Sellers", slug: "best-sellers", description: "Customer favourites — trending this month", productCount: 20, status: "Active", colorBg: "#1D4ED8", featured: false, lastUpdated: "Oct 22, 2024" },
@@ -37,7 +37,7 @@ export default function CollectionsPage() {
         actions={
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             <Plus className="w-4 h-4" strokeWidth={1.5} />
             New Collection
@@ -81,13 +81,13 @@ export default function CollectionsPage() {
                 </div>
                 <p className="text-muted-foreground mb-3 line-clamp-2" style={{ fontSize: "12px" }}>{col.description}</p>
 
-                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid #F0EDEF" }}>
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--accent)" }}>
                   <span className="text-muted-foreground" style={{ fontSize: "11px" }}>Updated {col.lastUpdated}</span>
                   <div className="flex items-center gap-1">
-                    <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                    <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                       <Eye className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
-                    <button className="p-1.5 rounded-lg hover:bg-[#F0EDEF] transition-colors text-muted-foreground hover:text-foreground">
+                    <button className="p-1.5 rounded-lg hover:bg-[var(--accent)] transition-colors text-muted-foreground hover:text-foreground">
                       <Pencil className="w-3.5 h-3.5" strokeWidth={1.5} />
                     </button>
                     <button className="p-1.5 rounded-lg hover:bg-red-50 transition-colors text-muted-foreground hover:text-red-600">
@@ -103,7 +103,7 @@ export default function CollectionsPage() {
         {/* Add collection card */}
         <button className="rounded-xl border border-dashed border-border hover:border-primary/40 hover:bg-[#FAF0F2] transition-colors flex flex-col items-center justify-center gap-3 min-h-[260px] group">
           <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "#FAF0F2" }}>
-            <Plus className="w-5 h-5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+            <Plus className="w-5 h-5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
           </div>
           <p className="font-medium text-muted-foreground group-hover:text-foreground transition-colors" style={{ fontSize: "13px" }}>New Collection</p>
         </button>

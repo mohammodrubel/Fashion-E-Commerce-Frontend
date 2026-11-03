@@ -94,13 +94,13 @@ export default function OrderTrackingPage() {
               type="text"
               placeholder="Order ID or tracking number…"
               defaultValue="#5002"
-              className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-border/60 bg-[#F8F7F5] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
+              className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-border focus:bg-white transition-colors"
               style={{ fontSize: "13px" }}
             />
           </div>
           <button
             className="px-5 py-2.5 rounded-lg text-white font-medium transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
+            style={{ backgroundColor: "var(--primary)", fontSize: "13px" }}
           >
             Track
           </button>
@@ -110,7 +110,7 @@ export default function OrderTrackingPage() {
       {/* Tracking Result */}
       <div className="bg-white rounded-xl border border-border/50 p-6">
         {/* Order Info */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5" style={{ borderBottom: "1px solid #F0EDEF" }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5" style={{ borderBottom: "1px solid var(--accent)" }}>
           <div>
             <h2 className="font-semibold text-foreground" style={{ fontSize: "15px" }}>
               Order {sampleTracking.orderId}
@@ -150,7 +150,7 @@ export default function OrderTrackingPage() {
             {/* Vertical line */}
             <div
               className="absolute left-5 top-5 bottom-5 w-px"
-              style={{ backgroundColor: "#F0EDEF" }}
+              style={{ backgroundColor: "var(--accent)" }}
             />
 
             <div className="space-y-0">
@@ -165,12 +165,12 @@ export default function OrderTrackingPage() {
                       className="relative z-10 w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                       style={{
                         backgroundColor: step.active
-                          ? "#501D2A"
+                          ? "var(--primary)"
                           : step.done
-                          ? "#F0EDEF"
-                          : "#F8F7F5",
+                          ? "var(--accent)"
+                          : "var(--muted)",
                         border: step.active
-                          ? "2px solid #501D2A"
+                          ? "2px solid var(--primary)"
                           : step.done
                           ? "2px solid #D4C8CC"
                           : "2px dashed #D4C8CC",
@@ -179,7 +179,7 @@ export default function OrderTrackingPage() {
                       <Icon
                         className="w-4 h-4"
                         style={{
-                          color: step.active ? "#fff" : step.done ? "#501D2A" : "#9C7A83",
+                          color: step.active ? "#fff" : step.done ? "var(--primary)" : "#C2C7D7",
                         }}
                         strokeWidth={step.active ? 2 : 1.5}
                       />
@@ -193,7 +193,7 @@ export default function OrderTrackingPage() {
                             className="font-medium"
                             style={{
                               fontSize: "13px",
-                              color: step.active ? "#501D2A" : step.done ? "#1a1a1a" : "#9C7A83",
+                              color: step.active ? "var(--primary)" : step.done ? "#1a1a1a" : "#C2C7D7",
                             }}
                           >
                             {step.label}
@@ -215,7 +215,7 @@ export default function OrderTrackingPage() {
                             className="font-medium"
                             style={{
                               fontSize: "12px",
-                              color: step.done ? "#1a1a1a" : "#9C7A83",
+                              color: step.done ? "#1a1a1a" : "#C2C7D7",
                             }}
                           >
                             {step.date}

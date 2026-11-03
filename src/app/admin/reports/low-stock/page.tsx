@@ -40,7 +40,7 @@ export default function LowStockPage() {
             </button>
             <button
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-white transition-colors"
-              style={{ fontSize: "13px", backgroundColor: "#501D2A" }}
+              style={{ fontSize: "13px", backgroundColor: "var(--primary)" }}
             >
               <RefreshCcw className="w-4 h-4" />
               Reorder All Critical
