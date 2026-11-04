@@ -98,8 +98,31 @@ export function CartVariantPicker({ productId, currentSizeId, currentColorId, on
     }
   }
 
+  const selectedSizeName = sizes.find((s) => s.id === selectedSizeId)?.name
+  const selectedColorObj = colors.find((c) => c.id === selectedColorId)
+
   return (
-    <div className="mt-2 space-y-2">
+    <div className="mt-2 space-y-1.5">
+      {(selectedSizeName || selectedColorObj) && (
+        <div className="flex flex-col gap-1">
+          {selectedColorObj && (
+            <span className="font-ui font-medium text-foreground inline-flex items-center gap-1.5" style={{ fontSize: "12px" }}>
+              Color:
+              <span
+                className="inline-block w-2.5 h-2.5 rounded-full border border-border/50"
+                style={{ backgroundColor: selectedColorObj.hexCode || "#DFE1E9" }}
+              />
+              {selectedColorObj.name}
+            </span>
+          )}
+          {selectedSizeName && (
+            <span className="font-ui font-medium text-foreground" style={{ fontSize: "12px" }}>
+              Size: {selectedSizeName}
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center gap-1.5">
         <span className="text-category-label text-muted-foreground">Size:</span>
         {sizes.map((size) => {

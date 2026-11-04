@@ -3,10 +3,11 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useSelector } from "react-redux"
-import { Menu, Search, User, Heart, ShoppingBag } from "lucide-react"
+import { Menu, Search, Heart, ShoppingBag } from "lucide-react"
 import { Logo } from "@/components/shared/logo"
 import { MobileMenu } from "@/components/home/mobile-menu"
 import { SearchOverlay } from "@/components/home/search-overlay"
+import { AccountMenu } from "@/components/home/account-menu"
 import { AnimatedTagline } from "@/components/home/animated-tagline"
 import type { RootState } from "@/redux/store"
 
@@ -29,26 +30,26 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 bg-white">
       {/* Row 1 — utility icons */}
       <div className="flex items-center justify-between px-6 md:px-10 pt-5">
-        <button
-          onClick={() => setMenuOpen(true)}
-          className="text-foreground/70 hover:text-foreground transition-colors"
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
-        >
-          <Menu className="w-5 h-5" strokeWidth={1.5} />
-        </button>
-        <button
-          onClick={() => setSearchOpen(true)}
-          className="text-foreground/70 hover:text-foreground transition-colors"
-          aria-label="Search"
-          aria-expanded={searchOpen}
-        >
-          <Search className="w-5 h-5" strokeWidth={1.5} />
-        </button>
         <div className="flex items-center gap-5">
-          <Link href="/account" className="text-foreground/70 hover:text-foreground transition-colors" aria-label="Account">
-            <User className="w-5 h-5" strokeWidth={1.5} />
-          </Link>
+          <button
+            onClick={() => setMenuOpen(true)}
+            className="text-foreground/70 hover:text-foreground transition-colors"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+          >
+            <Menu className="w-5 h-5" strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="text-foreground/70 hover:text-foreground transition-colors"
+            aria-label="Search"
+            aria-expanded={searchOpen}
+          >
+            <Search className="w-5 h-5" strokeWidth={1.5} />
+          </button>
+        </div>
+        <div className="flex items-center gap-5">
+          <AccountMenu />
           <Link href="/wishlist" className="text-foreground/70 hover:text-foreground transition-colors" aria-label="Wishlist">
             <Heart className="w-5 h-5" strokeWidth={1.5} />
           </Link>

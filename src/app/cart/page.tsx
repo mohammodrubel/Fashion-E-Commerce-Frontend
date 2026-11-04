@@ -41,6 +41,14 @@ interface ApiVariant {
   isActive: boolean
 }
 
+// Product id alone is not unique anymore — two variants of the same product
+// (e.g. Red/M and Gray/M) are separate cart lines, so every per-line React
+// key and per-line UI state (checking/draft quantity) must include the
+// variant too.
+function lineKey(item: Pick<CartItem, "id" | "sizeId" | "colorId">) {
+  return `${item.id}::${item.sizeId ?? ""}::${item.colorId ?? ""}`
+}
+
 // Hits the real /product/:id endpoint with forceRefetch, bypassing RTK
 // Query's cache, so the cap is always checked against the server's current
 // number — not whatever was cached client-side at add/variant-change time.
@@ -72,16 +80,17 @@ export default function CartPage() {
   const [draftQuantity, setDraftQuantity] = useState<Record<string, string>>({})
 
   async function handleIncrement(item: CartItem) {
-    setCheckingId(item.id)
+    const key = lineKey(item)
+    setCheckingId(key)
     try {
       const liveStock = await fetchLiveStock(dispatch, item)
-      dispatch(syncStock({ id: item.id, stock: liveStock }))
+      dispatch(syncStock({ id: item.id, sizeId: item.sizeId, colorId: item.colorId, stock: liveStock }))
 
       if (item.quantity + 1 > liveStock) {
         toast.error("Maximum available stock reached.")
         return
       }
-      dispatch(incrementQuantity({ id: item.id }))
+      dispatch(incrementQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))
     } catch {
       toast.error("Could not verify stock. Please try again.")
     } finally {
@@ -90,27 +99,28 @@ export default function CartPage() {
   }
 
   async function handleQuantityCommit(item: CartItem, rawValue: string) {
+    const key = lineKey(item)
     const parsed = Number(rawValue)
     if (!rawValue || !Number.isFinite(parsed) || !Number.isInteger(parsed) || parsed < 1) {
       toast.error("Enter a valid quantity.")
-      setDraftQuantity((prev) => ({ ...prev, [item.id]: String(item.quantity) }))
+      setDraftQuantity((prev) => ({ ...prev, [key]: String(item.quantity) }))
       return
     }
 
     if (parsed === item.quantity) return
 
-    setCheckingId(item.id)
+    setCheckingId(key)
     try {
       const liveStock = await fetchLiveStock(dispatch, item)
-      dispatch(syncStock({ id: item.id, stock: liveStock }))
-      dispatch(setQuantity({ id: item.id, quantity: parsed }))
+      dispatch(syncStock({ id: item.id, sizeId: item.sizeId, colorId: item.colorId, stock: liveStock }))
+      dispatch(setQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId, quantity: parsed }))
     } catch {
       toast.error("Could not verify stock. Please try again.")
     } finally {
       setCheckingId(null)
       setDraftQuantity((prev) => {
         const next = { ...prev }
-        delete next[item.id]
+        delete next[key]
         return next
       })
     }
@@ -142,11 +152,12 @@ export default function CartPage() {
             {/* Items */}
             <div className="flex-1 min-w-0 divide-y divide-border border-t border-b border-border">
               {items.map((item) => {
+                const key = lineKey(item)
                 const atCap = item.stock !== undefined && item.quantity >= item.stock
-                const isChecking = checkingId === item.id
+                const isChecking = checkingId === key
 
                 return (
-                  <div key={`${item.id}-${item.sizeId ?? ""}`} className="flex items-start gap-4 py-5">
+                  <div key={key} className="flex items-start gap-4 py-5">
                     <Link href={`/product/${item.slug ?? item.id}`} className="relative h-24 w-20 shrink-0 overflow-hidden bg-muted">
                       {item.image ? (
                         <Image src={item.image} alt={item.name} fill className="object-cover" />
@@ -164,7 +175,17 @@ export default function CartPage() {
                         currentSizeId={item.sizeId}
                         currentColorId={item.colorId}
                         onChange={({ sizeId, colorId, price, stock }) =>
-                          dispatch(changeVariant({ id: item.id, sizeId, colorId, price, stock }))
+                          dispatch(
+                            changeVariant({
+                              id: item.id,
+                              currentSizeId: item.sizeId,
+                              currentColorId: item.colorId,
+                              sizeId,
+                              colorId,
+                              price,
+                              stock,
+                            })
+                          )
                         }
                       />
 
@@ -176,7 +197,7 @@ export default function CartPage() {
                     <div className="flex items-center gap-1 border border-border rounded-lg mt-1">
                       <button
                         type="button"
-                        onClick={() => dispatch(decrementQuantity({ id: item.id }))}
+                        onClick={() => dispatch(decrementQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))}
                         disabled={isChecking}
                         aria-label="Decrease quantity"
                         className="flex h-8 w-8 items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-30"
@@ -188,8 +209,8 @@ export default function CartPage() {
                         min={1}
                         step={1}
                         inputMode="numeric"
-                        value={draftQuantity[item.id] ?? item.quantity}
-                        onChange={(e) => setDraftQuantity((prev) => ({ ...prev, [item.id]: e.target.value }))}
+                        value={draftQuantity[key] ?? item.quantity}
+                        onChange={(e) => setDraftQuantity((prev) => ({ ...prev, [key]: e.target.value }))}
                         onBlur={(e) => handleQuantityCommit(item, e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") (e.target as HTMLInputElement).blur()
@@ -216,7 +237,7 @@ export default function CartPage() {
 
                     <button
                       type="button"
-                      onClick={() => dispatch(removeItem({ id: item.id }))}
+                      onClick={() => dispatch(removeItem({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))}
                       aria-label="Remove item"
                       className="shrink-0 text-muted-foreground hover:text-destructive transition-colors mt-1"
                     >

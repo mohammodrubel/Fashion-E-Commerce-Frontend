@@ -51,7 +51,7 @@ export default function LoginPage() {
         const token = result.data.access_token
         const user = JwtDecode(token)
         dispatch(setUser({ user, token }))
-        router.push("/")
+        router.push(user.role === "ADMIN" ? "/admin" : "/")
       } catch {
         setErrors({ server: "Google sign-in failed. Please try again." })
       } finally {
@@ -87,7 +87,7 @@ export default function LoginPage() {
       const token = result.data.access_token
       const user = JwtDecode(token)
       dispatch(setUser({ user, token }))
-      router.push("/")
+      router.push(user.role === "ADMIN" ? "/admin" : "/")
     } catch (err: any) {
       const message =
         err?.data?.message || "Invalid email or password. Please try again."

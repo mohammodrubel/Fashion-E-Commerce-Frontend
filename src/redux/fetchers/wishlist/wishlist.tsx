@@ -1,8 +1,12 @@
 import { Product } from "@/lib/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// An item sitting in the wishlist always carries the toggle flag; the
+// `Product` dispatched to addToWishlist does not (the reducer sets it).
+type WishlistLine = Product & { wishlist: boolean };
+
 interface WishlistState {
-  product: Product[];
+  product: WishlistLine[];
   totalwishlistProduct: number;
 }
 

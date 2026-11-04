@@ -1,21 +1,16 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import {
   LayoutDashboard, ShoppingBag, User, Heart,
   LogOut, ChevronRight
 } from "lucide-react"
-import { useDispatch } from "react-redux"
-import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/home/site-header"
 import { useRequireAuth } from "@/lib/useRequireAuth"
+import { useLogout } from "@/lib/useLogout"
 import { useGetMeQuery } from "@/redux/fetchers/user/userApi"
-import { useLogoutFromDbMutation } from "@/redux/fetchers/auth/authApi"
-import { logout } from "@/redux/fetchers/auth/authSlice"
-import { baseApi } from "@/redux/api/baseApi"
-import type { AppDispatch } from "@/redux/store"
 
 const navItems = [
   { label: "Dashboard",       href: "/account",                    icon: LayoutDashboard },
@@ -31,28 +26,14 @@ function initialsOf(name?: string) {
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const router = useRouter()
-  const dispatch = useDispatch<AppDispatch>()
   const { ready } = useRequireAuth()
   const { data: meData } = useGetMeQuery(undefined, { skip: !ready })
   const me = meData?.data
-  const [logoutFromDb] = useLogoutFromDbMutation()
+  const handleLogout = useLogout()
 
   function isActive(href: string) {
     if (href === "/account") return pathname === "/account"
     return pathname.startsWith(href.split("#")[0])
-  }
-
-  async function handleLogout() {
-    try {
-      await logoutFromDb(undefined).unwrap()
-    } catch {
-      // Cookie clear can fail silently (e.g. offline) — client state still clears below.
-    }
-    dispatch(logout())
-    dispatch(baseApi.util.resetApiState())
-    toast.success("Logged out successfully")
-    router.push("/")
   }
 
   if (!ready) {
