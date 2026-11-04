@@ -10,32 +10,13 @@ import { ProductGrid } from "@/components/shared/product-grid"
 import type { ProductCardData } from "@/components/shop/product-card"
 import type { RootState } from "@/redux/store"
 
-interface WishlistItem {
-  id: string
-  name: string
-  slug?: string
-  image?: string
-  price: number
-  wishlist: boolean
-}
-
 export default function WishlistPage() {
-  const items: WishlistItem[] = useSelector((state: RootState) =>
+  // The full product (same shape the Shop card renders) is stored directly
+  // on the wishlist item, so it renders through the exact same card.
+  const products: ProductCardData[] = useSelector((state: RootState) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ((state as any).wishlist?.product ?? []).filter((p: WishlistItem) => p.wishlist)
+    ((state as any).wishlist?.product ?? []).filter((p: any) => p.wishlist)
   )
-
-  const products: ProductCardData[] = items.map((item) => ({
-    id: item.id,
-    name: item.name,
-    slug: item.slug ?? item.id,
-    regularPrice: item.price,
-    salePrice: null,
-    stockQuantity: 1,
-    images: item.image ? [{ url: item.image }] : [],
-    variants: [],
-    category: null,
-  }))
 
   return (
     <main className="min-h-screen bg-background text-foreground">

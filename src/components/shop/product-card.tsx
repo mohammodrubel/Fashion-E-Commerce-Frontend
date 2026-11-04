@@ -109,14 +109,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   function handleWishlistToggle(e: React.MouseEvent) {
     e.preventDefault()
     dispatch(
-      addToWishlist({
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        image,
-        price: effectivePrice,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any)
+      // Store the full product (same shape the Shop card renders) so the
+      // Wishlist page can render the identical card, sizes and all.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      addToWishlist(product as any)
     )
   }
 

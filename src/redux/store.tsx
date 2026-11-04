@@ -15,7 +15,7 @@ import { baseApi } from "./api/baseApi";
 
 import authReducer from "../redux/fetchers/auth/authSlice";
 import cartReducer from "../redux/fetchers/cart/cartSlice";
-import wishlistReducer from "../redux/fetchers/wishlist/wishlist"
+import wishlistReducer from "../redux/fetchers/wishlist/wishlist";
 
 // ==========================
 // Persist Configs
@@ -30,8 +30,13 @@ const persistCartConfig: PersistConfig<ReturnType<typeof cartReducer>> = {
   key: "cart",
   storage,
 };
-const persistwishlistConfig: PersistConfig<ReturnType<typeof wishlistReducer>> = {
-  key: "wishlist",
+
+// Key bumped from "wishlist" to "wishlist_v2": older saved items only stored
+// {id, name, slug, image, price} (no images[]/regularPrice/variants), so the
+// card rendered without image, size or price. Renaming the storage key
+// starts wishlist state fresh instead of rehydrating that incompatible shape.
+const persistWishlistConfig: PersistConfig<ReturnType<typeof wishlistReducer>> = {
+  key: "wishlist_v2",
   storage,
 };
 
@@ -48,8 +53,9 @@ const persistedCartReducer = persistReducer(
   persistCartConfig,
   cartReducer
 );
+
 const persistedWishlistReducer = persistReducer(
-  persistwishlistConfig,
+  persistWishlistConfig,
   wishlistReducer
 );
 

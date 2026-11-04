@@ -1,100 +1,274 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import {
-  Camera, MapPin, Plus, Edit2, Trash2, Check, Home, Building
+  Camera, MapPin, Plus, Edit2, Trash2, Check, Home, Lock, KeyRound
 } from "lucide-react"
+import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose,
+} from "@/components/ui/dialog"
+import { useGetMeQuery, useUpdateMeMutation, useUpdateMyPhotoMutation } from "@/redux/fetchers/user/userApi"
+import {
+  useGetMyAddressesQuery, useCreateMyAddressMutation, useUpdateMyAddressMutation, useDeleteMyAddressMutation,
+} from "@/redux/fetchers/address/addressApi"
+import { useChangePasswordMutation, useSetPasswordMutation } from "@/redux/fetchers/auth/authApi"
+import { getErrorMessage } from "@/lib/get-error-message"
 
-interface Address {
+interface MeData {
   id: string
-  label: string
   name: string
-  line1: string
-  line2?: string
-  city: string
-  state: string
-  zip: string
-  country: string
-  isDefault: boolean
-  type: "home" | "work" | "other"
+  email: string
+  phone: string | null
+  avatar: string | null
+  hasPassword: boolean
+  createdAt: string
 }
 
-const savedAddresses: Address[] = [
-  {
-    id: "addr-1",
-    label: "Home",
-    name: "Sarah Johnson",
-    line1: "142 Rosewood Avenue",
-    city: "Brooklyn",
-    state: "NY",
-    zip: "11201",
-    country: "United States",
-    isDefault: true,
-    type: "home",
-  },
-  {
-    id: "addr-2",
-    label: "Office",
-    name: "Sarah Johnson",
-    line1: "56 Fashion District Blvd",
-    line2: "Suite 1400",
-    city: "New York",
-    state: "NY",
-    zip: "10018",
-    country: "United States",
-    isDefault: false,
-    type: "work",
-  },
-]
+interface PersonalInfoCardProps {
+  me: MeData
+  updateMe: ReturnType<typeof useUpdateMeMutation>[0]
+  savingProfile: boolean
+}
 
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
+function PersonalInfoCard({ me, updateMe, savingProfile }: PersonalInfoCardProps) {
+  const [name, setName] = useState(me.name ?? "")
+  const [email, setEmail] = useState(me.email ?? "")
+  const [phone, setPhone] = useState(me.phone ?? "")
+
+  async function handleSaveProfile(e: React.FormEvent) {
+    e.preventDefault()
+    if (!name.trim() || !email.trim()) {
+      toast.error("Name and email are required.")
+      return
+    }
+    try {
+      await updateMe({ name, email, phone: phone || undefined }).unwrap()
+      toast.success("Profile updated successfully")
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Could not update profile"))
+    }
+  }
+
   return (
-    <button
-      type="button"
-      onClick={() => onChange(!checked)}
-      className={cn(
-        "relative inline-flex h-5 w-9 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none"
-      )}
-      style={{ backgroundColor: checked ? "#501D2A" : "#DCD5D8" }}
-      aria-checked={checked}
-      role="switch"
-    >
-      <span
-        className={cn(
-          "pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transition-transform duration-200"
-        )}
-        style={{ transform: checked ? "translateX(16px)" : "translateX(0px)" }}
-      />
-    </button>
+    <form onSubmit={handleSaveProfile} className="bg-white rounded-xl border border-border/50 p-5">
+      <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
+        Personal Information
+      </h2>
+      <div className="space-y-4">
+        <div>
+          <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
+            Full Name
+          </label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={inputClass()}
+            style={{ borderRadius: "8px", fontSize: "13px" }}
+          />
+        </div>
+
+        <div>
+          <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
+            Email Address
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={inputClass()}
+            style={{ borderRadius: "8px", fontSize: "13px" }}
+          />
+        </div>
+
+        <div>
+          <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className={inputClass()}
+            style={{ borderRadius: "8px", fontSize: "13px" }}
+          />
+        </div>
+      </div>
+
+      <div className="flex justify-end mt-5">
+        <Button type="submit" disabled={savingProfile} className="h-9">
+          <Check style={{ width: "14px", height: "14px" }} strokeWidth={2} />
+          {savingProfile ? "Saving…" : "Save Changes"}
+        </Button>
+      </div>
+    </form>
+  )
+}
+
+interface AddressForm {
+  id?: string
+  fullName: string
+  phone: string
+  addressLine: string
+  city: string
+  district: string
+  postalCode: string
+  isDefault: boolean
+}
+
+const EMPTY_ADDRESS: AddressForm = {
+  fullName: "", phone: "", addressLine: "", city: "", district: "", postalCode: "", isDefault: false,
+}
+
+function inputClass(hasError?: boolean) {
+  return cn(
+    "w-full h-9 px-3 bg-muted border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors",
+    hasError && "border-destructive"
   )
 }
 
 export default function ProfilePage() {
-  // Personal Info
-  const [firstName,   setFirstName]   = useState("Sarah")
-  const [lastName,    setLastName]    = useState("Johnson")
-  const [email,       setEmail]       = useState("sarah.johnson@email.com")
-  const [phone,       setPhone]       = useState("+1 (212) 555-0172")
-  const [dob,         setDob]         = useState("1991-06-14")
-  const [gender,      setGender]      = useState("Female")
+  const { data: meData, isLoading: meLoading } = useGetMeQuery(undefined)
+  const me = meData?.data
+  const [updateMe, { isLoading: savingProfile }] = useUpdateMeMutation()
+  const [updateMyPhoto, { isLoading: uploadingPhoto }] = useUpdateMyPhotoMutation()
+  const [changePassword, { isLoading: changingPassword }] = useChangePasswordMutation()
+  const [setPassword, { isLoading: settingPassword }] = useSetPasswordMutation()
 
-  // Account Settings
-  const [language,    setLanguage]    = useState("English (US)")
-  const [newsletter,  setNewsletter]  = useState(true)
-  const [marketing,   setMarketing]   = useState(false)
+  const { data: addressesData, isLoading: addressesLoading } = useGetMyAddressesQuery(undefined)
+  const [createMyAddress, { isLoading: creatingAddress }] = useCreateMyAddressMutation()
+  const [updateMyAddress, { isLoading: updatingAddress }] = useUpdateMyAddressMutation()
+  const [deleteMyAddress] = useDeleteMyAddressMutation()
 
-  // Addresses
-  const [addresses,   setAddresses]   = useState<Address[]>(savedAddresses)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  function removeAddress(id: string) {
-    setAddresses((prev) => prev.filter((a) => a.id !== id))
+  // Password
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  // Address dialog
+  const [addressDialogOpen, setAddressDialogOpen] = useState(false)
+  const [addressForm, setAddressForm] = useState<AddressForm>(EMPTY_ADDRESS)
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; label: string } | null>(null)
+
+  const addresses = addressesData?.data ?? []
+
+  async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const formData = new FormData()
+    formData.append("photo", file)
+    try {
+      await updateMyPhoto(formData).unwrap()
+      toast.success("Photo updated successfully")
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Could not update photo"))
+    } finally {
+      e.target.value = ""
+    }
   }
 
-  function setDefault(id: string) {
-    setAddresses((prev) =>
-      prev.map((a) => ({ ...a, isDefault: a.id === id }))
-    )
+  async function handlePasswordSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (newPassword.length < 6) {
+      toast.error("New password must be at least 6 characters.")
+      return
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match.")
+      return
+    }
+    if (me?.hasPassword && !oldPassword) {
+      toast.error("Enter your current password.")
+      return
+    }
+
+    try {
+      if (me?.hasPassword) {
+        await changePassword({ old_password: oldPassword, new_password: newPassword }).unwrap()
+        toast.success("Password changed successfully")
+      } else {
+        await setPassword({ new_password: newPassword }).unwrap()
+        toast.success("Password set successfully — you can now sign in with email and password too")
+      }
+      setOldPassword("")
+      setNewPassword("")
+      setConfirmPassword("")
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Could not update password"))
+    }
+  }
+
+  function openAddAddress() {
+    setAddressForm(EMPTY_ADDRESS)
+    setAddressDialogOpen(true)
+  }
+
+  function openEditAddress(addr: AddressForm & { id: string }) {
+    setAddressForm({
+      id: addr.id,
+      fullName: addr.fullName,
+      phone: addr.phone,
+      addressLine: addr.addressLine,
+      city: addr.city,
+      district: addr.district ?? "",
+      postalCode: addr.postalCode ?? "",
+      isDefault: addr.isDefault,
+    })
+    setAddressDialogOpen(true)
+  }
+
+  async function handleAddressSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    const { fullName, phone: addrPhone, addressLine, city, district, postalCode, isDefault, id } = addressForm
+    if (!fullName.trim() || !addrPhone.trim() || !addressLine.trim() || !city.trim()) {
+      toast.error("Please fill in all required address fields.")
+      return
+    }
+
+    const payload = {
+      fullName, phone: addrPhone, addressLine, city,
+      district: district || undefined,
+      postalCode: postalCode || undefined,
+      isDefault,
+    }
+
+    try {
+      if (id) {
+        await updateMyAddress({ id, data: payload }).unwrap()
+        toast.success("Address updated successfully")
+      } else {
+        await createMyAddress(payload).unwrap()
+        toast.success("Address added successfully")
+      }
+      setAddressDialogOpen(false)
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Could not save address"))
+    }
+  }
+
+  async function handleSetDefault(id: string) {
+    try {
+      await updateMyAddress({ id, data: { isDefault: true } }).unwrap()
+    } catch {
+      toast.error("Could not set default address")
+    }
+  }
+
+  async function handleDeleteAddress() {
+    if (!deleteTarget) return
+    try {
+      await deleteMyAddress(deleteTarget.id).unwrap()
+      toast.success("Address removed")
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Could not remove address"))
+    } finally {
+      setDeleteTarget(null)
+    }
   }
 
   return (
@@ -103,7 +277,7 @@ export default function ProfilePage() {
       <div>
         <h1 className="font-semibold text-foreground" style={{ fontSize: "20px" }}>My Profile</h1>
         <p className="text-muted-foreground mt-0.5" style={{ fontSize: "13px" }}>
-          Manage your personal information and account preferences
+          Manage your personal information, password and delivery addresses
         </p>
       </div>
 
@@ -111,228 +285,119 @@ export default function ProfilePage() {
       <div className="bg-white rounded-xl border border-border/50 p-5 flex items-center gap-5">
         <div className="relative shrink-0">
           <div
-            className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold"
-            style={{ backgroundColor: "#501D2A", fontSize: "28px" }}
+            className="w-20 h-20 rounded-full flex items-center justify-center bg-primary text-primary-foreground font-bold overflow-hidden"
+            style={{ fontSize: "28px" }}
           >
-            S
+            {me?.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={me.avatar} alt={me.name} className="w-full h-full object-cover" />
+            ) : (
+              (me?.name?.charAt(0).toUpperCase() ?? "?")
+            )}
           </div>
           <button
-            className="absolute bottom-0 right-0 w-7 h-7 rounded-full flex items-center justify-center text-white shadow-md border-2 border-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#501D2A" }}
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadingPhoto}
+            className="absolute bottom-0 right-0 w-7 h-7 rounded-full flex items-center justify-center bg-primary text-primary-foreground shadow-md border-2 border-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             <Camera style={{ width: "13px", height: "13px" }} strokeWidth={1.5} />
           </button>
+          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
         </div>
         <div>
           <p className="font-semibold text-foreground" style={{ fontSize: "15px" }}>
-            {firstName} {lastName}
+            {meLoading ? "Loading…" : me?.name}
           </p>
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>{email}</p>
+          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>{me?.email}</p>
           <button
-            className="mt-2 px-3 py-1.5 rounded-lg border border-border hover:bg-[#F8F7F5] transition-colors text-foreground"
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploadingPhoto}
+            className="mt-2 px-3 py-1.5 rounded-lg border border-border hover:bg-muted transition-colors text-foreground disabled:opacity-50"
             style={{ fontSize: "12px" }}
           >
-            Change Photo
+            {uploadingPhoto ? "Uploading…" : "Change Photo"}
           </button>
         </div>
       </div>
 
-      {/* ── Two-Column Form ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Personal Information */}
-        <div className="bg-white rounded-xl border border-border/50 p-5">
-          <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
-            Personal Information
-          </h2>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  style={{ borderRadius: "8px", fontSize: "13px" }}
-                />
-              </div>
-              <div>
-                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  style={{ borderRadius: "8px", fontSize: "13px" }}
-                />
-              </div>
-            </div>
+      {/* ── Personal Information ── */}
+      {me ? (
+        <PersonalInfoCard key={me.id} me={me} updateMe={updateMe} savingProfile={savingProfile} />
+      ) : (
+        <div className="h-64 rounded-xl bg-white border border-border/50 animate-pulse" />
+      )}
 
+      {/* ── Password ── */}
+      <div id="password" className="bg-white rounded-xl border border-border/50 p-5">
+        <div className="flex items-center gap-2 mb-1">
+          <Lock className="w-4 h-4 text-primary" strokeWidth={1.5} />
+          <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
+            {me?.hasPassword ? "Change Password" : "Set a Password"}
+          </h2>
+        </div>
+        <p className="text-muted-foreground mb-5" style={{ fontSize: "12px" }}>
+          {me?.hasPassword
+            ? "Update the password used to sign in with your email."
+            : "Your account currently signs in with Google only. Set a password to also sign in with your email."}
+        </p>
+
+        <form onSubmit={handlePasswordSubmit} className="space-y-4 max-w-md">
+          {me?.hasPassword && (
             <div>
               <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                Email Address
+                Current Password
               </label>
               <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
+                type="password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                className={inputClass()}
                 style={{ borderRadius: "8px", fontSize: "13px" }}
+                autoComplete="current-password"
               />
             </div>
-
-            <div>
-              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                style={{ borderRadius: "8px", fontSize: "13px" }}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                  className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  style={{ borderRadius: "8px", fontSize: "13px" }}
-                />
-              </div>
-              <div>
-                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                  Gender
-                </label>
-                <select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                  className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none"
-                  style={{ borderRadius: "8px", fontSize: "13px" }}
-                >
-                  <option>Female</option>
-                  <option>Male</option>
-                  <option>Non-binary</option>
-                  <option>Prefer not to say</option>
-                </select>
-              </div>
-            </div>
+          )}
+          <div>
+            <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
+              New Password
+            </label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className={inputClass()}
+              style={{ borderRadius: "8px", fontSize: "13px" }}
+              autoComplete="new-password"
+            />
           </div>
-        </div>
-
-        {/* Account Settings */}
-        <div className="bg-white rounded-xl border border-border/50 p-5">
-          <h2 className="font-semibold text-foreground mb-5" style={{ fontSize: "14px" }}>
-            Account Settings
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
-                Language Preference
-              </label>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="w-full h-9 px-3 bg-[#F8F7F5] border border-border/60 text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none"
-                style={{ borderRadius: "8px", fontSize: "13px" }}
-              >
-                <option>English (US)</option>
-                <option>English (UK)</option>
-                <option>French</option>
-                <option>Spanish</option>
-                <option>German</option>
-                <option>Arabic</option>
-              </select>
-            </div>
-
-            <div className="h-px bg-border/40" />
-
-            <div className="space-y-3">
-              <p className="text-muted-foreground" style={{ fontSize: "12px", fontWeight: 500 }}>
-                Communication Preferences
-              </p>
-
-              {/* Newsletter */}
-              <div className="flex items-start justify-between gap-4 py-2.5 px-3 rounded-lg hover:bg-[#F8F7F5] transition-colors">
-                <div>
-                  <p className="text-foreground" style={{ fontSize: "13px", fontWeight: 500 }}>
-                    Newsletter Subscription
-                  </p>
-                  <p className="text-muted-foreground mt-0.5" style={{ fontSize: "11px" }}>
-                    Receive our weekly style edits and lookbooks
-                  </p>
-                </div>
-                <Toggle checked={newsletter} onChange={setNewsletter} />
-              </div>
-
-              {/* Marketing */}
-              <div className="flex items-start justify-between gap-4 py-2.5 px-3 rounded-lg hover:bg-[#F8F7F5] transition-colors">
-                <div>
-                  <p className="text-foreground" style={{ fontSize: "13px", fontWeight: 500 }}>
-                    Marketing Emails
-                  </p>
-                  <p className="text-muted-foreground mt-0.5" style={{ fontSize: "11px" }}>
-                    Exclusive offers, early access and promotions
-                  </p>
-                </div>
-                <Toggle checked={marketing} onChange={setMarketing} />
-              </div>
-            </div>
-
-            <div className="h-px bg-border/40" />
-
-            {/* Danger Zone */}
-            <div>
-              <p className="text-muted-foreground mb-2" style={{ fontSize: "12px", fontWeight: 500 }}>
-                Account Actions
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  className="px-3 py-2 rounded-lg border border-border hover:bg-[#F8F7F5] transition-colors text-muted-foreground"
-                  style={{ fontSize: "12px" }}
-                >
-                  Download My Data
-                </button>
-                <button
-                  className="px-3 py-2 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 transition-colors"
-                  style={{ fontSize: "12px" }}
-                >
-                  Delete Account
-                </button>
-              </div>
-            </div>
+          <div>
+            <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className={inputClass()}
+              style={{ borderRadius: "8px", fontSize: "13px" }}
+              autoComplete="new-password"
+            />
           </div>
-        </div>
-      </div>
 
-      {/* ── Save Changes ── */}
-      <div className="flex justify-end">
-        <button
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-white font-medium hover:opacity-90 transition-opacity"
-          style={{ backgroundColor: "#501D2A", fontSize: "13px" }}
-        >
-          <Check style={{ width: "14px", height: "14px" }} strokeWidth={2} />
-          Save Changes
-        </button>
+          <Button type="submit" disabled={changingPassword || settingPassword} className="h-9">
+            <KeyRound style={{ width: "14px", height: "14px" }} strokeWidth={2} />
+            {changingPassword || settingPassword
+              ? "Saving…"
+              : me?.hasPassword ? "Update Password" : "Set Password"}
+          </Button>
+        </form>
       </div>
 
       {/* ── Saved Addresses ── */}
-      <div className="bg-white rounded-xl border border-border/50">
-        <div
-          className="flex items-center justify-between px-5 py-4"
-          style={{ borderBottom: "1px solid #F0EDEF" }}
-        >
+      <div id="addresses" className="bg-white rounded-xl border border-border/50">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border/60">
           <div>
             <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
               Saved Addresses
@@ -341,71 +406,74 @@ export default function ProfilePage() {
               Manage your delivery addresses
             </p>
           </div>
-          <button
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#501D2A", fontSize: "12px", fontWeight: 500 }}
-          >
+          <Button onClick={openAddAddress} className="h-9">
             <Plus style={{ width: "13px", height: "13px" }} strokeWidth={2} />
             Add Address
-          </button>
+          </Button>
         </div>
 
-        <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {addresses.map((addr) => {
-            const AddrIcon = addr.type === "work" ? Building : Home
-            return (
+        {addressesLoading ? (
+          <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="h-36 rounded-xl bg-muted animate-pulse" />
+            ))}
+          </div>
+        ) : addresses.length === 0 ? (
+          <div className="py-14 flex flex-col items-center gap-3 text-center">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10">
+              <MapPin className="w-5 h-5 text-primary" strokeWidth={1.5} />
+            </div>
+            <p className="text-foreground font-medium" style={{ fontSize: "13px" }}>No saved addresses</p>
+            <Button variant="outline" onClick={openAddAddress} className="h-9">
+              <Plus style={{ width: "13px", height: "13px" }} strokeWidth={2} />
+              Add Address
+            </Button>
+          </div>
+        ) : (
+          <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {addresses.map((addr: AddressForm & { id: string }) => (
               <div
                 key={addr.id}
                 className={cn(
                   "relative rounded-xl border p-4 transition-colors",
-                  addr.isDefault ? "border-[#501D2A]/30 bg-[#F9F5F6]" : "border-border/50 hover:border-border"
+                  addr.isDefault ? "border-primary/30 bg-primary/5" : "border-border/50 hover:border-border"
                 )}
               >
-                {/* Default badge */}
                 {addr.isDefault && (
                   <span
-                    className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium"
-                    style={{ backgroundColor: "#F0EDEF", color: "#501D2A", fontSize: "10px" }}
+                    className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary"
+                    style={{ fontSize: "10px" }}
                   >
                     <Check style={{ width: "9px", height: "9px" }} strokeWidth={2.5} />
                     Default
                   </span>
                 )}
 
-                {/* Label row */}
                 <div className="flex items-center gap-2 mb-2.5">
-                  <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: "#F0EDEF" }}
-                  >
-                    <AddrIcon className="w-3.5 h-3.5" style={{ color: "#501D2A" }} strokeWidth={1.5} />
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-primary/10">
+                    <Home className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
                   </div>
                   <span className="font-semibold text-foreground" style={{ fontSize: "13px" }}>
-                    {addr.label}
+                    {addr.fullName}
                   </span>
                 </div>
 
-                {/* Address detail */}
                 <div className="flex items-start gap-2 mb-3">
                   <MapPin className="w-3.5 h-3.5 text-muted-foreground mt-0.5 shrink-0" strokeWidth={1.5} />
                   <div>
-                    <p className="text-foreground" style={{ fontSize: "12px", fontWeight: 500 }}>
-                      {addr.name}
-                    </p>
                     <p className="text-muted-foreground" style={{ fontSize: "12px", lineHeight: 1.6 }}>
-                      {addr.line1}
-                      {addr.line2 && <>, {addr.line2}</>}
+                      {addr.addressLine}
                       <br />
-                      {addr.city}, {addr.state} {addr.zip}
-                      <br />
-                      {addr.country}
+                      {addr.city}{addr.district ? `, ${addr.district}` : ""} {addr.postalCode ?? ""}
                     </p>
+                    <p className="text-muted-foreground mt-1" style={{ fontSize: "12px" }}>{addr.phone}</p>
                   </div>
                 </div>
 
-                {/* Actions */}
                 <div className="flex items-center gap-2 pt-2.5 border-t border-border/40">
                   <button
+                    type="button"
+                    onClick={() => openEditAddress(addr)}
                     className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
                     style={{ fontSize: "12px" }}
                   >
@@ -413,7 +481,8 @@ export default function ProfilePage() {
                     Edit
                   </button>
                   <button
-                    onClick={() => removeAddress(addr.id)}
+                    type="button"
+                    onClick={() => setDeleteTarget({ id: addr.id, label: addr.addressLine })}
                     className="flex items-center gap-1.5 text-muted-foreground hover:text-red-500 transition-colors"
                     style={{ fontSize: "12px" }}
                   >
@@ -422,32 +491,131 @@ export default function ProfilePage() {
                   </button>
                   {!addr.isDefault && (
                     <button
-                      onClick={() => setDefault(addr.id)}
-                      className="ml-auto flex items-center gap-1.5 hover:opacity-80 transition-opacity"
-                      style={{ color: "#501D2A", fontSize: "12px" }}
+                      type="button"
+                      onClick={() => handleSetDefault(addr.id)}
+                      className="ml-auto flex items-center gap-1.5 text-primary hover:opacity-80 transition-opacity"
+                      style={{ fontSize: "12px" }}
                     >
                       Set as Default
                     </button>
                   )}
                 </div>
               </div>
-            )
-          })}
+            ))}
 
-          {/* Add Address placeholder card */}
-          <button
-            className="rounded-xl border-2 border-dashed border-border hover:border-[#501D2A]/40 transition-colors p-4 flex flex-col items-center justify-center gap-2 text-muted-foreground hover:text-foreground min-h-[140px] group"
-          >
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center group-hover:bg-[#F0EDEF] transition-colors"
-              style={{ backgroundColor: "#F8F7F5" }}
+            <button
+              type="button"
+              onClick={openAddAddress}
+              className="rounded-xl border-2 border-dashed border-border hover:border-primary/40 transition-colors p-4 flex flex-col items-center justify-center gap-2 text-muted-foreground hover:text-foreground min-h-[140px] group"
             >
-              <Plus style={{ width: "16px", height: "16px" }} strokeWidth={1.5} />
-            </div>
-            <span style={{ fontSize: "12px" }}>Add New Address</span>
-          </button>
-        </div>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center bg-muted group-hover:bg-primary/10 transition-colors">
+                <Plus style={{ width: "16px", height: "16px" }} strokeWidth={1.5} />
+              </div>
+              <span style={{ fontSize: "12px" }}>Add New Address</span>
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* ── Add / Edit Address Dialog ── */}
+      <Dialog open={addressDialogOpen} onOpenChange={setAddressDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{addressForm.id ? "Edit Address" : "Add New Address"}</DialogTitle>
+            <DialogDescription>Delivery address details for your orders.</DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleAddressSubmit} className="space-y-3">
+            <div>
+              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>Full Name</label>
+              <input
+                value={addressForm.fullName}
+                onChange={(e) => setAddressForm((f) => ({ ...f, fullName: e.target.value }))}
+                className={inputClass()}
+                style={{ borderRadius: "8px", fontSize: "13px" }}
+              />
+            </div>
+            <div>
+              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>Phone</label>
+              <input
+                value={addressForm.phone}
+                onChange={(e) => setAddressForm((f) => ({ ...f, phone: e.target.value }))}
+                className={inputClass()}
+                style={{ borderRadius: "8px", fontSize: "13px" }}
+              />
+            </div>
+            <div>
+              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>Address Line</label>
+              <input
+                value={addressForm.addressLine}
+                onChange={(e) => setAddressForm((f) => ({ ...f, addressLine: e.target.value }))}
+                className={inputClass()}
+                style={{ borderRadius: "8px", fontSize: "13px" }}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>City</label>
+                <input
+                  value={addressForm.city}
+                  onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
+                  className={inputClass()}
+                  style={{ borderRadius: "8px", fontSize: "13px" }}
+                />
+              </div>
+              <div>
+                <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>District</label>
+                <input
+                  value={addressForm.district}
+                  onChange={(e) => setAddressForm((f) => ({ ...f, district: e.target.value }))}
+                  className={inputClass()}
+                  style={{ borderRadius: "8px", fontSize: "13px" }}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-muted-foreground mb-1.5" style={{ fontSize: "12px", fontWeight: 500 }}>Postal Code</label>
+              <input
+                value={addressForm.postalCode}
+                onChange={(e) => setAddressForm((f) => ({ ...f, postalCode: e.target.value }))}
+                className={inputClass()}
+                style={{ borderRadius: "8px", fontSize: "13px" }}
+              />
+            </div>
+            <label className="flex items-center gap-2 pt-1">
+              <input
+                type="checkbox"
+                checked={addressForm.isDefault}
+                onChange={(e) => setAddressForm((f) => ({ ...f, isDefault: e.target.checked }))}
+              />
+              <span className="text-muted-foreground" style={{ fontSize: "12px" }}>Set as default address</span>
+            </label>
+
+            <DialogFooter>
+              <DialogClose render={<Button type="button" variant="outline" />}>Cancel</DialogClose>
+              <Button type="submit" disabled={creatingAddress || updatingAddress}>
+                {creatingAddress || updatingAddress ? "Saving…" : "Save Address"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Delete Address Confirm ── */}
+      <Dialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete this address?</DialogTitle>
+            <DialogDescription>
+              {deleteTarget?.label} will be permanently removed from your saved addresses.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+            <Button variant="destructive" onClick={handleDeleteAddress}>Delete Address</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -6,18 +6,20 @@ import { useSelector } from "react-redux"
 import { Menu, Search, User, Heart, ShoppingBag } from "lucide-react"
 import { Logo } from "@/components/shared/logo"
 import { MobileMenu } from "@/components/home/mobile-menu"
+import { SearchOverlay } from "@/components/home/search-overlay"
 import { AnimatedTagline } from "@/components/home/animated-tagline"
 import type { RootState } from "@/redux/store"
 
 const navLinks = [
-  { label: "New In", href: "/new-in" },
-  { label: "Women", href: "/women" },
-  { label: "Men", href: "/men" },
-  { label: "Accessories", href: "/accessories" },
+  { label: "Home", href: "/" },
+  { label: "Shop", href: "/shop" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Contact Us", href: "/contact-us" },
 ]
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const cartCount = useSelector((state: RootState) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state as any).cart?.totalQuantity ?? 0
@@ -35,7 +37,12 @@ export function SiteHeader() {
         >
           <Menu className="w-5 h-5" strokeWidth={1.5} />
         </button>
-        <button className="text-foreground/70 hover:text-foreground transition-colors" aria-label="Search">
+        <button
+          onClick={() => setSearchOpen(true)}
+          className="text-foreground/70 hover:text-foreground transition-colors"
+          aria-label="Search"
+          aria-expanded={searchOpen}
+        >
           <Search className="w-5 h-5" strokeWidth={1.5} />
         </button>
         <div className="flex items-center gap-5">
@@ -78,6 +85,7 @@ export function SiteHeader() {
       </nav>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={navLinks} />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }

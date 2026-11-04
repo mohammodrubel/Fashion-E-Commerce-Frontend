@@ -1,117 +1,71 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
-  LayoutDashboard, ShoppingBag, User, Heart, MapPin,
-  Lock, LogOut, Search, ShoppingCart, Menu, X, ChevronRight
+  LayoutDashboard, ShoppingBag, User, Heart,
+  LogOut, ChevronRight
 } from "lucide-react"
-import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { toast } from "sonner"
 import { cn } from "@/lib/utils"
-import { Logo } from "@/components/shared/logo"
+import { SiteHeader } from "@/components/home/site-header"
+import { useRequireAuth } from "@/lib/useRequireAuth"
+import { useGetMeQuery } from "@/redux/fetchers/user/userApi"
+import { useLogoutFromDbMutation } from "@/redux/fetchers/auth/authApi"
+import { logout } from "@/redux/fetchers/auth/authSlice"
+import { baseApi } from "@/redux/api/baseApi"
+import type { AppDispatch } from "@/redux/store"
 
 const navItems = [
-  { label: "Dashboard",       href: "/account",           icon: LayoutDashboard },
-  { label: "My Orders",       href: "/account/orders",    icon: ShoppingBag },
-  { label: "My Profile",      href: "/account/profile",   icon: User },
-  { label: "My Wishlist",     href: "/account/wishlist",  icon: Heart },
-  { label: "Addresses",       href: "/account/addresses", icon: MapPin },
-  { label: "Change Password", href: "/account/password",  icon: Lock },
+  { label: "Dashboard",       href: "/account",                    icon: LayoutDashboard },
+  { label: "My Orders",       href: "/account/orders",             icon: ShoppingBag },
+  { label: "My Profile",      href: "/account/profile",            icon: User },
+  { label: "My Wishlist",     href: "/account/wishlist",           icon: Heart },
 ]
 
-const topNavLinks = [
-  { label: "Shop",        href: "/shop" },
-  { label: "Collections", href: "/collections" },
-  { label: "New In",      href: "/new-in" },
-  { label: "Sale",        href: "/sale" },
-]
+function initialsOf(name?: string) {
+  if (!name) return "?"
+  return name.trim().charAt(0).toUpperCase()
+}
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
+  const { ready } = useRequireAuth()
+  const { data: meData } = useGetMeQuery(undefined, { skip: !ready })
+  const me = meData?.data
+  const [logoutFromDb] = useLogoutFromDbMutation()
 
   function isActive(href: string) {
     if (href === "/account") return pathname === "/account"
-    return pathname.startsWith(href)
+    return pathname.startsWith(href.split("#")[0])
+  }
+
+  async function handleLogout() {
+    try {
+      await logoutFromDb(undefined).unwrap()
+    } catch {
+      // Cookie clear can fail silently (e.g. offline) — client state still clears below.
+    }
+    dispatch(logout())
+    dispatch(baseApi.util.resetApiState())
+    toast.success("Logged out successfully")
+    router.push("/")
+  }
+
+  if (!ready) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="w-6 h-6 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F8F7F5" }}>
-      {/* ── Top Navbar ── */}
-      <header className="sticky top-0 z-40 bg-white border-b border-border/60 h-16 flex items-center px-6 gap-6">
-        {/* Logo */}
-        <Logo href="/" showTagline={false} />
-
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-6 ml-4">
-          {topNavLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="font-ui text-muted-foreground hover:text-foreground transition-colors font-medium"
-              style={{ fontSize: "12px", letterSpacing: "0.02em" }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex-1" />
-
-        {/* Right Icons */}
-        <div className="flex items-center gap-3">
-          <button className="hidden sm:flex text-muted-foreground hover:text-foreground transition-colors p-1.5">
-            <Search className="w-4.5 h-4.5" style={{ width: "18px", height: "18px" }} strokeWidth={1.5} />
-          </button>
-          <Link
-            href="/cart"
-            className="relative text-muted-foreground hover:text-foreground transition-colors p-1.5"
-          >
-            <ShoppingCart style={{ width: "18px", height: "18px" }} strokeWidth={1.5} />
-            <span
-              className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full text-white flex items-center justify-center"
-              style={{ backgroundColor: "#501D2A", fontSize: "9px", fontWeight: 700 }}
-            >
-              3
-            </span>
-          </Link>
-          <Link href="/account" className="hidden sm:flex items-center gap-2 group">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold shrink-0"
-              style={{ backgroundColor: "#501D2A", fontSize: "12px" }}
-            >
-              S
-            </div>
-          </Link>
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-muted-foreground hover:text-foreground transition-colors p-1"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen
-              ? <X style={{ width: "18px", height: "18px" }} strokeWidth={1.5} />
-              : <Menu style={{ width: "18px", height: "18px" }} strokeWidth={1.5} />
-            }
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Nav Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-border/50 px-6 py-3 space-y-1 z-30 relative">
-          {topNavLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="font-ui block py-2 text-muted-foreground hover:text-foreground transition-colors"
-              style={{ fontSize: "12px" }}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      )}
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
 
       {/* ── Page Body ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex gap-8 items-start">
@@ -120,19 +74,18 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           {/* User Card */}
           <div className="bg-white rounded-xl border border-border/50 p-5 flex flex-col items-center text-center">
             <div
-              className="w-16 h-16 rounded-full flex items-center justify-center text-white font-semibold mb-3"
-              style={{ backgroundColor: "#501D2A", fontSize: "22px" }}
+              className="w-16 h-16 rounded-full flex items-center justify-center bg-primary text-primary-foreground font-semibold mb-3 overflow-hidden"
+              style={{ fontSize: "22px" }}
             >
-              S
+              {me?.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={me.avatar} alt={me.name} className="w-full h-full object-cover" />
+              ) : (
+                initialsOf(me?.name)
+              )}
             </div>
-            <p className="font-semibold text-foreground" style={{ fontSize: "15px" }}>Sarah Johnson</p>
-            <p className="text-muted-foreground mt-0.5" style={{ fontSize: "12px" }}>sarah.johnson@email.com</p>
-            <span
-              className="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full font-medium"
-              style={{ backgroundColor: "#F0EDEF", color: "#501D2A", fontSize: "11px" }}
-            >
-              Gold Member
-            </span>
+            <p className="font-semibold text-foreground" style={{ fontSize: "15px" }}>{me?.name ?? "—"}</p>
+            <p className="text-muted-foreground mt-0.5" style={{ fontSize: "12px" }}>{me?.email ?? ""}</p>
           </div>
 
           {/* Nav Items */}
@@ -148,29 +101,26 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                     "flex items-center gap-3 px-4 py-3 transition-all duration-150 group",
                     i > 0 && "border-t border-border/40",
                     active
-                      ? "text-white"
-                      : "text-muted-foreground hover:text-foreground hover:bg-[#F8F7F5]"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   )}
-                  style={{
-                    backgroundColor: active ? "#501D2A" : undefined,
-                  }}
                 >
                   <Icon
-                    className="w-4 h-4 shrink-0"
+                    className={cn("w-4 h-4 shrink-0", active && "text-primary-foreground")}
                     strokeWidth={1.5}
-                    style={{ color: active ? "white" : undefined }}
                   />
                   <span className="font-ui" style={{ fontSize: "13px", fontWeight: active ? 500 : 400 }}>
                     {item.label}
                   </span>
                   {active && (
-                    <ChevronRight className="ml-auto w-3.5 h-3.5 text-white/70" strokeWidth={1.5} />
+                    <ChevronRight className="ml-auto w-3.5 h-3.5 text-primary-foreground/70" strokeWidth={1.5} />
                   )}
                 </Link>
               )
             })}
             {/* Logout */}
             <button
+              onClick={handleLogout}
               className="w-full flex items-center gap-3 px-4 py-3 border-t border-border/40 text-muted-foreground hover:text-red-600 hover:bg-red-50 transition-all duration-150"
             >
               <LogOut className="w-4 h-4 shrink-0" strokeWidth={1.5} />
@@ -193,19 +143,24 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
                   className={cn(
                     "flex items-center gap-1.5 px-3 py-2 rounded-full whitespace-nowrap border transition-all shrink-0",
                     active
-                      ? "text-white border-transparent"
+                      ? "bg-primary text-primary-foreground border-transparent"
                       : "text-muted-foreground border-border/60 bg-white hover:border-border"
                   )}
-                  style={{
-                    backgroundColor: active ? "#501D2A" : undefined,
-                    fontSize: "12px",
-                  }}
+                  style={{ fontSize: "12px" }}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
                   <span className="font-ui">{item.label}</span>
                 </Link>
               )
             })}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full whitespace-nowrap border border-border/60 bg-white text-muted-foreground hover:border-red-200 hover:text-red-600 transition-all shrink-0"
+              style={{ fontSize: "12px" }}
+            >
+              <LogOut className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
+              <span className="font-ui">Logout</span>
+            </button>
           </div>
 
           {children}
