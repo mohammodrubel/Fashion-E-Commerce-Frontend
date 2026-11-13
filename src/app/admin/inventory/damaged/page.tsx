@@ -18,52 +18,10 @@ interface DamageRecord {
   recordedBy: string
 }
 
-const damageRecords: DamageRecord[] = [
-  {
-    id: "sm-dmg-001", variantId: "v-top004", userId: "u-admin2",
-    quantity: 2, note: "Storage area roof leak during heavy rain — both units fully ruined.",
-    createdAt: "Oct 22, 2026 11:30", productName: "Silk Cami Blouse",        sku: "TOP-SCB-004-S-IVR", recordedBy: "K. Smith",
-  },
-  {
-    id: "sm-dmg-002", variantId: "v-ot007", userId: "u-admin1",
-    quantity: 1, note: "Torn lining discovered during QC inspection — likely transit forklift impact.",
-    createdAt: "Oct 19, 2026 09:00", productName: "Classic Trench Coat",      sku: "OT-TCT-007-L-BEI", recordedBy: "J. Doe",
-  },
-  {
-    id: "sm-dmg-003", variantId: "v-kn006", userId: "u-admin2",
-    quantity: 3, note: "Ink stain on front panel — unsaleable. Customer returned in this condition.",
-    createdAt: "Oct 17, 2026 14:20", productName: "Ribbed Knit Sweater",      sku: "KN-RIB-006-M-CRM", recordedBy: "K. Smith",
-  },
-  {
-    id: "sm-dmg-004", variantId: "v-dr009", userId: null,
-    quantity: 4, note: "Zipper mechanism fails on all four units — manufacturing defect confirmed.",
-    createdAt: "Oct 12, 2026 10:45", productName: "Velvet Mini Dress",         sku: "DR-VMD-009-XS-VLT", recordedBy: "L. Torres",
-  },
-  {
-    id: "sm-dmg-005", variantId: "v-pt005", userId: "u-admin1",
-    quantity: 8, note: "Sun bleaching — left near warehouse window for extended period.",
-    createdAt: "Oct 08, 2026 13:00", productName: "Wide Leg Linen Trousers",  sku: "PT-WLL-005-XS-ECR", recordedBy: "J. Doe",
-  },
-  {
-    id: "sm-dmg-006", variantId: "v-sk008", userId: "u-admin2",
-    quantity: 5, note: "Mould found during routine inspection — entire shelf batch affected.",
-    createdAt: "Oct 03, 2026 09:15", productName: "Printed Slip Skirt",        sku: "SK-PSK-008-S-MLT", recordedBy: "K. Smith",
-  },
-]
+const damageRecords: DamageRecord[] = []
 
 // Available variant SKUs for the inline form select
-const variantSkus = [
-  "DR-FLW-001-M-FLS",
-  "TOP-LBZ-002-L-SND",
-  "JN-HRS-003-28-IND",
-  "TOP-SCB-004-S-IVR",
-  "PT-WLL-005-XS-ECR",
-  "KN-RIB-006-M-CRM",
-  "OT-TCT-007-L-BEI",
-  "SK-PSK-008-S-MLT",
-  "DR-VMD-009-XS-VLT",
-  "TOP-CCT-010-M-WHT",
-]
+const variantSkus: string[] = []
 
 export default function DamagedStockPage() {
   const [showForm, setShowForm] = useState(false)

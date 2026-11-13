@@ -12,13 +12,7 @@ interface EmailCampaign {
   status: CampaignStatus
 }
 
-const campaigns: EmailCampaign[] = [
-  { subject: "Your New Autumn Arrivals Are Here 🍂", recipients: 8432, sentDate: "Oct 20, 2024", openRate: "42.3%", clickRate: "8.7%", status: "Sent" },
-  { subject: "Exclusive: VIP Early Access Starts Now", recipients: 1240, sentDate: "Oct 18, 2024", openRate: "61.2%", clickRate: "14.5%", status: "Sent" },
-  { subject: "Weekend Flash Sale – 30% Off Ends Tonight", recipients: 8432, sentDate: "Oct 26, 2024", openRate: "—", clickRate: "—", status: "Scheduled" },
-  { subject: "We Miss You — Here's 15% to Come Back", recipients: 2190, sentDate: "Oct 15, 2024", openRate: "28.4%", clickRate: "5.2%", status: "Sent" },
-  { subject: "Black Friday Is Coming – Get Ready", recipients: 8432, sentDate: "—", openRate: "—", clickRate: "—", status: "Draft" },
-]
+const campaigns: EmailCampaign[] = []
 
 const statusConfig: Record<CampaignStatus, { bg: string; color: string }> = {
   Sent: { bg: "#DCFCE7", color: "#166534" },
@@ -54,10 +48,10 @@ export default function EmailMarketingPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Subscribers", value: "8,432", sub: "+124 this week", icon: Users },
-          { label: "Campaigns Sent", value: "24", sub: "this year", icon: Send },
-          { label: "Avg Open Rate", value: "38.5%", sub: "industry: 21.3%", icon: Mail },
-          { label: "Avg Click Rate", value: "7.2%", sub: "industry: 2.6%", icon: BarChart2 },
+          { label: "Subscribers", value: "0", sub: "+0 this week", icon: Users },
+          { label: "Campaigns Sent", value: "0", sub: "this year", icon: Send },
+          { label: "Avg Open Rate", value: "0.0%", sub: "industry: 0.0%", icon: Mail },
+          { label: "Avg Click Rate", value: "0.0%", sub: "industry: 0.0%", icon: BarChart2 },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

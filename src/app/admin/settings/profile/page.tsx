@@ -21,8 +21,8 @@ interface UserProfile {
 }
 
 const profile: UserProfile = {
-  name: "Admin User",
-  email: "admin@lumastyle.com",
+  name: "",
+  email: "",
   phone: "",
   role: "ADMIN",
   isActive: true,

@@ -10,48 +10,7 @@ interface Attribute {
   required: boolean
 }
 
-const attributes: Attribute[] = [
-  {
-    id: "AT01",
-    name: "Material",
-    type: "Select",
-    values: ["Cotton", "Linen", "Silk", "Polyester", "Wool", "Cashmere", "Denim", "Velvet"],
-    usedIn: 186,
-    required: true,
-  },
-  {
-    id: "AT02",
-    name: "Occasion",
-    type: "Multi-select",
-    values: ["Casual", "Formal", "Evening", "Workwear", "Beach", "Sport", "Bridal"],
-    usedIn: 142,
-    required: false,
-  },
-  {
-    id: "AT03",
-    name: "Care Instructions",
-    type: "Multi-select",
-    values: ["Machine Wash", "Hand Wash Only", "Dry Clean", "Do Not Bleach", "Iron Low", "Tumble Dry Low"],
-    usedIn: 218,
-    required: true,
-  },
-  {
-    id: "AT04",
-    name: "Season",
-    type: "Multi-select",
-    values: ["Spring", "Summer", "Autumn", "Winter", "All Seasons"],
-    usedIn: 231,
-    required: false,
-  },
-  {
-    id: "AT05",
-    name: "Country of Origin",
-    type: "Text",
-    values: [],
-    usedIn: 97,
-    required: false,
-  },
-]
+const attributes: Attribute[] = []
 
 const typeColors: Record<string, string> = {
   "Select": "bg-blue-50 text-blue-700",
@@ -82,10 +41,10 @@ export default function AttributesPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Attributes", value: "5" },
-          { label: "Required", value: "2" },
-          { label: "Optional", value: "3" },
-          { label: "Total Values", value: "26" },
+          { label: "Total Attributes", value: "0" },
+          { label: "Required", value: "0" },
+          { label: "Optional", value: "0" },
+          { label: "Total Values", value: "0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

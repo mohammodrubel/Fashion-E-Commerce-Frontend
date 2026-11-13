@@ -14,14 +14,7 @@ interface Supplier {
   category: string
 }
 
-const suppliers: Supplier[] = [
-  { id: "SUP001", name: "Silk Supply Co.", initials: "SS", contact: "Mei Lin", email: "mei@silksupply.com", phone: "+1 (212) 555-0141", products: 24, leadDays: 10, status: "Active", category: "Tops & Dresses" },
-  { id: "SUP002", name: "FabricHouse EU", initials: "FH", contact: "Hans Becker", email: "orders@fabrichouse.eu", phone: "+49 89 555 0192", products: 31, leadDays: 14, status: "Active", category: "All Categories" },
-  { id: "SUP003", name: "Nordic Knits Ltd.", initials: "NK", contact: "Astrid Holm", email: "astrid@nordicknits.com", phone: "+47 22 555 0108", products: 12, leadDays: 21, status: "Active", category: "Knitwear" },
-  { id: "SUP004", name: "Denim Works USA", initials: "DW", contact: "Carlos Rivera", email: "cr@denimworks.us", phone: "+1 (310) 555-0177", products: 8, leadDays: 12, status: "Active", category: "Denim" },
-  { id: "SUP005", name: "LeatherCraft Co.", initials: "LC", contact: "Sofia Greco", email: "sofia@leathercraft.co", phone: "+39 06 555 0234", products: 15, leadDays: 18, status: "On Hold", category: "Accessories & Footwear" },
-  { id: "SUP006", name: "StyleCraft Inc.", initials: "SC", contact: "Jared Mills", email: "jared@stylecraft.inc", phone: "+1 (646) 555-0188", products: 19, leadDays: 9, status: "Active", category: "Dresses & Skirts" },
-]
+const suppliers: Supplier[] = []
 
 const statusConfig = {
   Active: "bg-emerald-50 text-emerald-700",
@@ -48,10 +41,10 @@ export default function SuppliersPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Suppliers", value: "6" },
-          { label: "Active", value: "5" },
-          { label: "On Hold", value: "1" },
-          { label: "Avg Lead Time", value: "14 days" },
+          { label: "Total Suppliers", value: "0" },
+          { label: "Active", value: "0" },
+          { label: "On Hold", value: "0" },
+          { label: "Avg Lead Time", value: "0 days" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

@@ -23,12 +23,7 @@ interface ShippingMethod {
   isActive: boolean
 }
 
-const initialMethods: ShippingMethod[] = [
-  { id: "sh-001", name: "Inside Dhaka", zone: "Dhaka City", price: 60, estimatedDays: "1-2 days", isActive: true },
-  { id: "sh-002", name: "Outside Dhaka", zone: "Nationwide", price: 120, estimatedDays: "3-5 days", isActive: true },
-  { id: "sh-003", name: "Express (Dhaka)", zone: "Dhaka City", price: 150, estimatedDays: "Same day", isActive: true },
-  { id: "sh-004", name: "International", zone: "International", price: 800, estimatedDays: "7-14 days", isActive: false },
-]
+const initialMethods: ShippingMethod[] = []
 
 export default function ShippingPage() {
   const [methods, setMethods] = useState<ShippingMethod[]>(initialMethods)

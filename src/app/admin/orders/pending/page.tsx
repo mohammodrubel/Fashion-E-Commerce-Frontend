@@ -1,12 +1,7 @@
 import { Clock, CheckCircle, XCircle } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5004", customer: "James Brown",    avatar: "J", date: "Oct 23, 2026", items: 2, total: "$67.50",  payment: "Stripe" },
-  { id: "#5011", customer: "Chloe Harris",   avatar: "C", date: "Oct 23, 2026", items: 1, total: "$42.00",  payment: "PayPal" },
-  { id: "#5012", customer: "Aiden Walker",   avatar: "A", date: "Oct 24, 2026", items: 4, total: "$189.00", payment: "Credit Card" },
-  { id: "#5013", customer: "Mia Robinson",   avatar: "M", date: "Oct 24, 2026", items: 2, total: "$98.50",  payment: "Stripe" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; }[] = []
 
 export default function PendingOrdersPage() {
   return (
@@ -35,7 +30,7 @@ export default function PendingOrdersPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -75,9 +70,6 @@ export default function PendingOrdersPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-2">

@@ -11,16 +11,7 @@ interface Subcategory {
   status: "Active" | "Inactive"
 }
 
-const subcategories: Subcategory[] = [
-  { id: "SC01", name: "Midi Dresses", slug: "midi-dresses", parent: "Women's Clothing", parentColor: "var(--primary)", products: 32, status: "Active" },
-  { id: "SC02", name: "Maxi Dresses", slug: "maxi-dresses", parent: "Women's Clothing", parentColor: "var(--primary)", products: 18, status: "Active" },
-  { id: "SC03", name: "Blouses & Tops", slug: "blouses-tops", parent: "Women's Clothing", parentColor: "var(--primary)", products: 44, status: "Active" },
-  { id: "SC04", name: "Skinny Jeans", slug: "skinny-jeans", parent: "Men's Clothing", parentColor: "#2D5A8E", products: 21, status: "Active" },
-  { id: "SC05", name: "Casual Shirts", slug: "casual-shirts", parent: "Men's Clothing", parentColor: "#2D5A8E", products: 27, status: "Active" },
-  { id: "SC06", name: "Sneakers", slug: "sneakers", parent: "Footwear", parentColor: "#4F2D6B", products: 14, status: "Active" },
-  { id: "SC07", name: "Handbags", slug: "handbags", parent: "Accessories", parentColor: "#6B4F2D", products: 19, status: "Active" },
-  { id: "SC08", name: "Kids Dresses", slug: "kids-dresses", parent: "Kids & Teens", parentColor: "#2D6B4F", products: 11, status: "Inactive" },
-]
+const subcategories: Subcategory[] = []
 
 export default function SubcategoriesPage() {
   return (
@@ -43,10 +34,10 @@ export default function SubcategoriesPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Subcategories", value: "8" },
-          { label: "Active", value: "7" },
-          { label: "Inactive", value: "1" },
-          { label: "Parent Categories", value: "6" },
+          { label: "Total Subcategories", value: "0" },
+          { label: "Active", value: "0" },
+          { label: "Inactive", value: "0" },
+          { label: "Parent Categories", value: "0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

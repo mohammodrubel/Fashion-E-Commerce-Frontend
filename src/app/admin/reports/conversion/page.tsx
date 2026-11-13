@@ -2,26 +2,22 @@ import { PageHeader } from "@/components/admin/page-header"
 import { ArrowDown, TrendingUp, Download, Users, ShoppingCart, Eye, CreditCard } from "lucide-react"
 
 const funnelSteps = [
-  { label: "Visitors", value: 48240, icon: Users, color: "var(--primary)", width: "100%" },
-  { label: "Product Views", value: 28944, icon: Eye, color: "#7a3042", width: "60%" },
-  { label: "Add to Cart", value: 8831, icon: ShoppingCart, color: "#a34058", width: "18.3%" },
-  { label: "Checkout Started", value: 4147, icon: CreditCard, color: "#c05070", width: "8.6%" },
-  { label: "Purchase Completed", value: 1847, icon: TrendingUp, color: "#d97706", width: "3.8%" },
+  { label: "Visitors", value: 0, icon: Users, color: "var(--primary)", width: "0%" },
+  { label: "Product Views", value: 0, icon: Eye, color: "#7a3042", width: "0%" },
+  { label: "Add to Cart", value: 0, icon: ShoppingCart, color: "#a34058", width: "0.0%" },
+  { label: "Checkout Started", value: 0, icon: CreditCard, color: "#c05070", width: "0.0%" },
+  { label: "Purchase Completed", value: 0, icon: TrendingUp, color: "#d97706", width: "0.0%" },
 ]
 
 const conversionStats = [
-  { label: "Visitor → View", rate: "60.0%", change: "+2.1%" },
-  { label: "View → Cart", rate: "30.5%", change: "+0.8%" },
-  { label: "Cart → Checkout", rate: "47.0%", change: "-1.2%" },
-  { label: "Checkout → Purchase", rate: "44.5%", change: "+3.4%" },
-  { label: "Overall Conversion", rate: "3.83%", change: "+0.4%" },
+  { label: "Visitor → View", rate: "0.0%", change: "+0.0%" },
+  { label: "View → Cart", rate: "0.0%", change: "+0.0%" },
+  { label: "Cart → Checkout", rate: "0.0%", change: "-0.0%" },
+  { label: "Checkout → Purchase", rate: "0.0%", change: "+0.0%" },
+  { label: "Overall Conversion", rate: "0.00%", change: "+0.0%" },
 ]
 
-const deviceBreakdown = [
-  { device: "Mobile", sessions: 26532, conversions: 921, rate: "3.47%" },
-  { device: "Desktop", sessions: 18482, conversions: 812, rate: "4.39%" },
-  { device: "Tablet", sessions: 3226, conversions: 114, rate: "3.53%" },
-]
+const deviceBreakdown: { device: string; sessions: number; conversions: number; rate: string; }[] = []
 
 export default function ConversionPage() {
   return (

@@ -15,47 +15,7 @@ interface WarehouseData {
   zones: string[]
 }
 
-const warehouses: WarehouseData[] = [
-  {
-    name: "Main Warehouse",
-    location: "New York, NY",
-    address: "1200 Industrial Blvd, Brooklyn, NY 11201",
-    manager: "Jake Donovan",
-    totalSkus: 198,
-    totalUnits: 4820,
-    capacity: 72,
-    maxCapacity: 6700,
-    color: "#202127",
-    status: "Active",
-    zones: ["Apparel A", "Apparel B", "Accessories", "Footwear", "Returns"],
-  },
-  {
-    name: "East Branch",
-    location: "Boston, MA",
-    address: "88 Commerce Street, Boston, MA 02110",
-    manager: "Priya Mehta",
-    totalSkus: 87,
-    totalUnits: 1940,
-    capacity: 45,
-    maxCapacity: 4300,
-    color: "#2D5A8E",
-    status: "Active",
-    zones: ["Apparel", "Accessories", "Dispatch"],
-  },
-  {
-    name: "West Branch",
-    location: "Los Angeles, CA",
-    address: "540 Harbor Freight Way, Los Angeles, CA 90021",
-    manager: "Marco Reyes",
-    totalSkus: 57,
-    totalUnits: 1230,
-    capacity: 38,
-    maxCapacity: 3200,
-    color: "#2D6B4F",
-    status: "Active",
-    zones: ["Apparel", "Dispatch"],
-  },
-]
+const warehouses: WarehouseData[] = []
 
 export default function WarehousesPage() {
   return (
@@ -74,9 +34,9 @@ export default function WarehousesPage() {
       {/* Summary Strip */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: "Total Warehouses", value: "3" },
-          { label: "Total SKUs Managed", value: "342" },
-          { label: "Combined Units", value: "7,990" },
+          { label: "Total Warehouses", value: "0" },
+          { label: "Total SKUs Managed", value: "0" },
+          { label: "Combined Units", value: "0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

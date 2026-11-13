@@ -1,27 +1,11 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { Users, TrendingUp, Download, UserPlus, RefreshCcw } from "lucide-react"
 
-const acquisitionData = [
-  { channel: "Organic Search", customers: 412, pct: 33 },
-  { channel: "Social Media", customers: 312, pct: 25 },
-  { channel: "Direct", customers: 250, pct: 20 },
-  { channel: "Email Marketing", customers: 175, pct: 14 },
-  { channel: "Referral", customers: 99, pct: 8 },
-]
+const acquisitionData: { channel: string; customers: number; pct: number; }[] = []
 
-const cohorts = [
-  { cohort: "Q1 2024", acquired: 312, month1: "100%", month2: "68%", month3: "54%", month6: "41%" },
-  { cohort: "Q2 2024", acquired: 387, month1: "100%", month2: "71%", month3: "57%", month6: "—" },
-  { cohort: "Q3 2024", acquired: 421, month1: "100%", month2: "69%", month3: "—", month6: "—" },
-  { cohort: "Q4 2024", acquired: 128, month1: "100%", month2: "—", month3: "—", month6: "—" },
-]
+const cohorts: { cohort: string; acquired: number; month1: string; month2: string; month3: string; month6: string; }[] = []
 
-const segments = [
-  { name: "Loyal Buyers (5+ orders)", count: 284, revenue: "$48,240", avgCLV: "$169.86" },
-  { name: "At-Risk (90+ days inactive)", count: 142, revenue: "$12,780", avgCLV: "$90.00" },
-  { name: "High Spenders ($500+)", count: 67, revenue: "$42,190", avgCLV: "$629.70" },
-  { name: "New this month", count: 58, revenue: "$4,060", avgCLV: "$70.00" },
-]
+const segments: { name: string; count: number; revenue: string; avgCLV: string; }[] = []
 
 export default function CustomerAnalyticsPage() {
   return (
@@ -44,10 +28,10 @@ export default function CustomerAnalyticsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "New Customers", value: "1,248", sub: "This year", icon: UserPlus, color: "var(--primary)" },
-          { label: "Returning Rate", value: "67%", sub: "Repeat buyers", icon: RefreshCcw, color: "#059669" },
-          { label: "Avg CLV", value: "$284", sub: "12-month window", icon: TrendingUp, color: "#d97706" },
-          { label: "Churn Rate", value: "8%", sub: "90-day window", icon: Users, color: "#dc2626" },
+          { label: "New Customers", value: "0", sub: "This year", icon: UserPlus, color: "var(--primary)" },
+          { label: "Returning Rate", value: "0%", sub: "Repeat buyers", icon: RefreshCcw, color: "#059669" },
+          { label: "Avg CLV", value: "$0", sub: "0-month window", icon: TrendingUp, color: "#d97706" },
+          { label: "Churn Rate", value: "0%", sub: "0-day window", icon: Users, color: "#dc2626" },
         ].map(s => {
           const Icon = s.icon
           return (

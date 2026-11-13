@@ -10,14 +10,7 @@ interface Section {
   lastUpdated: string
 }
 
-const sections: Section[] = [
-  { id: "hero", name: "Hero Banner", description: "Full-width rotating banner with CTA", visible: true, type: "Banner", lastUpdated: "Oct 22, 2024" },
-  { id: "categories", name: "Featured Categories", description: "Grid of top-level category tiles", visible: true, type: "Grid", lastUpdated: "Oct 15, 2024" },
-  { id: "new-arrivals", name: "New Arrivals", description: "Latest 8 products with carousel", visible: true, type: "Product Carousel", lastUpdated: "Oct 24, 2024" },
-  { id: "best-sellers", name: "Best Sellers", description: "Top selling products this month", visible: true, type: "Product Carousel", lastUpdated: "Oct 18, 2024" },
-  { id: "promo-banner", name: "Promotional Banner", description: "Full-width promotional strip", visible: true, type: "Banner", lastUpdated: "Oct 20, 2024" },
-  { id: "newsletter", name: "Newsletter Signup", description: "Email capture with incentive", visible: true, type: "Form", lastUpdated: "Sep 30, 2024" },
-]
+const sections: Section[] = []
 
 const typeColors: Record<string, { bg: string; color: string }> = {
   Banner: { bg: "#FAF0F2", color: "var(--primary)" },

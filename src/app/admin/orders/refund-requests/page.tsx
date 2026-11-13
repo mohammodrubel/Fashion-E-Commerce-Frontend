@@ -1,58 +1,7 @@
 import { DollarSign, CheckCircle, XCircle } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const requests = [
-  {
-    id: "RFQ-001",
-    orderId: "#5009",
-    customer: "Ava Thomas",
-    avatar: "A",
-    date: "Oct 21, 2026",
-    amount: "$88.00",
-    reason: "Wrong size received",
-    status: "Pending",
-  },
-  {
-    id: "RFQ-002",
-    orderId: "#5038",
-    customer: "Ryan Walker",
-    avatar: "R",
-    date: "Oct 20, 2026",
-    amount: "$65.00",
-    reason: "Item arrived defective",
-    status: "Approved",
-  },
-  {
-    id: "RFQ-003",
-    orderId: "#5041",
-    customer: "Hazel Brooks",
-    avatar: "H",
-    date: "Oct 19, 2026",
-    amount: "$120.00",
-    reason: "Never received package",
-    status: "Pending",
-  },
-  {
-    id: "RFQ-004",
-    orderId: "#5042",
-    customer: "Leo Cooper",
-    avatar: "L",
-    date: "Oct 18, 2026",
-    amount: "$37.50",
-    reason: "Changed mind",
-    status: "Rejected",
-  },
-  {
-    id: "RFQ-005",
-    orderId: "#5043",
-    customer: "Stella Reed",
-    avatar: "S",
-    date: "Oct 17, 2026",
-    amount: "$205.00",
-    reason: "Duplicate order placed",
-    status: "Pending",
-  },
-]
+const requests: { id: string; orderId: string; customer: string; avatar: string; date: string; amount: string; reason: string; status: string; }[] = []
 
 const statusStyles: Record<string, string> = {
   Pending:  "bg-gray-100 text-gray-600",

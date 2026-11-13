@@ -14,14 +14,7 @@ interface VIPCustomer {
   tier: "VIP" | "Platinum"
 }
 
-const vipCustomers: VIPCustomer[] = [
-  { id: "C003", name: "Emma Wilson", initials: "EW", email: "emma.w@email.com", points: 15420, lifetimeValue: "$5,320.00", joinedVip: "Jan 8, 2023", totalOrders: 31, lastOrder: "Oct 18, 2026", tier: "VIP" },
-  { id: "C011", name: "Rachel Kim", initials: "RK", email: "rkim@email.com", points: 12800, lifetimeValue: "$4,890.00", joinedVip: "Mar 22, 2023", totalOrders: 28, lastOrder: "Oct 21, 2026", tier: "VIP" },
-  { id: "C017", name: "Diana Patel", initials: "DP", email: "d.patel@email.com", points: 9750, lifetimeValue: "$3,640.00", joinedVip: "Jun 5, 2023", totalOrders: 22, lastOrder: "Oct 15, 2026", tier: "VIP" },
-  { id: "C005", name: "Olivia Davis", initials: "OD", email: "olivia.d@email.com", points: 8200, lifetimeValue: "$3,108.00", joinedVip: "Apr 4, 2023", totalOrders: 22, lastOrder: "Oct 10, 2026", tier: "Platinum" },
-  { id: "C024", name: "Chloe Nguyen", initials: "CN", email: "chloe.n@email.com", points: 7600, lifetimeValue: "$2,970.00", joinedVip: "Aug 14, 2023", totalOrders: 19, lastOrder: "Oct 19, 2026", tier: "VIP" },
-  { id: "C031", name: "Amelia Foster", initials: "AF", email: "a.foster@email.com", points: 6900, lifetimeValue: "$2,580.00", joinedVip: "Oct 30, 2023", totalOrders: 17, lastOrder: "Oct 22, 2026", tier: "Platinum" },
-]
+const vipCustomers: VIPCustomer[] = []
 
 export default function VIPCustomersPage() {
   return (
@@ -40,10 +33,10 @@ export default function VIPCustomersPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "VIP Members", value: "89", sub: "Total", icon: Crown, color: "#7C3AED" },
-          { label: "Avg Lifetime Value", value: "$3,752", sub: "Per VIP", icon: DollarSign, color: "#202127" },
-          { label: "Total Points Issued", value: "892K", sub: "This year", icon: Star, color: "#D97706" },
-          { label: "VIP Revenue Share", value: "38%", sub: "of total revenue", icon: TrendingUp, color: "#2D6B4F" },
+          { label: "VIP Members", value: "0", sub: "Total", icon: Crown, color: "#7C3AED" },
+          { label: "Avg Lifetime Value", value: "$0", sub: "Per VIP", icon: DollarSign, color: "#202127" },
+          { label: "Total Points Issued", value: "0K", sub: "This year", icon: Star, color: "#D97706" },
+          { label: "VIP Revenue Share", value: "0%", sub: "of total revenue", icon: TrendingUp, color: "#2D6B4F" },
         ].map((s) => {
           const Icon = s.icon
           return (

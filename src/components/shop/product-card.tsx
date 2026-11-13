@@ -196,7 +196,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-0.5 whitespace-nowrap text-foreground transition-all duration-[600ms] delay-100 group-hover:left-[20px] group-hover:translate-x-0 group-hover:-translate-y-1/2 group-hover:text-primary-foreground"
             style={{ transitionTimingFunction: EASE }}
           >
-            <span className="inline-flex items-center gap-1.5" style={{ fontSize: "16px" }}>
+            <span
+              className={cn("flex items-center", hasDiscount ? "w-[180px] justify-between" : "gap-1.5")}
+              style={{ fontSize: "16px" }}
+            >
               {hasDiscount && (
                 <span className="text-muted-foreground line-through group-hover:text-primary-foreground/60" style={{ fontSize: "13px" }}>
                   ${regular.toFixed(2)}

@@ -6,18 +6,7 @@ import {
 } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5001", customer: "Sarah Johnson", avatar: "S", date: "Oct 24, 2026", items: 3, total: "$124.00", payment: "Credit Card", status: "Delivered" },
-  { id: "#5002", customer: "Michael Chen",  avatar: "M", date: "Oct 24, 2026", items: 1, total: "$89.00",  payment: "PayPal",      status: "Shipped" },
-  { id: "#5003", customer: "Emma Wilson",   avatar: "E", date: "Oct 23, 2026", items: 5, total: "$312.00", payment: "Credit Card", status: "Processing" },
-  { id: "#5004", customer: "James Brown",   avatar: "J", date: "Oct 23, 2026", items: 2, total: "$67.50",  payment: "Stripe",      status: "Pending" },
-  { id: "#5005", customer: "Olivia Davis",  avatar: "O", date: "Oct 22, 2026", items: 4, total: "$198.00", payment: "Credit Card", status: "Confirmed" },
-  { id: "#5006", customer: "Liam Martinez", avatar: "L", date: "Oct 22, 2026", items: 2, total: "$54.00",  payment: "PayPal",      status: "On Hold" },
-  { id: "#5007", customer: "Sophia Taylor", avatar: "S", date: "Oct 21, 2026", items: 1, total: "$39.00",  payment: "Credit Card", status: "Cancelled" },
-  { id: "#5008", customer: "Noah Anderson", avatar: "N", date: "Oct 21, 2026", items: 3, total: "$156.00", payment: "Stripe",      status: "Ready to Ship" },
-  { id: "#5009", customer: "Ava Thomas",    avatar: "A", date: "Oct 20, 2026", items: 2, total: "$88.00",  payment: "Credit Card", status: "Returned" },
-  { id: "#5010", customer: "Ethan White",   avatar: "E", date: "Oct 20, 2026", items: 1, total: "$45.00",  payment: "PayPal",      status: "Failed" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; status: string; }[] = []
 
 const statusStyles: Record<string, string> = {
   Pending:         "bg-gray-100 text-gray-600",
@@ -34,16 +23,16 @@ const statusStyles: Record<string, string> = {
 }
 
 const summaryCounts = [
-  { label: "Pending",         count: 1, icon: Clock,       color: "text-gray-500",    bg: "bg-gray-100" },
-  { label: "Processing",      count: 1, icon: RefreshCcw,  color: "text-amber-600",   bg: "bg-amber-50" },
-  { label: "Confirmed",       count: 1, icon: CheckCircle, color: "text-blue-600",    bg: "bg-blue-50" },
-  { label: "Ready to Ship",   count: 1, icon: Package,     color: "text-purple-600",  bg: "bg-purple-50" },
-  { label: "Shipped",         count: 1, icon: Truck,       color: "text-indigo-600",  bg: "bg-indigo-50" },
-  { label: "Delivered",       count: 1, icon: CheckCircle, color: "text-emerald-600", bg: "bg-emerald-50" },
-  { label: "Cancelled",       count: 1, icon: XCircle,     color: "text-red-500",     bg: "bg-red-50" },
-  { label: "Returned",        count: 1, icon: RotateCcw,   color: "text-orange-600",  bg: "bg-orange-50" },
-  { label: "On Hold",         count: 1, icon: AlertCircle, color: "text-yellow-600",  bg: "bg-yellow-50" },
-  { label: "Failed",          count: 1, icon: XCircle,     color: "text-red-600",     bg: "bg-red-50" },
+  { label: "Pending",         count: 0, icon: Clock,       color: "text-gray-500",    bg: "bg-gray-100" },
+  { label: "Processing",      count: 0, icon: RefreshCcw,  color: "text-amber-600",   bg: "bg-amber-50" },
+  { label: "Confirmed",       count: 0, icon: CheckCircle, color: "text-blue-600",    bg: "bg-blue-50" },
+  { label: "Ready to Ship",   count: 0, icon: Package,     color: "text-purple-600",  bg: "bg-purple-50" },
+  { label: "Shipped",         count: 0, icon: Truck,       color: "text-indigo-600",  bg: "bg-indigo-50" },
+  { label: "Delivered",       count: 0, icon: CheckCircle, color: "text-emerald-600", bg: "bg-emerald-50" },
+  { label: "Cancelled",       count: 0, icon: XCircle,     color: "text-red-500",     bg: "bg-red-50" },
+  { label: "Returned",        count: 0, icon: RotateCcw,   color: "text-orange-600",  bg: "bg-orange-50" },
+  { label: "On Hold",         count: 0, icon: AlertCircle, color: "text-yellow-600",  bg: "bg-yellow-50" },
+  { label: "Failed",          count: 0, icon: XCircle,     color: "text-red-600",     bg: "bg-red-50" },
 ]
 
 export default function AllOrdersPage() {
@@ -137,7 +126,7 @@ export default function AllOrdersPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Status", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Status", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -177,9 +166,6 @@ export default function AllOrdersPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <span

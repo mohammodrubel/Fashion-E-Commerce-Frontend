@@ -8,7 +8,7 @@ import { logout } from "@/redux/fetchers/auth/authSlice"
 import { baseApi } from "@/redux/api/baseApi"
 import type { AppDispatch } from "@/redux/store"
 
-export function useLogout() {
+export function useLogout(redirectTo: string = "/") {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   const [logoutFromDb] = useLogoutFromDbMutation()
@@ -22,6 +22,6 @@ export function useLogout() {
     dispatch(logout())
     dispatch(baseApi.util.resetApiState())
     toast.success("Logged out successfully")
-    router.push("/")
+    router.replace(redirectTo)
   }
 }

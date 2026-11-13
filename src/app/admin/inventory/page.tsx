@@ -4,11 +4,11 @@ import { PageHeader } from "@/components/admin/page-header"
 import { Package, TrendingUp, AlertTriangle, XCircle, ArrowUp, ArrowDown } from "lucide-react"
 
 // Sparkline data — stock value (BDT k) last 7 days
-const sparkData = [280, 295, 310, 302, 318, 325, 324]
+const sparkData = [0, 0, 0, 0, 0, 0, 0]
 const sparkLabels = ["Oct 18", "Oct 19", "Oct 20", "Oct 21", "Oct 22", "Oct 23", "Oct 24"]
 const W = 400
 const H = 60
-const maxVal = Math.max(...sparkData)
+const maxVal = Math.max(...sparkData, 1)
 const minVal = Math.min(...sparkData)
 
 function buildSparkline(data: number[]) {
@@ -43,16 +43,7 @@ interface StockMovement {
   sku: string
 }
 
-const recentMovements: StockMovement[] = [
-  { id: "sm-001", variantId: "v-dr001", userId: "u-admin1", type: "RESTOCK",      quantity: 50,  note: "PO-2041 received",          createdAt: "Oct 24, 2026 09:12", productName: "Floral Wrap Midi Dress",   sku: "DR-FLW-001-M-FLS" },
-  { id: "sm-002", variantId: "v-ot007", userId: null,       type: "SALE",         quantity: -2,  note: "Orders #4521, #4523",        createdAt: "Oct 24, 2026 08:45", productName: "Classic Trench Coat",      sku: "OT-TCT-007-L-BEI" },
-  { id: "sm-003", variantId: "v-top004",userId: "u-admin1", type: "ADJUSTMENT",   quantity: -1,  note: "Count correction after audit",createdAt: "Oct 23, 2026 16:20", productName: "Silk Cami Blouse",         sku: "TOP-SCB-004-S-IVR" },
-  { id: "sm-004", variantId: "v-jn003", userId: "u-admin2", type: "RETURN",       quantity: 3,   note: "Orders #4498, #4502 returns", createdAt: "Oct 23, 2026 14:05", productName: "High-Rise Skinny Jeans",   sku: "JN-HRS-003-28-IND" },
-  { id: "sm-005", variantId: "v-kn006", userId: "u-admin2", type: "DAMAGE",       quantity: -3,  note: "Storage water leak, ruined",  createdAt: "Oct 22, 2026 11:30", productName: "Ribbed Knit Sweater",      sku: "KN-RIB-006-M-CRM" },
-  { id: "sm-006", variantId: "v-sk008", userId: null,       type: "CANCELLATION", quantity: 1,   note: "Order #4490 cancelled",       createdAt: "Oct 22, 2026 10:00", productName: "Printed Slip Skirt",       sku: "SK-PSK-008-S-MLT" },
-  { id: "sm-007", variantId: "v-pt005", userId: "u-admin1", type: "RESTOCK",      quantity: 25,  note: "PO-2039 received",            createdAt: "Oct 21, 2026 13:55", productName: "Wide Leg Linen Trousers",  sku: "PT-WLL-005-XS-ECR" },
-  { id: "sm-008", variantId: "v-top002",userId: null,       type: "SALE",         quantity: -4,  note: "Orders #4512–#4515",          createdAt: "Oct 21, 2026 09:40", productName: "Oversized Linen Blazer",   sku: "TOP-LBZ-002-L-SND" },
-]
+const recentMovements: StockMovement[] = []
 
 const typeConfig: Record<StockMovementType, { label: string; className: string }> = {
   RESTOCK:      { label: "RESTOCK",      className: "bg-emerald-50 text-emerald-700 border border-emerald-200/60" },
@@ -75,10 +66,10 @@ export default function InventoryOverviewPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total SKUs",         value: "42",       sub: "active variants",   icon: Package,       color: "#202127" },
-          { label: "Total Stock Units",  value: "1,847",    sub: "units on hand",     icon: TrendingUp,    color: "#2D6B4F" },
-          { label: "Total Stock Value",  value: "BDT 3,24,800", sub: "at current price", icon: TrendingUp, color: "#2563EB" },
-          { label: "Out of Stock",       value: "4",        sub: "variants need restock", icon: XCircle,   color: "#DC2626" },
+          { label: "Total SKUs",         value: "0",       sub: "active variants",   icon: Package,       color: "#202127" },
+          { label: "Total Stock Units",  value: "0",    sub: "units on hand",     icon: TrendingUp,    color: "#2D6B4F" },
+          { label: "Total Stock Value",  value: "BDT 0", sub: "at current price", icon: TrendingUp, color: "#2563EB" },
+          { label: "Out of Stock",       value: "0",        sub: "variants need restock", icon: XCircle,   color: "#DC2626" },
         ].map((s) => {
           const Icon = s.icon
           return (
@@ -151,9 +142,9 @@ export default function InventoryOverviewPage() {
           </div>
           <div className="space-y-3">
             {[
-              { label: "In Stock",           value: 38, color: "#10B981", bg: "#ECFDF5", total: 48 },
-              { label: "Low Stock  (< 10)",  value: 6,  color: "#F59E0B", bg: "#FFFBEB", total: 48 },
-              { label: "Out of Stock",        value: 4,  color: "#EF4444", bg: "#FEF2F2", total: 48 },
+              { label: "In Stock",           value: 0, color: "#10B981", bg: "#ECFDF5", total: 0 },
+              { label: "Low Stock  (< 10)",  value: 0,  color: "#F59E0B", bg: "#FFFBEB", total: 0 },
+              { label: "Out of Stock",        value: 0,  color: "#EF4444", bg: "#FEF2F2", total: 0 },
             ].map((item) => (
               <div key={item.label}>
                 <div className="flex items-center justify-between mb-1">

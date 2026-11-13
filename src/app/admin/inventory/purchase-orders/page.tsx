@@ -12,13 +12,7 @@ interface PurchaseOrder {
   notes: string
 }
 
-const purchaseOrders: PurchaseOrder[] = [
-  { id: "PO-2041", supplier: "Silk Supply Co.", items: 4, total: "$3,840.00", status: "Received", orderDate: "Oct 15, 2026", expected: "Oct 23, 2026", notes: "Full order received, 1 item backordered" },
-  { id: "PO-2042", supplier: "FabricHouse EU", items: 7, total: "$6,250.00", status: "Confirmed", orderDate: "Oct 18, 2026", expected: "Nov 1, 2026", notes: "Awaiting customs clearance" },
-  { id: "PO-2043", supplier: "Nordic Knits Ltd.", items: 3, total: "$2,100.00", status: "Sent", orderDate: "Oct 21, 2026", expected: "Nov 10, 2026", notes: "Standard order" },
-  { id: "PO-2044", supplier: "Denim Works USA", items: 2, total: "$1,550.00", status: "Draft", orderDate: "Oct 24, 2026", expected: "Nov 5, 2026", notes: "Pending approval" },
-  { id: "PO-2045", supplier: "LeatherCraft Co.", items: 5, total: "$4,800.00", status: "Confirmed", orderDate: "Oct 20, 2026", expected: "Nov 8, 2026", notes: "Includes new belt collection" },
-]
+const purchaseOrders: PurchaseOrder[] = []
 
 const statusConfig = {
   Draft: { className: "bg-gray-100 text-gray-500", icon: FileText },
@@ -44,10 +38,10 @@ export default function PurchaseOrdersPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total POs", value: "5", sub: "this month", color: "var(--primary)" },
-          { label: "Pending Value", value: "$14,700", sub: "outstanding", color: "#D97706" },
-          { label: "Confirmed", value: "2", sub: "awaiting delivery", color: "#2563EB" },
-          { label: "Received", value: "1", sub: "this month", color: "#10B981" },
+          { label: "Total POs", value: "0", sub: "this month", color: "var(--primary)" },
+          { label: "Pending Value", value: "$0", sub: "outstanding", color: "#D97706" },
+          { label: "Confirmed", value: "0", sub: "awaiting delivery", color: "#2563EB" },
+          { label: "Received", value: "0", sub: "this month", color: "#10B981" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

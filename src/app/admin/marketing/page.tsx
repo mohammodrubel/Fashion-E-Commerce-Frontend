@@ -5,37 +5,32 @@ import {
 } from "lucide-react"
 
 const stats = [
-  { label: "Active Campaigns", value: "3", sub: "2 ending this week", icon: Megaphone, color: "var(--primary)", bg: "#FAF0F2" },
-  { label: "Coupons Used", value: "124", sub: "this month", icon: Tag, color: "#7C3D52", bg: "#FAF0F2" },
-  { label: "Revenue from Promotions", value: "$3,240", sub: "+18.4% vs last month", icon: DollarSign, color: "#166534", bg: "#F0FDF4" },
-  { label: "Email Subscribers", value: "8,432", sub: "+124 this week", icon: Mail, color: "#1D4ED8", bg: "#EFF6FF" },
+  { label: "Active Campaigns", value: "0", sub: "0 ending this week", icon: Megaphone, color: "var(--primary)", bg: "#FAF0F2" },
+  { label: "Coupons Used", value: "0", sub: "this month", icon: Tag, color: "#7C3D52", bg: "#FAF0F2" },
+  { label: "Revenue from Promotions", value: "$0", sub: "+0.0% vs last month", icon: DollarSign, color: "#166534", bg: "#F0FDF4" },
+  { label: "Email Subscribers", value: "0", sub: "+0 this week", icon: Mail, color: "#1D4ED8", bg: "#EFF6FF" },
 ]
 
-const campaigns = [
-  { name: "Summer Sale 2024", type: "Seasonal", status: "Active", revenue: "$1,840", conversions: 234, color: "var(--primary)" },
-  { name: "Welcome 15% Off", type: "Onboarding", status: "Active", revenue: "$920", conversions: 112, color: "#7C3D52" },
-  { name: "VIP Early Access", type: "Loyalty", status: "Active", revenue: "$480", conversions: 56, color: "#9D5B6B" },
-  { name: "Refer a Friend", type: "Referral", status: "Scheduled", revenue: "—", conversions: 0, color: "#C4849A" },
-]
+const campaigns: { name: string; type: string; status: string; revenue: string; conversions: number; color: string; }[] = []
 
 const funnelData = [
-  { label: "Impressions", value: 42800, pct: 100 },
-  { label: "Clicks", value: 8560, pct: 20 },
-  { label: "Add to Cart", value: 2140, pct: 5 },
-  { label: "Checkout", value: 856, pct: 2 },
-  { label: "Purchased", value: 513, pct: 1.2 },
+  { label: "Impressions", value: 0, pct: 0 },
+  { label: "Clicks", value: 0, pct: 0 },
+  { label: "Add to Cart", value: 0, pct: 0 },
+  { label: "Checkout", value: 0, pct: 0 },
+  { label: "Purchased", value: 0, pct: 0 },
 ]
 
 const barData = [
-  { month: "Jun", value: 62 },
-  { month: "Jul", value: 78 },
-  { month: "Aug", value: 54 },
-  { month: "Sep", value: 91 },
-  { month: "Oct", value: 83 },
-  { month: "Nov", value: 95 },
+  { month: "Jun", value: 0 },
+  { month: "Jul", value: 0 },
+  { month: "Aug", value: 0 },
+  { month: "Sep", value: 0 },
+  { month: "Oct", value: 0 },
+  { month: "Nov", value: 0 },
 ]
 
-const maxBar = Math.max(...barData.map((d) => d.value))
+const maxBar = Math.max(...barData.map((d) => d.value), 1)
 
 export default function MarketingOverviewPage() {
   return (

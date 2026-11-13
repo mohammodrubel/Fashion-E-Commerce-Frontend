@@ -13,14 +13,7 @@ interface PromoBanner {
   accentColor: string
 }
 
-const banners: PromoBanner[] = [
-  { id: 1, title: "Free Shipping", subtitle: "On all orders over $50 — no code needed", ctaText: "Shop Now", placement: "Homepage Strip", status: "Active", bg: "var(--primary)", textColor: "#FAF0F2", accentColor: "#C4849A" },
-  { id: 2, title: "New Season Dresses", subtitle: "Spring into summer style", ctaText: "Explore", placement: "Category Page", status: "Active", bg: "#7C3D52", textColor: "#FAF0F2", accentColor: "#F9A8C9" },
-  { id: 3, title: "Members Get 15% Off", subtitle: "Sign up and save on your first order", ctaText: "Join Free", placement: "Sidebar", status: "Active", bg: "#1F2937", textColor: "#F9FAFB", accentColor: "#9CA3AF" },
-  { id: 4, title: "Refer & Earn $20", subtitle: "Share your unique link and both earn a reward", ctaText: "Refer a Friend", placement: "Product Page", status: "Active", bg: "#166534", textColor: "#F0FDF4", accentColor: "#86EFAC" },
-  { id: 5, title: "Black Friday Countdown", subtitle: "Biggest sale of the year — 5 days to go!", ctaText: "Get Notified", placement: "Homepage Banner", status: "Inactive", bg: "#111827", textColor: "#FBBF24", accentColor: "#EF4444" },
-  { id: 6, title: "The Knitwear Edit", subtitle: "Cosy styles for cooler days", ctaText: "Shop Knitwear", placement: "Homepage Banner", status: "Inactive", bg: "#4C1D95", textColor: "#EDE9FE", accentColor: "#C4B5FD" },
-]
+const banners: PromoBanner[] = []
 
 export default function PromoBannersPage() {
   return (

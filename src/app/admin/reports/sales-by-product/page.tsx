@@ -1,18 +1,7 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { Download, ArrowUpDown, TrendingUp } from "lucide-react"
 
-const products = [
-  { rank: 1, name: "Silk Wrap Dress", category: "Dresses", units: 312, revenue: "$24,024", pct: "16.9%", avgPrice: "$77.00" },
-  { rank: 2, name: "High-Waist Trousers", category: "Bottoms", units: 284, revenue: "$19,880", pct: "13.9%", avgPrice: "$70.00" },
-  { rank: 3, name: "Cashmere Knit Sweater", category: "Tops", units: 241, revenue: "$21,690", pct: "15.2%", avgPrice: "$90.00" },
-  { rank: 4, name: "Leather Crossbody Bag", category: "Accessories", units: 198, revenue: "$17,622", pct: "12.4%", avgPrice: "$89.00" },
-  { rank: 5, name: "Linen Blazer", category: "Outerwear", units: 176, revenue: "$16,720", pct: "11.7%", avgPrice: "$95.00" },
-  { rank: 6, name: "Floral Midi Skirt", category: "Bottoms", units: 162, revenue: "$10,530", pct: "7.4%", avgPrice: "$65.00" },
-  { rank: 7, name: "Ribbed Tank Top", category: "Tops", units: 143, revenue: "$6,435", pct: "4.5%", avgPrice: "$45.00" },
-  { rank: 8, name: "Ankle Boots", category: "Footwear", units: 128, revenue: "$14,720", pct: "10.3%", avgPrice: "$115.00" },
-  { rank: 9, name: "Tailored Shorts", category: "Bottoms", units: 104, revenue: "$5,720", pct: "4.0%", avgPrice: "$55.00" },
-  { rank: 10, name: "Wide Brim Hat", category: "Accessories", units: 99, revenue: "$4,455", pct: "3.1%", avgPrice: "$45.00" },
-]
+const products: { rank: number; name: string; category: string; units: number; revenue: string; pct: string; avgPrice: string; }[] = []
 
 export default function SalesByProductPage() {
   return (
@@ -36,18 +25,18 @@ export default function SalesByProductPage() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <p className="text-muted-foreground mb-1" style={{ fontSize: "12px" }}>Top Selling Product</p>
-          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Silk Wrap Dress</p>
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>312 units sold</p>
+          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>—</p>
+          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>0 units sold</p>
         </div>
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <p className="text-muted-foreground mb-1" style={{ fontSize: "12px" }}>Highest Revenue Product</p>
-          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Silk Wrap Dress</p>
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$24,024 total</p>
+          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>—</p>
+          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$0 total</p>
         </div>
         <div className="bg-white rounded-xl border border-border/50 p-5">
           <p className="text-muted-foreground mb-1" style={{ fontSize: "12px" }}>Best Avg Price</p>
-          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Ankle Boots</p>
-          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$115.00 per unit</p>
+          <p className="font-semibold text-foreground" style={{ fontSize: "14px" }}>—</p>
+          <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$0.00 per unit</p>
         </div>
       </div>
 

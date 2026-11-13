@@ -13,12 +13,7 @@ interface SMSCampaign {
   cost: string
 }
 
-const campaigns: SMSCampaign[] = [
-  { message: "FLASH SALE! 30% off everything today only. Use code FLASH30 at checkout. Shop now: velour.co/sale", recipients: 4200, sent: 4200, deliveryRate: "97.2%", status: "Delivered", date: "Oct 20, 2024", cost: "$21.00" },
-  { message: "Your order #8824 has shipped! Track it here: velour.co/track/8824. Estimated delivery: 2-3 days.", recipients: 1, sent: 1, deliveryRate: "100%", status: "Delivered", date: "Oct 22, 2024", cost: "$0.01" },
-  { message: "Black Friday starts EARLY for VIP members. Preview the deals: velour.co/bf-preview", recipients: 850, sent: 0, deliveryRate: "—", status: "Scheduled", date: "Nov 27, 2024", cost: "$4.25" },
-  { message: "You left something behind! Complete your order and get FREE shipping today only.", recipients: 320, sent: 0, deliveryRate: "—", status: "Draft", date: "—", cost: "$1.60" },
-]
+const campaigns: SMSCampaign[] = []
 
 const statusConfig: Record<SMSStatus, { bg: string; color: string }> = {
   Delivered: { bg: "#DCFCE7", color: "#166534" },
@@ -58,9 +53,9 @@ export default function SMSMarketingPage() {
           </div>
         </div>
         {[
-          { label: "Total Sent", value: "4,201", sub: "this month", icon: MessageSquare },
-          { label: "Avg Delivery", value: "97.4%", sub: "delivery rate", icon: CheckCircle },
-          { label: "Opted In", value: "4,832", sub: "SMS subscribers", icon: Users },
+          { label: "Total Sent", value: "0", sub: "this month", icon: MessageSquare },
+          { label: "Avg Delivery", value: "0.0%", sub: "delivery rate", icon: CheckCircle },
+          { label: "Opted In", value: "0", sub: "SMS subscribers", icon: Users },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

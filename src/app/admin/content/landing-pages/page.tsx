@@ -14,13 +14,7 @@ interface LandingPage {
   lastUpdated: string
 }
 
-const pages: LandingPage[] = [
-  { title: "Black Friday 2024", url: "/lp/black-friday-2024", campaign: "Black Friday Blitz", conversions: 0, views: 0, convRate: "—", status: "Draft", lastUpdated: "Oct 22, 2024" },
-  { title: "Summer Sale Landing", url: "/lp/summer-sale", campaign: "Summer Glow Sale", conversions: 842, views: 12400, convRate: "6.8%", status: "Published", lastUpdated: "Jun 01, 2024" },
-  { title: "New Customer Welcome", url: "/lp/welcome", campaign: "Welcome Series", conversions: 1240, views: 8920, convRate: "13.9%", status: "Published", lastUpdated: "Jan 01, 2024" },
-  { title: "Autumn Collection Reveal", url: "/lp/autumn-2024", campaign: "Autumn 2024", conversions: 384, views: 4210, convRate: "9.1%", status: "Published", lastUpdated: "Sep 20, 2024" },
-  { title: "Knitwear Edit", url: "/lp/knitwear", campaign: "Knitwear Launch", conversions: 0, views: 0, convRate: "—", status: "Paused", lastUpdated: "Oct 15, 2024" },
-]
+const pages: LandingPage[] = []
 
 const statusConfig: Record<LPStatus, { bg: string; color: string }> = {
   Published: { bg: "#DCFCE7", color: "#166534" },
@@ -49,10 +43,10 @@ export default function LandingPagesPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Pages", value: "5", sub: "3 published" },
-          { label: "Total Views", value: "25,530", sub: "all landing pages" },
-          { label: "Total Conversions", value: "2,466", sub: "across all pages" },
-          { label: "Avg Conv. Rate", value: "9.6%", sub: "published pages" },
+          { label: "Total Pages", value: "0", sub: "0 published" },
+          { label: "Total Views", value: "0", sub: "all landing pages" },
+          { label: "Total Conversions", value: "0", sub: "across all pages" },
+          { label: "Avg Conv. Rate", value: "0.0%", sub: "published pages" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

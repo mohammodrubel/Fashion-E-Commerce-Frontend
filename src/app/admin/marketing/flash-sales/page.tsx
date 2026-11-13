@@ -13,12 +13,7 @@ interface FlashSale {
   revenue?: string
 }
 
-const flashSales: FlashSale[] = [
-  { name: "Weekend Flash 30% Off", products: 24, discount: "30%", start: "Oct 26, 2024 00:00", end: "Oct 27, 2024 23:59", status: "Active", revenue: "$2,140" },
-  { name: "Black Friday Preview", products: 48, discount: "40%", start: "Nov 29, 2024 06:00", end: "Nov 29, 2024 22:00", status: "Upcoming" },
-  { name: "Cyber Monday Deals", products: 36, discount: "35%", start: "Dec 02, 2024 08:00", end: "Dec 02, 2024 20:00", status: "Upcoming" },
-  { name: "Midnight Madness", products: 16, discount: "25%", start: "Oct 20, 2024 22:00", end: "Oct 21, 2024 04:00", status: "Ended", revenue: "$980" },
-]
+const flashSales: FlashSale[] = []
 
 const statusConfig: Record<SaleStatus, { bg: string; color: string; dot: string }> = {
   Active: { bg: "#DCFCE7", color: "#166534", dot: "#22C55E" },
@@ -29,7 +24,7 @@ const statusConfig: Record<SaleStatus, { bg: string; color: string; dot: string 
 const tabs: SaleStatus[] = ["Active", "Upcoming", "Ended"]
 
 // Countdown values for the active sale (static representation)
-const countdown = { hours: "08", minutes: "34", seconds: "21" }
+const countdown = { hours: "00", minutes: "00", seconds: "00" }
 
 export default function FlashSalesPage() {
   return (
@@ -57,8 +52,8 @@ export default function FlashSalesPage() {
               <Zap className="w-5 h-5 text-white" strokeWidth={1.5} />
             </div>
             <div>
-              <p className="text-white font-semibold" style={{ fontSize: "16px" }}>Weekend Flash 30% Off</p>
-              <p className="text-white/70" style={{ fontSize: "12px" }}>24 products · Ends Oct 27, 2024</p>
+              <p className="text-white font-semibold" style={{ fontSize: "16px" }}>No active flash sale</p>
+              <p className="text-white/70" style={{ fontSize: "12px" }}>0 products</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

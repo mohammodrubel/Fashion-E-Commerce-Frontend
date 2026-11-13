@@ -14,14 +14,7 @@ interface BlogPost {
   initials: string
 }
 
-const posts: BlogPost[] = [
-  { title: "10 Ways to Style a Wrap Dress This Autumn", category: "Style Tips", author: "Isabelle Moore", publishedDate: "Oct 20, 2024", views: 4820, status: "Published", colorBg: "var(--primary)", initials: "WD" },
-  { title: "The Capsule Wardrobe Guide for 2024", category: "Trends", author: "Marcus Reid", publishedDate: "Oct 15, 2024", views: 7340, status: "Published", colorBg: "#7C3D52", initials: "CW" },
-  { title: "Behind The Brand: Our Sustainability Journey", category: "Behind The Brand", author: "Lena Fischer", publishedDate: "Oct 10, 2024", views: 2180, status: "Published", colorBg: "#166534", initials: "BB" },
-  { title: "How To Care For Silk & Delicate Fabrics", category: "How To", author: "Isabelle Moore", publishedDate: "Oct 05, 2024", views: 3960, status: "Published", colorBg: "#1D4ED8", initials: "CF" },
-  { title: "Top Knitwear Trends: Winter 2024 Preview", category: "Trends", author: "Marcus Reid", publishedDate: "Oct 30, 2024", views: 0, status: "Scheduled", colorBg: "#9D5B6B", initials: "KN" },
-  { title: "Our Favourite Autumn Colour Palettes", category: "Style Tips", author: "Isabelle Moore", publishedDate: "—", views: 0, status: "Draft", colorBg: "#6B7280", initials: "CP" },
-]
+const posts: BlogPost[] = []
 
 const statusConfig: Record<PostStatus, { bg: string; color: string }> = {
   Published: { bg: "#DCFCE7", color: "#166534" },

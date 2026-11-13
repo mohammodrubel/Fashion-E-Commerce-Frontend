@@ -1,13 +1,7 @@
 import { CheckCircle, Truck } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5005", customer: "Olivia Davis",   avatar: "O", date: "Oct 22, 2026", items: 4, total: "$198.00", payment: "Credit Card", confirmedAt: "Oct 22, 3:10 PM" },
-  { id: "#5016", customer: "Benjamin Lee",   avatar: "B", date: "Oct 22, 2026", items: 1, total: "$55.00",  payment: "PayPal",      confirmedAt: "Oct 22, 4:30 PM" },
-  { id: "#5017", customer: "Charlotte King", avatar: "C", date: "Oct 23, 2026", items: 3, total: "$167.50", payment: "Stripe",      confirmedAt: "Oct 23, 9:00 AM" },
-  { id: "#5018", customer: "Henry Scott",    avatar: "H", date: "Oct 23, 2026", items: 2, total: "$110.00", payment: "Credit Card", confirmedAt: "Oct 23, 10:45 AM" },
-  { id: "#5019", customer: "Amelia Turner",  avatar: "A", date: "Oct 24, 2026", items: 5, total: "$284.00", payment: "Stripe",      confirmedAt: "Oct 24, 7:55 AM" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; confirmedAt: string; }[] = []
 
 export default function ConfirmedOrdersPage() {
   return (
@@ -36,7 +30,7 @@ export default function ConfirmedOrdersPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Confirmed At", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Confirmed At", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -76,9 +70,6 @@ export default function ConfirmedOrdersPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{order.confirmedAt}</span>

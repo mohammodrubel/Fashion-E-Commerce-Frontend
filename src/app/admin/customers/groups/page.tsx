@@ -11,53 +11,7 @@ interface CustomerGroup {
   perks: string[]
 }
 
-const groups: CustomerGroup[] = [
-  {
-    id: "G001",
-    name: "Regular",
-    description: "Default group for all new customers. Standard pricing applies.",
-    count: 842,
-    discount: 0,
-    color: "#6B7280",
-    perks: ["Standard pricing", "Newsletter access"],
-  },
-  {
-    id: "G002",
-    name: "Silver",
-    description: "Customers with 3+ orders or $500+ lifetime spend. Small loyalty discount.",
-    count: 201,
-    discount: 5,
-    color: "#64748B",
-    perks: ["5% discount", "Early sale access", "Free shipping over $75"],
-  },
-  {
-    id: "G003",
-    name: "Gold",
-    description: "Loyal customers with 10+ orders or $1,500+ lifetime spend.",
-    count: 98,
-    discount: 10,
-    color: "#D97706",
-    perks: ["10% discount", "Priority shipping", "Exclusive collections", "Birthday reward"],
-  },
-  {
-    id: "G004",
-    name: "Platinum",
-    description: "Premium customers with 20+ orders or $3,000+ lifetime spend.",
-    count: 53,
-    discount: 15,
-    color: "#2563EB",
-    perks: ["15% discount", "Free express shipping", "Personal stylist", "First access to new arrivals"],
-  },
-  {
-    id: "G005",
-    name: "VIP",
-    description: "Top-tier customers with extraordinary loyalty and lifetime value.",
-    count: 49,
-    discount: 20,
-    color: "#7C3AED",
-    perks: ["20% discount", "Dedicated account manager", "Exclusive events", "Custom orders", "Free returns"],
-  },
-]
+const groups: CustomerGroup[] = []
 
 export default function CustomerGroupsPage() {
   return (

@@ -20,7 +20,10 @@ export function HeroBanner() {
   return (
     <section className="relative w-full overflow-hidden flex flex-col md:flex-row">
       {/* Left — model image, full-bleed on mobile, ~52% on desktop */}
-      <div className="relative w-full md:w-[52%] shrink-0 h-[70vh] min-h-[460px] md:h-[680px]">
+      <div
+        className="relative w-full md:w-[52%] shrink-0 h-[70vh] min-h-[460px] md:h-[680px]"
+        style={{ backgroundColor: banner.backgroundColor || "#F2F0F2" }}
+      >
         {/* Desktop image */}
         <div className="absolute inset-0 hidden md:block">
           <Image
@@ -29,7 +32,7 @@ export function HeroBanner() {
             fill
             priority
             sizes="52vw"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
         {/* Mobile image (falls back to the desktop image if none was uploaded) */}
@@ -40,7 +43,7 @@ export function HeroBanner() {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </div>

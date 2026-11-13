@@ -1,16 +1,7 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { Download, Crown, Star, Award } from "lucide-react"
 
-const customers = [
-  { name: "Sophia Mitchell", email: "sophia.m@email.com", orders: 24, totalSpent: "$2,840", avgOrder: "$118.33", firstOrder: "Jan 12, 2023", lastOrder: "Oct 18, 2024", tier: "Platinum", avatar: "S" },
-  { name: "Emily Carter", email: "emily.c@email.com", orders: 19, totalSpent: "$2,280", avgOrder: "$120.00", firstOrder: "Mar 4, 2023", lastOrder: "Oct 20, 2024", tier: "Platinum", avatar: "E" },
-  { name: "Isabella Thompson", email: "isabella.t@email.com", orders: 17, totalSpent: "$1,955", avgOrder: "$115.00", firstOrder: "Feb 14, 2023", lastOrder: "Sep 30, 2024", tier: "Gold", avatar: "I" },
-  { name: "Charlotte Brown", email: "charlotte.b@email.com", orders: 15, totalSpent: "$1,620", avgOrder: "$108.00", firstOrder: "Apr 22, 2023", lastOrder: "Oct 10, 2024", tier: "Gold", avatar: "C" },
-  { name: "Ava Robinson", email: "ava.r@email.com", orders: 12, totalSpent: "$1,344", avgOrder: "$112.00", firstOrder: "Jun 5, 2023", lastOrder: "Oct 15, 2024", tier: "Gold", avatar: "A" },
-  { name: "Mia Anderson", email: "mia.a@email.com", orders: 10, totalSpent: "$980", avgOrder: "$98.00", firstOrder: "Jul 18, 2023", lastOrder: "Sep 28, 2024", tier: "Silver", avatar: "M" },
-  { name: "Harper Jackson", email: "harper.j@email.com", orders: 8, totalSpent: "$720", avgOrder: "$90.00", firstOrder: "Aug 3, 2023", lastOrder: "Oct 5, 2024", tier: "Silver", avatar: "H" },
-  { name: "Lily White", email: "lily.w@email.com", orders: 6, totalSpent: "$480", avgOrder: "$80.00", firstOrder: "Sep 11, 2023", lastOrder: "Oct 1, 2024", tier: "Bronze", avatar: "L" },
-]
+const customers: { name: string; email: string; orders: number; totalSpent: string; avgOrder: string; firstOrder: string; lastOrder: string; tier: string; avatar: string; }[] = []
 
 const tierConfig: Record<string, { color: string; bg: string; icon: typeof Crown }> = {
   Platinum: { color: "#7c3aed", bg: "#f5f3ff", icon: Crown },
@@ -40,10 +31,10 @@ export default function SalesByCustomerPage() {
       {/* Summary */}
       <div className="grid grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Top Customer Spend", value: "$2,840", sub: "Sophia Mitchell" },
-          { label: "Avg Customer Spend", value: "$1,527", sub: "Across top 8" },
-          { label: "Avg Orders / Customer", value: "13.9", sub: "Per customer" },
-          { label: "Platinum Members", value: "2", sub: "Highest tier" },
+          { label: "Top Customer Spend", value: "$0", sub: "Sophia Mitchell" },
+          { label: "Avg Customer Spend", value: "$0", sub: "Across top 0" },
+          { label: "Avg Orders / Customer", value: "0.0", sub: "Per customer" },
+          { label: "Platinum Members", value: "0", sub: "Highest tier" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-5">
             <p className="text-muted-foreground mb-1" style={{ fontSize: "12px" }}>{s.label}</p>

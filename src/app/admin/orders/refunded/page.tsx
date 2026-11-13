@@ -1,41 +1,7 @@
 import { DollarSign } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  {
-    id: "#5038",
-    customer: "Ryan Walker",
-    avatar: "R",
-    orderDate: "Oct 8, 2026",
-    items: 1,
-    orderTotal: "$65.00",
-    refundAmount: "$65.00",
-    refundDate: "Oct 22, 2026",
-    method: "Original Payment",
-  },
-  {
-    id: "#5044",
-    customer: "Hannah Price",
-    avatar: "H",
-    orderDate: "Oct 5, 2026",
-    items: 2,
-    orderTotal: "$130.00",
-    refundAmount: "$130.00",
-    refundDate: "Oct 19, 2026",
-    method: "Store Credit",
-  },
-  {
-    id: "#5045",
-    customer: "Nathan Evans",
-    avatar: "N",
-    orderDate: "Oct 3, 2026",
-    items: 1,
-    orderTotal: "$48.00",
-    refundAmount: "$40.00",
-    refundDate: "Oct 16, 2026",
-    method: "Original Payment",
-  },
-]
+const orders: { id: string; customer: string; avatar: string; orderDate: string; items: number; orderTotal: string; refundAmount: string; refundDate: string; method: string; }[] = []
 
 export default function RefundedOrdersPage() {
   return (

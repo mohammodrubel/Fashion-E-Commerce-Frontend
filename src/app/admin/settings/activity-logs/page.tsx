@@ -9,18 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-const logs = [
-  { time: "Oct 24, 2026 9:42 AM", user: "Alexandra Dupont", avatar: "A", action: "Product Updated", details: "Updated pricing on 'Silk Wrap Dress' — ৳720 → ৳770", ip: "74.125.46.22", type: "product" },
-  { time: "Oct 24, 2026 9:18 AM", user: "Marcus Webb", avatar: "M", action: "Order Status Changed", details: "Order #4521 marked as Shipped", ip: "96.120.11.8", type: "order" },
-  { time: "Oct 24, 2026 8:55 AM", user: "Isabelle Morel", avatar: "I", action: "Coupon Created", details: "Created coupon FLASH50 — ৳50 off, 100 uses", ip: "74.125.46.55", type: "discount" },
-  { time: "Oct 23, 2026 4:32 PM", user: "Alexandra Dupont", avatar: "A", action: "Settings Updated", details: "Changed timezone to Asia/Dhaka", ip: "74.125.46.22", type: "settings" },
-  { time: "Oct 23, 2026 2:14 PM", user: "Theo Nakamura", avatar: "T", action: "Customer Refunded", details: "Issued ৳890 refund on Order #4490", ip: "24.50.31.109", type: "order" },
-  { time: "Oct 23, 2026 11:20 AM", user: "Marcus Webb", avatar: "M", action: "Product Added", details: "New product 'Autumn Velvet Blazer' published", ip: "96.120.11.8", type: "product" },
-  { time: "Oct 22, 2026 5:08 PM", user: "Alexandra Dupont", avatar: "A", action: "User Invited", details: "Sent invite to camille@lumastyle.com", ip: "74.125.46.22", type: "user" },
-  { time: "Oct 22, 2026 3:45 PM", user: "Isabelle Morel", avatar: "I", action: "Inventory Updated", details: "Restocked 'Ribbed Tank Top' — 50 units added", ip: "74.125.46.55", type: "product" },
-  { time: "Oct 21, 2026 1:22 PM", user: "Alexandra Dupont", avatar: "A", action: "Role Modified", details: "Updated 'Manager' role permissions", ip: "74.125.46.22", type: "security" },
-  { time: "Oct 21, 2026 10:00 AM", user: "System", avatar: "S", action: "Backup Completed", details: "Automatic daily backup — 24.8 MB", ip: "Internal", type: "system" },
-]
+const logs: { time: string; user: string; avatar: string; action: string; details: string; ip: string; type: string; }[] = []
 
 const typeConfig: Record<string, { icon: typeof Package; className: string }> = {
   product: { icon: Package, className: "bg-primary/10 text-primary" },

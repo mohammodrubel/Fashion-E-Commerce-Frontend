@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react"
 import Link from "next/link"
 import {
   TrendingUp, TrendingDown, ShoppingCart, Users, DollarSign,
@@ -9,45 +10,39 @@ import {
 const stats = [
   {
     label: "Total Revenue",
-    value: "$12,548.00",
-    change: "+7.1%",
+    value: "$0.00",
+    change: "+0.0%",
     trend: "up",
     icon: DollarSign,
     sub: "vs last month",
   },
   {
     label: "Total Orders",
-    value: "186",
-    change: "+4.8%",
+    value: "0",
+    change: "+0.0%",
     trend: "up",
     icon: ShoppingCart,
     sub: "vs last month",
   },
   {
     label: "Total Customers",
-    value: "1,243",
-    change: "+12.5%",
+    value: "0",
+    change: "+0.0%",
     trend: "up",
     icon: Users,
     sub: "vs last month",
   },
   {
     label: "Avg Order Value",
-    value: "$67.48",
-    change: "-2.3%",
+    value: "$0.00",
+    change: "-0.0%",
     trend: "down",
     icon: BarChart3,
     sub: "vs last month",
   },
 ]
 
-const recentOrders = [
-  { id: "#4521", customer: "Sarah Johnson", items: 3, total: "$124.00", status: "Delivered", avatar: "S" },
-  { id: "#4520", customer: "Michael Chen", items: 1, total: "$89.00", status: "Shipped", avatar: "M" },
-  { id: "#4519", customer: "Emma Wilson", items: 5, total: "$312.00", status: "Processing", avatar: "E" },
-  { id: "#4518", customer: "James Brown", items: 2, total: "$67.50", status: "Pending", avatar: "J" },
-  { id: "#4517", customer: "Olivia Davis", items: 4, total: "$198.00", status: "Confirmed", avatar: "O" },
-]
+const recentOrders: { id: string; customer: string; items: number; total: string; status: string; avatar: string; }[] = []
 
 const statusStyles: Record<string, string> = {
   Delivered: "bg-emerald-50 text-emerald-700",
@@ -65,24 +60,13 @@ const quickActions = [
   { label: "View Reports", icon: BarChart3, href: "/admin/reports", color: "#6B4F2D" },
 ]
 
-const recentActivity = [
-  { text: "New order #4521 placed", sub: "Sarah Johnson · $124.00", time: "2 min ago", icon: ShoppingCart, color: "#202127" },
-  { text: "Product restocked", sub: "Classic White Tee · 50 units", time: "18 min ago", icon: Package, color: "#2D5A8E" },
-  { text: "New customer registered", sub: "emma.w@email.com", time: "1 hr ago", icon: Users, color: "#2D6B4F" },
-  { text: "Order #4515 delivered", sub: "James Brown · $67.50", time: "3 hr ago", icon: CheckCircle, color: "#6B4F2D" },
-  { text: "Low stock alert", sub: "Silk Blouse (XS) · 2 left", time: "5 hr ago", icon: AlertCircle, color: "#B42332" },
-]
+const recentActivity: { text: string; sub: string; time: string; icon: LucideIcon; color: string; }[] = []
 
-const categories = [
-  { name: "Women's Clothing", pct: 42, color: "var(--primary)" },
-  { name: "Men's Clothing", pct: 28, color: "#A5ABC0" },
-  { name: "Accessories", pct: 18, color: "#C2C7D7" },
-  { name: "Footwear", pct: 12, color: "#B8A4AA" },
-]
+const categories: { name: string; pct: number; color: string; }[] = []
 
-const salesData = [4200, 6800, 5100, 9200, 7400, 11200, 8900, 12548, 10100, 13200, 11800, 14500]
+const salesData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-const maxSale = Math.max(...salesData)
+const maxSale = Math.max(...salesData, 1)
 
 function buildPath(data: number[], w: number, h: number) {
   const pts = data.map((v, i) => {
@@ -119,7 +103,7 @@ export default function AdminDashboard() {
         </div>
         <div className="hidden sm:flex items-center gap-2">
           <span className="text-muted-foreground" style={{ fontSize: "12px" }}>
-            Oct 1 – Oct 24, 2026
+            —
           </span>
         </div>
       </div>
@@ -180,7 +164,7 @@ export default function AdminDashboard() {
                   <h3 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>
                     Sales Overview
                   </h3>
-                  <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$12,548 this month</p>
+                  <p className="text-muted-foreground" style={{ fontSize: "12px" }}>$0.00 this month</p>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-600" style={{ fontSize: "12px" }}>
                   <TrendingUp className="w-3.5 h-3.5" strokeWidth={2} />
@@ -252,7 +236,7 @@ export default function AdminDashboard() {
                     })()}
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="font-semibold text-foreground" style={{ fontSize: "15px" }}>$12.5k</span>
+                    <span className="font-semibold text-foreground" style={{ fontSize: "15px" }}>$0</span>
                     <span className="text-muted-foreground" style={{ fontSize: "9px" }}>Total</span>
                   </div>
                 </div>
@@ -448,10 +432,10 @@ export default function AdminDashboard() {
             <h3 className="font-semibold text-foreground mb-3" style={{ fontSize: "14px" }}>Today at a Glance</h3>
             <div className="space-y-3">
               {[
-                { label: "New Orders", value: "12", icon: ShoppingCart },
-                { label: "Pending Shipment", value: "8", icon: Truck },
-                { label: "Low Stock Items", value: "5", icon: AlertCircle },
-                { label: "Refund Requests", value: "2", icon: RefreshCcw },
+                { label: "New Orders", value: "0", icon: ShoppingCart },
+                { label: "Pending Shipment", value: "0", icon: Truck },
+                { label: "Low Stock Items", value: "0", icon: AlertCircle },
+                { label: "Refund Requests", value: "0", icon: RefreshCcw },
               ].map((item) => {
                 const Icon = item.icon
                 return (

@@ -1,30 +1,7 @@
 import { AlertCircle, Play, XCircle } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  {
-    id: "#5006",
-    customer: "Liam Martinez",
-    avatar: "L",
-    date: "Oct 22, 2026",
-    items: 2,
-    total: "$54.00",
-    payment: "PayPal",
-    holdReason: "Payment verification required",
-    heldSince: "Oct 22, 2:00 PM",
-  },
-  {
-    id: "#5020",
-    customer: "Grace Allen",
-    avatar: "G",
-    date: "Oct 23, 2026",
-    items: 3,
-    total: "$143.00",
-    payment: "Credit Card",
-    holdReason: "Address unverifiable — customer contacted",
-    heldSince: "Oct 23, 1:15 PM",
-  },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; holdReason: string; heldSince: string; }[] = []
 
 export default function OnHoldOrdersPage() {
   return (

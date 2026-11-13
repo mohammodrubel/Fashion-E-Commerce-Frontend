@@ -33,7 +33,6 @@ interface VariantRow {
   id?: string
   sizeId: string
   colorId: string
-  sku: string
   price: string
   stock: string
   isActive: boolean
@@ -52,7 +51,7 @@ const statusOpts: { value: Status; label: string; desc: string; color: string }[
 
 let rowKey = 1
 function newVariantRow(): VariantRow {
-  return { key: String(rowKey++), sizeId: "", colorId: "", sku: "", price: "", stock: "", isActive: true }
+  return { key: String(rowKey++), sizeId: "", colorId: "", price: "", stock: "", isActive: true }
 }
 
 export function ProductForm({ productId }: { productId?: string }) {
@@ -77,7 +76,6 @@ export function ProductForm({ productId }: { productId?: string }) {
   const [name, setName] = useState("")
   const [slug, setSlug] = useState("")
   const [slugEdited, setSlugEdited] = useState(false)
-  const [shortDescription, setShortDescription] = useState("")
   const [description, setDescription] = useState("")
   const [categoryId, setCategoryId] = useState("")
   const [sku, setSku] = useState("")
@@ -106,7 +104,6 @@ export function ProductForm({ productId }: { productId?: string }) {
     setName(p.name ?? "")
     setSlug(p.slug ?? "")
     setSlugEdited(true)
-    setShortDescription(p.shortDescription ?? "")
     setDescription(p.description ?? "")
     setCategoryId(p.categoryId ?? "")
     setSku(p.sku ?? "")
@@ -127,7 +124,6 @@ export function ProductForm({ productId }: { productId?: string }) {
             id: v.id,
             sizeId: v.sizeId,
             colorId: v.colorId,
-            sku: v.sku,
             price: String(v.price),
             stock: String(v.stock),
             isActive: v.isActive,
@@ -143,7 +139,11 @@ export function ProductForm({ productId }: { productId?: string }) {
   }
 
   function addVariant() {
-    setVariants((v) => [...v, newVariantRow()])
+    setVariants((v) => {
+      // first variant is the template for every newly added variant
+      const { key: _key, id: _id, ...template } = v[0] ?? newVariantRow()
+      return [...v, { ...template, key: String(rowKey++) }]
+    })
   }
 
   function removeVariant(row: VariantRow) {
@@ -188,12 +188,11 @@ export function ProductForm({ productId }: { productId?: string }) {
     }
 
     const validVariants = variants
-      .filter((v) => v.sizeId && v.colorId && v.sku.trim() && v.price)
+      .filter((v) => v.sizeId && v.colorId && v.price)
       .map((v) => ({
         ...(v.id ? { id: v.id } : {}),
         sizeId: v.sizeId,
         colorId: v.colorId,
-        sku: v.sku.trim(),
         price: Number(v.price),
         stock: Number(v.stock || 0),
         isActive: v.isActive,
@@ -202,7 +201,6 @@ export function ProductForm({ productId }: { productId?: string }) {
     const formData = new FormData()
     formData.append("name", name.trim())
     if (slug.trim()) formData.append("slug", slug.trim())
-    if (shortDescription.trim()) formData.append("shortDescription", shortDescription.trim())
     if (description.trim()) formData.append("description", description.trim())
     formData.append("categoryId", categoryId)
     if (sku.trim()) formData.append("sku", sku.trim())
@@ -371,18 +369,6 @@ export function ProductForm({ productId }: { productId?: string }) {
               </div>
 
               <div>
-                <label className={LABEL} style={{ fontSize: "12px" }}>Short Description</label>
-                <textarea
-                  rows={2}
-                  value={shortDescription}
-                  onChange={(e) => setShortDescription(e.target.value)}
-                  placeholder="One-line summary shown in listings..."
-                  className={INPUT + " resize-none"}
-                  style={{ fontSize: "13px" }}
-                />
-              </div>
-
-              <div>
                 <label className={LABEL} style={{ fontSize: "12px" }}>Full Description</label>
                 <textarea
                   rows={4}
@@ -473,7 +459,7 @@ export function ProductForm({ productId }: { productId?: string }) {
             >
               <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
               <span className="text-foreground">
-                Leave empty for a simple product. A variant needs size, color, SKU and price to be saved.
+                Leave empty for a simple product. A variant needs size, color and price (SKU is generated automatically) to be saved.
               </span>
             </div>
 
@@ -531,17 +517,6 @@ export function ProductForm({ productId }: { productId?: string }) {
                       </div>
                     </div>
 
-                    <div>
-                      <label className={LABEL} style={{ fontSize: "11px" }}>SKU</label>
-                      <input
-                        type="text"
-                        value={v.sku}
-                        onChange={(e) => updateVariant(v.key, "sku", e.target.value)}
-                        placeholder="e.g. TEE-S-BLK"
-                        className={INPUT + " font-mono"}
-                        style={{ fontSize: "12px" }}
-                      />
-                    </div>
 
                     <div>
                       <label className={LABEL} style={{ fontSize: "11px" }}>Price</label>

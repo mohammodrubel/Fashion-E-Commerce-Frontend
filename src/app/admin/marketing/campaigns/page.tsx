@@ -15,63 +15,7 @@ interface Campaign {
   color: string
 }
 
-const campaigns: Campaign[] = [
-  {
-    name: "Summer Glow Sale",
-    type: "Seasonal Discount",
-    dateRange: "Jun 1 – Aug 31, 2024",
-    budget: "$2,000",
-    spent: "$1,840",
-    conversions: 234,
-    revenue: "$12,400",
-    status: "Active",
-    color: "var(--primary)",
-  },
-  {
-    name: "Welcome Series",
-    type: "New Customer",
-    dateRange: "Jan 1 – Dec 31, 2024",
-    budget: "$1,500",
-    spent: "$920",
-    conversions: 112,
-    revenue: "$6,720",
-    status: "Active",
-    color: "#7C3D52",
-  },
-  {
-    name: "VIP Early Access",
-    type: "Loyalty Reward",
-    dateRange: "Oct 1 – Oct 31, 2024",
-    budget: "$800",
-    spent: "$480",
-    conversions: 56,
-    revenue: "$4,200",
-    status: "Active",
-    color: "#9D5B6B",
-  },
-  {
-    name: "Black Friday Blitz",
-    type: "Flash Event",
-    dateRange: "Nov 29 – Nov 30, 2024",
-    budget: "$5,000",
-    spent: "$0",
-    conversions: 0,
-    revenue: "$0",
-    status: "Scheduled",
-    color: "#1F2937",
-  },
-  {
-    name: "Spring Refresh",
-    type: "Seasonal Discount",
-    dateRange: "Mar 1 – May 31, 2024",
-    budget: "$1,200",
-    spent: "$1,190",
-    conversions: 189,
-    revenue: "$9,840",
-    status: "Ended",
-    color: "#6B7280",
-  },
-]
+const campaigns: Campaign[] = []
 
 const statusConfig: Record<CampaignStatus, { bg: string; color: string; dot: string }> = {
   Active: { bg: "#DCFCE7", color: "#166534", dot: "#22C55E" },
@@ -114,10 +58,10 @@ export default function CampaignsPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Campaigns", value: "5" },
-          { label: "Active Now", value: "3" },
-          { label: "Total Revenue", value: "$33,160" },
-          { label: "Avg Conversion", value: "4.8%" },
+          { label: "Total Campaigns", value: "0" },
+          { label: "Active Now", value: "0" },
+          { label: "Total Revenue", value: "$0" },
+          { label: "Avg Conversion", value: "0.0%" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

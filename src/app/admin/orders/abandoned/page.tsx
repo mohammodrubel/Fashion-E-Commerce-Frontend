@@ -1,68 +1,7 @@
 import { ShoppingCart, Mail, Clock } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const carts = [
-  {
-    cartId: "CART-7841",
-    customer: "Guest User",
-    email: "guest_a7k2@email.com",
-    avatar: "G",
-    products: ["Classic White Tee", "Straight-Leg Jeans"],
-    cartValue: "$128.00",
-    abandonedAt: "Oct 24, 2026 · 8:14 AM",
-    recoveryStatus: "Not Sent",
-  },
-  {
-    cartId: "CART-7835",
-    customer: "Rebecca Ford",
-    email: "rebecca.f@email.com",
-    avatar: "R",
-    products: ["Silk Wrap Blouse", "Leather Belt", "Tote Bag"],
-    cartValue: "$234.50",
-    abandonedAt: "Oct 23, 2026 · 7:02 PM",
-    recoveryStatus: "Email Sent",
-  },
-  {
-    cartId: "CART-7829",
-    customer: "Guest User",
-    email: "guest_m9q1@email.com",
-    avatar: "G",
-    products: ["Knit Cardigan (S)"],
-    cartValue: "$59.00",
-    abandonedAt: "Oct 23, 2026 · 3:45 PM",
-    recoveryStatus: "Not Sent",
-  },
-  {
-    cartId: "CART-7822",
-    customer: "Dylan Reed",
-    email: "dylan.r@email.com",
-    avatar: "D",
-    products: ["Chino Trousers", "Oxford Shirt", "Canvas Sneakers"],
-    cartValue: "$197.00",
-    abandonedAt: "Oct 22, 2026 · 11:30 AM",
-    recoveryStatus: "Recovered",
-  },
-  {
-    cartId: "CART-7815",
-    customer: "Guest User",
-    email: "guest_p3x8@email.com",
-    avatar: "G",
-    products: ["Summer Floral Dress"],
-    cartValue: "$72.00",
-    abandonedAt: "Oct 22, 2026 · 9:00 AM",
-    recoveryStatus: "Email Sent",
-  },
-  {
-    cartId: "CART-7810",
-    customer: "Fiona Grant",
-    email: "fiona.g@email.com",
-    avatar: "F",
-    products: ["Cashmere Scarf", "Wool Coat"],
-    cartValue: "$385.00",
-    abandonedAt: "Oct 21, 2026 · 6:55 PM",
-    recoveryStatus: "Not Sent",
-  },
-]
+const carts: { cartId: string; customer: string; email: string; avatar: string; products: string[]; cartValue: string; abandonedAt: string; recoveryStatus: string; }[] = []
 
 const recoveryStyles: Record<string, string> = {
   "Not Sent":  "bg-gray-100 text-gray-600",

@@ -15,52 +15,7 @@ interface UpsellRule {
   status: "Active" | "Inactive"
 }
 
-const rules: UpsellRule[] = [
-  {
-    triggerProduct: "Floral Wrap Midi Dress",
-    triggerCategory: "Dresses",
-    suggestedProducts: ["Strappy Heeled Sandals", "Woven Leather Belt", "Linen Tote Bag"],
-    ruleType: "Cross-sell",
-    placement: "Product Page",
-    conversionRate: "14.2%",
-    impressions: 2840,
-    conversions: 403,
-    status: "Active",
-  },
-  {
-    triggerProduct: "Silk Cami Blouse",
-    triggerCategory: "Tops",
-    suggestedProducts: ["Premium Silk Cami (Upgrade)", "Silk Slip Skirt Set"],
-    ruleType: "Upsell",
-    placement: "Cart Page",
-    conversionRate: "9.7%",
-    impressions: 1560,
-    conversions: 151,
-    status: "Active",
-  },
-  {
-    triggerProduct: "Any Knitwear",
-    triggerCategory: "Knitwear",
-    suggestedProducts: ["Ribbed Knit Cardigan", "Cashmere Blend Scarf", "Wide Leg Trousers"],
-    ruleType: "Cross-sell",
-    placement: "Checkout",
-    conversionRate: "11.4%",
-    impressions: 980,
-    conversions: 112,
-    status: "Active",
-  },
-  {
-    triggerProduct: "Classic Trench Coat",
-    triggerCategory: "Outerwear",
-    suggestedProducts: ["Trench Coat Belt (Upgrade)", "Leather Gloves", "Merino Scarf"],
-    ruleType: "Upsell",
-    placement: "Product Page",
-    conversionRate: "7.8%",
-    impressions: 640,
-    conversions: 50,
-    status: "Inactive",
-  },
-]
+const rules: UpsellRule[] = []
 
 const typeConfig: Record<RuleType, { bg: string; color: string }> = {
   Upsell: { bg: "#FDF4FF", color: "#7E22CE" },
@@ -88,10 +43,10 @@ export default function UpsellPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Active Rules", value: "3", sub: "of 4 total" },
-          { label: "Total Impressions", value: "6,020", sub: "this month" },
-          { label: "Total Conversions", value: "716", sub: "11.9% avg rate" },
-          { label: "AOV Uplift", value: "+$18.40", sub: "vs no recommendation" },
+          { label: "Active Rules", value: "0", sub: "of 0 total" },
+          { label: "Total Impressions", value: "0", sub: "this month" },
+          { label: "Total Conversions", value: "0", sub: "0.0% avg rate" },
+          { label: "AOV Uplift", value: "+$0.00", sub: "vs no recommendation" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

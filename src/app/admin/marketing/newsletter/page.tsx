@@ -11,16 +11,7 @@ interface Subscriber {
   status: SubStatus
 }
 
-const subscribers: Subscriber[] = [
-  { email: "olivia.h@gmail.com", name: "Olivia Hartmann", source: "Checkout", subscribedDate: "Oct 15, 2024", status: "Subscribed" },
-  { email: "marcus.chen@email.com", name: "Marcus Chen", source: "Popup", subscribedDate: "Oct 18, 2024", status: "Subscribed" },
-  { email: "priya.nair@work.com", name: "Priya Nair", source: "Footer Form", subscribedDate: "Sep 22, 2024", status: "Subscribed" },
-  { email: "sophie.l@gmail.com", name: "Sophie Laurent", source: "Account Registration", subscribedDate: "Sep 10, 2024", status: "Subscribed" },
-  { email: "aisha.k@email.com", name: "Aisha Kamara", source: "Popup", subscribedDate: "Aug 30, 2024", status: "Subscribed" },
-  { email: "noah.l@email.com", name: "Noah Lindqvist", source: "Footer Form", subscribedDate: "Aug 05, 2024", status: "Unsubscribed" },
-  { email: "yuki.t@gmail.com", name: "Yuki Tanaka", source: "Checkout", subscribedDate: "Jul 19, 2024", status: "Subscribed" },
-  { email: "daniel.f@email.com", name: "Daniel Ferreira", source: "Instagram", subscribedDate: "Jul 01, 2024", status: "Unsubscribed" },
-]
+const subscribers: Subscriber[] = []
 
 const sourceColors: Record<string, { bg: string; color: string }> = {
   Checkout: { bg: "#DCFCE7", color: "#166534" },
@@ -51,10 +42,10 @@ export default function NewsletterPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Subscribers", value: "8,432", sub: "all time", icon: Users, color: "var(--primary)", bg: "#FAF0F2" },
-          { label: "Active", value: "7,891", sub: "receiving emails", icon: UserCheck, color: "#166534", bg: "#F0FDF4" },
-          { label: "Unsubscribed", value: "541", sub: "6.4% unsubscribe rate", icon: UserMinus, color: "#991B1B", bg: "#FEF2F2" },
-          { label: "Growth This Month", value: "+124", sub: "new subscribers", icon: Users, color: "#1D4ED8", bg: "#EFF6FF" },
+          { label: "Total Subscribers", value: "0", sub: "all time", icon: Users, color: "var(--primary)", bg: "#FAF0F2" },
+          { label: "Active", value: "0", sub: "receiving emails", icon: UserCheck, color: "#166534", bg: "#F0FDF4" },
+          { label: "Unsubscribed", value: "0", sub: "0.0% unsubscribe rate", icon: UserMinus, color: "#991B1B", bg: "#FEF2F2" },
+          { label: "Growth This Month", value: "+0", sub: "new subscribers", icon: Users, color: "#1D4ED8", bg: "#EFF6FF" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">
@@ -76,11 +67,11 @@ export default function NewsletterPage() {
         <p className="font-medium text-foreground mb-4" style={{ fontSize: "14px" }}>Subscribers by Source</p>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {[
-            { source: "Checkout", count: 3120, pct: 37 },
-            { source: "Popup", count: 2480, pct: 29 },
-            { source: "Footer Form", count: 1340, pct: 16 },
-            { source: "Acct Registration", count: 980, pct: 12 },
-            { source: "Social Media", count: 512, pct: 6 },
+            { source: "Checkout", count: 0, pct: 0 },
+            { source: "Popup", count: 0, pct: 0 },
+            { source: "Footer Form", count: 0, pct: 0 },
+            { source: "Acct Registration", count: 0, pct: 0 },
+            { source: "Social Media", count: 0, pct: 0 },
           ].map((s) => (
             <div key={s.source} className="text-center">
               <div

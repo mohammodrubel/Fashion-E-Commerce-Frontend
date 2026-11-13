@@ -1,14 +1,7 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { Tag, Download, Percent, TrendingDown } from "lucide-react"
 
-const coupons = [
-  { code: "WELCOME20", type: "Percentage", discount: "20%", uses: 84, totalDiscount: "$3,192.00", avgOrder: "$189.80", revenueImpact: "-2.2%" },
-  { code: "SUMMER15", type: "Percentage", discount: "15%", uses: 67, totalDiscount: "$2,415.00", avgOrder: "$240.00", revenueImpact: "-1.7%" },
-  { code: "FLASH50", type: "Fixed", discount: "$50", uses: 42, totalDiscount: "$2,100.00", avgOrder: "$198.40", revenueImpact: "-1.5%" },
-  { code: "VIP25", type: "Percentage", discount: "25%", uses: 38, totalDiscount: "$2,470.00", avgOrder: "$260.00", revenueImpact: "-1.7%" },
-  { code: "FREESHIP", type: "Shipping", discount: "Free Ship", uses: 61, totalDiscount: "$1,830.00", avgOrder: "$124.00", revenueImpact: "-1.3%" },
-  { code: "LOYAL10", type: "Percentage", discount: "10%", uses: 32, totalDiscount: "$833.00", avgOrder: "$260.60", revenueImpact: "-0.6%" },
-]
+const coupons: { code: string; type: string; discount: string; uses: number; totalDiscount: string; avgOrder: string; revenueImpact: string; }[] = []
 
 export default function DiscountsReportPage() {
   return (

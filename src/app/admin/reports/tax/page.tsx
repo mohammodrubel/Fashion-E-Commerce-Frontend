@@ -2,12 +2,12 @@ import { PageHeader } from "@/components/admin/page-header"
 import { Download, Receipt } from "lucide-react"
 
 const taxData = [
-  { month: "May 2024", taxableSales: "$14,980", taxRate: "8.5%", taxCollected: "$1,273.30", taxRefunded: "$42.20", netTax: "$1,231.10" },
-  { month: "June 2024", taxableSales: "$16,240", taxRate: "8.5%", taxCollected: "$1,380.40", taxRefunded: "$31.50", netTax: "$1,348.90" },
-  { month: "July 2024", taxableSales: "$14,380", taxRate: "8.5%", taxCollected: "$1,222.30", taxRefunded: "$28.70", netTax: "$1,193.60" },
-  { month: "August 2024", taxableSales: "$15,720", taxRate: "8.5%", taxCollected: "$1,336.20", taxRefunded: "$33.40", netTax: "$1,302.80" },
-  { month: "September 2024", taxableSales: "$13,640", taxRate: "8.5%", taxCollected: "$1,159.40", taxRefunded: "$27.10", netTax: "$1,132.30" },
-  { month: "October 2024", taxableSales: "$12,460", taxRate: "8.5%", taxCollected: "$1,059.10", taxRefunded: "$24.80", netTax: "$1,034.30" },
+  { month: "May 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
+  { month: "June 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
+  { month: "July 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
+  { month: "August 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
+  { month: "September 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
+  { month: "October 2024", taxableSales: "$0", taxRate: "0.0%", taxCollected: "$0.00", taxRefunded: "$0.00", netTax: "$0.00" },
 ]
 
 export default function TaxReportPage() {

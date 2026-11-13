@@ -10,13 +10,7 @@ interface BlogCategory {
   color: string
 }
 
-const categories: BlogCategory[] = [
-  { name: "Style Tips", slug: "style-tips", description: "Outfit ideas, styling advice, and everyday fashion guidance", postsCount: 18, status: "Active", color: "var(--primary)" },
-  { name: "Trends", slug: "trends", description: "What's hot right now — seasonal and runway-inspired looks", postsCount: 14, status: "Active", color: "#7C3D52" },
-  { name: "Behind The Brand", slug: "behind-the-brand", description: "Our story, team highlights, and brand values", postsCount: 6, status: "Active", color: "#166534" },
-  { name: "Sustainability", slug: "sustainability", description: "Our commitment to ethical fashion and the environment", postsCount: 8, status: "Active", color: "#065F46" },
-  { name: "How To", slug: "how-to", description: "Practical guides — care, repair, and wardrobe organisation", postsCount: 10, status: "Active", color: "#1D4ED8" },
-]
+const categories: BlogCategory[] = []
 
 export default function BlogCategoriesPage() {
   return (
@@ -39,9 +33,9 @@ export default function BlogCategoriesPage() {
       {/* Quick stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Categories", value: "5" },
-          { label: "Total Posts", value: "56" },
-          { label: "Avg Posts / Category", value: "11.2" },
+          { label: "Total Categories", value: "0" },
+          { label: "Total Posts", value: "0" },
+          { label: "Avg Posts / Category", value: "0.0" },
           { label: "Most Popular", value: "Style Tips" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">

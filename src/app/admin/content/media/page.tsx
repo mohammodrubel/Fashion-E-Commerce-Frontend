@@ -13,20 +13,7 @@ interface MediaItem {
   colorBg: string
 }
 
-const mediaItems: MediaItem[] = [
-  { id: 1, filename: "hero-autumn-2024.jpg", type: "image", size: "2.4 MB", dimensions: "2400×1200", uploadedAt: "Oct 22", colorBg: "var(--primary)" },
-  { id: 2, filename: "floral-dress-front.jpg", type: "image", size: "1.1 MB", dimensions: "1200×1600", uploadedAt: "Oct 21", colorBg: "#7C3D52" },
-  { id: 3, filename: "blazer-lifestyle.jpg", type: "image", size: "1.8 MB", dimensions: "1600×1200", uploadedAt: "Oct 20", colorBg: "#9D5B6B" },
-  { id: 4, filename: "autumn-lookbook.mp4", type: "video", size: "42 MB", uploadedAt: "Oct 19", colorBg: "#1F2937" },
-  { id: 5, filename: "knitwear-detail.jpg", type: "image", size: "980 KB", dimensions: "1200×1200", uploadedAt: "Oct 18", colorBg: "#C4849A" },
-  { id: 6, filename: "brand-guidelines.pdf", type: "document", size: "3.2 MB", uploadedAt: "Oct 15", colorBg: "#4B5563" },
-  { id: 7, filename: "velvet-collection.jpg", type: "image", size: "1.4 MB", dimensions: "1600×900", uploadedAt: "Oct 14", colorBg: "#4C1D95" },
-  { id: 8, filename: "jeans-product-shot.jpg", type: "image", size: "880 KB", dimensions: "1200×1600", uploadedAt: "Oct 13", colorBg: "#1D4ED8" },
-  { id: 9, filename: "lookbook-oct-2024.pdf", type: "document", size: "8.4 MB", uploadedAt: "Oct 12", colorBg: "#166534" },
-  { id: 10, filename: "trench-coat-back.jpg", type: "image", size: "1.2 MB", dimensions: "1200×1600", uploadedAt: "Oct 11", colorBg: "#374151" },
-  { id: 11, filename: "silk-blouse-close.jpg", type: "image", size: "760 KB", dimensions: "1200×1200", uploadedAt: "Oct 10", colorBg: "#9A3412" },
-  { id: 12, filename: "brand-promo.mp4", type: "video", size: "28 MB", uploadedAt: "Oct 08", colorBg: "#065F46" },
-]
+const mediaItems: MediaItem[] = []
 
 const typeIcon = {
   image: Image,

@@ -7,56 +7,56 @@ const reportTypes = [
     description: "Total revenue, orders, and trends for selected period",
     icon: "📊",
     formats: ["CSV", "PDF", "Excel"],
-    lastExported: "Oct 18, 2024",
+    lastExported: "—",
   },
   {
     name: "Sales by Product",
     description: "Units sold and revenue breakdown per product SKU",
     icon: "📦",
     formats: ["CSV", "Excel"],
-    lastExported: "Oct 15, 2024",
+    lastExported: "—",
   },
   {
     name: "Customer Data",
     description: "Customer list with purchase history and loyalty tiers",
     icon: "👤",
     formats: ["CSV", "PDF"],
-    lastExported: "Oct 10, 2024",
+    lastExported: "—",
   },
   {
     name: "Tax Report",
     description: "Taxable sales, collected amounts, and net tax by month",
     icon: "🧾",
     formats: ["CSV", "PDF", "Excel"],
-    lastExported: "Oct 1, 2024",
+    lastExported: "—",
   },
   {
     name: "Inventory Report",
     description: "Current stock levels, values, and turnover metrics",
     icon: "🏭",
     formats: ["CSV", "Excel"],
-    lastExported: "Oct 20, 2024",
+    lastExported: "—",
   },
   {
     name: "Orders Report",
     description: "All orders with status, products, and customer info",
     icon: "🛍️",
     formats: ["CSV", "PDF", "Excel"],
-    lastExported: "Oct 19, 2024",
+    lastExported: "—",
   },
   {
     name: "Refund Report",
     description: "Refunded orders with amounts and reasons",
     icon: "↩️",
     formats: ["CSV", "PDF"],
-    lastExported: "Oct 5, 2024",
+    lastExported: "—",
   },
   {
     name: "Marketing Performance",
     description: "Campaign ROI, ROAS, and conversion data",
     icon: "📣",
     formats: ["CSV", "Excel"],
-    lastExported: "Sep 30, 2024",
+    lastExported: "—",
   },
 ]
 
@@ -91,7 +91,7 @@ export default function ExportReportsPage() {
           <input
             type="text"
             readOnly
-            defaultValue="Oct 1, 2024"
+            defaultValue=""
             className="border border-border/50 rounded-lg px-3 py-1.5 bg-muted/20 text-foreground"
             style={{ fontSize: "13px", width: "120px" }}
           />
@@ -99,7 +99,7 @@ export default function ExportReportsPage() {
           <input
             type="text"
             readOnly
-            defaultValue="Oct 24, 2024"
+            defaultValue=""
             className="border border-border/50 rounded-lg px-3 py-1.5 bg-muted/20 text-foreground"
             style={{ fontSize: "13px", width: "120px" }}
           />
@@ -171,11 +171,7 @@ export default function ExportReportsPage() {
           </button>
         </div>
         <div className="divide-y divide-border/30">
-          {[
-            { report: "Sales Overview", frequency: "Weekly", day: "Every Monday", recipients: "admin@yourstore.com", format: "PDF" },
-            { report: "Tax Report", frequency: "Monthly", day: "1st of month", recipients: "accountant@firm.com", format: "CSV" },
-            { report: "Inventory Report", frequency: "Daily", day: "Every day at 7am", recipients: "warehouse@yourstore.com", format: "Excel" },
-          ].map(s => (
+          {([] as { report: string; frequency: string; day: string; recipients: string; format: string }[]).map(s => (
             <div key={s.report} className="px-6 py-4 flex items-center justify-between hover:bg-muted/20 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#20212715" }}>

@@ -20,14 +20,7 @@ interface AdjustmentEntry {
 
 // ─── Static data ─────────────────────────────────────────────────────────────
 
-const variantOptions = [
-  { value: "CLT-S-WHT",    label: "CLT-S-WHT — Classic White Tee S/White · Stock: 45" },
-  { value: "SKBLOU-M-BEI", label: "SKBLOU-M-BEI — Silk Blouse M/Beige · Stock: 12" },
-  { value: "DNJKT-L-IND",  label: "DNJKT-L-IND — Denim Jacket L/Indigo · Stock: 8" },
-  { value: "FWDRS-S-FLR",  label: "FWDRS-S-FLR — Floral Wrap Dress S/Floral · Stock: 27" },
-  { value: "RIBKN-M-CRM",  label: "RIBKN-M-CRM — Ribbed Knit Sweater M/Cream · Stock: 33" },
-  { value: "HRSJ-30-BLK",  label: "HRSJ-30-BLK — High-Rise Skinny Jeans 30/Black · Stock: 19" },
-]
+const variantOptions: { value: string; label: string }[] = []
 
 const typeOptions: { value: MovementType; label: string }[] = [
   { value: "RESTOCK",      label: "Add Stock (Restock)" },
@@ -36,16 +29,7 @@ const typeOptions: { value: MovementType; label: string }[] = [
   { value: "CANCELLATION", label: "Order Cancellation" },
 ]
 
-const historyData: AdjustmentEntry[] = [
-  { date: "Oct 24, 2026", productName: "Classic White Tee",       sku: "CLT-S-WHT",    type: "RESTOCK",      quantity: +50,  note: "PO #2045 received from supplier",     recordedBy: "Admin" },
-  { date: "Oct 23, 2026", productName: "Silk Blouse",             sku: "SKBLOU-M-BEI", type: "DAMAGE",       quantity: -3,   note: "Water damage in warehouse, wrote off", recordedBy: "K. Smith" },
-  { date: "Oct 22, 2026", productName: "Ribbed Knit Sweater",     sku: "RIBKN-M-CRM",  type: "ADJUSTMENT",   quantity: -1,   note: "Physical count correction",            recordedBy: "Admin" },
-  { date: "Oct 21, 2026", productName: "High-Rise Skinny Jeans",  sku: "HRSJ-30-BLK",  type: "RETURN",       quantity: +4,   note: "Customer returns — Orders #4498-#4501",recordedBy: "L. Torres" },
-  { date: "Oct 20, 2026", productName: "Floral Wrap Dress",       sku: "FWDRS-S-FLR",  type: "CANCELLATION", quantity: +2,   note: "Orders #4490, #4491 cancelled",        recordedBy: "System" },
-  { date: "Oct 19, 2026", productName: "Classic White Tee",       sku: "CLT-S-WHT",    type: "SALE",         quantity: -6,   note: "Daily sales batch",                    recordedBy: "System" },
-  { date: "Oct 18, 2026", productName: "Denim Jacket",            sku: "DNJKT-L-IND",  type: "RESTOCK",      quantity: +20,  note: "PO #2041 partial delivery",            recordedBy: "J. Doe" },
-  { date: "Oct 17, 2026", productName: "Silk Blouse",             sku: "SKBLOU-M-BEI", type: "ADJUSTMENT",   quantity: +2,   note: "Found in unchecked returns bin",       recordedBy: "K. Smith" },
-]
+const historyData: AdjustmentEntry[] = []
 
 // ─── Type styling config ──────────────────────────────────────────────────────
 

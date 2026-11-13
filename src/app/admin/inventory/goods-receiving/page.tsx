@@ -12,13 +12,7 @@ interface Receipt {
   receivedBy: string
 }
 
-const receipts: Receipt[] = [
-  { date: "Oct 23, 2026", po: "PO-2041", supplier: "Silk Supply Co.", itemsReceived: 148, itemsOrdered: 150, discrepancy: "Short", notes: "2 units of TOP-SCB-004 not included, back-ordered", receivedBy: "J. Doe" },
-  { date: "Oct 19, 2026", po: "PO-2038", supplier: "FabricHouse EU", itemsReceived: 200, itemsOrdered: 200, discrepancy: "None", notes: "Full shipment received in good condition", receivedBy: "K. Smith" },
-  { date: "Oct 14, 2026", po: "PO-2036", supplier: "Denim Works USA", itemsReceived: 60, itemsOrdered: 60, discrepancy: "None", notes: "", receivedBy: "L. Torres" },
-  { date: "Oct 8, 2026", po: "PO-2034", supplier: "Nordic Knits Ltd.", itemsReceived: 45, itemsOrdered: 40, discrepancy: "Over", notes: "5 extra units of KN-RIB-006 included (accepted)", receivedBy: "J. Doe" },
-  { date: "Oct 2, 2026", po: "PO-2032", supplier: "LeatherCraft Co.", itemsReceived: 52, itemsOrdered: 55, discrepancy: "Damaged", notes: "3 units arrived damaged (AC-LBB-022) — filed claim", receivedBy: "K. Smith" },
-]
+const receipts: Receipt[] = []
 
 const discrepancyConfig = {
   None: { className: "bg-emerald-50 text-emerald-700", icon: CheckCircle },
@@ -51,10 +45,6 @@ export default function GoodsReceivingPage() {
             <div className="relative">
               <select className="w-full px-3 py-2 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground focus:outline-none focus:border-primary/40 appearance-none" style={{ fontSize: "13px" }}>
                 <option>Select PO...</option>
-                <option>PO-2042 — FabricHouse EU ($6,250)</option>
-                <option>PO-2043 — Nordic Knits Ltd. ($2,100)</option>
-                <option>PO-2044 — Denim Works USA ($1,550)</option>
-                <option>PO-2045 — LeatherCraft Co. ($4,800)</option>
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" strokeWidth={1.5} />
             </div>
@@ -77,11 +67,7 @@ export default function GoodsReceivingPage() {
             <span>Received Qty</span>
             <span>Condition</span>
           </div>
-          {[
-            { product: "Oversized Linen Blazer", sku: "TOP-LBZ-002", ordered: 40 },
-            { product: "Wide Leg Linen Trousers", sku: "PT-WLL-005", ordered: 30 },
-            { product: "Floral Wrap Midi Dress", sku: "DR-FLW-001", ordered: 50 },
-          ].map((item, i) => (
+          {([] as { product: string; sku: string; ordered: number }[]).map((item, i) => (
             <div
               key={item.sku}
               className="grid grid-cols-4 gap-0 px-4 py-3 items-center"

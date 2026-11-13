@@ -12,16 +12,7 @@ interface SitePage {
   wordCount: number
 }
 
-const pages: SitePage[] = [
-  { title: "About Us", slug: "/about", lastUpdated: "Oct 15, 2024", status: "Published", author: "Admin", wordCount: 842 },
-  { title: "Contact Us", slug: "/contact", lastUpdated: "Sep 28, 2024", status: "Published", author: "Admin", wordCount: 310 },
-  { title: "Privacy Policy", slug: "/privacy", lastUpdated: "Aug 01, 2024", status: "Published", author: "Legal", wordCount: 2840 },
-  { title: "Terms of Service", slug: "/terms", lastUpdated: "Aug 01, 2024", status: "Published", author: "Legal", wordCount: 3200 },
-  { title: "FAQ", slug: "/faq", lastUpdated: "Oct 20, 2024", status: "Published", author: "Support", wordCount: 1240 },
-  { title: "Returns & Exchanges", slug: "/returns", lastUpdated: "Oct 10, 2024", status: "Published", author: "Support", wordCount: 680 },
-  { title: "Shipping Information", slug: "/shipping", lastUpdated: "Oct 10, 2024", status: "Published", author: "Support", wordCount: 520 },
-  { title: "Size Guide", slug: "/size-guide", lastUpdated: "Sep 05, 2024", status: "Published", author: "Merch", wordCount: 960 },
-]
+const pages: SitePage[] = []
 
 export default function WebsitePagesPage() {
   return (

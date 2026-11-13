@@ -1,41 +1,7 @@
 import { XCircle, RotateCcw } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  {
-    id: "#5007",
-    customer: "Sophia Taylor",
-    avatar: "S",
-    date: "Oct 21, 2026",
-    items: 1,
-    total: "$39.00",
-    payment: "Credit Card",
-    cancelReason: "Customer requested cancellation",
-    cancelledAt: "Oct 21, 5:00 PM",
-  },
-  {
-    id: "#5036",
-    customer: "Daniel Lewis",
-    avatar: "D",
-    date: "Oct 20, 2026",
-    items: 2,
-    total: "$87.00",
-    payment: "PayPal",
-    cancelReason: "Item out of stock",
-    cancelledAt: "Oct 20, 2:30 PM",
-  },
-  {
-    id: "#5037",
-    customer: "Victoria Hall",
-    avatar: "V",
-    date: "Oct 19, 2026",
-    items: 3,
-    total: "$152.50",
-    payment: "Stripe",
-    cancelReason: "Payment declined after hold",
-    cancelledAt: "Oct 19, 11:15 AM",
-  },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; cancelReason: string; cancelledAt: string; }[] = []
 
 export default function CancelledOrdersPage() {
   return (

@@ -1,52 +1,7 @@
 import { RotateCcw, DollarSign } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  {
-    id: "#5009",
-    customer: "Ava Thomas",
-    avatar: "A",
-    date: "Oct 10, 2026",
-    items: 2,
-    total: "$88.00",
-    returnReason: "Wrong size received",
-    condition: "Good",
-    returnedAt: "Oct 20, 2026",
-  },
-  {
-    id: "#5038",
-    customer: "Ryan Walker",
-    avatar: "R",
-    date: "Oct 8, 2026",
-    items: 1,
-    total: "$65.00",
-    returnReason: "Item defective",
-    condition: "Damaged",
-    returnedAt: "Oct 18, 2026",
-  },
-  {
-    id: "#5039",
-    customer: "Nora Green",
-    avatar: "N",
-    date: "Oct 5, 2026",
-    items: 3,
-    total: "$199.50",
-    returnReason: "Didn't match description",
-    condition: "Good",
-    returnedAt: "Oct 15, 2026",
-  },
-  {
-    id: "#5040",
-    customer: "Caleb Baker",
-    avatar: "C",
-    date: "Oct 3, 2026",
-    items: 1,
-    total: "$49.00",
-    returnReason: "Changed mind",
-    condition: "Excellent",
-    returnedAt: "Oct 13, 2026",
-  },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; returnReason: string; condition: string; returnedAt: string; }[] = []
 
 const conditionColors: Record<string, string> = {
   Excellent: "bg-emerald-50 text-emerald-700",

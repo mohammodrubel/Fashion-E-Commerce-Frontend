@@ -1,61 +1,24 @@
 import { Search, Package, CheckCircle, Truck, MapPin, Clock } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const sampleTracking = {
-  orderId: "#5002",
-  customer: "Michael Chen",
-  tracking: "1Z999AA10123456784",
-  carrier: "UPS",
-  estimatedDelivery: "Oct 27, 2026",
-  currentStatus: "Shipped",
-  destination: "New York, NY 10001",
-  timeline: [
-    {
-      status: "Ordered",
-      label: "Order Placed",
-      description: "Order confirmed and payment processed",
-      date: "Oct 24, 2026",
-      time: "9:32 AM",
-      done: true,
-      active: false,
-    },
-    {
-      status: "Confirmed",
-      label: "Order Confirmed",
-      description: "Order verified and assigned to warehouse",
-      date: "Oct 24, 2026",
-      time: "10:15 AM",
-      done: true,
-      active: false,
-    },
-    {
-      status: "Processing",
-      label: "Packed & Ready",
-      description: "Items picked, packed, and labelled",
-      date: "Oct 24, 2026",
-      time: "2:00 PM",
-      done: true,
-      active: false,
-    },
-    {
-      status: "Shipped",
-      label: "Shipped",
-      description: "Package handed to UPS — in transit",
-      date: "Oct 24, 2026",
-      time: "5:45 PM",
-      done: true,
-      active: true,
-    },
-    {
-      status: "Delivered",
-      label: "Delivered",
-      description: "Package delivered to recipient",
-      date: "Est. Oct 27, 2026",
-      time: "—",
-      done: false,
-      active: false,
-    },
-  ],
+const sampleTracking: {
+  orderId: string
+  customer: string
+  tracking: string
+  carrier: string
+  estimatedDelivery: string
+  currentStatus: string
+  destination: string
+  timeline: { status: string; label: string; description: string; date: string; time: string; done: boolean; active: boolean }[]
+} = {
+  orderId: "",
+  customer: "",
+  tracking: "",
+  carrier: "",
+  estimatedDelivery: "",
+  currentStatus: "",
+  destination: "",
+  timeline: [],
 }
 
 const stepIcon = (status: string) => {

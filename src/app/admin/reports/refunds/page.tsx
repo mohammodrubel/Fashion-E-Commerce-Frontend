@@ -2,12 +2,12 @@ import { PageHeader } from "@/components/admin/page-header"
 import { RefreshCcw, Download, AlertCircle } from "lucide-react"
 
 const refundData = [
-  { month: "May 2024", orders: 194, refunded: 7, refundAmount: "$764.00", rate: "3.6%" },
-  { month: "June 2024", orders: 210, refunded: 8, refundAmount: "$822.00", rate: "3.8%" },
-  { month: "July 2024", orders: 187, refunded: 6, refundAmount: "$612.00", rate: "3.2%" },
-  { month: "August 2024", orders: 203, refunded: 7, refundAmount: "$724.00", rate: "3.4%" },
-  { month: "September 2024", orders: 176, refunded: 6, refundAmount: "$638.00", rate: "3.4%" },
-  { month: "October 2024", orders: 161, refunded: 5, refundAmount: "$332.00", rate: "3.1%" },
+  { month: "May 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
+  { month: "June 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
+  { month: "July 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
+  { month: "August 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
+  { month: "September 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
+  { month: "October 2024", orders: 0, refunded: 0, refundAmount: "$0.00", rate: "0.0%" },
 ]
 
 export default function RefundsReportPage() {

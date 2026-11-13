@@ -15,27 +15,27 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { cn } from "@/lib/utils"
 
 const socialLinks = [
-  { label: "Instagram", icon: Camera, defaultValue: "https://instagram.com/lumastyle" },
-  { label: "Facebook", icon: Globe, defaultValue: "https://facebook.com/lumastyle" },
-  { label: "Twitter / X", icon: XIcon, defaultValue: "https://x.com/lumastyle" },
-  { label: "Website", icon: Link2, defaultValue: "https://www.lumastyle.com" },
+  { label: "Instagram", icon: Camera, defaultValue: "" },
+  { label: "Facebook", icon: Globe, defaultValue: "" },
+  { label: "Twitter / X", icon: XIcon, defaultValue: "" },
+  { label: "Website", icon: Link2, defaultValue: "" },
 ]
 
 type SaveState = "idle" | "saving" | "saved"
 
 export default function StoreInfoPage() {
-  const [storeName, setStoreName] = useState("LumaStyle")
-  const [tagline, setTagline] = useState("Where style meets substance.")
+  const [storeName, setStoreName] = useState("")
+  const [tagline, setTagline] = useState("")
   const [description, setDescription] = useState(
-    "LumaStyle is a curated fashion boutique offering timeless pieces from independent designers. We believe great style starts with quality materials and purposeful design.",
+    "",
   )
-  const [email, setEmail] = useState("hello@lumastyle.com")
-  const [phone, setPhone] = useState("+880 2-55000000")
-  const [address, setAddress] = useState("142 Gulshan Avenue, Dhaka 1212, Bangladesh")
-  const [website, setWebsite] = useState("https://www.lumastyle.com")
-  const [supportEmail, setSupportEmail] = useState("support@lumastyle.com")
-  const [legalName, setLegalName] = useState("LumaStyle Retail Ltd.")
-  const [taxId, setTaxId] = useState("BIN-0012345678")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [address, setAddress] = useState("")
+  const [website, setWebsite] = useState("")
+  const [supportEmail, setSupportEmail] = useState("")
+  const [legalName, setLegalName] = useState("")
+  const [taxId, setTaxId] = useState("")
 
   const [logoPreview, setLogoPreview] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)

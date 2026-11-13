@@ -15,13 +15,7 @@ interface Affiliate {
   joinDate: string
 }
 
-const affiliates: Affiliate[] = [
-  { name: "Zara Style Blog", email: "collab@zarastyle.com", commissionRate: "12%", clicks: 4820, orders: 134, revenue: "$8,420", unpaidBalance: "$1,010", status: "Active", joinDate: "Jan 15, 2024" },
-  { name: "FashionForward", email: "partner@fashionforward.io", commissionRate: "10%", clicks: 3240, orders: 98, revenue: "$5,880", unpaidBalance: "$588", status: "Active", joinDate: "Mar 01, 2024" },
-  { name: "The Style Desk", email: "ads@thestyledesk.co", commissionRate: "8%", clicks: 1890, orders: 45, revenue: "$2,700", unpaidBalance: "$216", status: "Active", joinDate: "May 10, 2024" },
-  { name: "Nina Oliveira (IG)", email: "nina.o@creator.com", commissionRate: "15%", clicks: 2100, orders: 67, revenue: "$4,020", unpaidBalance: "$603", status: "Active", joinDate: "Jun 20, 2024" },
-  { name: "Luxe Lookbook", email: "hello@luxelookbook.com", commissionRate: "10%", clicks: 340, orders: 8, revenue: "$480", unpaidBalance: "$0", status: "Inactive", joinDate: "Aug 05, 2024" },
-]
+const affiliates: Affiliate[] = []
 
 const statusConfig: Record<AffStatus, { bg: string; color: string }> = {
   Active: { bg: "#DCFCE7", color: "#166534" },
@@ -50,10 +44,10 @@ export default function AffiliatePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Active Affiliates", value: "4", sub: "of 5 total", icon: Link, bg: "#FAF0F2", color: "var(--primary)" },
-          { label: "Total Clicks", value: "12,390", sub: "all affiliates", icon: MousePointer, bg: "#EFF6FF", color: "#1D4ED8" },
-          { label: "Total Orders", value: "352", sub: "referred orders", icon: ShoppingBag, bg: "#F0FDF4", color: "#166534" },
-          { label: "Commission Owed", value: "$2,417", sub: "unpaid balance", icon: DollarSign, bg: "#FFF7ED", color: "#9A3412" },
+          { label: "Active Affiliates", value: "0", sub: "of 0 total", icon: Link, bg: "#FAF0F2", color: "var(--primary)" },
+          { label: "Total Clicks", value: "0", sub: "all affiliates", icon: MousePointer, bg: "#EFF6FF", color: "#1D4ED8" },
+          { label: "Total Orders", value: "0", sub: "referred orders", icon: ShoppingBag, bg: "#F0FDF4", color: "#166534" },
+          { label: "Commission Owed", value: "$0", sub: "unpaid balance", icon: DollarSign, bg: "#FFF7ED", color: "#9A3412" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

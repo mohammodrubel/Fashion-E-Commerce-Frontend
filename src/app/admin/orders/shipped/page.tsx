@@ -1,14 +1,7 @@
 import { Truck, CheckCircle } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5002", customer: "Michael Chen",  avatar: "M", date: "Oct 24, 2026", items: 1, total: "$89.00",  tracking: "1Z999AA10123456784", carrier: "UPS",    shippedAt: "Oct 24, 10:00 AM" },
-  { id: "#5024", customer: "Ella Gonzalez", avatar: "E", date: "Oct 22, 2026", items: 3, total: "$178.00", tracking: "9400111899223481390",  carrier: "USPS",   shippedAt: "Oct 23, 9:00 AM" },
-  { id: "#5025", customer: "William Clark", avatar: "W", date: "Oct 21, 2026", items: 2, total: "$112.00", tracking: "7489134889998765432", carrier: "FedEx",  shippedAt: "Oct 22, 2:30 PM" },
-  { id: "#5026", customer: "Aria Lewis",    avatar: "A", date: "Oct 20, 2026", items: 4, total: "$265.00", tracking: "1Z999AA10123456000", carrier: "UPS",    shippedAt: "Oct 21, 11:00 AM" },
-  { id: "#5027", customer: "Sebastian Lee", avatar: "S", date: "Oct 19, 2026", items: 1, total: "$34.00",  tracking: "9400111899223481999", carrier: "USPS",   shippedAt: "Oct 20, 8:45 AM" },
-  { id: "#5028", customer: "Scarlett Adams",avatar: "S", date: "Oct 18, 2026", items: 2, total: "$145.50", tracking: "7489134889998111111", carrier: "FedEx",  shippedAt: "Oct 19, 3:15 PM" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; tracking: string; carrier: string; shippedAt: string; }[] = []
 
 export default function ShippedOrdersPage() {
   return (

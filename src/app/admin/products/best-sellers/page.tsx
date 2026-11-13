@@ -15,21 +15,12 @@ interface BestSeller {
   stock: number
 }
 
-const bestSellers: BestSeller[] = [
-  { rank: 1, name: "Classic Trench Coat", category: "Outerwear", price: "$189.00", unitsSold: 312, revenue: "$58,968", trend: "up", trendValue: "+18%", initials: "TC", color: "#C19A6B", stock: 12 },
-  { rank: 2, name: "Floral Wrap Midi Dress", category: "Dresses", price: "$89.00", unitsSold: 287, revenue: "$25,543", trend: "up", trendValue: "+22%", initials: "FD", color: "#C4967A", stock: 34 },
-  { rank: 3, name: "High-Rise Skinny Jeans", category: "Jeans", price: "$72.00", unitsSold: 241, revenue: "$17,352", trend: "up", trendValue: "+7%", initials: "SJ", color: "#1A3A5C", stock: 52 },
-  { rank: 4, name: "Oversized Linen Blazer", category: "Tops", price: "$124.00", unitsSold: 198, revenue: "$24,552", trend: "flat", trendValue: "0%", initials: "BL", color: "#2D5A8E", stock: 18 },
-  { rank: 5, name: "Ribbed Knit Sweater", category: "Knitwear", price: "$67.00", unitsSold: 176, revenue: "$11,792", trend: "down", trendValue: "-4%", initials: "KS", color: "#8E8680", stock: 0 },
-  { rank: 6, name: "Silk Cami Blouse", category: "Tops", price: "$58.00", unitsSold: 154, revenue: "$8,932", trend: "up", trendValue: "+11%", initials: "CB", color: "#E8B4B8", stock: 7 },
-  { rank: 7, name: "Wide Leg Linen Trousers", category: "Pants", price: "$95.00", unitsSold: 132, revenue: "$12,540", trend: "up", trendValue: "+5%", initials: "WT", color: "#9CAF88", stock: 23 },
-  { rank: 8, name: "Printed Slip Skirt", category: "Skirts", price: "$49.00", unitsSold: 118, revenue: "$5,782", trend: "down", trendValue: "-9%", initials: "SS", color: "#6D1A26", stock: 0 },
-]
+const bestSellers: BestSeller[] = []
 
 const rankColors = ["#F59E0B", "#94A3B8", "#CD7F32"]
 
 export default function BestSellersPage() {
-  const maxUnits = Math.max(...bestSellers.map((p) => p.unitsSold))
+  const maxUnits = Math.max(...bestSellers.map((p) => p.unitsSold), 1)
 
   return (
     <div className="space-y-6">
@@ -46,9 +37,9 @@ export default function BestSellersPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Units Sold", value: "1,618" },
-          { label: "Total Revenue", value: "$165,461" },
-          { label: "Avg per Product", value: "202 units" },
+          { label: "Total Units Sold", value: "0" },
+          { label: "Total Revenue", value: "$0" },
+          { label: "Avg per Product", value: "0 units" },
           { label: "Top Category", value: "Outerwear" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">

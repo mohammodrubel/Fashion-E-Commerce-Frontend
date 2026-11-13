@@ -13,14 +13,7 @@ interface AlertItem {
   since: string
 }
 
-const activeAlerts: AlertItem[] = [
-  { id: "ALT-001", product: "Printed Slip Skirt", sku: "SK-PSK-008", category: "Skirts", current: 0, threshold: 5, severity: "Out of Stock", warehouse: "East Branch", since: "Oct 18, 2026" },
-  { id: "ALT-002", product: "Burgundy Blazer Dress", sku: "DR-BBD-012", category: "Dresses", current: 0, threshold: 5, severity: "Out of Stock", warehouse: "Main Warehouse", since: "Oct 14, 2026" },
-  { id: "ALT-003", product: "Silk Cami Blouse", sku: "TOP-SCB-004", category: "Tops", current: 4, threshold: 10, severity: "Critical", warehouse: "Main Warehouse", since: "Oct 22, 2026" },
-  { id: "ALT-004", product: "Velvet Mini Dress", sku: "DR-VMD-009", category: "Dresses", current: 5, threshold: 8, severity: "Critical", warehouse: "West Branch", since: "Oct 20, 2026" },
-  { id: "ALT-005", product: "Ribbed Knit Sweater", sku: "KN-RIB-006", category: "Knitwear", current: 8, threshold: 10, severity: "Low", warehouse: "Main Warehouse", since: "Oct 19, 2026" },
-  { id: "ALT-006", product: "Satin Slip Midi Skirt", sku: "SK-SSM-018", category: "Skirts", current: 4, threshold: 8, severity: "Low", warehouse: "Main Warehouse", since: "Oct 17, 2026" },
-]
+const activeAlerts: AlertItem[] = []
 
 const severityConfig = {
   "Out of Stock": { className: "bg-red-50 text-red-600 border-red-200", badgeCls: "bg-red-100 text-red-700", icon: XCircle, dot: "#EF4444" },
@@ -28,7 +21,7 @@ const severityConfig = {
   "Low": { className: "bg-amber-50 text-amber-700 border-amber-200", badgeCls: "bg-amber-50 text-amber-700", icon: AlertTriangle, dot: "#F59E0B" },
 }
 
-const categories = ["Dresses", "Tops", "Skirts", "Knitwear", "Pants", "Outerwear", "Accessories", "Footwear"]
+const categories: string[] = []
 
 export default function StockAlertsPage() {
   return (
@@ -81,7 +74,7 @@ export default function StockAlertsPage() {
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
-                      defaultValue={cat === "Dresses" ? 8 : cat === "Tops" ? 10 : cat === "Knitwear" ? 10 : cat === "Skirts" ? 5 : 8}
+                      defaultValue={0}
                       className="w-16 px-2 py-1.5 rounded-lg border border-border/60 bg-[var(--muted)] text-foreground text-center focus:outline-none focus:border-primary/40"
                       style={{ fontSize: "13px" }}
                     />

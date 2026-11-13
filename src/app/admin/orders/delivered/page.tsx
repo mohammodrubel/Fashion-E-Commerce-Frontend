@@ -2,16 +2,7 @@ import Link from "next/link"
 import { CheckCircle, RotateCcw } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5001", customer: "Sarah Johnson",   avatar: "S", date: "Oct 14, 2026", items: 3, total: "$124.00", deliveredAt: "Oct 18, 2026" },
-  { id: "#5029", customer: "Oliver Wilson",   avatar: "O", date: "Oct 13, 2026", items: 1, total: "$59.00",  deliveredAt: "Oct 17, 2026" },
-  { id: "#5030", customer: "Harper Moore",    avatar: "H", date: "Oct 12, 2026", items: 4, total: "$310.00", deliveredAt: "Oct 16, 2026" },
-  { id: "#5031", customer: "Evelyn Jackson",  avatar: "E", date: "Oct 11, 2026", items: 2, total: "$96.50",  deliveredAt: "Oct 15, 2026" },
-  { id: "#5032", customer: "Mason Martin",    avatar: "M", date: "Oct 10, 2026", items: 2, total: "$78.00",  deliveredAt: "Oct 14, 2026" },
-  { id: "#5033", customer: "Luna Garcia",     avatar: "L", date: "Oct 9,  2026", items: 5, total: "$445.00", deliveredAt: "Oct 13, 2026" },
-  { id: "#5034", customer: "Elijah Rodriguez",avatar: "E", date: "Oct 8,  2026", items: 1, total: "$33.00",  deliveredAt: "Oct 12, 2026" },
-  { id: "#5035", customer: "Penelope Hernandez", avatar: "P", date: "Oct 7, 2026", items: 3, total: "$188.00", deliveredAt: "Oct 11, 2026" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; deliveredAt: string; }[] = []
 
 export default function DeliveredOrdersPage() {
   return (

@@ -45,7 +45,6 @@ interface Product {
   id: string
   name: string
   slug: string
-  shortDescription: string | null
   description: string | null
   sku: string | null
   regularPrice: string | number
@@ -284,12 +283,6 @@ export default function ProductDetailsPage() {
             )}
             <span className="text-pdp-price text-foreground">${effectivePrice.toFixed(2)}</span>
           </div>
-
-          {product.shortDescription && (
-            <p className="text-pdp-description text-muted-foreground mt-5 leading-relaxed">
-              {product.shortDescription}
-            </p>
-          )}
 
           <div className="h-px bg-border/60 my-7" />
 

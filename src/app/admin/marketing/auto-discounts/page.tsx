@@ -13,44 +13,7 @@ interface AutoDiscount {
   status: RuleStatus
 }
 
-const rules: AutoDiscount[] = [
-  {
-    name: "Buy 2 Get 10% Off",
-    type: "Cart Quantity",
-    conditions: "Min 2 items in cart",
-    discount: "10% off entire cart",
-    priority: 1,
-    usageCount: 342,
-    status: "Active",
-  },
-  {
-    name: "Free Shipping over $50",
-    type: "Order Threshold",
-    conditions: "Cart subtotal ≥ $50",
-    discount: "Free standard shipping",
-    priority: 2,
-    usageCount: 891,
-    status: "Active",
-  },
-  {
-    name: "Spend $150 Save $20",
-    type: "Order Threshold",
-    conditions: "Cart subtotal ≥ $150",
-    discount: "$20 off order total",
-    priority: 3,
-    usageCount: 156,
-    status: "Active",
-  },
-  {
-    name: "Category Bundle Deal",
-    type: "Category Rule",
-    conditions: "3+ items from Dresses",
-    discount: "15% off Dresses",
-    priority: 4,
-    usageCount: 0,
-    status: "Inactive",
-  },
-]
+const rules: AutoDiscount[] = []
 
 export default function AutoDiscountsPage() {
   return (
@@ -73,10 +36,10 @@ export default function AutoDiscountsPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Rules", value: "4", sub: "defined" },
-          { label: "Active Rules", value: "3", sub: "running now" },
-          { label: "Total Activations", value: "1,389", sub: "all time" },
-          { label: "Revenue Influenced", value: "$8,340", sub: "this month" },
+          { label: "Total Rules", value: "0", sub: "defined" },
+          { label: "Active Rules", value: "0", sub: "running now" },
+          { label: "Total Activations", value: "0", sub: "all time" },
+          { label: "Revenue Influenced", value: "$0", sub: "this month" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

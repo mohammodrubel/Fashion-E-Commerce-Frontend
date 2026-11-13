@@ -1,14 +1,7 @@
 import { FileText, Download } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const invoices = [
-  { id: "INV-2026-001", orderId: "#5001", customer: "Sarah Johnson",    avatar: "S", date: "Oct 18, 2026", amount: "$124.00", status: "Paid" },
-  { id: "INV-2026-002", orderId: "#5002", customer: "Michael Chen",     avatar: "M", date: "Oct 24, 2026", amount: "$89.00",  status: "Paid" },
-  { id: "INV-2026-003", orderId: "#5003", customer: "Emma Wilson",      avatar: "E", date: "Oct 23, 2026", amount: "$312.00", status: "Pending" },
-  { id: "INV-2026-004", orderId: "#5004", customer: "James Brown",      avatar: "J", date: "Oct 23, 2026", amount: "$67.50",  status: "Pending" },
-  { id: "INV-2026-005", orderId: "#5005", customer: "Olivia Davis",     avatar: "O", date: "Oct 22, 2026", amount: "$198.00", status: "Paid" },
-  { id: "INV-2026-006", orderId: "#5007", customer: "Sophia Taylor",    avatar: "S", date: "Oct 21, 2026", amount: "$39.00",  status: "Void" },
-]
+const invoices: { id: string; orderId: string; customer: string; avatar: string; date: string; amount: string; status: string; }[] = []
 
 const statusStyles: Record<string, string> = {
   Paid:    "bg-emerald-50 text-emerald-700",

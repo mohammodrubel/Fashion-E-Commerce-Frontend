@@ -13,14 +13,7 @@ interface GiftCard {
   status: CardStatus
 }
 
-const giftCards: GiftCard[] = [
-  { code: "GC-4829-XKQM", value: "$50.00", balance: "$50.00", customer: "Sarah Mitchell", issuedDate: "Oct 15, 2024", expiry: "Oct 15, 2025", status: "Active" },
-  { code: "GC-7731-BPAZ", value: "$100.00", balance: "$34.50", customer: "James Okafor", issuedDate: "Sep 22, 2024", expiry: "Sep 22, 2025", status: "Active" },
-  { code: "GC-1103-WRVT", value: "$25.00", balance: "$0.00", customer: "Emma Langdon", issuedDate: "Aug 01, 2024", expiry: "Aug 01, 2025", status: "Redeemed" },
-  { code: "GC-9954-HMQE", value: "$75.00", balance: "$75.00", customer: "Priya Nair", issuedDate: "Oct 20, 2024", expiry: "Oct 20, 2025", status: "Active" },
-  { code: "GC-3367-CYTF", value: "$200.00", balance: "$0.00", customer: "Daniel Ferreira", issuedDate: "Jul 10, 2024", expiry: "Jul 10, 2025", status: "Redeemed" },
-  { code: "GC-6648-SNKL", value: "$50.00", balance: "$20.00", customer: "Yuki Tanaka", issuedDate: "Oct 01, 2024", expiry: "Oct 01, 2025", status: "Active" },
-]
+const giftCards: GiftCard[] = []
 
 const statusConfig: Record<CardStatus, { bg: string; color: string }> = {
   Active: { bg: "#DCFCE7", color: "#166534" },
@@ -50,10 +43,10 @@ export default function GiftCardsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Issued", value: "234", sub: "all time", color: "var(--primary)" },
-          { label: "Active Cards", value: "189", sub: "with balance remaining", color: "#166534" },
-          { label: "Redeemed", value: "45", sub: "fully used", color: "#6B7280" },
-          { label: "Outstanding Value", value: "$8,240", sub: "unredeemed balance", color: "#1D4ED8" },
+          { label: "Total Issued", value: "0", sub: "all time", color: "var(--primary)" },
+          { label: "Active Cards", value: "0", sub: "with balance remaining", color: "#166534" },
+          { label: "Redeemed", value: "0", sub: "fully used", color: "#6B7280" },
+          { label: "Outstanding Value", value: "$0", sub: "unredeemed balance", color: "#1D4ED8" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

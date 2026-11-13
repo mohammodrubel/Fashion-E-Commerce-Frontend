@@ -2,15 +2,12 @@
 
 import { useState } from "react"
 import {
-  Search, Trash2, User, MapPin, CreditCard, FileText, Package,
-  Truck, Smartphone, Building2, Plus, X, CheckCircle,
+  Search, Trash2, User, MapPin, FileText, Package,
+  Plus, X, CheckCircle,
 } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
 // ─── Types matching Prisma schema ───────────────────────────────────────────
-
-type PaymentMethod = "COD" | "BKASH" | "NAGAD" | "CARD" | "BANK_TRANSFER"
-type PaymentStatus = "PENDING" | "PAID" | "FAILED"
 
 interface OrderItem {
   id: number
@@ -32,24 +29,9 @@ interface Customer {
 
 // ─── Static data ─────────────────────────────────────────────────────────────
 
-const sampleCustomers: Customer[] = [
-  { id: "u1", name: "Sarah Johnson",  email: "sarah@email.com",   phone: "+880 1711-111111", initials: "SJ" },
-  { id: "u2", name: "Michael Chen",   email: "michael@email.com", phone: "+880 1722-222222", initials: "MC" },
-  { id: "u3", name: "Emma Wilson",    email: "emma@email.com",    phone: "+880 1733-333333", initials: "EW" },
-]
+const sampleCustomers: Customer[] = []
 
-const initialItems: OrderItem[] = [
-  { id: 1, productName: "Classic White Tee", sizeName: "S", colorName: "White", sku: "CLT-S-WHT", unitPrice: 850,  quantity: 2 },
-  { id: 2, productName: "Silk Blouse",        sizeName: "M", colorName: "Beige", sku: "SKBLOU-M-BEI", unitPrice: 2400, quantity: 1 },
-]
-
-const paymentMethods: { value: PaymentMethod; label: string; desc: string; Icon: React.ElementType }[] = [
-  { value: "COD",           label: "COD",           desc: "Cash on Delivery",        Icon: Truck },
-  { value: "BKASH",         label: "BKASH",         desc: "bKash Mobile Banking",    Icon: Smartphone },
-  { value: "NAGAD",         label: "NAGAD",         desc: "Nagad Mobile Banking",    Icon: Smartphone },
-  { value: "CARD",          label: "CARD",          desc: "Credit / Debit Card",     Icon: CreditCard },
-  { value: "BANK_TRANSFER", label: "BANK TRANSFER", desc: "Bank Transfer",           Icon: Building2 },
-]
+const initialItems: OrderItem[] = []
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -88,9 +70,6 @@ export default function CreateOrderPage() {
   const [shippingCost, setShippingCost]       = useState(80)
   const [discount, setDiscount]               = useState(0)
 
-  const [paymentMethod, setPaymentMethod]     = useState<PaymentMethod>("COD")
-  const [paymentStatus, setPaymentStatus]     = useState<PaymentStatus>("PENDING")
-  const [transactionId, setTransactionId]     = useState("")
   const [notes, setNotes]                     = useState("")
 
   // Filtered customers
@@ -296,9 +275,6 @@ export default function CreateOrderPage() {
               <div>
                 <label className={labelCls} style={{ fontSize: "11px" }}>Product</label>
                 <select className="w-full px-2.5 py-2 rounded-lg border border-border/60 bg-white text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none" style={{ fontSize: "12px" }}>
-                  <option>Classic White Tee</option>
-                  <option>Silk Blouse</option>
-                  <option>Denim Jacket</option>
                 </select>
               </div>
               <div>
@@ -529,83 +505,6 @@ export default function CreateOrderPage() {
             </div>
           </div>
 
-          {/* Payment */}
-          <div className="bg-white rounded-xl border border-border/50 p-5">
-            <div className="flex items-center gap-2 mb-4" style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "12px" }}>
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--accent)" }}>
-                <CreditCard className="w-3.5 h-3.5" style={{ color: "var(--primary)" }} strokeWidth={1.5} />
-              </div>
-              <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Payment</h2>
-            </div>
-
-            {/* Payment method radio cards */}
-            <div className="space-y-2 mb-4">
-              {paymentMethods.map(({ value, label, desc, Icon }) => {
-                const selected = paymentMethod === value
-                return (
-                  <label
-                    key={value}
-                    className="flex items-center gap-3 p-2.5 rounded-lg border cursor-pointer transition-colors"
-                    style={{
-                      borderColor: selected ? "var(--primary)" : "#E5E3E0",
-                      backgroundColor: selected ? "#F9F5F6" : "transparent",
-                    }}
-                  >
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      value={value}
-                      checked={selected}
-                      onChange={() => setPaymentMethod(value)}
-                      className="accent-[var(--primary)] shrink-0"
-                    />
-                    <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: selected ? "var(--primary)" : "var(--accent)" }}
-                    >
-                      <Icon
-                        className="w-3.5 h-3.5"
-                        style={{ color: selected ? "#fff" : "var(--primary)" }}
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-foreground" style={{ fontSize: "12px" }}>{label}</p>
-                      <p className="text-muted-foreground truncate" style={{ fontSize: "10px" }}>{desc}</p>
-                    </div>
-                  </label>
-                )
-              })}
-            </div>
-
-            {/* Payment Status */}
-            <div className="mb-3">
-              <label className={labelCls} style={{ fontSize: "12px" }}>Payment Status</label>
-              <select
-                value={paymentStatus}
-                onChange={(e) => setPaymentStatus(e.target.value as PaymentStatus)}
-                className="w-full px-3 py-2.5 rounded-lg border border-border/60 bg-white text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none"
-                style={{ fontSize: "13px" }}
-              >
-                <option value="PENDING">PENDING</option>
-                <option value="PAID">PAID</option>
-                <option value="FAILED">FAILED</option>
-              </select>
-            </div>
-
-            {/* Transaction ID */}
-            <div>
-              <label className={labelCls} style={{ fontSize: "12px" }}>Transaction ID (optional)</label>
-              <input
-                type="text"
-                value={transactionId}
-                onChange={(e) => setTransactionId(e.target.value)}
-                placeholder="e.g. TXN-2026XXXX"
-                className={inputCls}
-                style={{ fontSize: "13px" }}
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>

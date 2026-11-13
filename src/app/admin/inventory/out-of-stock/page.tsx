@@ -11,12 +11,7 @@ interface OutOfStockItem {
   leadDays: number
 }
 
-const outOfStockItems: OutOfStockItem[] = [
-  { product: "Printed Slip Skirt", sku: "SK-PSK-008", category: "Skirts", lastSold: "Oct 18, 2026", demand: "High", supplier: "FabricHouse EU", leadDays: 10 },
-  { product: "Burgundy Blazer Dress", sku: "DR-BBD-012", category: "Dresses", lastSold: "Oct 14, 2026", demand: "High", supplier: "StyleCraft Inc.", leadDays: 14 },
-  { product: "Mesh Panel Bodysuit", sku: "TOP-MPB-019", category: "Tops", lastSold: "Oct 10, 2026", demand: "Medium", supplier: "Trend Studio", leadDays: 7 },
-  { product: "Suede Ankle Boots (Size 7)", sku: "FW-SAB-031", category: "Footwear", lastSold: "Oct 7, 2026", demand: "Low", supplier: "LeatherCraft Co.", leadDays: 21 },
-]
+const outOfStockItems: OutOfStockItem[] = []
 
 const demandConfig = {
   High: "bg-red-50 text-red-600",
@@ -47,9 +42,9 @@ export default function OutOfStockPage() {
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: "Out of Stock", value: "4 items" },
-          { label: "High Demand", value: "2 items" },
-          { label: "Est. Lost Revenue/day", value: "~$340" },
+          { label: "Out of Stock", value: "0 items" },
+          { label: "High Demand", value: "0 items" },
+          { label: "Est. Lost Revenue/day", value: "~$0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

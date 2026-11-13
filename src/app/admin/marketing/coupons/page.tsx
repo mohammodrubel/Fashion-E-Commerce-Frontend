@@ -14,16 +14,7 @@ interface Coupon {
   status: CouponStatus
 }
 
-const coupons: Coupon[] = [
-  { code: "SUMMER20", type: "Percentage", discount: "20%", minOrder: "$50", used: 34, limit: 100, expiry: "Dec 31, 2024", status: "Active" },
-  { code: "WELCOME15", type: "Percentage", discount: "15%", minOrder: "$30", used: 89, limit: 500, expiry: "Jan 31, 2025", status: "Active" },
-  { code: "FLAT10OFF", type: "Fixed", discount: "$10", minOrder: "$60", used: 12, limit: 50, expiry: "Nov 30, 2024", status: "Active" },
-  { code: "VIP25", type: "Percentage", discount: "25%", minOrder: "$100", used: 7, limit: 30, expiry: "Dec 15, 2024", status: "Active" },
-  { code: "FREESHIP", type: "Fixed", discount: "$0", minOrder: "$0", used: 45, limit: 200, expiry: "Dec 31, 2024", status: "Active" },
-  { code: "FLASH30", type: "Percentage", discount: "30%", minOrder: "$80", used: 30, limit: 30, expiry: "Oct 15, 2024", status: "Expired" },
-  { code: "FALL2024", type: "Percentage", discount: "10%", minOrder: "$40", used: 0, limit: 150, expiry: "Dec 01, 2024", status: "Inactive" },
-  { code: "NEWYEAR", type: "Percentage", discount: "12%", minOrder: "$45", used: 0, limit: 300, expiry: "Jan 15, 2025", status: "Inactive" },
-]
+const coupons: Coupon[] = []
 
 const statusConfig: Record<CouponStatus, { bg: string; color: string }> = {
   Active: { bg: "#DCFCE7", color: "#166534" },
@@ -52,10 +43,10 @@ export default function CouponsPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Coupons", value: "8", sub: "across all types" },
-          { label: "Active", value: "5", sub: "currently valid" },
-          { label: "Total Uses", value: "217", sub: "this month" },
-          { label: "Revenue Influenced", value: "$4,820", sub: "from coupon orders" },
+          { label: "Total Coupons", value: "0", sub: "across all types" },
+          { label: "Active", value: "0", sub: "currently valid" },
+          { label: "Total Uses", value: "0", sub: "this month" },
+          { label: "Revenue Influenced", value: "$0", sub: "from coupon orders" },
         ].map((card) => (
           <div key={card.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{card.label}</p>

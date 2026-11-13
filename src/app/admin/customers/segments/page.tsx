@@ -14,68 +14,7 @@ interface Segment {
   trendDir: "up" | "down" | "neutral"
 }
 
-const segments: Segment[] = [
-  {
-    id: "SEG001",
-    name: "High Value",
-    description: "Customers with lifetime spend over $2,000 and at least 10 orders",
-    rule: "lifetime_spend > $2,000 AND total_orders >= 10",
-    count: 142,
-    lastUpdated: "2 hours ago",
-    icon: TrendingUp,
-    color: "#202127",
-    trend: "+8 this week",
-    trendDir: "up",
-  },
-  {
-    id: "SEG002",
-    name: "Inactive 90d",
-    description: "Customers who haven't placed an order in the last 90 days",
-    rule: "last_order_date < NOW() - 90 days",
-    count: 317,
-    lastUpdated: "6 hours ago",
-    icon: Clock,
-    color: "#D97706",
-    trend: "+12 this week",
-    trendDir: "down",
-  },
-  {
-    id: "SEG003",
-    name: "First Purchase",
-    description: "Customers who have made exactly one order — ideal for upsell campaigns",
-    rule: "total_orders = 1",
-    count: 438,
-    lastUpdated: "1 day ago",
-    icon: ShoppingBag,
-    color: "#2D5A8E",
-    trend: "+31 this week",
-    trendDir: "up",
-  },
-  {
-    id: "SEG004",
-    name: "Repeat Buyers",
-    description: "Customers with 3 or more orders showing strong retention",
-    rule: "total_orders >= 3",
-    count: 504,
-    lastUpdated: "3 hours ago",
-    icon: Repeat,
-    color: "#2D6B4F",
-    trend: "+19 this week",
-    trendDir: "up",
-  },
-  {
-    id: "SEG005",
-    name: "At Risk",
-    description: "Previously active customers showing signs of churn — last order 45–89 days ago",
-    rule: "last_order_date BETWEEN NOW() - 89 days AND NOW() - 45 days",
-    count: 89,
-    lastUpdated: "12 hours ago",
-    icon: AlertTriangle,
-    color: "#DC2626",
-    trend: "+5 this week",
-    trendDir: "down",
-  },
-]
+const segments: Segment[] = []
 
 export default function CustomerSegmentsPage() {
   return (

@@ -15,7 +15,6 @@ export const tagTypes = {
   siteSetting: "site-setting",
   seo: "seo",
   discount: "discount",
-  payment: "payment",
 };
 
 export const tagTypesList = [
@@ -35,5 +34,4 @@ export const tagTypesList = [
   tagTypes.siteSetting,
   tagTypes.seo,
   tagTypes.discount,
-  tagTypes.payment,
 ];

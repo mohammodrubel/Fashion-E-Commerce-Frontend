@@ -7,17 +7,10 @@ interface Order {
   items: number
   products: string
   total: string
-  payment: string
   status: "Delivered" | "Shipped" | "Processing" | "Cancelled" | "Refunded"
 }
 
-const orders: Order[] = [
-  { id: "#4521", date: "Oct 18, 2026", items: 3, products: "Floral Wrap Dress, Silk Cami, Linen Blazer", total: "$271.00", payment: "Visa ···4242", status: "Delivered" },
-  { id: "#4398", date: "Sep 5, 2026", items: 1, products: "Classic Trench Coat", total: "$189.00", payment: "Visa ···4242", status: "Delivered" },
-  { id: "#4261", date: "Jul 22, 2026", items: 4, products: "Ribbed Sweater, Wide Leg Trousers, +2 more", total: "$312.00", payment: "PayPal", status: "Delivered" },
-  { id: "#4105", date: "May 14, 2026", items: 2, products: "High-Rise Jeans, Printed Slip Skirt", total: "$121.00", payment: "Visa ···4242", status: "Refunded" },
-  { id: "#3942", date: "Mar 3, 2026", items: 1, products: "Oversized Linen Blazer", total: "$124.00", payment: "Apple Pay", status: "Delivered" },
-]
+const orders: Order[] = []
 
 const statusConfig = {
   Delivered: { label: "Delivered", className: "bg-emerald-50 text-emerald-700", icon: CheckCircle },
@@ -54,18 +47,18 @@ export default function CustomerOrderHistoryPage() {
       <div className="bg-white rounded-xl border border-border/50 p-5">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-semibold text-lg shrink-0" style={{ backgroundColor: "var(--primary)" }}>
-            SJ
+            —
           </div>
           <div className="flex-1">
-            <h2 className="font-semibold text-foreground" style={{ fontSize: "16px" }}>Sarah Johnson</h2>
-            <p className="text-muted-foreground" style={{ fontSize: "13px" }}>sarah.johnson@email.com · +1 (555) 234-5678</p>
+            <h2 className="font-semibold text-foreground" style={{ fontSize: "16px" }}>Customer</h2>
+            <p className="text-muted-foreground" style={{ fontSize: "13px" }}>—</p>
           </div>
           <div className="flex gap-6">
             {[
-              { label: "Total Orders", value: "14" },
-              { label: "Total Spent", value: "$1,842" },
-              { label: "Avg Order", value: "$131.57" },
-              { label: "Member Since", value: "Mar 2024" },
+              { label: "Total Orders", value: "0" },
+              { label: "Total Spent", value: "$0" },
+              { label: "Avg Order", value: "$0.00" },
+              { label: "Member Since", value: "—" },
             ].map((s) => (
               <div key={s.label} className="text-center">
                 <p className="font-semibold text-foreground" style={{ fontSize: "16px" }}>{s.value}</p>
@@ -79,14 +72,14 @@ export default function CustomerOrderHistoryPage() {
       {/* Orders Table */}
       <div className="bg-white rounded-xl border border-border/50">
         <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: "1px solid var(--accent)" }}>
-          <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Order History — Sarah Johnson</h2>
-          <span className="text-muted-foreground" style={{ fontSize: "12px" }}>5 orders shown · 14 total</span>
+          <h2 className="font-semibold text-foreground" style={{ fontSize: "14px" }}>Order History</h2>
+          <span className="text-muted-foreground" style={{ fontSize: "12px" }}>0 orders</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Date", "Items", "Products", "Total", "Payment", "Status", ""].map((h) => (
+                {["Order ID", "Date", "Items", "Products", "Total", "Status", ""].map((h) => (
                   <th key={h} className="text-left px-5 py-3 text-muted-foreground font-medium" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</th>
                 ))}
               </tr>
@@ -117,7 +110,6 @@ export default function CustomerOrderHistoryPage() {
                     <td className="px-5 py-3">
                       <span className="font-semibold text-foreground" style={{ fontSize: "13px" }}>{o.total}</span>
                     </td>
-                    <td className="px-5 py-3 text-muted-foreground" style={{ fontSize: "13px" }}>{o.payment}</td>
                     <td className="px-5 py-3">
                       <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-medium ${statusCfg.className}`} style={{ fontSize: "11px" }}>
                         <StatusIcon className="w-3 h-3" strokeWidth={2} />

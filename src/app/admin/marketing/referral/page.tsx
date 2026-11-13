@@ -12,13 +12,7 @@ interface Referral {
   orderValue: string
 }
 
-const referrals: Referral[] = [
-  { referrer: "Olivia Hartmann", referred: "Nina Reeves", status: "Completed", reward: "$20.00", date: "Oct 22, 2024", orderValue: "$128.00" },
-  { referrer: "Marcus Chen", referred: "David Park", status: "Completed", reward: "$20.00", date: "Oct 19, 2024", orderValue: "$94.00" },
-  { referrer: "Priya Nair", referred: "Samira Hassan", status: "Pending", reward: "—", date: "Oct 21, 2024", orderValue: "—" },
-  { referrer: "Sophie Laurent", referred: "Celeste Morin", status: "Completed", reward: "$20.00", date: "Oct 15, 2024", orderValue: "$210.00" },
-  { referrer: "Aisha Kamara", referred: "Joy Mensah", status: "Pending", reward: "—", date: "Oct 23, 2024", orderValue: "—" },
-]
+const referrals: Referral[] = []
 
 const statusConfig: Record<ReferralStatus, { bg: string; color: string; icon: typeof CheckCircle }> = {
   Completed: { bg: "#DCFCE7", color: "#166534", icon: CheckCircle },
@@ -47,10 +41,10 @@ export default function ReferralPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Referrals", value: "89", sub: "all time", icon: Users, bg: "#FAF0F2", color: "var(--primary)" },
-          { label: "Successful", value: "67", sub: "completed purchase", icon: CheckCircle, bg: "#F0FDF4", color: "#166534" },
-          { label: "Pending", value: "22", sub: "awaiting purchase", icon: Clock, bg: "#FFF9C4", color: "#854D0E" },
-          { label: "Rewards Paid", value: "$1,340", sub: "in referral bonuses", icon: DollarSign, bg: "#EFF6FF", color: "#1D4ED8" },
+          { label: "Total Referrals", value: "0", sub: "all time", icon: Users, bg: "#FAF0F2", color: "var(--primary)" },
+          { label: "Successful", value: "0", sub: "completed purchase", icon: CheckCircle, bg: "#F0FDF4", color: "#166534" },
+          { label: "Pending", value: "0", sub: "awaiting purchase", icon: Clock, bg: "#FFF9C4", color: "#854D0E" },
+          { label: "Rewards Paid", value: "$0", sub: "in referral bonuses", icon: DollarSign, bg: "#EFF6FF", color: "#1D4ED8" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

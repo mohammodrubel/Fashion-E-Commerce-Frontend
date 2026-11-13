@@ -1,12 +1,7 @@
 import { Package, Truck, Printer } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5008", customer: "Noah Anderson", avatar: "N", date: "Oct 21, 2026", items: 3, total: "$156.00", payment: "Stripe",      readyAt: "Oct 23, 10:00 AM" },
-  { id: "#5021", customer: "Lily Mitchell", avatar: "L", date: "Oct 22, 2026", items: 2, total: "$92.50",  payment: "Credit Card", readyAt: "Oct 23, 11:30 AM" },
-  { id: "#5022", customer: "Jack Perez",    avatar: "J", date: "Oct 23, 2026", items: 1, total: "$48.00",  payment: "PayPal",      readyAt: "Oct 24, 8:00 AM" },
-  { id: "#5023", customer: "Zoe Roberts",   avatar: "Z", date: "Oct 23, 2026", items: 4, total: "$237.00", payment: "Credit Card", readyAt: "Oct 24, 9:15 AM" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; readyAt: string; }[] = []
 
 export default function ReadyToShipPage() {
   return (
@@ -35,7 +30,7 @@ export default function ReadyToShipPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Ready Since", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Ready Since", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -75,9 +70,6 @@ export default function ReadyToShipPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{order.readyAt}</span>

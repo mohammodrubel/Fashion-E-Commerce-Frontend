@@ -15,14 +15,7 @@ interface NewArrival {
   status: "Published" | "Draft"
 }
 
-const newArrivals: NewArrival[] = [
-  { id: "P021", name: "Asymmetric Hem Maxi Dress", category: "Dresses", price: "$112.00", stock: 28, dateAdded: "Oct 23, 2026", daysAgo: 1, isNewArrival: true, initials: "AM", color: "#C4967A", status: "Published" },
-  { id: "P022", name: "Boucle Cropped Jacket", category: "Outerwear", price: "$145.00", stock: 15, dateAdded: "Oct 21, 2026", daysAgo: 3, isNewArrival: true, initials: "BJ", color: "#8E8680", status: "Published" },
-  { id: "P023", name: "High-Neck Merino Turtleneck", category: "Knitwear", price: "$88.00", stock: 42, dateAdded: "Oct 19, 2026", daysAgo: 5, isNewArrival: true, initials: "MT", color: "var(--primary)", status: "Published" },
-  { id: "P024", name: "Velvet Slip Midi Skirt", category: "Skirts", price: "$64.00", stock: 33, dateAdded: "Oct 17, 2026", daysAgo: 7, isNewArrival: true, initials: "VS", color: "#4F2D6B", status: "Published" },
-  { id: "P025", name: "Cargo Wide-Leg Trousers", category: "Pants", price: "$79.00", stock: 19, dateAdded: "Oct 14, 2026", daysAgo: 10, isNewArrival: false, initials: "CW", color: "#2D6B4F", status: "Published" },
-  { id: "P026", name: "Corset-Detail Camisole", category: "Tops", price: "$52.00", stock: 0, dateAdded: "Oct 12, 2026", daysAgo: 12, isNewArrival: false, initials: "CC", color: "#B42332", status: "Draft" },
-]
+const newArrivals: NewArrival[] = []
 
 export default function NewArrivalsPage() {
   return (
@@ -45,10 +38,10 @@ export default function NewArrivalsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Added This Week", value: "4" },
-          { label: "Added This Month", value: "18" },
-          { label: "Marked New Arrival", value: "4" },
-          { label: "Awaiting Publish", value: "1" },
+          { label: "Added This Week", value: "0" },
+          { label: "Added This Month", value: "0" },
+          { label: "Marked New Arrival", value: "0" },
+          { label: "Awaiting Publish", value: "0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

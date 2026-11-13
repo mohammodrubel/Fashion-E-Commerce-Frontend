@@ -2,28 +2,28 @@ import { PageHeader } from "@/components/admin/page-header"
 import { DollarSign, TrendingUp, Download } from "lucide-react"
 
 const stats = [
-  { label: "Gross Revenue", value: "$142,580", sub: "Total sales", color: "var(--primary)" },
-  { label: "COGS", value: "$78,420", sub: "Cost of goods", color: "#6b7280" },
-  { label: "Gross Profit", value: "$64,160", sub: "Revenue - COGS", color: "#059669" },
-  { label: "Gross Margin", value: "45%", sub: "(Profit / Revenue)", color: "#d97706" },
+  { label: "Gross Revenue", value: "$0", sub: "Total sales", color: "var(--primary)" },
+  { label: "COGS", value: "$0", sub: "Cost of goods", color: "#6b7280" },
+  { label: "Gross Profit", value: "$0", sub: "Revenue - COGS", color: "#059669" },
+  { label: "Gross Margin", value: "0%", sub: "(Profit / Revenue)", color: "#d97706" },
 ]
 
 const monthly = [
-  { month: "Jan", revenue: 10820, cogs: 5950, profit: 4870 },
-  { month: "Feb", revenue: 9740, cogs: 5360, profit: 4380 },
-  { month: "Mar", revenue: 12480, cogs: 6860, profit: 5620 },
-  { month: "Apr", revenue: 13920, cogs: 7660, profit: 6260 },
-  { month: "May", revenue: 14980, cogs: 8240, profit: 6740 },
-  { month: "Jun", revenue: 16240, cogs: 8930, profit: 7310 },
-  { month: "Jul", revenue: 14380, cogs: 7910, profit: 6470 },
-  { month: "Aug", revenue: 15720, cogs: 8650, profit: 7070 },
-  { month: "Sep", revenue: 13640, cogs: 7500, profit: 6140 },
-  { month: "Oct", revenue: 12460, cogs: 6850, profit: 5610 },
-  { month: "Nov", revenue: 11480, cogs: 6310, profit: 5170 },
-  { month: "Dec", revenue: 11720, cogs: 6450, profit: 5270 },
+  { month: "Jan", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Feb", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Mar", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Apr", revenue: 0, cogs: 0, profit: 0 },
+  { month: "May", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Jun", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Jul", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Aug", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Sep", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Oct", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Nov", revenue: 0, cogs: 0, profit: 0 },
+  { month: "Dec", revenue: 0, cogs: 0, profit: 0 },
 ]
 
-const maxRevenue = Math.max(...monthly.map(m => m.revenue))
+const maxRevenue = Math.max(...monthly.map(m => m.revenue), 1)
 
 // SVG chart: 600x120
 const revenuePoints = monthly.map((m, i) => ({

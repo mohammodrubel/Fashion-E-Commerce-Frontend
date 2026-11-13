@@ -21,18 +21,7 @@ interface ProductVariant {
   colorHex: string
 }
 
-const variants: ProductVariant[] = [
-  { id: "v-001", productId: "p-dr001", sizeId: "sz-m",  colorId: "cl-fls", sku: "DR-FLW-001-M-FLS",  price: 2800, stock: 34,  isActive: true,  productName: "Floral Wrap Midi Dress",   sizeName: "M",   colorName: "Floral",  colorHex: "#F8C8D0" },
-  { id: "v-002", productId: "p-top002",sizeId: "sz-l",  colorId: "cl-snd", sku: "TOP-LBZ-002-L-SND", price: 4200, stock: 18,  isActive: true,  productName: "Oversized Linen Blazer",   sizeName: "L",   colorName: "Sand",    colorHex: "#D4C5A9" },
-  { id: "v-003", productId: "p-jn003", sizeId: "sz-28", colorId: "cl-ind", sku: "JN-HRS-003-28-IND",  price: 3500, stock: 52,  isActive: true,  productName: "High-Rise Skinny Jeans",   sizeName: "28",  colorName: "Indigo",  colorHex: "#4B5FA6" },
-  { id: "v-004", productId: "p-top004",sizeId: "sz-s",  colorId: "cl-ivr", sku: "TOP-SCB-004-S-IVR",  price: 1950, stock: 7,   isActive: true,  productName: "Silk Cami Blouse",         sizeName: "S",   colorName: "Ivory",   colorHex: "#F5F0E8" },
-  { id: "v-005", productId: "p-pt005", sizeId: "sz-xs", colorId: "cl-ecr", sku: "PT-WLL-005-XS-ECR",  price: 3100, stock: 23,  isActive: true,  productName: "Wide Leg Linen Trousers",  sizeName: "XS",  colorName: "Ecru",    colorHex: "#C8BAAA" },
-  { id: "v-006", productId: "p-kn006", sizeId: "sz-m",  colorId: "cl-crm", sku: "KN-RIB-006-M-CRM",   price: 2400, stock: 8,   isActive: true,  productName: "Ribbed Knit Sweater",      sizeName: "M",   colorName: "Cream",   colorHex: "#FFF8F0" },
-  { id: "v-007", productId: "p-ot007", sizeId: "sz-l",  colorId: "cl-bei", sku: "OT-TCT-007-L-BEI",   price: 6800, stock: 12,  isActive: true,  productName: "Classic Trench Coat",      sizeName: "L",   colorName: "Beige",   colorHex: "#D4B896" },
-  { id: "v-008", productId: "p-sk008", sizeId: "sz-s",  colorId: "cl-mlt", sku: "SK-PSK-008-S-MLT",   price: 1750, stock: 0,   isActive: false, productName: "Printed Slip Skirt",       sizeName: "S",   colorName: "Multi",   colorHex: "#E8A87C" },
-  { id: "v-009", productId: "p-dr009", sizeId: "sz-xs", colorId: "cl-vlt", sku: "DR-VMD-009-XS-VLT",  price: 3900, stock: 5,   isActive: true,  productName: "Velvet Mini Dress",        sizeName: "XS",  colorName: "Violet",  colorHex: "#7C5C8A" },
-  { id: "v-010", productId: "p-top010",sizeId: "sz-m",  colorId: "cl-wht", sku: "TOP-CCT-010-M-WHT",  price: 980,  stock: 76,  isActive: true,  productName: "Cotton Crew Tee",          sizeName: "M",   colorName: "White",   colorHex: "#F5F5F5" },
-]
+const variants: ProductVariant[] = []
 
 type FilterTab = "ALL" | "IN_STOCK" | "LOW_STOCK" | "OUT_OF_STOCK"
 type SortKey = "stock_asc" | "stock_desc" | "price_asc" | "price_desc"

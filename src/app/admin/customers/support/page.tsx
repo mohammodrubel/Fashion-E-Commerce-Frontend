@@ -12,14 +12,7 @@ interface Ticket {
   lastReply: string
 }
 
-const tickets: Ticket[] = [
-  { id: "TK-1042", customer: "Sarah Johnson", initials: "SJ", subject: "Order #4521 — item missing from package", priority: "High", status: "Open", created: "Oct 22, 2026", lastReply: "2 hours ago" },
-  { id: "TK-1041", customer: "Michael Chen", initials: "MC", subject: "Return request for Linen Blazer (wrong size)", priority: "Medium", status: "In Progress", created: "Oct 21, 2026", lastReply: "5 hours ago" },
-  { id: "TK-1040", customer: "Emma Wilson", initials: "EW", subject: "Discount code not applying at checkout", priority: "Low", status: "Resolved", created: "Oct 20, 2026", lastReply: "1 day ago" },
-  { id: "TK-1039", customer: "James Brown", initials: "JB", subject: "Delayed shipping — order placed 2 weeks ago", priority: "High", status: "In Progress", created: "Oct 19, 2026", lastReply: "8 hours ago" },
-  { id: "TK-1038", customer: "Olivia Davis", initials: "OD", subject: "Account password reset not working", priority: "Medium", status: "Resolved", created: "Oct 18, 2026", lastReply: "2 days ago" },
-  { id: "TK-1037", customer: "Sophia Anderson", initials: "SA", subject: "Wrong item delivered — ordered black, got navy", priority: "High", status: "Open", created: "Oct 17, 2026", lastReply: "3 days ago" },
-]
+const tickets: Ticket[] = []
 
 const priorityConfig = {
   High: "bg-red-50 text-red-600",
@@ -50,10 +43,10 @@ export default function CustomerSupportPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Tickets", value: "142", sub: "all time", color: "var(--primary)" },
-          { label: "Open", value: "18", sub: "needs attention", color: "#2563EB" },
-          { label: "In Progress", value: "24", sub: "being handled", color: "#D97706" },
-          { label: "Resolved", value: "100", sub: "closed tickets", color: "#2D6B4F" },
+          { label: "Total Tickets", value: "0", sub: "all time", color: "var(--primary)" },
+          { label: "Open", value: "0", sub: "needs attention", color: "#2563EB" },
+          { label: "In Progress", value: "0", sub: "being handled", color: "#D97706" },
+          { label: "Resolved", value: "0", sub: "closed tickets", color: "#2D6B4F" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-center justify-between mb-1">

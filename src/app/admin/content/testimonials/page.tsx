@@ -13,14 +13,7 @@ interface Testimonial {
   avatarColor: string
 }
 
-const testimonials: Testimonial[] = [
-  { customer: "Olivia H.", rating: 5, quote: "Absolutely love my Floral Wrap Dress — the quality is exceptional and the colour is even better in person. Received so many compliments!", product: "Floral Wrap Midi Dress", date: "Oct 18, 2024", status: "Published", avatarColor: "var(--primary)" },
-  { customer: "Priya N.", rating: 5, quote: "Fast shipping, beautiful packaging, and the silk blouse is stunning. Will definitely be back for more.", product: "Silk Cami Blouse", date: "Oct 15, 2024", status: "Published", avatarColor: "#7C3D52" },
-  { customer: "Sophie L.", rating: 4, quote: "Great quality knitwear. Fits true to size and super soft. Only giving 4 stars because the sleeve was slightly longer than expected.", product: "Ribbed Knit Sweater", date: "Oct 12, 2024", status: "Published", avatarColor: "#1D4ED8" },
-  { customer: "Aisha K.", rating: 5, quote: "The trench coat is worth every penny. Looks incredibly chic, great cut, and the lining feels luxurious. Love it.", product: "Classic Trench Coat", date: "Oct 10, 2024", status: "Published", avatarColor: "#166534" },
-  { customer: "Emma J.", rating: 3, quote: "The dress is beautiful but took 2 weeks to arrive. Customer service was helpful when I reached out. Would order again.", product: "Floral Wrap Midi Dress", date: "Oct 08, 2024", status: "Pending", avatarColor: "#9A3412" },
-  { customer: "Marcus T.", rating: 5, quote: "Bought the linen blazer for my wife and she's obsessed — already wore it 3 times this week!", product: "Oversized Linen Blazer", date: "Oct 05, 2024", status: "Published", avatarColor: "#1F2937" },
-]
+const testimonials: Testimonial[] = []
 
 const statusConfig: Record<TestimonialStatus, { bg: string; color: string }> = {
   Published: { bg: "#DCFCE7", color: "#166534" },
@@ -49,10 +42,10 @@ export default function TestimonialsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Reviews", value: "248", sub: "all time" },
-          { label: "Published", value: "204", sub: "showing on site" },
-          { label: "Pending Review", value: "32", sub: "awaiting approval" },
-          { label: "Avg Rating", value: "4.7", sub: "out of 5 stars" },
+          { label: "Total Reviews", value: "0", sub: "all time" },
+          { label: "Published", value: "0", sub: "showing on site" },
+          { label: "Pending Review", value: "0", sub: "awaiting approval" },
+          { label: "Avg Rating", value: "0.0", sub: "out of 0 stars" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{c.label}</p>

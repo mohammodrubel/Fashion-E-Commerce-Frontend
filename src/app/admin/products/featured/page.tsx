@@ -14,13 +14,7 @@ interface FeaturedProduct {
   position: number
 }
 
-const products: FeaturedProduct[] = [
-  { id: "P001", name: "Floral Wrap Midi Dress", category: "Dresses", price: "$89.00", stock: 34, featured: true, featuredSince: "Oct 1, 2026", initials: "FD", color: "#C4967A", position: 1 },
-  { id: "P007", name: "Classic Trench Coat", category: "Outerwear", price: "$189.00", stock: 12, featured: true, featuredSince: "Sep 15, 2026", initials: "TC", color: "#C19A6B", position: 2 },
-  { id: "P002", name: "Oversized Linen Blazer", category: "Tops", price: "$124.00", stock: 18, featured: true, featuredSince: "Oct 5, 2026", initials: "BL", color: "#2D5A8E", position: 3 },
-  { id: "P003", name: "High-Rise Skinny Jeans", category: "Jeans", price: "$72.00", stock: 52, featured: false, featuredSince: "—", initials: "SJ", color: "#1A3A5C", position: 4 },
-  { id: "P004", name: "Silk Cami Blouse", category: "Tops", price: "$58.00", stock: 7, featured: true, featuredSince: "Oct 10, 2026", initials: "CB", color: "#E8B4B8", position: 5 },
-]
+const products: FeaturedProduct[] = []
 
 export default function FeaturedProductsPage() {
   return (
@@ -46,10 +40,10 @@ export default function FeaturedProductsPage() {
       {/* Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Featured Products", value: "4" },
-          { label: "Max Allowed", value: "8" },
-          { label: "Available Slots", value: "4" },
-          { label: "Homepage Spots", value: "3" },
+          { label: "Featured Products", value: "0" },
+          { label: "Max Allowed", value: "0" },
+          { label: "Available Slots", value: "0" },
+          { label: "Homepage Spots", value: "0" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

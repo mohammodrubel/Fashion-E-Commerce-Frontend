@@ -12,13 +12,7 @@ interface Transfer {
   eta: string
 }
 
-const transfers: Transfer[] = [
-  { id: "TRF-501", from: "Main Warehouse", to: "East Branch", products: "High-Rise Jeans, Cotton Tee, +3 more", itemCount: 75, status: "In Transit", date: "Oct 22, 2026", eta: "Oct 24, 2026" },
-  { id: "TRF-500", from: "West Branch", to: "Main Warehouse", products: "Classic Trench Coat", itemCount: 10, status: "Completed", date: "Oct 20, 2026", eta: "Oct 21, 2026" },
-  { id: "TRF-499", from: "Main Warehouse", to: "West Branch", products: "Floral Wrap Dress, Linen Trousers", itemCount: 40, status: "Completed", date: "Oct 17, 2026", eta: "Oct 19, 2026" },
-  { id: "TRF-498", from: "East Branch", to: "Main Warehouse", products: "Silk Cami Blouse, Slip Skirt", itemCount: 15, status: "Completed", date: "Oct 14, 2026", eta: "Oct 15, 2026" },
-  { id: "TRF-497", from: "Main Warehouse", to: "East Branch", products: "Oversized Blazer, Ribbed Sweater, +2", itemCount: 50, status: "Pending", date: "Oct 24, 2026", eta: "Oct 26, 2026" },
-]
+const transfers: Transfer[] = []
 
 const statusConfig = {
   Pending: { className: "bg-amber-50 text-amber-700", icon: Clock },
@@ -49,9 +43,9 @@ export default function StockTransfersPage() {
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: "Pending", value: "1", color: "#D97706" },
-          { label: "In Transit", value: "1", color: "#2563EB" },
-          { label: "Completed (30d)", value: "3", color: "#10B981" },
+          { label: "Pending", value: "0", color: "#D97706" },
+          { label: "In Transit", value: "0", color: "#2563EB" },
+          { label: "Completed (30d)", value: "0", color: "#10B981" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

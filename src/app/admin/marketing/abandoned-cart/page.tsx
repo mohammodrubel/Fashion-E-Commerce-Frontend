@@ -14,14 +14,7 @@ interface AbandonedCart {
   status: CartStatus
 }
 
-const carts: AbandonedCart[] = [
-  { customer: "Emma Langdon", email: "e.langdon@gmail.com", cartValue: "$184.00", items: 3, abandoned: "Oct 24, 2024 14:32", emailsSent: 2, lastEmail: "1 hr ago", status: "Pending" },
-  { customer: "James Okafor", email: "j.okafor@email.com", cartValue: "$92.00", items: 2, abandoned: "Oct 24, 2024 11:15", emailsSent: 1, lastEmail: "3 hrs ago", status: "Pending" },
-  { customer: "Yuki Tanaka", email: "yuki.t@gmail.com", cartValue: "$248.00", items: 4, abandoned: "Oct 23, 2024 19:40", emailsSent: 3, lastEmail: "18 hrs ago", status: "Recovered" },
-  { customer: "Nina Reeves", email: "nina.r@email.com", cartValue: "$67.00", items: 1, abandoned: "Oct 23, 2024 09:12", emailsSent: 3, lastEmail: "1 day ago", status: "Recovered" },
-  { customer: "Daniel Ferreira", email: "d.ferreira@work.com", cartValue: "$312.00", items: 5, abandoned: "Oct 22, 2024 16:54", emailsSent: 3, lastEmail: "2 days ago", status: "Expired" },
-  { customer: "Sophie Laurent", email: "sophie.l@gmail.com", cartValue: "$138.00", items: 2, abandoned: "Oct 22, 2024 12:30", emailsSent: 2, lastEmail: "2 days ago", status: "Pending" },
-]
+const carts: AbandonedCart[] = []
 
 const statusConfig: Record<CartStatus, { bg: string; color: string }> = {
   Recovered: { bg: "#DCFCE7", color: "#166534" },
@@ -49,10 +42,10 @@ export default function AbandonedCartPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Abandoned Carts", value: "124", sub: "this month", icon: ShoppingCart, bg: "#FEF9C3", color: "#854D0E" },
-          { label: "Recovered", value: "38", sub: "30.6% recovery rate", icon: TrendingUp, bg: "#F0FDF4", color: "#166534" },
-          { label: "Revenue Recovered", value: "$2,840", sub: "this month", icon: DollarSign, bg: "#FAF0F2", color: "var(--primary)" },
-          { label: "Emails Sent", value: "312", sub: "avg 2.5 per cart", icon: Mail, bg: "#EFF6FF", color: "#1D4ED8" },
+          { label: "Abandoned Carts", value: "0", sub: "this month", icon: ShoppingCart, bg: "#FEF9C3", color: "#854D0E" },
+          { label: "Recovered", value: "0", sub: "0.0% recovery rate", icon: TrendingUp, bg: "#F0FDF4", color: "#166534" },
+          { label: "Revenue Recovered", value: "$0", sub: "this month", icon: DollarSign, bg: "#FAF0F2", color: "var(--primary)" },
+          { label: "Emails Sent", value: "0", sub: "avg 0.0 per cart", icon: Mail, bg: "#EFF6FF", color: "#1D4ED8" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">
@@ -74,9 +67,9 @@ export default function AbandonedCartPage() {
         <p className="font-medium text-foreground mb-4" style={{ fontSize: "14px" }}>Recovery Email Sequence</p>
         <div className="flex items-center gap-3 overflow-x-auto pb-2">
           {[
-            { step: 1, delay: "1 hour after", subject: "You left something behind!", openRate: "48.2%", color: "#EFF6FF", textColor: "#1D4ED8" },
-            { step: 2, delay: "24 hours after", subject: "Still thinking it over?", openRate: "31.4%", color: "#FDF4FF", textColor: "#7E22CE" },
-            { step: 3, delay: "72 hours after", subject: "Last chance — 10% off your cart", openRate: "22.8%", color: "#FAF0F2", textColor: "var(--primary)" },
+            { step: 1, delay: "1 hour after", subject: "You left something behind!", openRate: "0%", color: "#EFF6FF", textColor: "#1D4ED8" },
+            { step: 2, delay: "24 hours after", subject: "Still thinking it over?", openRate: "0%", color: "#FDF4FF", textColor: "#7E22CE" },
+            { step: 3, delay: "72 hours after", subject: "Last chance — 10% off your cart", openRate: "0%", color: "#FAF0F2", textColor: "var(--primary)" },
           ].map((step, i) => (
             <div key={step.step} className="flex items-center gap-3 shrink-0">
               <div className="rounded-xl border border-border/50 p-4 w-52" style={{ backgroundColor: step.color }}>

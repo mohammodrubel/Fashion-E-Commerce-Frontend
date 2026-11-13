@@ -1,30 +1,7 @@
 import { XCircle, RefreshCcw } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  {
-    id: "#5010",
-    customer: "Ethan White",
-    avatar: "E",
-    date: "Oct 20, 2026",
-    items: 1,
-    total: "$45.00",
-    payment: "PayPal",
-    failReason: "Payment gateway timeout",
-    failedAt: "Oct 20, 4:12 PM",
-  },
-  {
-    id: "#5046",
-    customer: "Aubrey Morgan",
-    avatar: "A",
-    date: "Oct 19, 2026",
-    items: 2,
-    total: "$117.00",
-    payment: "Credit Card",
-    failReason: "Card declined — insufficient funds",
-    failedAt: "Oct 19, 6:45 PM",
-  },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; failReason: string; failedAt: string; }[] = []
 
 export default function FailedOrdersPage() {
   return (
@@ -53,7 +30,7 @@ export default function FailedOrdersPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Failure Reason", "Failed At", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Failure Reason", "Failed At", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -93,9 +70,6 @@ export default function FailedOrdersPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-start gap-1.5 max-w-[200px]">

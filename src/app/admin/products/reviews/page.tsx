@@ -13,74 +13,7 @@ interface Review {
   helpful: number
 }
 
-const reviews: Review[] = [
-  {
-    id: "RV001",
-    customer: "Sophie Martin",
-    avatar: "SM",
-    product: "Floral Wrap Midi Dress",
-    rating: 5,
-    review: "Absolutely stunning dress! The fabric is luxurious and the fit is perfect. I've received so many compliments. Will definitely be ordering again.",
-    date: "Oct 22, 2026",
-    status: "Published",
-    helpful: 14,
-  },
-  {
-    id: "RV002",
-    customer: "James Caldwell",
-    avatar: "JC",
-    product: "Classic Trench Coat",
-    rating: 4,
-    review: "Great quality coat, very well made. Slightly larger than expected but the belt helps cinch it in. Overall very happy with the purchase.",
-    date: "Oct 20, 2026",
-    status: "Published",
-    helpful: 8,
-  },
-  {
-    id: "RV003",
-    customer: "Emily Rowe",
-    avatar: "ER",
-    product: "Silk Cami Blouse",
-    rating: 5,
-    review: "The silk is so buttery smooth. Exactly as pictured. Ordered a size up as suggested and it fits beautifully. Highly recommend.",
-    date: "Oct 18, 2026",
-    status: "Published",
-    helpful: 21,
-  },
-  {
-    id: "RV004",
-    customer: "Daniel Park",
-    avatar: "DP",
-    product: "High-Rise Skinny Jeans",
-    rating: 3,
-    review: "Decent jeans but the sizing runs small. I'd recommend ordering a size up. The denim quality is good though and the colour is lovely.",
-    date: "Oct 17, 2026",
-    status: "Pending",
-    helpful: 2,
-  },
-  {
-    id: "RV005",
-    customer: "Clara Hughes",
-    avatar: "CH",
-    product: "Oversized Linen Blazer",
-    rating: 5,
-    review: "The perfect summer blazer. Lightweight, wrinkle-resistant, and looks incredibly put-together. I wear it over literally everything.",
-    date: "Oct 15, 2026",
-    status: "Published",
-    helpful: 19,
-  },
-  {
-    id: "RV006",
-    customer: "Alex Thomson",
-    avatar: "AT",
-    product: "Wide Leg Linen Trousers",
-    rating: 2,
-    review: "Disappointed with the quality for the price point. The linen feels thin and the stitching at the hem came loose after two washes.",
-    date: "Oct 12, 2026",
-    status: "Flagged",
-    helpful: 0,
-  },
-]
+const reviews: Review[] = []
 
 const statusConfig = {
   Published: { className: "bg-emerald-50 text-emerald-700", icon: CheckCircle },
@@ -89,11 +22,11 @@ const statusConfig = {
 }
 
 const ratingDist = [
-  { stars: 5, count: 128, pct: 62 },
-  { stars: 4, count: 42, pct: 20 },
-  { stars: 3, count: 19, pct: 9 },
-  { stars: 2, count: 11, pct: 5 },
-  { stars: 1, count: 8, pct: 4 },
+  { stars: 5, count: 0, pct: 0 },
+  { stars: 4, count: 0, pct: 0 },
+  { stars: 3, count: 0, pct: 0 },
+  { stars: 2, count: 0, pct: 0 },
+  { stars: 1, count: 0, pct: 0 },
 ]
 
 function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {

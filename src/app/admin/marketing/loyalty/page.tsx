@@ -11,14 +11,7 @@ interface Customer {
   totalSpent: string
 }
 
-const customers: Customer[] = [
-  { rank: 1, name: "Olivia Hartmann", email: "o.hartmann@email.com", points: 8420, tier: "Platinum", lastEarned: "Oct 24, 2024", totalSpent: "$2,105" },
-  { rank: 2, name: "Marcus Chen", email: "m.chen@email.com", points: 6150, tier: "Gold", lastEarned: "Oct 22, 2024", totalSpent: "$1,538" },
-  { rank: 3, name: "Priya Nair", email: "p.nair@email.com", points: 4820, tier: "Gold", lastEarned: "Oct 19, 2024", totalSpent: "$1,205" },
-  { rank: 4, name: "Sophie Laurent", email: "s.laurent@email.com", points: 3340, tier: "Silver", lastEarned: "Oct 21, 2024", totalSpent: "$835" },
-  { rank: 5, name: "Aisha Kamara", email: "a.kamara@email.com", points: 2890, tier: "Silver", lastEarned: "Oct 18, 2024", totalSpent: "$723" },
-  { rank: 6, name: "Noah Lindqvist", email: "n.lindqvist@email.com", points: 1240, tier: "Bronze", lastEarned: "Oct 15, 2024", totalSpent: "$310" },
-]
+const customers: Customer[] = []
 
 const tierConfig = {
   Platinum: { bg: "#F5F3FF", color: "#6D28D9", dot: "#8B5CF6" },
@@ -55,10 +48,10 @@ export default function LoyaltyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Program Members", value: "1,842", sub: "enrolled customers", icon: Users, color: "var(--primary)" },
-          { label: "Points Issued", value: "284,600", sub: "total all-time", icon: Star, color: "#F59E0B" },
-          { label: "Points Redeemed", value: "142,300", sub: "50% redemption rate", icon: TrendingUp, color: "#166534" },
-          { label: "Rewards Paid", value: "$1,423", sub: "in discounts given", icon: Award, color: "#7C3D52" },
+          { label: "Program Members", value: "0", sub: "enrolled customers", icon: Users, color: "var(--primary)" },
+          { label: "Points Issued", value: "0", sub: "total all-time", icon: Star, color: "#F59E0B" },
+          { label: "Points Redeemed", value: "0", sub: "0% redemption rate", icon: TrendingUp, color: "#166534" },
+          { label: "Rewards Paid", value: "$0", sub: "in discounts given", icon: Award, color: "#7C3D52" },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

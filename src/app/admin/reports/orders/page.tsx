@@ -2,31 +2,27 @@ import { PageHeader } from "@/components/admin/page-header"
 import { ShoppingCart, CheckCircle, XCircle, RefreshCcw, Download } from "lucide-react"
 
 const stats = [
-  { label: "Total Orders", value: "1,847", icon: ShoppingCart, color: "var(--primary)", bg: "#20212715" },
-  { label: "Completed", value: "1,654", icon: CheckCircle, color: "#059669", bg: "#05966915" },
-  { label: "Cancelled", value: "89", icon: XCircle, color: "#dc2626", bg: "#dc262615" },
-  { label: "Returned", value: "104", icon: RefreshCcw, color: "#d97706", bg: "#d9770615" },
+  { label: "Total Orders", value: "0", icon: ShoppingCart, color: "var(--primary)", bg: "#20212715" },
+  { label: "Completed", value: "0", icon: CheckCircle, color: "#059669", bg: "#05966915" },
+  { label: "Cancelled", value: "0", icon: XCircle, color: "#dc2626", bg: "#dc262615" },
+  { label: "Returned", value: "0", icon: RefreshCcw, color: "#d97706", bg: "#d9770615" },
 ]
 
-const statusDistribution = [
-  { status: "Completed", count: 1654, pct: 89.5, color: "#059669" },
-  { status: "Cancelled", count: 89, pct: 4.8, color: "#dc2626" },
-  { status: "Returned", count: 104, pct: 5.6, color: "#d97706" },
-]
+const statusDistribution: { status: string; count: number; pct: number; color: string; }[] = []
 
 const monthlyOrders = [
-  { month: "January", total: 142, completed: 128, cancelled: 7, returned: 7 },
-  { month: "February", total: 128, completed: 115, cancelled: 7, returned: 6 },
-  { month: "March", total: 165, completed: 149, cancelled: 8, returned: 8 },
-  { month: "April", total: 181, completed: 163, cancelled: 9, returned: 9 },
-  { month: "May", total: 194, completed: 175, cancelled: 9, returned: 10 },
-  { month: "June", total: 210, completed: 189, cancelled: 10, returned: 11 },
-  { month: "July", total: 187, completed: 168, cancelled: 9, returned: 10 },
-  { month: "August", total: 203, completed: 182, cancelled: 10, returned: 11 },
-  { month: "September", total: 176, completed: 159, cancelled: 8, returned: 9 },
-  { month: "October", total: 161, completed: 145, cancelled: 7, returned: 9 },
-  { month: "November", total: 148, completed: 134, cancelled: 7, returned: 7 },
-  { month: "December", total: 152, completed: 147, cancelled: 3, returned: 7 },
+  { month: "January", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "February", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "March", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "April", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "May", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "June", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "July", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "August", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "September", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "October", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "November", total: 0, completed: 0, cancelled: 0, returned: 0 },
+  { month: "December", total: 0, completed: 0, cancelled: 0, returned: 0 },
 ]
 
 export default function OrdersReportPage() {

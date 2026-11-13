@@ -23,20 +23,7 @@ interface StockMovement {
   recordedBy: string
 }
 
-const movements: StockMovement[] = [
-  { id: "sm-001", variantId: "v-dr001",  userId: "u-admin1", type: "RESTOCK",      quantity: 50,  note: "PO-2041 received",                 createdAt: "Oct 24, 2026 09:12", productName: "Floral Wrap Midi Dress",   sku: "DR-FLW-001-M-FLS",  stockBefore: 34,  stockAfter: 84,  recordedBy: "J. Doe"    },
-  { id: "sm-002", variantId: "v-ot007",  userId: null,       type: "SALE",         quantity: -2,  note: "Orders #4521, #4523",               createdAt: "Oct 24, 2026 08:45", productName: "Classic Trench Coat",      sku: "OT-TCT-007-L-BEI",  stockBefore: 14,  stockAfter: 12,  recordedBy: "System"    },
-  { id: "sm-003", variantId: "v-top004", userId: "u-admin1", type: "ADJUSTMENT",   quantity: -1,  note: "Count correction after audit",      createdAt: "Oct 23, 2026 16:20", productName: "Silk Cami Blouse",         sku: "TOP-SCB-004-S-IVR", stockBefore: 8,   stockAfter: 7,   recordedBy: "Admin"     },
-  { id: "sm-004", variantId: "v-jn003",  userId: "u-admin2", type: "RETURN",       quantity: 3,   note: "Orders #4498, #4502, #4506",        createdAt: "Oct 23, 2026 14:05", productName: "High-Rise Skinny Jeans",   sku: "JN-HRS-003-28-IND", stockBefore: 49,  stockAfter: 52,  recordedBy: "L. Torres" },
-  { id: "sm-005", variantId: "v-kn006",  userId: "u-admin2", type: "DAMAGE",       quantity: -3,  note: "Storage water leak — units ruined",  createdAt: "Oct 22, 2026 11:30", productName: "Ribbed Knit Sweater",      sku: "KN-RIB-006-M-CRM",  stockBefore: 11,  stockAfter: 8,   recordedBy: "K. Smith"  },
-  { id: "sm-006", variantId: "v-sk008",  userId: null,       type: "CANCELLATION", quantity: 1,   note: "Order #4490 cancelled before ship",  createdAt: "Oct 22, 2026 10:00", productName: "Printed Slip Skirt",       sku: "SK-PSK-008-S-MLT",  stockBefore: 0,   stockAfter: 1,   recordedBy: "System"    },
-  { id: "sm-007", variantId: "v-pt005",  userId: "u-admin1", type: "RESTOCK",      quantity: 25,  note: "PO-2039 received",                  createdAt: "Oct 21, 2026 13:55", productName: "Wide Leg Linen Trousers",  sku: "PT-WLL-005-XS-ECR", stockBefore: 23,  stockAfter: 48,  recordedBy: "J. Doe"    },
-  { id: "sm-008", variantId: "v-top002", userId: null,       type: "SALE",         quantity: -4,  note: "Orders #4512–#4515",                createdAt: "Oct 21, 2026 09:40", productName: "Oversized Linen Blazer",   sku: "TOP-LBZ-002-L-SND", stockBefore: 22,  stockAfter: 18,  recordedBy: "System"    },
-  { id: "sm-009", variantId: "v-dr009",  userId: "u-admin2", type: "DAMAGE",       quantity: -4,  note: "Zipper defect — manufacturer batch", createdAt: "Oct 20, 2026 15:10", productName: "Velvet Mini Dress",         sku: "DR-VMD-009-XS-VLT", stockBefore: 9,   stockAfter: 5,   recordedBy: "L. Torres" },
-  { id: "sm-010", variantId: "v-top010", userId: "u-admin1", type: "RESTOCK",      quantity: 40,  note: "PO-2037 received",                  createdAt: "Oct 18, 2026 11:00", productName: "Cotton Crew Tee",           sku: "TOP-CCT-010-M-WHT", stockBefore: 36,  stockAfter: 76,  recordedBy: "J. Doe"    },
-  { id: "sm-011", variantId: "v-jn003",  userId: null,       type: "SALE",         quantity: -6,  note: "Orders #4505–#4510",                createdAt: "Oct 17, 2026 14:30", productName: "High-Rise Skinny Jeans",   sku: "JN-HRS-003-28-IND", stockBefore: 55,  stockAfter: 49,  recordedBy: "System"    },
-  { id: "sm-012", variantId: "v-pt005",  userId: "u-admin1", type: "ADJUSTMENT",   quantity: 2,   note: "Inventory variance correction",     createdAt: "Oct 15, 2026 09:00", productName: "Wide Leg Linen Trousers",  sku: "PT-WLL-005-XS-ECR", stockBefore: 21,  stockAfter: 23,  recordedBy: "Admin"     },
-]
+const movements: StockMovement[] = []
 
 const typeConfig: Record<StockMovementType, { label: string; className: string; dir: "in" | "out" | "neutral" }> = {
   RESTOCK:      { label: "RESTOCK",      className: "bg-emerald-50 text-emerald-700 border border-emerald-200/60", dir: "in"      },

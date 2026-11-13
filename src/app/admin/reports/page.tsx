@@ -2,32 +2,32 @@ import { PageHeader } from "@/components/admin/page-header"
 import { TrendingUp, TrendingDown, DollarSign, ShoppingCart, BarChart3, RefreshCcw, Download, Calendar } from "lucide-react"
 
 const stats = [
-  { label: "Total Revenue", value: "$142,580", change: "+12.4%", trend: "up", icon: DollarSign },
-  { label: "Total Orders", value: "1,847", change: "+8.1%", trend: "up", icon: ShoppingCart },
-  { label: "Avg Order Value", value: "$77.20", change: "+3.8%", trend: "up", icon: BarChart3 },
-  { label: "Return Rate", value: "4.2%", change: "-0.5%", trend: "down", icon: RefreshCcw },
+  { label: "Total Revenue", value: "$0", change: "+0.0%", trend: "up", icon: DollarSign },
+  { label: "Total Orders", value: "0", change: "+0.0%", trend: "up", icon: ShoppingCart },
+  { label: "Avg Order Value", value: "$0.00", change: "+0.0%", trend: "up", icon: BarChart3 },
+  { label: "Return Rate", value: "0.0%", change: "-0.0%", trend: "down", icon: RefreshCcw },
 ]
 
 const monthlySummary = [
-  { month: "January", orders: 142, revenue: "$10,820", avgOrder: "$76.20", returns: 6 },
-  { month: "February", orders: 128, revenue: "$9,740", avgOrder: "$76.09", returns: 5 },
-  { month: "March", orders: 165, revenue: "$12,480", avgOrder: "$75.64", returns: 7 },
-  { month: "April", orders: 181, revenue: "$13,920", avgOrder: "$76.90", returns: 8 },
-  { month: "May", orders: 194, revenue: "$14,980", avgOrder: "$77.22", returns: 8 },
-  { month: "June", orders: 210, revenue: "$16,240", avgOrder: "$77.33", returns: 9 },
-  { month: "July", orders: 187, revenue: "$14,380", avgOrder: "$76.90", returns: 8 },
-  { month: "August", orders: 203, revenue: "$15,720", avgOrder: "$77.44", returns: 9 },
-  { month: "September", orders: 176, revenue: "$13,640", avgOrder: "$77.50", returns: 7 },
-  { month: "October", orders: 161, revenue: "$12,460", avgOrder: "$77.39", returns: 6 },
-  { month: "November", orders: 148, revenue: "$11,480", avgOrder: "$77.57", returns: 6 },
-  { month: "December", orders: 152, revenue: "$11,720", avgOrder: "$77.10", returns: 7 },
+  { month: "January", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "February", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "March", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "April", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "May", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "June", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "July", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "August", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "September", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "October", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "November", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
+  { month: "December", orders: 0, revenue: "$0", avgOrder: "$0.00", returns: 0 },
 ]
 
 // SVG area chart data points (normalized to 120 height, 600 width)
 const chartPoints = [
-  { x: 0, y: 95 }, { x: 50, y: 100 }, { x: 100, y: 85 }, { x: 150, y: 78 },
-  { x: 200, y: 72 }, { x: 250, y: 65 }, { x: 300, y: 70 }, { x: 350, y: 62 },
-  { x: 400, y: 68 }, { x: 450, y: 74 }, { x: 500, y: 80 }, { x: 550, y: 77 }, { x: 600, y: 75 },
+  { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 },
+  { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 },
+  { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 },
 ]
 
 const polylinePoints = chartPoints.map(p => `${p.x},${p.y}`).join(" ")

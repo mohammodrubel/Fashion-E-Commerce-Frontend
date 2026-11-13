@@ -12,12 +12,7 @@ interface PushNotification {
   status: PushStatus
 }
 
-const notifications: PushNotification[] = [
-  { title: "New Arrivals Just Dropped!", message: "Check out our latest autumn collection — 40+ new styles added today.", sentTo: "All Subscribers", sentDate: "Oct 22, 2024", clickRate: "12.4%", status: "Sent" },
-  { title: "Your Wishlist Is On Sale 🎉", message: "Items you saved are now discounted. Don't miss out!", sentTo: "Wishlist Users", sentDate: "Oct 20, 2024", clickRate: "18.7%", status: "Sent" },
-  { title: "Flash Sale Starts in 1 Hour", message: "Get ready — 30% off everything for 24 hours only.", sentTo: "All Subscribers", sentDate: "Oct 26, 2024 11:00", clickRate: "—", status: "Scheduled" },
-  { title: "Complete Your Purchase", message: "You left items in your cart. They're still waiting for you!", sentTo: "Cart Abandoners", sentDate: "—", clickRate: "—", status: "Draft" },
-]
+const notifications: PushNotification[] = []
 
 const statusConfig: Record<PushStatus, { bg: string; color: string }> = {
   Sent: { bg: "#DCFCE7", color: "#166534" },
@@ -46,10 +41,10 @@ export default function PushNotificationsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Subscribers", value: "6,241", sub: "opted-in users", icon: Users },
-          { label: "Sent This Month", value: "2", sub: "notifications", icon: Send },
-          { label: "Avg Click Rate", value: "15.6%", sub: "industry avg: 4.9%", icon: MousePointer },
-          { label: "Notifications Scheduled", value: "1", sub: "upcoming", icon: Bell },
+          { label: "Subscribers", value: "0", sub: "opted-in users", icon: Users },
+          { label: "Sent This Month", value: "0", sub: "notifications", icon: Send },
+          { label: "Avg Click Rate", value: "0.0%", sub: "industry avg: 0.0%", icon: MousePointer },
+          { label: "Notifications Scheduled", value: "0", sub: "upcoming", icon: Bell },
         ].map((c) => (
           <div key={c.label} className="bg-white rounded-xl border border-border/50 p-4">
             <div className="flex items-start justify-between">

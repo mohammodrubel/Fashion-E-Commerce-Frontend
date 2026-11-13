@@ -1,16 +1,7 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { AlertTriangle, Package, RefreshCcw, Download } from "lucide-react"
 
-const lowStockItems = [
-  { product: "Ankle Boots - Size 7", sku: "BOOT-BLK-07", stock: 2, minLevel: 10, daysUntilOut: 3, supplier: "Vesper Shoes Co.", urgency: "critical" },
-  { product: "Linen Blazer - Size XS", sku: "BLZ-LIN-XS", stock: 3, minLevel: 8, daysUntilOut: 4, supplier: "Milano Fabrics", urgency: "critical" },
-  { product: "Silk Wrap Dress - Size S", sku: "DRS-SLK-S", stock: 5, minLevel: 15, daysUntilOut: 6, supplier: "LuxeSilk Ltd.", urgency: "high" },
-  { product: "Leather Crossbody - Tan", sku: "BAG-LTH-TAN", stock: 4, minLevel: 10, daysUntilOut: 7, supplier: "Artisan Leather Co.", urgency: "high" },
-  { product: "Cashmere Sweater - M", sku: "SWT-CSH-M", stock: 7, minLevel: 12, daysUntilOut: 10, supplier: "Nordic Knits", urgency: "medium" },
-  { product: "High-Waist Trousers - 28", sku: "TRS-HW-28", stock: 6, minLevel: 10, daysUntilOut: 12, supplier: "Urban Textiles", urgency: "medium" },
-  { product: "Ribbed Tank - Black L", sku: "TNK-RIB-BL-L", stock: 9, minLevel: 20, daysUntilOut: 15, supplier: "Everyday Basics", urgency: "medium" },
-  { product: "Floral Midi Skirt - 10", sku: "SKT-FLR-10", stock: 8, minLevel: 12, daysUntilOut: 18, supplier: "Bloom Textiles", urgency: "low" },
-]
+const lowStockItems: { product: string; sku: string; stock: number; minLevel: number; daysUntilOut: number; supplier: string; urgency: string; }[] = []
 
 const urgencyConfig: Record<string, { label: string; color: string; bg: string; dot: string }> = {
   critical: { label: "Critical", color: "#dc2626", bg: "#fef2f2", dot: "#dc2626" },

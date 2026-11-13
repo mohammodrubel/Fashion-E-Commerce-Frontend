@@ -7,48 +7,7 @@ interface FAQItem {
   category: string
 }
 
-const faqs: FAQItem[] = [
-  {
-    category: "Orders & Shipping",
-    question: "How long does standard shipping take?",
-    answer: "Standard shipping typically takes 3–5 business days within the UK. International orders take 7–14 business days. Express shipping (1–2 days) is available at checkout for an additional fee.",
-  },
-  {
-    category: "Orders & Shipping",
-    question: "Do you offer free shipping?",
-    answer: "Yes! We offer free standard shipping on all UK orders over £50. There's no discount code needed — it's applied automatically at checkout.",
-  },
-  {
-    category: "Returns & Exchanges",
-    question: "What is your return policy?",
-    answer: "We accept returns within 30 days of delivery. Items must be unworn, unwashed, and in original packaging with all tags attached. Sale items can be exchanged but not refunded.",
-  },
-  {
-    category: "Returns & Exchanges",
-    question: "How do I start a return?",
-    answer: "Log into your account, go to 'My Orders', and select the item you'd like to return. You'll receive a prepaid returns label by email within 24 hours.",
-  },
-  {
-    category: "Sizing & Fit",
-    question: "How do your sizes run?",
-    answer: "Our clothing runs true to size. We recommend checking the size guide on each product page, as some styles (especially knitwear) may be designed for a looser or more fitted look.",
-  },
-  {
-    category: "Sizing & Fit",
-    question: "Do you offer petite or plus sizes?",
-    answer: "Yes — we offer sizes 6–22 across most of our range, with select styles available in petite (P) and tall (T) fits. Filter by fit type on the category page.",
-  },
-  {
-    category: "Payments & Billing",
-    question: "What payment methods do you accept?",
-    answer: "We accept Visa, Mastercard, American Express, PayPal, Apple Pay, Google Pay, and Klarna (buy now, pay later). All transactions are secured with SSL encryption.",
-  },
-  {
-    category: "Payments & Billing",
-    question: "Can I use multiple discount codes?",
-    answer: "Only one discount code can be applied per order. Discount codes cannot be combined with other promotional offers unless specified otherwise.",
-  },
-]
+const faqs: FAQItem[] = []
 
 const categories = [...new Set(faqs.map((f) => f.category))]
 

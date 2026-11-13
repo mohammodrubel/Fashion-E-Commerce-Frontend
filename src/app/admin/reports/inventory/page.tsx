@@ -1,16 +1,7 @@
 import { PageHeader } from "@/components/admin/page-header"
 import { Package, Download, TrendingUp } from "lucide-react"
 
-const products = [
-  { name: "Silk Wrap Dress", category: "Dresses", stock: 84, stockValue: "$16,800", daysInStock: 12, turnover: "9.2x" },
-  { name: "High-Waist Trousers", category: "Bottoms", stock: 142, stockValue: "$9,940", daysInStock: 18, turnover: "7.1x" },
-  { name: "Cashmere Knit Sweater", category: "Tops", stock: 67, stockValue: "$6,030", daysInStock: 22, turnover: "6.4x" },
-  { name: "Leather Crossbody Bag", category: "Accessories", stock: 53, stockValue: "$4,717", daysInStock: 31, turnover: "5.3x" },
-  { name: "Linen Blazer", category: "Outerwear", stock: 38, stockValue: "$3,610", daysInStock: 27, turnover: "4.8x" },
-  { name: "Floral Midi Skirt", category: "Bottoms", stock: 112, stockValue: "$7,280", daysInStock: 14, turnover: "8.1x" },
-  { name: "Ribbed Tank Top", category: "Tops", stock: 204, stockValue: "$9,180", daysInStock: 9, turnover: "11.2x" },
-  { name: "Ankle Boots", category: "Footwear", stock: 29, stockValue: "$3,335", daysInStock: 44, turnover: "3.6x" },
-]
+const products: { name: string; category: string; stock: number; stockValue: string; daysInStock: number; turnover: string; }[] = []
 
 const totalSkus = 486
 const totalStockValue = "$89,432"
@@ -63,14 +54,7 @@ export default function InventoryReportPage() {
       <div className="bg-white rounded-xl border border-border/50 p-6 mb-6">
         <h2 className="font-semibold text-foreground mb-4" style={{ fontSize: "15px" }}>Stock Value by Category</h2>
         <div className="space-y-3">
-          {[
-            { cat: "Dresses", value: "$28,440", pct: 32 },
-            { cat: "Tops", value: "$18,620", pct: 21 },
-            { cat: "Bottoms", value: "$16,810", pct: 19 },
-            { cat: "Accessories", value: "$12,480", pct: 14 },
-            { cat: "Footwear", value: "$9,140", pct: 10 },
-            { cat: "Outerwear", value: "$3,942", pct: 4 },
-          ].map(c => (
+          {([] as { cat: string; value: string; pct: number }[]).map(c => (
             <div key={c.cat} className="flex items-center gap-4">
               <span className="w-24 shrink-0 text-foreground" style={{ fontSize: "13px" }}>{c.cat}</span>
               <div className="flex-1 h-2 bg-muted/30 rounded-full overflow-hidden">

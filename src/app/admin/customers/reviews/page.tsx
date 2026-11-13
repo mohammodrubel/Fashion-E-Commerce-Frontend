@@ -12,14 +12,7 @@ interface Review {
   status: "Approved" | "Pending" | "Rejected"
 }
 
-const reviews: Review[] = [
-  { id: "R001", customer: "Sarah Johnson", initials: "SJ", product: "Floral Wrap Midi Dress", rating: 5, excerpt: "Absolutely love this dress! The fabric is so soft and the fit is perfect. I've received so many compliments...", date: "Oct 20, 2026", status: "Approved" },
-  { id: "R002", customer: "Michael Chen", initials: "MC", product: "Oversized Linen Blazer", rating: 4, excerpt: "Great quality blazer. The linen is lightweight and breathable. Runs slightly large so size down...", date: "Oct 19, 2026", status: "Pending" },
-  { id: "R003", customer: "Emma Wilson", initials: "EW", product: "Silk Cami Blouse", rating: 5, excerpt: "This is my third purchase of this top in different colors. The silk quality is exceptional for the price...", date: "Oct 17, 2026", status: "Approved" },
-  { id: "R004", customer: "James Brown", initials: "JB", product: "High-Rise Skinny Jeans", rating: 2, excerpt: "Disappointed with the quality. The stitching started coming undone after just two washes...", date: "Oct 15, 2026", status: "Pending" },
-  { id: "R005", customer: "Olivia Davis", initials: "OD", product: "Classic Trench Coat", rating: 5, excerpt: "A timeless investment piece. Impeccable tailoring, perfect length, and the belt really completes the look...", date: "Oct 12, 2026", status: "Approved" },
-  { id: "R006", customer: "Liam Martinez", initials: "LM", product: "Wide Leg Linen Trousers", rating: 1, excerpt: "The color looked completely different from the photos. Not at all what I expected. Very misleading...", date: "Oct 10, 2026", status: "Rejected" },
-]
+const reviews: Review[] = []
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -55,10 +48,10 @@ export default function CustomerReviewsPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: "Total Reviews", value: "1,084", sub: "all time" },
-          { label: "Avg Rating", value: "4.3 ★", sub: "store average" },
-          { label: "Pending", value: "14", sub: "need review" },
-          { label: "Approved", value: "1,036", sub: "published" },
+          { label: "Total Reviews", value: "0", sub: "all time" },
+          { label: "Avg Rating", value: "0.0 ★", sub: "store average" },
+          { label: "Pending", value: "0", sub: "need review" },
+          { label: "Approved", value: "0", sub: "published" },
         ].map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-4">
             <p className="text-muted-foreground" style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</p>

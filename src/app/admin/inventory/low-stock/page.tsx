@@ -12,14 +12,7 @@ interface LowStockItem {
   supplier: string
 }
 
-const lowStockItems: LowStockItem[] = [
-  { product: "Silk Cami Blouse", sku: "TOP-SCB-004", category: "Tops", current: 7, minimum: 10, reorderQty: 30, lastRestocked: "Sep 15, 2026", supplier: "Silk Supply Co." },
-  { product: "Ribbed Knit Sweater", sku: "KN-RIB-006", category: "Knitwear", current: 8, minimum: 10, reorderQty: 40, lastRestocked: "Aug 22, 2026", supplier: "Nordic Knits Ltd." },
-  { product: "Velvet Mini Dress", sku: "DR-VMD-009", category: "Dresses", current: 5, minimum: 8, reorderQty: 25, lastRestocked: "Oct 1, 2026", supplier: "FabricHouse EU" },
-  { product: "Cropped Denim Jacket", sku: "JK-CDJ-014", category: "Outerwear", current: 6, minimum: 12, reorderQty: 30, lastRestocked: "Sep 5, 2026", supplier: "Denim Works USA" },
-  { product: "Satin Slip Midi Skirt", sku: "SK-SSM-018", category: "Skirts", current: 4, minimum: 8, reorderQty: 20, lastRestocked: "Aug 30, 2026", supplier: "Silk Supply Co." },
-  { product: "Leather Belt Bag", sku: "AC-LBB-022", category: "Accessories", current: 9, minimum: 15, reorderQty: 30, lastRestocked: "Oct 8, 2026", supplier: "LeatherCraft Co." },
-]
+const lowStockItems: LowStockItem[] = []
 
 export default function LowStockPage() {
   return (

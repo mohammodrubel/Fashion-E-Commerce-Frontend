@@ -12,14 +12,7 @@ interface Collection {
   lastUpdated: string
 }
 
-const collections: Collection[] = [
-  { name: "Autumn 2024", slug: "autumn-2024", description: "Warm tones and rich textures for the season ahead", productCount: 48, status: "Active", colorBg: "var(--primary)", featured: true, lastUpdated: "Oct 15, 2024" },
-  { name: "The Velvet Edit", slug: "velvet", description: "Sumptuous velvet pieces for elevated everyday dressing", productCount: 24, status: "Active", colorBg: "#4C1D95", featured: true, lastUpdated: "Oct 10, 2024" },
-  { name: "New Arrivals", slug: "new-in", description: "Fresh stock added weekly — shop the latest first", productCount: 32, status: "Active", colorBg: "#7C3D52", featured: false, lastUpdated: "Oct 24, 2024" },
-  { name: "Best Sellers", slug: "best-sellers", description: "Customer favourites — trending this month", productCount: 20, status: "Active", colorBg: "#1D4ED8", featured: false, lastUpdated: "Oct 22, 2024" },
-  { name: "Winter Preview", slug: "winter-2024", description: "Early access to our upcoming winter collection", productCount: 16, status: "Scheduled", colorBg: "#1F2937", featured: false, lastUpdated: "Oct 20, 2024" },
-  { name: "Sale", slug: "sale", description: "Discounted items — up to 50% off selected styles", productCount: 84, status: "Active", colorBg: "#166534", featured: false, lastUpdated: "Oct 18, 2024" },
-]
+const collections: Collection[] = []
 
 const statusConfig = {
   Active: { bg: "#DCFCE7", color: "#166534" },

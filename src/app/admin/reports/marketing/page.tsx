@@ -1,63 +1,8 @@
+import type { LucideIcon } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 import { Megaphone, TrendingUp, Download, Mail, MessageSquare, Share2 } from "lucide-react"
 
-const campaigns = [
-  {
-    name: "Summer Glow Email Blast",
-    channel: "Email",
-    spend: "$480",
-    revenue: "$8,640",
-    roas: "18.0x",
-    conversions: 112,
-    cpa: "$4.29",
-    status: "completed",
-    channelIcon: Mail,
-  },
-  {
-    name: "Instagram Reel Series",
-    channel: "Social",
-    spend: "$1,200",
-    revenue: "$9,480",
-    roas: "7.9x",
-    conversions: 87,
-    cpa: "$13.79",
-    status: "active",
-    channelIcon: Share2,
-  },
-  {
-    name: "SMS Flash Sale",
-    channel: "SMS",
-    spend: "$320",
-    revenue: "$5,120",
-    roas: "16.0x",
-    conversions: 64,
-    cpa: "$5.00",
-    status: "completed",
-    channelIcon: MessageSquare,
-  },
-  {
-    name: "Facebook Catalog Ads",
-    channel: "Social",
-    spend: "$2,400",
-    revenue: "$14,280",
-    roas: "5.95x",
-    conversions: 142,
-    cpa: "$16.90",
-    status: "active",
-    channelIcon: Share2,
-  },
-  {
-    name: "Welcome Series Email",
-    channel: "Email",
-    spend: "$180",
-    revenue: "$4,860",
-    roas: "27.0x",
-    conversions: 54,
-    cpa: "$3.33",
-    status: "ongoing",
-    channelIcon: Mail,
-  },
-]
+const campaigns: { name: string; channel: string; spend: string; revenue: string; roas: string; conversions: number; cpa: string; status: string; channelIcon: LucideIcon; }[] = []
 
 const roasColor = (roas: string) => {
   const val = parseFloat(roas)
@@ -93,10 +38,10 @@ export default function MarketingReportPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Total Ad Spend", value: "$4,580", sub: "5 campaigns", color: "var(--primary)" },
-          { label: "Total Revenue", value: "$42,380", sub: "From campaigns", color: "#059669" },
-          { label: "Avg ROAS", value: "9.3x", sub: "Blended", color: "#d97706" },
-          { label: "Total Conversions", value: "459", sub: "Across all channels", color: "#7c3aed" },
+          { label: "Total Ad Spend", value: "$0", sub: "0 campaigns", color: "var(--primary)" },
+          { label: "Total Revenue", value: "$0", sub: "From campaigns", color: "#059669" },
+          { label: "Avg ROAS", value: "0.0x", sub: "Blended", color: "#d97706" },
+          { label: "Total Conversions", value: "0", sub: "Across all channels", color: "#7c3aed" },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-xl border border-border/50 p-5">
             <div className="flex items-center gap-2 mb-2">

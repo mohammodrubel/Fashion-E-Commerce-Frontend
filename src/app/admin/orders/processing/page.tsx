@@ -1,11 +1,7 @@
 import { RefreshCcw, PackageCheck } from "lucide-react"
 import { PageHeader } from "@/components/admin/page-header"
 
-const orders = [
-  { id: "#5003", customer: "Emma Wilson",    avatar: "E", date: "Oct 23, 2026", items: 5, total: "$312.00", payment: "Credit Card", startedAt: "Oct 23, 9:14 AM" },
-  { id: "#5014", customer: "Lucas Hall",     avatar: "L", date: "Oct 23, 2026", items: 2, total: "$134.50", payment: "PayPal",      startedAt: "Oct 23, 11:02 AM" },
-  { id: "#5015", customer: "Isabella Young", avatar: "I", date: "Oct 24, 2026", items: 3, total: "$221.00", payment: "Stripe",      startedAt: "Oct 24, 8:45 AM" },
-]
+const orders: { id: string; customer: string; avatar: string; date: string; items: number; total: string; startedAt: string; }[] = []
 
 export default function ProcessingOrdersPage() {
   return (
@@ -34,7 +30,7 @@ export default function ProcessingOrdersPage() {
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--accent)" }}>
-                {["Order ID", "Customer", "Date", "Items", "Total", "Payment", "Processing Since", "Actions"].map((h) => (
+                {["Order ID", "Customer", "Date", "Items", "Total", "Processing Since", "Actions"].map((h) => (
                   <th
                     key={h}
                     className="text-left px-5 py-3.5 text-muted-foreground font-medium whitespace-nowrap"
@@ -74,9 +70,6 @@ export default function ProcessingOrdersPage() {
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="font-medium text-foreground" style={{ fontSize: "13px" }}>{order.total}</span>
-                  </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-muted-foreground" style={{ fontSize: "13px" }}>{order.payment}</span>
                   </td>
                   <td className="px-5 py-3.5">
                     <span className="text-muted-foreground whitespace-nowrap" style={{ fontSize: "13px" }}>{order.startedAt}</span>

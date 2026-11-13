@@ -3,12 +3,12 @@ import { Save, X, ExternalLink } from "lucide-react"
 
 export default function AnnouncementBarPage() {
   const currentAnnouncement = {
-    text: "Free shipping on all orders over $50 — Shop the Autumn Collection now",
-    link: "/collections/autumn-2024",
-    linkText: "Shop Now",
+    text: "",
+    link: "",
+    linkText: "",
     bgColor: "var(--primary)",
     textColor: "#FAF0F2",
-    isEnabled: true,
+    isEnabled: false,
     showCloseButton: true,
   }
 

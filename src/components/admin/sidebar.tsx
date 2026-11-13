@@ -9,11 +9,12 @@ import {
   Eye, Clock, CheckCircle, XCircle, RotateCcw,
   RefreshCcw, Truck, UserPlus, UserX, MapPin,
   History, TrendingDown, AlertTriangle, BarChart2, Boxes,
-  DollarSign, CreditCard, Download, Store, User, Activity,
+  DollarSign, Download, Store, User, Activity,
   LogOut, X, Palette, Ruler, Grid3x3, GalleryHorizontal
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/shared/logo"
+import { useLogout } from "@/lib/useLogout"
 
 interface SubItem {
   label: string
@@ -102,7 +103,6 @@ const navSections: NavSection[] = [
       { label: "Sales by Customer", href: "/admin/reports/sales-by-customer", icon: Users },
       { label: "Orders Report", href: "/admin/reports/orders", icon: ShoppingCart },
       { label: "Revenue & Profit", href: "/admin/reports/revenue", icon: DollarSign },
-      { label: "Payment Reports", href: "/admin/reports/payments", icon: CreditCard },
       { label: "Export Reports", href: "/admin/reports/export", icon: Download },
     ],
   },
@@ -128,6 +128,7 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
+  const handleLogout = useLogout("/login")
   const [expandedSections, setExpandedSections] = useState<string[]>(() =>
     navSections
       .filter((s) => s.children?.some((c) => pathname.startsWith(c.href) && c.href !== "/admin"))
@@ -271,27 +272,20 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
         </nav>
 
-        {/* User */}
-        <div className="shrink-0 px-3 py-4 border-t border-sidebar-border">
-          <div className="flex items-center gap-2.5 px-2">
-            <div
-              className="w-7 h-7 rounded-full flex items-center justify-center bg-primary text-primary-foreground shrink-0"
-              style={{ fontSize: "11px", fontWeight: 600 }}
-            >
-              A
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-body text-sidebar-foreground font-medium truncate" style={{ fontSize: "12px" }}>
-                Admin User
-              </p>
-              <p className="font-ui text-muted-foreground truncate" style={{ fontSize: "10px", letterSpacing: "0.05em" }}>
-                ADMIN
-              </p>
-            </div>
-            <button className="text-muted-foreground hover:text-sidebar-foreground transition-colors shrink-0">
-              <LogOut className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </button>
-          </div>
+        {/* Logout */}
+        <div className="shrink-0 px-2.5 py-3 border-t border-sidebar-border">
+          <button
+            type="button"
+            onClick={() => {
+              onClose()
+              handleLogout()
+            }}
+            className="font-body w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left cursor-pointer transition-all duration-150 text-muted-foreground hover:text-destructive hover:bg-sidebar-accent"
+            style={{ fontSize: "13px", fontWeight: 500 }}
+          >
+            <LogOut className="w-4 h-4 shrink-0" strokeWidth={1.5} />
+            <span>Logout</span>
+          </button>
         </div>
       </aside>
     </>
