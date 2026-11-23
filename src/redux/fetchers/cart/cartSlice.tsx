@@ -2,8 +2,7 @@ import { Product } from "@/lib/type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 
-// An item actually sitting in the cart always has a quantity; the `Product`
-// dispatched to addToCart does not (the reducer sets it to 1 on first add).
+
 type CartLine = Product & { quantity: number };
 
 interface CartState {
@@ -18,13 +17,7 @@ const initialState: CartState = {
   totalAmount: 0,
 };
 
-// A cart line is the product + the exact variant (size/color) selected —
-// never the product id alone. Two different variants of the same product
-// must stay as separate lines; the same variant added twice must collapse
-// into one line with an increased quantity. Missing sizeId/colorId (a
-// product without variants, or an old persisted item from before this
-// matched on id alone) is normalized to null so both sides compare equal.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const isSameLine = (item: any, id: string, sizeId?: string, colorId?: string) =>
   item.id === id &&
   (item.sizeId ?? null) === (sizeId ?? null) &&
@@ -149,9 +142,6 @@ const cartSlice = createSlice({
       state.totalQuantity += diff;
       state.totalAmount += diff * existingLine.price;
     },
-
-    // Re-syncs a line's cached stock cap with a fresh server read (does not
-    // change quantity unless the new stock is now lower than it).
     syncStock: (
       state,
       action: PayloadAction<{ id: string; sizeId?: string; colorId?: string; stock: number }>
@@ -199,11 +189,6 @@ const cartSlice = createSlice({
 
       toast.error("Product removed from cart ");
     },
-
-    // Switches an existing line to a different size/color. If that target
-    // variant already exists as its own line, the two are merged (quantities
-    // combined, capped at stock) instead of leaving two lines for the same
-    // variant — the same "no duplicate variant lines" rule addToCart follows.
     changeVariant: (
       state,
       action: PayloadAction<{

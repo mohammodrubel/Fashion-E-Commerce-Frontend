@@ -49,7 +49,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
       <SiteHeader />
 
       {/* ── Page Body ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex gap-8 items-start">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-10 py-8 flex gap-8 items-start">
         {/* ── Sidebar ── */}
         <aside className="hidden lg:flex flex-col w-64 shrink-0 gap-3">
           {/* User Card */}

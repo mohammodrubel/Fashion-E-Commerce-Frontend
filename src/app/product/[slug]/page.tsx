@@ -119,7 +119,7 @@ export default function ProductDetailsPage() {
     return (
       <main className="min-h-screen bg-background text-foreground">
         <SiteHeader />
-        <div className="px-6 md:px-10 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="aspect-[4/5] bg-muted animate-pulse rounded-md" />
           <div className="space-y-4">
             <div className="h-5 w-24 bg-muted animate-pulse rounded" />
@@ -136,7 +136,7 @@ export default function ProductDetailsPage() {
     return (
       <main className="min-h-screen bg-background text-foreground">
         <SiteHeader />
-        <div className="px-6 md:px-10 py-24 text-center">
+        <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-24 text-center">
           <p className="text-page-title text-foreground">Product not found</p>
           <Button render={<Link href="/shop" />} variant="outline" className="btn-label mt-6 h-10">
             Back to Shop
@@ -210,7 +210,7 @@ export default function ProductDetailsPage() {
       <SiteHeader />
 
       {/* ── Breadcrumb ── */}
-      <div className="px-6 md:px-10 pt-8">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-8">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5 flex-wrap">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -229,7 +229,7 @@ export default function ProductDetailsPage() {
       </div>
 
       {/* ── Main ── */}
-      <div className="px-6 md:px-10 py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
         {/* Gallery */}
         <div>
           <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted group">
@@ -565,7 +565,7 @@ function RelatedProducts({ categoryId, excludeId }: { categoryId: string; exclud
   if (products.length === 0) return null
 
   return (
-    <section className="px-6 md:px-10 py-16 border-t border-border/60">
+    <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 border-t border-border/60">
       <h2 className="text-related-heading text-foreground text-center mb-10">You May Also Like</h2>
       <ProductSlider products={products} />
     </section>

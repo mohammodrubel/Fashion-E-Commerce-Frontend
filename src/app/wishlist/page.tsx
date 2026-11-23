@@ -22,7 +22,7 @@ export default function WishlistPage() {
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      <div className="px-6 md:px-10 py-10 md:py-14">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-10 md:py-14">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5 mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>

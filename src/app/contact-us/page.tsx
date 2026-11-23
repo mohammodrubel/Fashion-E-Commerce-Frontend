@@ -81,7 +81,7 @@ export default function ContactUsPage() {
       <SiteHeader />
 
       {/* ── Breadcrumb ── */}
-      <div className="px-6 md:px-10 pt-8">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-8">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -89,7 +89,7 @@ export default function ContactUsPage() {
         </div>
       </div>
 
-      <div className="px-6 md:px-10 pt-10 pb-20 md:pt-14">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-10 pb-20 md:pt-14">
         <div className="max-w-5xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-14">
             <h1 className="text-page-title text-foreground">Get in Touch</h1>

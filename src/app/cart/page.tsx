@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useDispatch, useSelector } from "react-redux"
@@ -41,17 +41,12 @@ interface ApiVariant {
   isActive: boolean
 }
 
-// Product id alone is not unique anymore — two variants of the same product
-// (e.g. Red/M and Gray/M) are separate cart lines, so every per-line React
-// key and per-line UI state (checking/draft quantity) must include the
-// variant too.
+
 function lineKey(item: Pick<CartItem, "id" | "sizeId" | "colorId">) {
   return `${item.id}::${item.sizeId ?? ""}::${item.colorId ?? ""}`
 }
 
-// Hits the real /product/:id endpoint with forceRefetch, bypassing RTK
-// Query's cache, so the cap is always checked against the server's current
-// number — not whatever was cached client-side at add/variant-change time.
+
 async function fetchLiveStock(dispatch: AppDispatch, item: CartItem): Promise<number> {
   const result = await dispatch(
     productApi.endpoints.getSingleProduct.initiate(item.id, { forceRefetch: true })
@@ -76,11 +71,32 @@ export default function CartPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const totalAmount: number = useSelector((state: RootState) => (state as any).cart?.totalAmount ?? 0)
 
+  const syncedLines = useRef<Set<string>>(new Set())
+  useEffect(() => {
+    items.forEach((item) => {
+      const key = lineKey(item)
+      if (syncedLines.current.has(key)) return
+      syncedLines.current.add(key)
+      fetchLiveStock(dispatch, item)
+        .then((liveStock) =>
+          dispatch(syncStock({ id: item.id, sizeId: item.sizeId, colorId: item.colorId, stock: liveStock }))
+        )
+        .catch(() => {})
+    })
+  }, [items, dispatch])
+
   const [checkingId, setCheckingId] = useState<string | null>(null)
   const [draftQuantity, setDraftQuantity] = useState<Record<string, string>>({})
 
   async function handleIncrement(item: CartItem) {
     const key = lineKey(item)
+
+
+    if (item.stock !== undefined) {
+      dispatch(incrementQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))
+      return
+    }
+
     setCheckingId(key)
     try {
       const liveStock = await fetchLiveStock(dispatch, item)
@@ -109,6 +125,16 @@ export default function CartPage() {
 
     if (parsed === item.quantity) return
 
+    if (item.stock !== undefined) {
+      dispatch(setQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId, quantity: parsed }))
+      setDraftQuantity((prev) => {
+        const next = { ...prev }
+        delete next[key]
+        return next
+      })
+      return
+    }
+
     setCheckingId(key)
     try {
       const liveStock = await fetchLiveStock(dispatch, item)
@@ -130,7 +156,7 @@ export default function CartPage() {
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      <div className="px-6 md:px-10 py-10 md:py-14">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-10 md:py-14">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5 mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -148,7 +174,7 @@ export default function CartPage() {
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-10">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
             {/* Items */}
             <div className="flex-1 min-w-0 divide-y divide-border border-t border-b border-border">
               {items.map((item) => {
@@ -157,8 +183,8 @@ export default function CartPage() {
                 const isChecking = checkingId === key
 
                 return (
-                  <div key={key} className="flex items-start gap-4 py-5">
-                    <Link href={`/product/${item.slug ?? item.id}`} className="relative h-24 w-20 shrink-0 overflow-hidden bg-muted">
+                  <div key={key} className="grid grid-cols-[5rem_minmax(0,1fr)_auto] items-start gap-x-4 gap-y-3 py-5 sm:flex">
+                    <Link href={`/product/${item.slug ?? item.id}`} className="relative row-span-2 h-24 w-20 shrink-0 overflow-hidden bg-muted">
                       {item.image ? (
                         <Image src={item.image} alt={item.name} fill className="object-cover" />
                       ) : null}
@@ -194,7 +220,16 @@ export default function CartPage() {
                       )}
                     </div>
 
-                    <div className="flex items-center gap-1 border border-border rounded-lg mt-1">
+                    <button
+                      type="button"
+                      onClick={() => dispatch(removeItem({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))}
+                      aria-label="Remove item"
+                      className="shrink-0 text-muted-foreground hover:text-destructive transition-colors mt-1 sm:order-last"
+                    >
+                      <X className="h-4 w-4" strokeWidth={1.5} />
+                    </button>
+
+                    <div className="col-start-2 flex w-fit items-center gap-1 border border-border rounded-lg sm:mt-1">
                       <button
                         type="button"
                         onClick={() => dispatch(decrementQuantity({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))}
@@ -231,18 +266,10 @@ export default function CartPage() {
                       </button>
                     </div>
 
-                    <p className="text-price w-20 shrink-0 text-right text-foreground mt-1">
+                    <p className="text-price col-start-3 shrink-0 self-center text-right text-foreground sm:mt-1 sm:w-20 sm:self-auto">
                       ${(item.price * item.quantity).toFixed(2)}
                     </p>
 
-                    <button
-                      type="button"
-                      onClick={() => dispatch(removeItem({ id: item.id, sizeId: item.sizeId, colorId: item.colorId }))}
-                      aria-label="Remove item"
-                      className="shrink-0 text-muted-foreground hover:text-destructive transition-colors mt-1"
-                    >
-                      <X className="h-4 w-4" strokeWidth={1.5} />
-                    </button>
                   </div>
                 )
               })}
@@ -259,8 +286,8 @@ export default function CartPage() {
             </div>
 
             {/* Order summary */}
-            <aside className="w-full md:w-80 shrink-0">
-              <div className="bg-white border border-border p-6">
+            <aside className="w-full lg:w-80 shrink-0">
+              <div className="bg-white border border-border p-6 lg:sticky lg:top-52">
                 <p className="text-order-summary-heading text-foreground mb-5">Order Summary</p>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-filter-option text-muted-foreground">Subtotal</span>

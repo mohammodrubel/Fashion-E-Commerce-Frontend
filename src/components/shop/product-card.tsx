@@ -117,16 +117,16 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   }
 
   return (
-    <div className="group relative w-full bg-white p-[15px]">
+    <div className="group relative mx-auto w-full max-w-[310px] grid-2:max-w-[380px] bg-white p-[15px]">
       {/* box-up */}
-      <div className="relative h-[300px] w-full overflow-hidden text-center">
+      <div className="relative h-[340px] w-full overflow-hidden text-center">
         <Link href={`/product/${product.slug}`} className="absolute inset-0 block">
           {image ? (
             <Image
               src={image}
               alt={product.name}
               fill
-              sizes="(min-width: 1200px) 25vw, (min-width: 769px) 33vw, (min-width: 446px) 50vw, 100vw"
+              sizes="(min-width: 1200px) 350px, (min-width: 769px) min(33vw, 350px), (min-width: 446px) min(50vw, 350px), 280px"
               className="object-cover transition-all duration-[800ms] group-hover:opacity-40 group-hover:blur-[7px]"
               style={{ transitionTimingFunction: EASE }}
             />
@@ -166,14 +166,19 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             {product.name}
           </span>
           {sizes.length > 0 && (
-            <span
-              className="text-category-label pointer-events-auto block cursor-default text-muted-foreground"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-              }}
-            >
-              {sizes.map((s) => s.name).join(" , ")}
+            <span className="text-category-label pointer-events-auto flex flex-wrap items-center justify-center gap-x-3 text-muted-foreground">
+              {sizes.map((s) => (
+                <span
+                  key={s.id}
+                  onClick={(e) => handleSizeSelect(e, s.id)}
+                  className={cn(
+                    "cursor-pointer underline-offset-2 transition-colors hover:text-foreground",
+                    selectedSizeId === s.id && "text-foreground underline"
+                  )}
+                >
+                  {s.name}
+                </span>
+              ))}
             </span>
           )}
         </div>
@@ -193,7 +198,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           className="absolute inset-0 h-full w-full disabled:cursor-not-allowed"
         >
           <span
-            className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-start gap-0.5 whitespace-nowrap text-foreground transition-all duration-[600ms] delay-100 group-hover:left-[20px] group-hover:translate-x-0 group-hover:-translate-y-1/2 group-hover:text-primary-foreground"
+            className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5 whitespace-nowrap text-foreground transition-all duration-[600ms] delay-100 group-hover:top-[34%] group-hover:text-primary-foreground"
             style={{ transitionTimingFunction: EASE }}
           >
             <span
@@ -208,7 +213,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
               <span>${effectivePrice.toFixed(2)}</span>
             </span>
             {sizes.length > 0 && (
-              <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              <span className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1.5 group-hover:hidden">
                 {sizes.map((s) => (
                   <span
                     key={s.id}
@@ -226,7 +231,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             )}
           </span>
           <span
-            className="absolute top-1/2 -right-[120px] -translate-y-1/2 transition-all duration-[600ms] delay-100 group-hover:right-[15px]"
+            className="absolute left-1/2 top-[72%] -translate-y-1/2 translate-x-[150%] transition-all duration-[600ms] delay-100 group-hover:-translate-x-1/2"
             style={{ transitionTimingFunction: EASE }}
           >
             <span
@@ -244,8 +249,8 @@ export function ProductCard({ product }: { product: ProductCardData }) {
 
 export function ProductCardSkeleton() {
   return (
-    <div className="w-full bg-white p-[15px]">
-      <div className="h-[300px] w-full animate-pulse bg-muted" />
+    <div className="mx-auto w-full max-w-[310px] grid-2:max-w-[380px] bg-white p-[15px]">
+      <div className="h-[340px] w-full animate-pulse bg-muted" />
       <div className="mt-2 h-[60px] w-full animate-pulse bg-muted/60" />
     </div>
   )

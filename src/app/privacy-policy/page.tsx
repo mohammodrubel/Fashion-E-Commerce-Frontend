@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      <div className="px-6 md:px-10 pt-8">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-8">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </div>
 
-      <div className="px-6 md:px-10 pt-10 pb-20 md:pt-14">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-10 pb-20 md:pt-14">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-page-title text-foreground">Privacy Policy</h1>
           <p className="font-body text-muted-foreground mt-4" style={{ fontSize: "13px" }}>

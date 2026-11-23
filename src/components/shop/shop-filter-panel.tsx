@@ -43,7 +43,7 @@ function FilterSection({ title, children }: { title: string; children: ReactNode
   const [open, setOpen] = useState(true)
 
   return (
-    <div className="border-b border-border py-2.5">
+    <div className="border-b border-border py-2.5 last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

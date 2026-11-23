@@ -24,7 +24,7 @@ function CategorySection({ category }: { category: Category }) {
 
   if (isLoading) {
     return (
-      <div className="px-6 md:px-10 py-10">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-10">
         <div className="h-7 w-48 rounded bg-muted animate-pulse mb-6" />
         <div className="flex gap-5 overflow-hidden">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -40,7 +40,7 @@ function CategorySection({ category }: { category: Category }) {
   if (products.length === 0) return null
 
   return (
-    <div className="px-6 md:px-10 py-10">
+    <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-10">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-section-heading text-foreground">{category.name}</h2>
         <Link

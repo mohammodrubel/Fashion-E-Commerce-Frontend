@@ -26,10 +26,15 @@ export function SiteHeader() {
     (state as any).cart?.totalQuantity ?? 0
   )
 
+  const wishlistCount = useSelector((state: RootState) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (state as any).wishlist?.totalwishlistProduct ?? 0
+  )
+
   return (
     <header className="sticky top-0 z-40 bg-white">
       {/* Row 1 — utility icons */}
-      <div className="flex items-center justify-between px-6 md:px-10 pt-5">
+      <div className="flex items-center justify-between w-full px-6 md:px-10 pt-5">
         <div className="flex items-center gap-5">
           <button
             onClick={() => setMenuOpen(true)}
@@ -50,8 +55,16 @@ export function SiteHeader() {
         </div>
         <div className="flex items-center gap-5">
           <AccountMenu />
-          <Link href="/wishlist" className="text-foreground/70 hover:text-foreground transition-colors" aria-label="Wishlist">
+          <Link href="/wishlist" className="relative text-foreground/70 hover:text-foreground transition-colors" aria-label="Wishlist">
             <Heart className="w-5 h-5" strokeWidth={1.5} />
+            {wishlistCount > 0 && (
+              <span
+                className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-primary-foreground"
+                style={{ fontSize: "9px", fontWeight: 600 }}
+              >
+                {wishlistCount}
+              </span>
+            )}
           </Link>
           <Link href="/cart" className="relative text-foreground/70 hover:text-foreground transition-colors" aria-label="Cart">
             <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
@@ -74,7 +87,7 @@ export function SiteHeader() {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-border mx-6 md:mx-10" />
+      <div className="mx-6 md:mx-10 border-t border-border" />
 
       {/* Row 3 — nav links */}
       <nav className="hidden md:flex items-center justify-center gap-10 py-4">

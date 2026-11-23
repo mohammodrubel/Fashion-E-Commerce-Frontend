@@ -3,7 +3,8 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
-import { SlidersHorizontal, X, RefreshCcw, PackageSearch } from "lucide-react"
+import { SlidersHorizontal, X, RefreshCcw, PackageSearch, Search } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/home/site-header"
 import { SiteFooter } from "@/components/shared/footer"
 import type { ProductCardData } from "@/components/shop/product-card"
@@ -51,6 +52,15 @@ function sortKeyToApi(key: SortKey): { sort: ProductQueryParams["sort"]; order: 
     default:
       return { sort: "featured", order: "desc" }
   }
+}
+
+// Rounded to the start of the day so the value is stable between renders;
+// a per-millisecond timestamp would change the query args every render and
+// make RTK Query refetch in a loop while "New Arrivals" is on.
+function newArrivalsStart(): string {
+  const dayMs = 24 * 60 * 60 * 1000
+  const today = Math.floor(Date.now() / dayMs) * dayMs
+  return new Date(today - NEW_ARRIVALS_WINDOW_DAYS * dayMs).toISOString()
 }
 
 function csv(param: string | null): string[] {
@@ -140,6 +150,11 @@ function ShopPageContent() {
   const sizes = sizesData?.data ?? []
   const priceBounds = priceRangeData?.data ?? { min: 0, max: 0 }
 
+  const newArrivalsFrom = useMemo(
+    () => (filters.newArrivals ? newArrivalsStart() : undefined),
+    [filters.newArrivals]
+  )
+
   const { sort, order } = sortKeyToApi(sortKey)
   const queryParams: ProductQueryParams = {
     status: "ACTIVE",
@@ -156,14 +171,16 @@ function ShopPageContent() {
     maxPrice: filters.maxPrice || undefined,
     featured: filters.featured ? "true" : undefined,
     onSale: filters.onSale ? "true" : undefined,
-    startDate: filters.newArrivals
-      ? new Date(Date.now() - NEW_ARRIVALS_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString()
-      : undefined,
+    startDate: newArrivalsFrom,
   }
 
-  const { data, isLoading, isFetching, isError, refetch } = useGetAllProductsQuery(queryParams)
-  const products: ProductCardData[] = data?.data ?? []
-  const meta = data?.meta ?? { page: 1, limit: PAGE_SIZE, total: 0, totalPage: 1 }
+  // currentData is only the result for the *current* filters (undefined while
+// a new filter is loading), so products from the previous filter are never
+// shown faded/stale.
+  const { currentData, isLoading, isFetching, isError, refetch } = useGetAllProductsQuery(queryParams)
+  const isLoadingProducts = isLoading || (isFetching && !currentData)
+  const products: ProductCardData[] = currentData?.data ?? []
+  const meta = currentData?.meta ?? { page: 1, limit: PAGE_SIZE, total: 0, totalPage: 1 }
 
   const rangeStart = meta.total === 0 ? 0 : (meta.page - 1) * meta.limit + 1
   const rangeEnd = Math.min(meta.page * meta.limit, meta.total)
@@ -213,77 +230,125 @@ function ShopPageContent() {
     activeCount: activeFilterCount,
   }
 
+  const gridTopRef = useRef<HTMLDivElement>(null)
+  const singleCategoryId = filters.categoryIds.length === 1 ? filters.categoryIds[0] : null
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      <div className="px-6 md:px-10 py-10 md:py-14">
-        {/* Breadcrumb */}
-        <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5 mb-6">
-          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-foreground">Shop</span>
-        </div>
+      {/* Page hero */}
+      <section className="border-b border-border bg-gradient-to-b from-white to-background">
+        <div className="mx-auto max-w-[1600px] px-6 md:px-10 pt-8 pb-10 md:pt-10 md:pb-12 text-center">
+          <div className="text-breadcrumb text-muted-foreground flex items-center justify-center gap-1.5 mb-5">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-foreground">Shop</span>
+          </div>
 
-        {/* Heading */}
-        <div className="mb-10">
+          <p className="text-label-caps text-muted-foreground mb-3" style={{ letterSpacing: "0.35em" }}>
+            The Collection
+          </p>
           <h1 className="text-page-title text-foreground">Shop</h1>
-          <p className="subtitle-text text-muted-foreground mt-2">Considered pieces, made to last.</p>
-        </div>
+          <p className="subtitle-text text-muted-foreground mt-3">Considered pieces, made to last.</p>
 
-        <div className="flex flex-col md:flex-row gap-10">
+          {categories.length > 0 && (
+            <div className="mt-8 -mx-6 px-6 md:mx-0 md:px-0 overflow-x-auto [scrollbar-width:none]">
+              <div className="flex md:flex-wrap md:justify-center gap-2 w-max md:w-auto mx-auto">
+                <button
+                  type="button"
+                  onClick={() => updateParams({ category: null })}
+                  aria-pressed={filters.categoryIds.length === 0}
+                  className={cn(
+                    "text-label-caps shrink-0 rounded-full border px-4 py-2 transition-colors",
+                    filters.categoryIds.length === 0
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-white text-foreground/70 hover:border-foreground/50 hover:text-foreground"
+                  )}
+                >
+                  All
+                </button>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {categories.map((cat: any) => {
+                  const active = singleCategoryId === cat.id
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => updateParams({ category: active ? null : cat.id })}
+                      aria-pressed={active}
+                      className={cn(
+                        "text-label-caps shrink-0 rounded-full border px-4 py-2 transition-colors",
+                        active
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border bg-white text-foreground/70 hover:border-foreground/50 hover:text-foreground"
+                      )}
+                    >
+                      {cat.name}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10 py-8 md:py-12">
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-10">
           {/* Desktop sidebar */}
-          <aside className="hidden md:block w-56 shrink-0">
-            <ShopFilterPanel {...filterPanelProps} />
+          <aside className="hidden md:block w-60 shrink-0">
+            <div className="rounded-xl border border-border bg-white p-5 shadow-sm">
+              <ShopFilterPanel {...filterPanelProps} />
+            </div>
           </aside>
 
           {/* Main column */}
           <div className="flex-1 min-w-0">
             {/* Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-              <div className="flex items-center gap-3 flex-1 min-w-[200px]">
-                <div className="relative flex-1 max-w-xs">
-                  <Input
-                    type="text"
-                    value={searchInput}
-                    onChange={(e) => {
-                      setSearchInput(e.target.value)
-                      debouncedUpdate({ q: e.target.value || null })
+            <div className="mb-5 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-white p-3">
+              <div className="relative min-w-[180px] flex-1">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
+                <Input
+                  type="text"
+                  value={searchInput}
+                  onChange={(e) => {
+                    setSearchInput(e.target.value)
+                    debouncedUpdate({ q: e.target.value || null })
+                  }}
+                  placeholder="Search products…"
+                  className="text-field-value h-9 border-transparent bg-muted pl-9 pr-8 focus-visible:bg-white"
+                />
+                {searchInput && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    onClick={() => {
+                      setSearchInput("")
+                      updateParams({ q: null })
                     }}
-                    placeholder="Search products…"
-                    className="text-field-value h-9 pr-8"
-                  />
-                  {searchInput && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon-sm"
-                      onClick={() => {
-                        setSearchInput("")
-                        updateParams({ q: null })
-                      }}
-                      aria-label="Clear search"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                    >
-                      <X className="h-3.5 w-3.5" strokeWidth={1.5} />
-                    </Button>
-                  )}
-                </div>
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setMobileFiltersOpen(true)}
-                  className="btn-label md:hidden h-9"
-                >
-                  <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
-                </Button>
+                    aria-label="Clear search"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  </Button>
+                )}
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="text-breadcrumb text-muted-foreground hidden sm:inline">
-                  {meta.total === 0 ? "No products" : `Showing ${rangeStart}–${rangeEnd} of ${meta.total} products`}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setMobileFiltersOpen(true)}
+                className="btn-label md:hidden h-9"
+              >
+                <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={1.5} />
+                Filters{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
+              </Button>
+
+              <div className="ml-auto flex items-center gap-3">
+                <span className="text-breadcrumb text-muted-foreground hidden sm:inline whitespace-nowrap">
+                  {meta.total === 0 ? "No products" : `Showing ${rangeStart}–${rangeEnd} of ${meta.total}`}
                 </span>
                 <Select value={sortKey} onValueChange={(value) => updateParams({ sort: value as string })}>
                   <SelectTrigger className="text-field-value h-9 w-auto">
@@ -300,36 +365,42 @@ function ShopPageContent() {
 
             {/* Active filter chips */}
             {activeChips.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="mb-6 flex flex-wrap items-center gap-2">
                 {activeChips.map((chip, i) => (
-                  <Button
+                  <button
                     key={`${chip.label}-${i}`}
                     type="button"
-                    variant="outline"
-                    size="sm"
                     onClick={chip.onRemove}
-                    className="text-filter-option h-auto rounded-full px-3 py-1 text-foreground"
+                    className="text-filter-option inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-secondary-foreground transition-colors hover:bg-accent"
                   >
                     {chip.label}
                     <X className="h-3 w-3" strokeWidth={1.5} />
-                  </Button>
+                  </button>
                 ))}
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="link-text ml-1 text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                >
+                  Clear all
+                </button>
               </div>
             )}
 
             {/* Grid / states */}
+            <div ref={gridTopRef} className="scroll-mt-52" />
             {isError ? (
-              <div className="flex flex-col items-center justify-center py-24 text-center">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-white py-24 text-center">
                 <p className="text-foreground font-body" style={{ fontSize: "14px" }}>Something went wrong loading products.</p>
                 <Button type="button" variant="outline" onClick={() => refetch()} className="btn-label mt-4 h-9">
                   <RefreshCcw className="h-3.5 w-3.5" strokeWidth={1.5} />
                   Retry
                 </Button>
               </div>
-            ) : isLoading ? (
+            ) : isLoadingProducts ? (
               <ProductGrid loading skeletonCount={8} />
             ) : products.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-24 text-center">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-white py-24 text-center">
                 <PackageSearch className="w-8 h-8 text-muted-foreground mb-3" strokeWidth={1.5} />
                 <p className="text-foreground font-body" style={{ fontSize: "14px" }}>No products match your filters.</p>
                 {activeFilterCount > 0 && (
@@ -339,13 +410,18 @@ function ShopPageContent() {
                 )}
               </div>
             ) : (
-              <div className="transition-opacity duration-200" style={{ opacity: isFetching ? 0.6 : 1 }}>
-                <ProductGrid products={products} />
-              </div>
+              <ProductGrid products={products} />
             )}
 
             {!isError && products.length > 0 && (
-              <ShopPagination page={meta.page} totalPages={meta.totalPage} onPageChange={(p) => updateParams({ page: String(p) }, false)} />
+              <ShopPagination
+                page={meta.page}
+                totalPages={meta.totalPage}
+                onPageChange={(p) => {
+                  updateParams({ page: String(p) }, false)
+                  gridTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }}
+              />
             )}
           </div>
         </div>

@@ -33,7 +33,7 @@ export default function AboutUsPage() {
       <SiteHeader />
 
       {/* ── Breadcrumb ── */}
-      <div className="px-6 md:px-10 pt-8">
+      <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-8">
         <div className="text-breadcrumb text-muted-foreground flex items-center gap-1.5">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
           <span>/</span>
@@ -42,7 +42,7 @@ export default function AboutUsPage() {
       </div>
 
       {/* ── Hero ── */}
-      <section className="px-6 md:px-10 pt-10 pb-16 md:pt-14 md:pb-20 text-center">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 pt-10 pb-16 md:pt-14 md:pb-20 text-center">
         <div className="max-w-3xl mx-auto">
           <span className="text-hero-collection-label text-muted-foreground">Our Story</span>
           <h1 className="text-page-title-lg text-foreground mt-4">
@@ -56,7 +56,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Brand Introduction ── */}
-      <section className="px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-section-heading text-foreground">Who We Are</h2>
           <p className="font-body text-muted-foreground mt-5 leading-relaxed" style={{ fontSize: "15px" }}>
@@ -70,7 +70,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Our Story ── */}
-      <section className="px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           <div>
             <span className="text-category-label text-muted-foreground">Our Story</span>
@@ -89,7 +89,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Mission & Vision ── */}
-      <section className="px-6 md:px-10 py-16 md:py-20 border-t border-border/60 bg-muted/30">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20 border-t border-border/60 bg-muted/30">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="bg-card rounded-xl border border-border/60 p-8">
             <h3 className="text-category-title text-foreground">Our Mission</h3>
@@ -110,7 +110,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Why Choose Us ── */}
-      <section className="px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20 border-t border-border/60">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-category-label text-muted-foreground">Why LACHÉO</span>
@@ -138,7 +138,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Shop CTA ── */}
-      <section className="px-6 md:px-10 py-16 md:py-20 border-t border-border/60 text-center">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20 border-t border-border/60 text-center">
         <div className="max-w-xl mx-auto">
           <h2 className="text-promo-heading text-foreground">Explore the Collection</h2>
           <p className="text-promo-description text-muted-foreground mt-4">

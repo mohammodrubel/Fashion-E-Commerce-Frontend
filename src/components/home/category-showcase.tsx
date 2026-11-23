@@ -25,7 +25,7 @@ export function CategoryShowcase() {
 
   if (isLoading) {
     return (
-      <section className="px-6 md:px-10 py-16 md:py-20">
+      <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20">
         <div className="h-7 w-56 mx-auto rounded bg-muted animate-pulse mb-10" />
         <div className="flex gap-6 overflow-x-auto">
           {Array.from({ length: 4 }).map((_, i) => (
@@ -39,7 +39,7 @@ export function CategoryShowcase() {
   if (categories.length === 0) return null
 
   return (
-    <section className="px-6 md:px-10 py-16 md:py-20">
+    <section className="mx-auto w-full max-w-[1600px] px-6 md:px-10 py-16 md:py-20">
       <div className="text-center mb-10 md:mb-14">
         <span className="text-category-label text-muted-foreground">Explore</span>
         <h2 className="text-section-heading text-foreground mt-3">Shop by Category</h2>

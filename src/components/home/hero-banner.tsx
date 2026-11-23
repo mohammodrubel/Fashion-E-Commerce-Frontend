@@ -1,51 +1,71 @@
 "use client"
 
-import Image from "next/image"
+import { getImageProps } from "next/image"
 import { useGetActiveBannerQuery } from "@/redux/fetchers/banner/bannerApi"
 
-export function HeroBanner() {
-  const { data, isLoading } = useGetActiveBannerQuery(undefined)
-  const banner = data?.data
+const IMG_HEIGHT = "h-[70vh] min-h-[460px] md:h-[680px]"
 
-  if (isLoading) {
-    return (
-      <section className="relative w-full overflow-hidden h-[70vh] min-h-[460px] md:h-[680px]">
-        <div className="absolute inset-0 animate-pulse bg-muted" />
-      </section>
-    )
-  }
+// Skeleton mirrors the final split layout so nothing jumps when data arrives.
+function HeroSkeleton() {
+  return (
+    <section className="relative w-full overflow-hidden flex flex-col md:flex-row">
+      <div
+        className={`relative w-full md:w-[52%] shrink-0 animate-pulse bg-muted ${IMG_HEIGHT}`}
+      />
+      <div className="relative flex-1 flex flex-col items-start justify-center gap-5 px-8 py-16 md:px-16 bg-muted/60">
+        <div className="h-px w-10 bg-foreground/20" />
+        <div className="h-3 w-40 rounded bg-muted animate-pulse" />
+        <div className="h-14 w-3/4 rounded bg-muted animate-pulse" />
+        <div className="h-4 w-28 rounded bg-muted animate-pulse mt-4" />
+      </div>
+    </section>
+  )
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function HeroBanner({ initialBanner }: { initialBanner?: any }) {
+  // Banner is fetched on the server (see app/page.tsx) so the LCP image is in
+  // the initial HTML. The client query is only a fallback when that failed.
+  const { data, isLoading } = useGetActiveBannerQuery(undefined, { skip: !!initialBanner })
+  const banner = initialBanner ?? data?.data
+
+  if (!initialBanner && isLoading) return <HeroSkeleton />
 
   if (!banner) return null
+
+  // Art direction via <picture>: the browser downloads only the matching
+  // image. This is the LCP element, so it is eager + high priority.
+  const alt = banner.heading as string
+  const common = {
+    alt,
+    fill: true,
+    loading: "eager" as const,
+    fetchPriority: "high" as const,
+    className: "object-contain",
+  }
+  const { props: desktop } = getImageProps({
+    ...common,
+    src: banner.desktopImage,
+    // Image is height-bound (680px, object-contain) so it never exceeds ~570px wide.
+    sizes: "(min-width: 768px) min(52vw, 570px), 100vw",
+  })
+  const { props: mobile } = getImageProps({
+    ...common,
+    src: banner.mobileImage || banner.desktopImage,
+    sizes: "100vw",
+  })
 
   return (
     <section className="relative w-full overflow-hidden flex flex-col md:flex-row">
       {/* Left — model image, full-bleed on mobile, ~52% on desktop */}
       <div
-        className="relative w-full md:w-[52%] shrink-0 h-[70vh] min-h-[460px] md:h-[680px]"
+        className={`relative w-full md:w-[52%] shrink-0 ${IMG_HEIGHT}`}
         style={{ backgroundColor: banner.backgroundColor || "#F2F0F2" }}
       >
-        {/* Desktop image */}
-        <div className="absolute inset-0 hidden md:block">
-          <Image
-            src={banner.desktopImage}
-            alt={banner.heading}
-            fill
-            priority
-            sizes="52vw"
-            className="object-contain"
-          />
-        </div>
-        {/* Mobile image (falls back to the desktop image if none was uploaded) */}
-        <div className="absolute inset-0 md:hidden">
-          <Image
-            src={banner.mobileImage || banner.desktopImage}
-            alt={banner.heading}
-            fill
-            priority
-            sizes="100vw"
-            className="object-contain"
-          />
-        </div>
+        <picture>
+          <source media="(min-width: 768px)" srcSet={desktop.srcSet} sizes={desktop.sizes} />
+          <img {...mobile} alt={alt} />
+        </picture>
       </div>
 
       {/* Right — content panel */}
